@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "none",
   "main": "index.js",
-  "scripts": {
+  "scripts": { 
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./node_modules/nodemon/bin/nodemon app.js"
+  },
+  "bin": {
+    "mvc": "./bin/mvc.js"
   },
   "author": "CHUB",
   "license": "ISC",
@@ -19,6 +22,7 @@
     "express-validator": "^2.20.8",
     "mysql": "^2.11.1",
     "sequelize": "^3.30.2",
-    "nodemon": "^1.9.2"
+    "nodemon": "^1.9.2",
+    "yargs": "^7.0.2"
   }
 }

@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 var app = express();
 
 app.engine('ejs', engine);
-app.set('views',path.join(__dirname,'views'));  //view的路徑位在資料夾views中
+app.set('view',path.join(__dirname,'view'));  //view的路徑位在資料夾views中
 app.set('view engine','ejs');                   //使用ejs作為template
 
 app.use(bodyParser.json());
