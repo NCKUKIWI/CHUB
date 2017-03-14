@@ -66,6 +66,24 @@ if(argv.g) {
 				return console.log(chalk.red(err.code));
 			}
 			console.log(chalk.red(`Controller ${argv.c}.js delete`));
+			fs.readdir(__dirname + `/view/${argv.c[0]}`, function(err, files) {
+				if(err) {
+					return console.log(err);
+				}
+			 	files.forEach(function(file){
+					fs.unlink(__dirname + `/view/${argv.c[0]}/${file}`, function(err) {
+						if(err) {
+							return console.log(chalk.red(err.code));
+						}
+					});
+			 	});
+				fs.rmdir(__dirname + `/view/${argv.c[0]}`,function(err){
+					if(err) {
+						return console.log(chalk.red(err.code));
+					}
+					console.log(chalk.red(`View folder ${argv.c[0]} delete`));
+				});
+			});
 		});
 	} else if(argv.m) {
 		fs.unlink(__dirname + `/model/${argv.m}.js`, function(err) {
