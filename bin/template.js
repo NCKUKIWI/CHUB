@@ -46,6 +46,9 @@ var model = function(name,schemalist) {
     }
   }
   return `var mongoose = require("mongoose");
+var config = require("../config");
+mongoose.connect(config.dburl);
+
 var Schema = mongoose.Schema;
 
 /*
