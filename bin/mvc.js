@@ -161,7 +161,7 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 			}
 		}
 	)
-	.command(["lise", "ls"], "Show MVC folder", {},
+	.command(["list", "ls"], "Show MVC folder", {},
 		function(argv) {
 			if(fs.existsSync(__dirname + `/model`)) {
 				fs.readdir(__dirname + `/model`, function(err, files) {
@@ -198,6 +198,83 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 						console.log(`|--- ${file}`);
 					});
 				});
+			}
+		}
+	)
+	.command(["destroy", "d"], "Destroy model or controller", {
+			controller: {
+				alias: "c"
+			},
+			model: {
+				alias: "m"
+			}
+		},
+		function(argv) {
+			if(argv.c) {
+				fs.unlink(__dirname + `/controller/${argv.c}.js`, function(err) {
+					if(err) {
+						if(err.code == "ENOENT") {
+							return console.log(chalk.red(`Controller ${argv.c}.js not found`));
+						}
+						return console.log(chalk.red(err.code));
+					}
+					console.log(chalk.red(`Controller ${argv.c}.js delete`));
+					var appjs = fs.readFileSync('app.js').toString().split("\n");
+					for(var i = appjs.length-1 ; i>=0 ; i--){
+						if(appjs[i]==`//${argv.c} routes`){
+							appjs.splice(i,1);
+							appjs.splice(i,1);
+							appjs.splice(i,1);
+							var text = appjs.join("\n");
+							fs.writeFile('app.js', text, function (err) {
+								if (err) return console.log(err);
+							});
+							break;
+						}
+					}
+					if(fs.existsSync(__dirname + `/view/${argv.c}`)) {
+						fs.readdir(__dirname + `/view/${argv.c}`, function(err, files) {
+							if(err) {
+								return console.log(err);
+							}
+							files.forEach(function(file) {
+								fs.unlink(__dirname + `/view/${argv.c}/${file}`, function(err) {
+									if(err) {
+										return console.log(chalk.red(err.code));
+									}
+								});
+							});
+							fs.rmdir(__dirname + `/view/${argv.c}`, function(err) {
+								if(err) {
+									return console.log(chalk.red(err.code));
+								}
+								console.log(chalk.red(`View folder ${argv.c} delete`));
+							});
+						});
+					}
+				});
+			} else if(argv.m) {
+				var cargvm = argv.m.charAt(0).toUpperCase() + argv.m.slice(1);
+				fs.unlink(__dirname + `/model/${cargvm}.js`, function(err) {
+					if(err) {
+						if(err.code == "ENOENT") {
+							return console.log(chalk.red(`Model ${cargvm}.js not found`));
+						}
+						return console.log(chalk.red(err.code));
+					}
+					console.log(chalk.red(`Model ${cargvm}.js delete`));
+				});
+			}
+		}
+	)
+	.command("new", "Generate app.js file",{},
+		function(argv) {
+			if(!fs.existsSync(__dirname + `/app.js`)) {
+				fs.writeFile('app.js',template.app(), function (err) {
+					if (err) return console.log(err);
+				});
+			}else{
+				console.log(chalk.red("app.js already exist!"));
 			}
 		}
 	)

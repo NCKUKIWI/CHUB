@@ -18,7 +18,7 @@ Usage: mvc <command> [option]
 Commands:
   generate  Generate model or controller                            [aliases: g]
   destroy   Destroy model or controller                             [aliases: d]
-  lise      Show MVC folder                                        [aliases: ls]
+  list      Show MVC folder                                        [aliases: ls]
 
 Options:
   -h  Show help                                                        [boolean]
