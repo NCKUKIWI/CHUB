@@ -30,14 +30,14 @@ app.use(session({
 
 app.use(cookieParser('secretString'));
 
-
-//peoples routes
-var peoples = require('./controller/peoples');
-app.use("/people",peoples);
-
 //comments routes
 var comments = require('./controller/comments');
 app.use("/comment",comments);
+
+//users routes
+var users = require('./controller/users');
+app.use("/user",users);
+
 //insert
 
 app.listen( process.env.PORT || 3000);

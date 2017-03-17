@@ -14,24 +14,24 @@ Array of String => [String]
 {type: Date, default: Date.now, min: 18, max: 65, unique: true, required: true,ref: 'Reference model'}
 */
 
-var peopleSchema = new Schema({
-  UserID:String,
-  Password:String,
-  Name:String,
-  Majog:String,
-  Talent:[String],
-  Description:{ type: String, min:0, max:100 },
-  Website:String,
-  Role:Number,
+var userSchema = new Schema({
+  Type:String,
+  Time:[Date],
+  Goal:String,
+  Need:[String],
+  Sponser:[String],
+  Description:String,
+  AdminID:[Schema.Types.ObjectId],
+  GroupID:Schema.Types.ObjectId,
   CreateAt: { type: Date, default: Date.now }
 });
 
 /*
-peopleSchema.methods.customMethod = function() {
-  return this.model("People").find();
+userSchema.methods.customMethod = function() {
+  return this.model("User").find();
 };
 */
 
-var People = mongoose.model("People", peopleSchema);
+var User = mongoose.model("User", userSchema);
 
-module.exports = People;
+module.exports = User;
