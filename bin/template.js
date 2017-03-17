@@ -41,9 +41,9 @@ var model = function(name,schemalist) {
     for(var i in schemalist){
       var slice = schemalist[i].split(":");
       slice[1]=slice[1].charAt(0).toUpperCase() + slice[1].slice(1);
-      schema+= `  ${slice[0]}:${slice[1]}`;
-      if(i!=schemalist.length-1) schema+=",\n"
+      schema+= `  ${slice[0]}:${slice[1]},\n`;
     }
+    schema+= `  CreateAt: { type: Date, default: Date.now }`
   }
   return `var mongoose = require("mongoose");
 var config = require("../config");
@@ -60,6 +60,7 @@ True/False => Boolean
 Integer => Number
 Array => []
 Array of String => [String]
+{type: Date, default: Date.now, min: 18, max: 65, unique: true, required: true}
 */
 
 var ${name}Schema = new Schema({
