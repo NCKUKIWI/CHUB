@@ -19,6 +19,8 @@ Commands:
   generate  Generate model or controller                            [aliases: g]
   destroy   Destroy model or controller                             [aliases: d]
   list      Show MVC folder                                        [aliases: ls]
+  destroy   Destroy model or controller                             [aliases: d]
+  new       Generate app.js file
 
 Options:
   -h  Show help                                                        [boolean]
