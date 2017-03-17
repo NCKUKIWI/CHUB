@@ -1,7 +1,13 @@
 var should = require('should');
 var request = require('request');
+var User = require('../model/User');
 
 describe('User', function() {
+	after(function() {
+		User.findOneAndRemove({UserID:"Derek"},function(err) {
+			if(err) throw err;
+		});
+	})
 	it('Signup, pw length < 6 ', function(done) {
 		request({
 				url: "http://localhost:3000/user/signup",
@@ -13,7 +19,7 @@ describe('User', function() {
 				}
 			},
 			function(error, response, body) {
-				body.should.be.exactly("Fail");
+				body.should.not.exactly("Success");
 				done();
 			});
 	})

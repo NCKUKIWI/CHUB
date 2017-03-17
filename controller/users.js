@@ -16,7 +16,11 @@ router.post("/signup", function(req,res) {
   });
   newUser.save(function(err){
     if(err){
-      res.send("Fail");
+      var errmsg =[];
+      for(var i in err.errors){
+        errmsg.push(err.errors[i].message);
+      }
+      res.send(errmsg);
     }else{
       res.send("Success");
     }

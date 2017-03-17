@@ -15,10 +15,10 @@ Array of String => [String]
 */
 
 var userSchema = new Schema({
-  UserID:{ type:String,required: true,unique: true },
+  UserID:{ type:String,required:[true,"請輸入用戶名稱"] ,unique:true },
   Email:String,
-  Password:{ type: String, minlength:8 ,required: true },
-  Name:{ type: String, required: true },
+  Password:{ type: String, minlength:[8,"密碼需大於8碼"],required: true },
+  Name:{ type: String,required: [true,"請輸入用戶姓名"] },
   Major:String,
   Talent:[String],
   Description:{ type: String, minlength:0, maxlength:100 },
