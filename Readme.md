@@ -10,6 +10,12 @@ npm install
 npm link
 ```
 
+## Test
+
+```sh
+mocha --timeout 10000
+```
+
 ## MVC Generator
 
 ```sh

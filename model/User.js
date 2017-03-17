@@ -11,18 +11,19 @@ True/False => Boolean
 Integer => Number
 Array => []
 Array of String => [String]
-{type: Date, default: Date.now, min: 18, max: 65, unique: true, required: true,ref: 'Reference model'}
+{type: Date, default: Date.now, minlength: 18, maxlength: 65, unique: true, required: true,ref: 'Reference model'}
 */
 
 var userSchema = new Schema({
-  Type:String,
-  Time:[Date],
-  Goal:String,
-  Need:[String],
-  Sponser:[String],
-  Description:String,
-  AdminID:[Schema.Types.ObjectId],
-  GroupID:Schema.Types.ObjectId,
+  UserID:{ type:String,required: true,unique: true },
+  Email:String,
+  Password:{ type: String, minlength:8 ,required: true },
+  Name:{ type: String, required: true },
+  Major:String,
+  Talent:[String],
+  Description:{ type: String, minlength:0, maxlength:100 },
+  Website:String,
+  Role:Number,
   CreateAt: { type: Date, default: Date.now }
 });
 

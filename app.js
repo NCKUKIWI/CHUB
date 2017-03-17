@@ -5,6 +5,7 @@ var expressValidator = require('express-validator');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var path = require('path');
+var User = require('./model/User');
 
 var app = express();
 
@@ -29,6 +30,17 @@ app.use(session({
 }));
 
 app.use(cookieParser('secretString'));
+app.use(function(req, res, next) {
+  if(req.cookies.isLogin){
+    User.findOne({ _id:req.cookies.id},function(err,user){
+      req.user = user;
+      next();
+    });
+  }
+  else {
+    next();
+  }
+});
 
 //comments routes
 var comments = require('./controller/comments');
