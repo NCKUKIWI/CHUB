@@ -1,6 +1,4 @@
-var mongoose = require("mongoose");
-var config = require("../config");
-mongoose.connect(config.dburl);
+var mongoose = require("./mongoose");
 
 var Schema = mongoose.Schema;
 
@@ -23,8 +21,8 @@ var projectSchema = new Schema({
   Need:[String],
   Sponser:[String],
   Description:String,
-  AdminID:[Number],
-  GroupID:Number,
+  AdminID:[Schema.Types.ObjectId],
+  GroupID:Schema.Types.ObjectId,
   CreateAt: { type: Date, default: Date.now }
 });
 

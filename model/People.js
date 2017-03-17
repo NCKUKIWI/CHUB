@@ -1,6 +1,4 @@
-var mongoose = require("mongoose");
-var config = require("../config");
-mongoose.connect(config.dburl);
+var mongoose = require("./mongoose");
 
 var Schema = mongoose.Schema;
 
@@ -13,7 +11,7 @@ True/False => Boolean
 Integer => Number
 Array => []
 Array of String => [String]
-{type: Date, default: Date.now, min: 18, max: 65, unique: true, required: true}
+{type: Date, default: Date.now, min: 18, max: 65, unique: true, required: true,ref: 'Reference model'}
 */
 
 var peopleSchema = new Schema({

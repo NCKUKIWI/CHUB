@@ -1,6 +1,4 @@
-var mongoose = require("mongoose");
-var config = require("../config");
-mongoose.connect(config.dburl);
+var mongoose = require("./mongoose");
 
 var Schema = mongoose.Schema;
 
@@ -17,12 +15,12 @@ Array of String => [String]
 */
 
 var commentSchema = new Schema({
-  ProjectID:Number,
-  ActivityID:Number,
+  ProjectID:Schema.Types.ObjectId,
+  ActivityID:Schema.Types.ObjectId,
   Context:String,
   IsRead:Boolean,
-  PeopleID:Number,
-  ResCommentID:Number,
+  PeopleID:{ type:Schema.Types.ObjectId },
+  ResCommentID:Schema.Types.ObjectId,
   CreateAt: { type: Date, default: Date.now }
 });
 

@@ -55,9 +55,7 @@ var model = function(name, schemalist) {
 		}
 		schema += `  CreateAt: { type: Date, default: Date.now }`
 	}
-	return `var mongoose = require("mongoose");
-var config = require("../config");
-mongoose.connect(config.dburl);
+	return `var mongoose = require("./mongoose");
 
 var Schema = mongoose.Schema;
 
@@ -70,7 +68,7 @@ True/False => Boolean
 Integer => Number
 Array => []
 Array of String => [String]
-{type: Date, default: Date.now, min: 18, max: 65, unique: true, required: true}
+{type: Date, default: Date.now, min: 18, max: 65, unique: true, required: true,ref: 'Reference model'}
 */
 
 var ${name}Schema = new Schema({

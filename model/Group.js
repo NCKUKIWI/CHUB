@@ -1,6 +1,4 @@
-var mongoose = require("mongoose");
-var config = require("../config");
-mongoose.connect(config.dburl);
+var mongoose = require("./mongoose");
 
 var Schema = mongoose.Schema;
 
@@ -19,7 +17,7 @@ Array of String => [String]
 var groupSchema = new Schema({
   Name:String,
   Type:String,
-  AdminID:[Number],
+  AdminID:[Schema.Types.ObjectId],
   Website:String,
   Description:String,
   CreateAt: { type: Date, default: Date.now }

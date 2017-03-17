@@ -34,6 +34,10 @@ app.use(cookieParser('secretString'));
 //peoples routes
 var peoples = require('./controller/peoples');
 app.use("/people",peoples);
+
+//comments routes
+var comments = require('./controller/comments');
+app.use("/comment",comments);
 //insert
 
 app.listen( process.env.PORT || 3000);

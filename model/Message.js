@@ -1,6 +1,4 @@
-var mongoose = require("mongoose");
-var config = require("../config");
-mongoose.connect(config.dburl);
+var mongoose = require("./mongoose");
 
 var Schema = mongoose.Schema;
 
@@ -17,8 +15,8 @@ Array of String => [String]
 */
 
 var messageSchema = new Schema({
-  FromID:Number,
-  ToID:Number,
+  FromID:Schema.Types.ObjectId,
+  ToID:Schema.Types.ObjectId,
   Time:Date,
   Context:String,
   IsRead:Boolean,
