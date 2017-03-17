@@ -34,19 +34,33 @@ var argv = require("yargs").help("h")
 								return console.log(err);
 							}
 							console.log(chalk.green(`Controller ${argv.c[0]}.js create!`));
+							var appjs = fs.readFileSync('app.js').toString().split("\n");
+							for(var i = appjs.length-1 ; i>=0 ; i--){
+							  if(appjs[i]=="//insert"){
+									var insertText =`
+//${argv.c[0]} routes
+var ${argv.c[0]} = require('./controller/${argv.c[0]}');
+app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
+							    appjs.splice(i,0,insertText);
+							    var text = appjs.join("\n");
+							    fs.writeFile('app.js', text, function (err) {
+							      if (err) return console.log(err);
+							    });
+							  }
+							}
 							if(argv.c.length > 1) {
 								fs.mkdir(__dirname + `/view`, function(e) {
 									if(!e || (e && e.code === 'EEXIST')) {
 										var folder = argv.c[0];
 										fs.mkdir(__dirname + `/view/${folder}`, function(e) {
 											if(!e || (e && e.code === 'EEXIST')) {
-												argv.c.forEach(function(element, index) {
+												argv.c.forEach(function(view, index) {
 													if(index != 0) {
-														fs.writeFile(__dirname + `/view/${folder}/${element}.ejs`, template.view(), function(err) {
+														fs.writeFile(__dirname + `/view/${folder}/${view}.ejs`, template.view(folder,view), function(err) {
 															if(err) {
 																return console.log(err);
 															}
-															console.log(chalk.green(`View ${element}.ejs create!`));
+															console.log(chalk.green(`View ${view}.ejs create!`));
 														});
 													}
 												});
@@ -99,6 +113,19 @@ var argv = require("yargs").help("h")
 						return console.log(chalk.red(err.code));
 					}
 					console.log(chalk.red(`Controller ${argv.c}.js delete`));
+					var appjs = fs.readFileSync('app.js').toString().split("\n");
+					for(var i = appjs.length-1 ; i>=0 ; i--){
+						if(appjs[i]==`//${argv.c} routes`){
+							appjs.splice(i,1);
+							appjs.splice(i,1);
+							appjs.splice(i,1);
+							var text = appjs.join("\n");
+							fs.writeFile('app.js', text, function (err) {
+								if (err) return console.log(err);
+							});
+							break;
+						}
+					}
 					if(fs.existsSync(__dirname + `/view/${argv.c}`)) {
 						fs.readdir(__dirname + `/view/${argv.c}`, function(err, files) {
 							if(err) {

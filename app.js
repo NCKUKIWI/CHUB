@@ -5,7 +5,6 @@ var expressValidator = require('express-validator');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var path = require('path');
-var people = require('./controller/Peoples');
 
 var app = express();
 
@@ -18,6 +17,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //Validator
 app.use(expressValidator());
+
 app.use("/assets",express.static(__dirname + "/assets"));
 
 //Handle sessions and cookie
@@ -27,8 +27,14 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
 }));
-app.use(cookieParser('secretString'));
-app.use("/people",people);
 
-app.listen( process.env.PORT || 3000);                             //監聽3000port
+app.use(cookieParser('secretString'));
+
+
+//peoples routes
+var peoples = require('./controller/peoples');
+app.use("/people",peoples);
+//insert
+
+app.listen( process.env.PORT || 3000);
 console.log('running on port 3000');

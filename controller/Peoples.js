@@ -4,17 +4,16 @@ var People = require('../model/People');
 
 
 router.get("/", function(req,res) {
-  res.render("Peoples/index");
+  res.render("peoples/index");
 });
 
 router.get("/test", function(req,res) {
-  res.render("Peoples/test");
+  res.render("peoples/test");
 });
 
 router.get("/:id", function(req,res) {
-  res.render("Peoples/show");
+  res.render("peoples/show");
 });
-
 
 
 module.exports = router;
