@@ -3,11 +3,6 @@ var request = require('request');
 var User = require('../model/User');
 
 describe('User', function() {
-	after(function() {
-		User.findOneAndRemove({UserID:"Derek"},function(err) {
-			if(err) throw err;
-		});
-	})
 	it('Signup, pw length < 6 ', function(done) {
 		request({
 				url: "http://localhost:3000/user/signup",
@@ -19,7 +14,7 @@ describe('User', function() {
 				}
 			},
 			function(error, response, body) {
-				body.should.not.exactly("Success");
+				body.should.not.equal("ok");
 				done();
 			});
 	})
@@ -34,7 +29,7 @@ describe('User', function() {
 				}
 			},
 			function(error, response, body) {
-				body.should.be.exactly("Success");
+				body.should.be.equal("ok");
 				done();
 			});
 	})
@@ -49,8 +44,14 @@ describe('User', function() {
 				}
 			},
 			function(error, response, body) {
-				body.should.be.exactly("Success");
+				body.should.be.equal("ok");
 				done();
 			});
+	})
+	after(function() {
+		console.log("Clean test data");
+		User.findOneAndRemove({UserID:"Derek"},function(err) {
+			if(err) throw err;
+		});
 	})
 })

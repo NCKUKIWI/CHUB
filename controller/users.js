@@ -22,7 +22,7 @@ router.post("/signup", function(req,res) {
       }
       res.send(errmsg);
     }else{
-      res.send("Success");
+      res.send("ok");
     }
   });
 });
@@ -33,12 +33,12 @@ router.post("/auth", function(req, res) {
       if(user.Password===req.body.pw){
         res.cookie('isLogin',1,{maxAge: 60 * 60 * 1000});
         res.cookie('id', user._id,{maxAge: 60 * 60 * 1000});
-        res.send("Success");
+        res.send("ok");
       }else{
-        res.send("Fail");
+        res.send("fail");
       }
     }else{
-      res.send("Fail");
+      res.send("fail");
     }
   });
 });
