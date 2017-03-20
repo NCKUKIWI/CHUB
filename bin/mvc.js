@@ -3,7 +3,7 @@
 var fs = require("fs");
 var chalk = require("chalk");
 var template = require("./template");
-__dirname += "/..";
+var path = process.cwd();
 var argv = require("yargs").help("h")
 	.usage("\nUsage: mvc <command> [option]")
 	.example("mvc g -c user", "Generate controller named user.js")
@@ -27,9 +27,9 @@ var argv = require("yargs").help("h")
 		},
 		function(argv) {
 			if(argv.c && argv.c.length > 0) {
-				fs.mkdir(__dirname + "/controller", function(e) {
+				fs.mkdir(path + "/controller", function(e) {
 					if(!e || (e && e.code === 'EEXIST')) {
-						fs.writeFile(__dirname + `/controller/${argv.c[0]}.js`, template.controller(argv.c[0], argv.c), function(err) {
+						fs.writeFile(path + `/controller/${argv.c[0]}.js`, template.controller(argv.c[0], argv.c), function(err) {
 							if(err) {
 								return console.log(err);
 							}
@@ -49,14 +49,14 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 							  }
 							}
 							if(argv.c.length > 1) {
-								fs.mkdir(__dirname + `/view`, function(e) {
+								fs.mkdir(path + `/view`, function(e) {
 									if(!e || (e && e.code === 'EEXIST')) {
 										var folder = argv.c[0];
-										fs.mkdir(__dirname + `/view/${folder}`, function(e) {
+										fs.mkdir(path + `/view/${folder}`, function(e) {
 											if(!e || (e && e.code === 'EEXIST')) {
 												argv.c.forEach(function(view, index) {
 													if(index != 0) {
-														fs.writeFile(__dirname + `/view/${folder}/${view}.ejs`, template.view(folder,view), function(err) {
+														fs.writeFile(path + `/view/${folder}/${view}.ejs`, template.view(folder,view), function(err) {
 															if(err) {
 																return console.log(err);
 															}
@@ -79,10 +79,10 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 					}
 				});
 			} else if(argv.m) {
-				fs.mkdir(__dirname + "/model", function(e) {
+				fs.mkdir(path + "/model", function(e) {
 					if(!e || (e && e.code === 'EEXIST')) {
 						var cargvm = argv.m.charAt(0).toUpperCase() + argv.m.slice(1);
-						fs.writeFile(__dirname + `/model/${cargvm}.js`, template.model(argv.m, argv.s), function(err) {
+						fs.writeFile(path + `/model/${cargvm}.js`, template.model(argv.m, argv.s), function(err) {
 							if(err) {
 								return console.log(err);
 							}
@@ -105,7 +105,7 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 		},
 		function(argv) {
 			if(argv.c) {
-				fs.unlink(__dirname + `/controller/${argv.c}.js`, function(err) {
+				fs.unlink(path + `/controller/${argv.c}.js`, function(err) {
 					if(err) {
 						if(err.code == "ENOENT") {
 							return console.log(chalk.red(`Controller ${argv.c}.js not found`));
@@ -126,19 +126,19 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 							break;
 						}
 					}
-					if(fs.existsSync(__dirname + `/view/${argv.c}`)) {
-						fs.readdir(__dirname + `/view/${argv.c}`, function(err, files) {
+					if(fs.existsSync(path + `/view/${argv.c}`)) {
+						fs.readdir(path + `/view/${argv.c}`, function(err, files) {
 							if(err) {
 								return console.log(err);
 							}
 							files.forEach(function(file) {
-								fs.unlink(__dirname + `/view/${argv.c}/${file}`, function(err) {
+								fs.unlink(path + `/view/${argv.c}/${file}`, function(err) {
 									if(err) {
 										return console.log(chalk.red(err.code));
 									}
 								});
 							});
-							fs.rmdir(__dirname + `/view/${argv.c}`, function(err) {
+							fs.rmdir(path + `/view/${argv.c}`, function(err) {
 								if(err) {
 									return console.log(chalk.red(err.code));
 								}
@@ -149,7 +149,7 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 				});
 			} else if(argv.m) {
 				var cargvm = argv.m.charAt(0).toUpperCase() + argv.m.slice(1);
-				fs.unlink(__dirname + `/model/${cargvm}.js`, function(err) {
+				fs.unlink(path + `/model/${cargvm}.js`, function(err) {
 					if(err) {
 						if(err.code == "ENOENT") {
 							return console.log(chalk.red(`Model ${cargvm}.js not found`));
@@ -163,8 +163,8 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 	)
 	.command(["list", "ls"], "Show MVC folder", {},
 		function(argv) {
-			if(fs.existsSync(__dirname + `/model`)) {
-				fs.readdir(__dirname + `/model`, function(err, files) {
+			if(fs.existsSync(path + `/model`)) {
+				fs.readdir(path + `/model`, function(err, files) {
 					if(err) {
 						return console.log(err);
 					}
@@ -175,8 +175,8 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 					});
 				});
 			}
-			if(fs.existsSync(__dirname + `/view`)) {
-				fs.readdir(__dirname + `/view`, function(err, files) {
+			if(fs.existsSync(path + `/view`)) {
+				fs.readdir(path + `/view`, function(err, files) {
 					if(err) {
 						return console.log(err);
 					}
@@ -187,8 +187,8 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 					});
 				});
 			}
-			if(fs.existsSync(__dirname + `/controller`)) {
-				fs.readdir(__dirname + `/controller`, function(err, files) {
+			if(fs.existsSync(path + `/controller`)) {
+				fs.readdir(path + `/controller`, function(err, files) {
 					if(err) {
 						return console.log(err);
 					}
@@ -211,7 +211,7 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 		},
 		function(argv) {
 			if(argv.c) {
-				fs.unlink(__dirname + `/controller/${argv.c}.js`, function(err) {
+				fs.unlink(path + `/controller/${argv.c}.js`, function(err) {
 					if(err) {
 						if(err.code == "ENOENT") {
 							return console.log(chalk.red(`Controller ${argv.c}.js not found`));
@@ -232,19 +232,19 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 							break;
 						}
 					}
-					if(fs.existsSync(__dirname + `/view/${argv.c}`)) {
-						fs.readdir(__dirname + `/view/${argv.c}`, function(err, files) {
+					if(fs.existsSync(path + `/view/${argv.c}`)) {
+						fs.readdir(path + `/view/${argv.c}`, function(err, files) {
 							if(err) {
 								return console.log(err);
 							}
 							files.forEach(function(file) {
-								fs.unlink(__dirname + `/view/${argv.c}/${file}`, function(err) {
+								fs.unlink(path + `/view/${argv.c}/${file}`, function(err) {
 									if(err) {
 										return console.log(chalk.red(err.code));
 									}
 								});
 							});
-							fs.rmdir(__dirname + `/view/${argv.c}`, function(err) {
+							fs.rmdir(path + `/view/${argv.c}`, function(err) {
 								if(err) {
 									return console.log(chalk.red(err.code));
 								}
@@ -255,7 +255,7 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 				});
 			} else if(argv.m) {
 				var cargvm = argv.m.charAt(0).toUpperCase() + argv.m.slice(1);
-				fs.unlink(__dirname + `/model/${cargvm}.js`, function(err) {
+				fs.unlink(path + `/model/${cargvm}.js`, function(err) {
 					if(err) {
 						if(err.code == "ENOENT") {
 							return console.log(chalk.red(`Model ${cargvm}.js not found`));
@@ -269,7 +269,7 @@ app.use("/${argv.c[0].slice(0, -1)}",${argv.c[0]});`
 	)
 	.command("new", "Generate app.js file",{},
 		function(argv) {
-			if(!fs.existsSync(__dirname + `/app.js`)) {
+			if(!fs.existsSync(path + `/app.js`)) {
 				fs.writeFile('app.js',template.app(), function (err) {
 					if (err) return console.log(err);
 				});
