@@ -1,5 +1,5 @@
 var controller = function(name, views) {
-	var cname = name.charAt(0).toUpperCase() + name.slice(1,-1);
+	var cname = name.charAt(0).toUpperCase() + name.slice(1, -1);
 	var hasShow = false;
 	var route = "";
 	if(views.length > 0) {
@@ -39,7 +39,7 @@ ${route}
 module.exports = router;`;
 }
 
-var view = function(folder,view) {
+var view = function(folder, view) {
 	return `<% layout('../public/layout') %>
 Find me in view/${folder}/${view}.ejs`;
 }
@@ -87,7 +87,7 @@ module.exports = ${cname};`;
 }
 
 var app = function() {
-return `var express = require('express');
+	return `var express = require('express');
 var engine = require('ejs-locals');             //讓express支援layout
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
@@ -126,7 +126,44 @@ console.log('running on port 3000');
 `;
 }
 
+var json = function(name, author) {
+	return `{
+	"name": "${name}",
+	"version": "1.0.0",
+	"description": "none",
+	"main": "app.js",
+	"scripts": {
+	   "test": "mocha --timeout=10000",
+	   "start": "node ./node_modules/nodemon/bin/nodemon app.js"
+	},
+	"bin": {
+	  "mvc": "./bin/mvc.js"
+	},
+	"author": "author",
+	"license": "ISC",
+	"dependencies": {
+	  "body-parser": "^1.15.2",
+	  "cookie-parser": "^1.4.3",
+	  "ejs": "^2.4.2",
+	  "ejs-locals": "^1.0.2",
+	  "express": "^4.14.0",
+	  "express-session": "^1.14.0",
+   	"express-validator": "^2.20.8",
+	  "mongoose": "^4.9.0",
+	  "multer": "^1.3.0",
+	  "nodemon": "^1.9.2",
+	  "yargs": "^7.0.2"
+	},
+	"devDependencies": {
+	  "mocha": "^3.2.0",
+	  "request": "^2.81.0",
+	  "should": "^11.2.1"
+	}
+}`;
+}
+
 exports.model = model;
 exports.view = view;
 exports.controller = controller;
 exports.app = app;
+exports.json = json;
