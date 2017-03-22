@@ -56,8 +56,9 @@ var model = function(name, schemalist) {
 		schema += `  CreateAt: { type: Date, default: Date.now }`
 	}
 	return `var mongoose = require("./mongoose");
-
+var uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 /*
 Schema Type
@@ -68,7 +69,12 @@ True/False => Boolean
 Integer => Number
 Array => []
 Array of String => [String]
-{type: Date, default: Date.now, min: 18, max: 65, unique: true, required: true,ref: 'Reference model'}
+Mongo obj id => ObjectId
+
+Mutiple option
+{type: Date , default: Date.now }
+{type: String , unique: true, required: true }
+{type: String , minlength: 18, maxlength: 65 }
 */
 
 var ${name}Schema = new Schema({
@@ -76,11 +82,18 @@ ${schema}
 });
 
 /*
+
+Custom method
 ${name}Schema.methods.customMethod = function() {
   return this.model("${cname}").find();
 };
+
+Custom err message
+${name}Schema.plugin(uniqueValidator,{ message: 'Cutstom message' });
+
 */
 
+${name}Schema.plugin(uniqueValidator);
 var ${cname} = mongoose.model("${cname}", ${name}Schema);
 
 module.exports = ${cname};`;
@@ -126,7 +139,7 @@ console.log('running on port 3000');
 `;
 }
 
-var json = function(name, author) {
+var json = function(name) {
 	return `{
 	"name": "${name}",
 	"version": "1.0.0",
@@ -150,7 +163,7 @@ var json = function(name, author) {
 	  "express-session": "^1.14.0",
    	"express-validator": "^2.20.8",
 	  "mongoose": "^4.9.0",
-	  "multer": "^1.3.0",
+		"mongoose-unique-validator": "^1.0.5",
 	  "nodemon": "^1.9.2",
 	  "yargs": "^7.0.2"
 	},
@@ -162,8 +175,23 @@ var json = function(name, author) {
 }`;
 }
 
+var mongoose = function() {
+	return `var mongoose = require("mongoose");
+var config = require("../config");
+mongoose.connect(config.dburl);
+module.exports = mongoose;`;
+}
+
+var config = function() {
+	return `exports.dburl="dburl"
+exports.dbuser="root";
+exports.dbpw="1234567890";`;
+}
+
 exports.model = model;
 exports.view = view;
 exports.controller = controller;
 exports.app = app;
 exports.json = json;
+exports.mongoose = mongoose;
+exports.config = config;

@@ -113,9 +113,16 @@ var argv = require("yargs").help("h")
 						fs.writeFile(path + `/${argv.n}/package.json`, template.json(argv.n), function(err) {
 							if(err) return console.log(err);
 						});
+						fs.writeFile(path + `/${argv.n}/config.js`, template.config(), function(err) {
+							if(err) return console.log(err);
+						});
 						fs.mkdir(path + `/${argv.n}/controller`,function(e) {});
 						fs.mkdir(path + `/${argv.n}/view`,function(e) {});
-						fs.mkdir(path + `/${argv.n}/model`,function(e) {});
+						fs.mkdir(path + `/${argv.n}/model`,function(e) {
+							fs.writeFile(path + `/${argv.n}/model/mongoose.js`,template.mongoose(), function(err) {
+								if(err) return console.log(err);
+							});
+						});
 					}
 				});
 			}else{

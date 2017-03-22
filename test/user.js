@@ -33,6 +33,21 @@ describe('User', function() {
 				done();
 			});
 	})
+	it('Signup,duplicate and password < 6', function(done) {
+		request({
+				url: "http://localhost:3000/user/signup",
+				method: "POST",
+				form: {
+					"userid": "Derek",
+					"pw": "123456",
+					"name": "Derek Chen"
+				}
+			},
+			function(error, response, body) {
+				body.should.not.equal("ok");
+				done();
+			});
+	})
 	it('Login', function(done) {
 		request({
 				url: "http://localhost:3000/user/auth",

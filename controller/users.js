@@ -5,7 +5,9 @@ var config = require('../config');
 var graph = require("fbgraph");
 
 router.get("/", function(req,res) {
-  res.render("users/index");
+  res.render("users/index",{
+    user:req.user
+  });
 });
 
 router.post("/signup", function(req,res) {
@@ -72,6 +74,35 @@ router.get("/fbcheck", function(req,res) {
   }
 });
 
+router.get("/edit", function(req, res) {
+  res.render("users/edit",{
+    user:req.user
+  });
+});
+
+router.post("/update", function(req, res) {
+  var newData = {
+    UserID:req.body.userid,
+    Email:req.body.email,
+    Name:req.body.name,
+    Major:req.body.major,
+    Talent:req.body.talent,
+    Description:req.body.description,
+    Website:req.body.website
+  }
+  User.findOneAndUpdate({_id:req.user._id},newData,function(err,user){
+    if(err){
+      var errmsg =[];
+      for(var i in err.errors){
+        errmsg.push(err.errors[i].message);
+      }
+      res.send(errmsg);
+    }else{
+      res.send("ok");
+    }
+  });
+});
+
 router.get("/logout", function(req, res) {
   res.clearCookie('isLogin');
   res.clearCookie('id');
@@ -79,7 +110,9 @@ router.get("/logout", function(req, res) {
 });
 
 router.get("/:id", function(req,res) {
-  res.render("users/show");
+  res.render("users/show",{
+    user:req.user
+  });
 });
 
 

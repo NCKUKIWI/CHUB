@@ -31,7 +31,6 @@ app.use(session({
 
 app.use(cookieParser('secretString'));
 app.use(function(req, res, next) {
-  console.log(req.cookies);
   if(req.cookies.isLogin){
     User.findOne({ _id:req.cookies.id},function(err,user){
       req.user = user;

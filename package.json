@@ -4,7 +4,7 @@
   "description": "none",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout=10000",
+    "test": "mocha --timeout=20000",
     "start": "node ./node_modules/nodemon/bin/nodemon app.js"
   },
   "bin": {
@@ -22,6 +22,7 @@
     "express-validator": "^2.20.8",
     "fbgraph": "^1.4.1",
     "mongoose": "^4.9.0",
+    "mongoose-unique-validator": "^1.0.5",
     "multer": "^1.3.0",
     "nodemon": "^1.9.2",
     "yargs": "^7.0.2"

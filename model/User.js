@@ -1,7 +1,7 @@
 var mongoose = require("./mongoose");
-
+var uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
-
+var ObjectId = mongoose.Schema.Types.ObjectId;
 /*
 Schema Type
 ------------
@@ -11,7 +11,11 @@ True/False => Boolean
 Integer => Number
 Array => []
 Array of String => [String]
-{type: Date, default: Date.now, minlength: 18, maxlength: 65, unique: true, required: true,ref: 'Reference model'}
+
+Mutiple option
+{type: Date , default: Date.now }
+{type: String , unique: true, required: true }
+{type: String , minlength: 18, maxlength: 65 }
 */
 
 var userSchema = new Schema({
@@ -33,6 +37,7 @@ userSchema.methods.customMethod = function() {
 };
 */
 
+userSchema.plugin(uniqueValidator,{ message: 'UserId 已經使用過' });
 var User = mongoose.model("User", userSchema);
 
 module.exports = User;
