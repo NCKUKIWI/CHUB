@@ -42,3 +42,22 @@ Examples:
   mvc d -m user                            Destroy model named User.js
   mvc new -n newproject                    Generate a new project name newproject                     
 ```       
+
+## Mongo realation
+
+```js
+var userSchema = new Schema({
+  Email:String,
+  Name:String
+});
+
+var commentSchema = new Schema({
+  Context:String,
+  PeopleID:{type:ObjectId,ref:'User'},
+});
+//Message ToID 欄位 與 User _id 關聯
+Comment.findOne({PeopleID:"objid"}).populate('PeopleID').exec(function(err,comment){
+  console.log(comment);
+  //會透過 PeopleID 去 Join User collection 中 _id 與 PeopleID 一致的資料進來
+});
+```

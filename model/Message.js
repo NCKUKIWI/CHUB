@@ -21,7 +21,6 @@ Mutiple option
 var messageSchema = new Schema({
   FromID:ObjectId,
   ToID:ObjectId,
-  Time:Date,
   Context:String,
   IsRead:Boolean,
   FromIDType:String,

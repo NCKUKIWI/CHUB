@@ -21,7 +21,7 @@ Mutiple option
 var groupSchema = new Schema({
   Name:String,
   Type:String,
-  AdminID:[ObjectId],
+  AdminID:[{type:ObjectId,ref:'User'}],
   Website:String,
   Description:String,
   CreateAt: { type: Date, default: Date.now }

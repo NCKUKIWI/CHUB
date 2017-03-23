@@ -19,11 +19,11 @@ Mutiple option
 */
 
 var commentSchema = new Schema({
-  ProjectID:ObjectId,
-  ActivityID:ObjectId,
+  ProjectID:{type:ObjectId,ref:'Project'},
+  ActivityID:{type:ObjectId,ref:'Activity'},
   Context:String,
   IsRead:Boolean,
-  PeopleID:ObjectId,
+  PeopleID:{type:ObjectId,ref:'User'},
   ResCommentID:ObjectId,
   CreateAt: { type: Date, default: Date.now }
 });

@@ -1,12 +1,25 @@
 var express = require("express");
 var router = express.Router();
 var User = require('../model/User');
+var Message = require('../model/Message');
 var config = require('../config');
 var graph = require("fbgraph");
 
 router.get("/", function(req,res) {
-  res.render("users/index",{
-    user:req.user
+  var filter = {
+    Talent:req.query.talent,
+    Major:req.query.major
+  };
+  for(var i in filter){
+    if(filter[i]=== undefined){
+      delete filter[i];
+    }
+  }
+  User.find(filter,function(err,users){
+    res.render("users/index",{
+      user:req.user,
+      users:users
+    });
   });
 });
 
@@ -15,6 +28,7 @@ router.post("/signup", function(req,res) {
     UserID:req.body.userid,
     Password:req.body.pw,
     Name:req.body.name,
+    Email:req.body.email,
     Role:1,
   });
   newUser.save(function(err){
@@ -109,9 +123,43 @@ router.get("/logout", function(req, res) {
   res.redirect("/");
 });
 
+router.get("/msg", function(req,res) {
+  Message.find({ToID:req.user._id,ToIDType:"people"},function(err,msg){
+    res.render("users/msg",{
+      user:req.user,
+      msg:msg
+    });
+  });
+});
+
+router.post("/msg/send", function(req,res) {
+  var newMsg = new Message({
+    FromID:req.user._id,
+    ToID:req.body.toid,
+    Context:req.body.context,
+    IsRead:0,
+    FromIDType:"people",
+    ToIDType:"people",
+  });
+  newMsg.save(function(err){
+    if(err){
+      var errmsg =[];
+      for(var i in err.errors){
+        errmsg.push(err.errors[i].message);
+      }
+      res.send(errmsg);
+    }else{
+      res.send("ok");
+    }
+  });
+});
+
 router.get("/:id", function(req,res) {
-  res.render("users/show",{
-    user:req.user
+  User.findOne({UserID:req.params.id},function(err,user){
+    res.render("users/show",{
+      user:req.user,
+      showuser:user
+    });
   });
 });
 
