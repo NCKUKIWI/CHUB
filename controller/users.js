@@ -15,7 +15,7 @@ router.get("/", function(req,res) {
   };
   for(var i in query){
     if(query[i]!== undefined){
-      filter.["$or"].push({i:query[i]});
+      filter["$or"].push({i:query[i]});
     }
   }
   User.find(filter,function(err,users){
