@@ -1,5 +1,5 @@
 var mongoose = require("./mongoose");
-var uniqueValidator = require('mongoose-unique-validator');
+var uniqueValidator = require("mongoose-unique-validator");
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 /*
@@ -19,11 +19,11 @@ Mutiple option
 */
 
 var commentSchema = new Schema({
-  ProjectID:{type:ObjectId,ref:'Project'},
-  ActivityID:{type:ObjectId,ref:'Activity'},
+  ProjectID:{type:ObjectId,ref:"Project"},
+  ActivityID:{type:ObjectId,ref:"Activity"},
   Context:String,
   IsRead:Boolean,
-  PeopleID:{type:ObjectId,ref:'User'},
+  PeopleID:{type:ObjectId,ref:"User"},
   ResCommentID:ObjectId,
   CreateAt: { type: Date, default: Date.now }
 });

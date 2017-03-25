@@ -32,7 +32,7 @@ router.get("/:id", function(req,res) {
 	}
 	return `var express = require("express");
 var router = express.Router();
-var ${cname} = require('../model/${cname}');
+var ${cname} = require("../model/${cname}");
 
 ${route}
 
@@ -56,7 +56,7 @@ var model = function(name, schemalist) {
 		schema += `  CreateAt: { type: Date, default: Date.now }`
 	}
 	return `var mongoose = require("./mongoose");
-var uniqueValidator = require('mongoose-unique-validator');
+var uniqueValidator = require("mongoose-unique-validator");
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
@@ -75,6 +75,7 @@ Mutiple option
 {type: Date , default: Date.now }
 {type: String , unique: true, required: true }
 {type: String , minlength: 18, maxlength: 65 }
+{type: String , ref:"Reference collection name" }
 */
 
 var ${name}Schema = new Schema({
@@ -89,7 +90,7 @@ ${name}Schema.methods.customMethod = function() {
 };
 
 Custom err message
-${name}Schema.plugin(uniqueValidator,{ message: 'Cutstom message' });
+${name}Schema.plugin(uniqueValidator,{ message: "Cutstom message" });
 
 */
 
@@ -100,19 +101,19 @@ module.exports = ${cname};`;
 }
 
 var app = function() {
-	return `var express = require('express');
-var engine = require('ejs-locals');             //讓express支援layout
-var bodyParser = require('body-parser');
-var expressValidator = require('express-validator');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
-var path = require('path');
+	return `var express = require("express");
+var engine = require("ejs-locals");             //讓express支援layout
+var bodyParser = require("body-parser");
+var expressValidator = require("express-validator");
+var session = require("express-session");
+var cookieParser = require("cookie-parser");
+var path = require("path");
 
 var app = express();
 
-app.engine('ejs', engine);
-app.set('views',path.join(__dirname,'view'));  //view的路徑位在資料夾view中
-app.set('view engine','ejs');                   //使用ejs作為template
+app.engine("ejs", engine);
+app.set("views",path.join(__dirname,"view"));  //view的路徑位在資料夾view中
+app.set("view engine","ejs");                   //使用ejs作為template
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -125,17 +126,17 @@ app.use("/assets",express.static(__dirname + "/assets"));
 //Handle sessions and cookie
 app.use(session({
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },
-  secret:'secret',
+  secret:"secret",
   resave: true,
   saveUninitialized: true,
 }));
 
-app.use(cookieParser('secretString'));
+app.use(cookieParser("secretString"));
 
 //insert
 
 app.listen( process.env.PORT || 3000);
-console.log('running on port 3000');
+console.log("running on port 3000");
 `;
 }
 

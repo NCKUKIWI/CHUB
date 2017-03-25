@@ -103,7 +103,7 @@ var argv = require("yargs").help("h")
 		function(argv) {
 			if(argv.n){
 				fs.mkdir(path + `/${argv.n}`, function(e) {
-					if(e && e.code === 'EEXIST'){
+					if(e && e.code === "EEXIST"){
 						console.log(chalk.red(`Folder ${argv.n} already exist!`));
 					}
 					else{
@@ -139,32 +139,32 @@ var argv = require("yargs").help("h")
 
 function GenerateController(argvc) {
 	fs.mkdir(path + "/controller", function(e) {
-		if(!e || (e && e.code === 'EEXIST')) {
+		if(!e || (e && e.code === "EEXIST")) {
 			fs.writeFile(path + `/controller/${argvc[0]}.js`, template.controller(argvc[0], argvc), function(err) {
 				if(err) {
 					return console.log(err);
 				}
 				console.log(chalk.green(`Controller ${argvc[0]}.js create!`));
-				var appjs = fs.readFileSync('app.js').toString().split("\n");
+				var appjs = fs.readFileSync("app.js").toString().split("\n");
 				for(var i = appjs.length - 1; i >= 0; i--) {
 					if(appjs[i] == "//insert") {
 						var insertText = `
 //${argvc[0]} routes
-var ${argvc[0]} = require('./controller/${argvc[0]}');
+var ${argvc[0]} = require("./controller/${argvc[0]}");
 app.use("/${argvc[0].slice(0, -1)}",${argvc[0]});`
 						appjs.splice(i, 0, insertText);
 						var text = appjs.join("\n");
-						fs.writeFile('app.js', text, function(err) {
+						fs.writeFile("app.js", text, function(err) {
 							if(err) return console.log(err);
 						});
 					}
 				}
 				if(argvc.length > 1) {
 					fs.mkdir(path + `/view`, function(e) {
-						if(!e || (e && e.code === 'EEXIST')) {
+						if(!e || (e && e.code === "EEXIST")) {
 							var folder = argvc[0];
 							fs.mkdir(path + `/view/${folder}`, function(e) {
-								if(!e || (e && e.code === 'EEXIST')) {
+								if(!e || (e && e.code === "EEXIST")) {
 									argvc.forEach(function(view, index) {
 										if(index != 0) {
 											fs.writeFile(path + `/view/${folder}/${view}.ejs`, template.view(folder, view), function(err) {
@@ -193,7 +193,7 @@ app.use("/${argvc[0].slice(0, -1)}",${argvc[0]});`
 
 function GenerateModel(argvm, argvs) {
 	fs.mkdir(path + "/model", function(e) {
-		if(!e || (e && e.code === 'EEXIST')) {
+		if(!e || (e && e.code === "EEXIST")) {
 			var cargvm = argvm.charAt(0).toUpperCase() + argvm.slice(1);
 			fs.writeFile(path + `/model/${cargvm}.js`, template.model(argvm, argvs), function(err) {
 				if(err) {
@@ -216,14 +216,14 @@ function DestroyController(argvc) {
 			return console.log(chalk.red(err.code));
 		}
 		console.log(chalk.red(`Controller ${argvc}.js delete`));
-		var appjs = fs.readFileSync('app.js').toString().split("\n");
+		var appjs = fs.readFileSync("app.js").toString().split("\n");
 		for(var i = appjs.length - 1; i >= 0; i--) {
 			if(appjs[i] == `//${argvc} routes`) {
 				appjs.splice(i, 1);
 				appjs.splice(i, 1);
 				appjs.splice(i, 1);
 				var text = appjs.join("\n");
-				fs.writeFile('app.js', text, function(err) {
+				fs.writeFile("app.js", text, function(err) {
 					if(err) return console.log(err);
 				});
 				break;

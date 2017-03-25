@@ -1,18 +1,21 @@
 var express = require("express");
 var router = express.Router();
-var User = require('../model/User');
-var Message = require('../model/Message');
-var config = require('../config');
+var User = require("../model/User");
+var Message = require("../model/Message");
+var config = require("../config");
 var graph = require("fbgraph");
 
 router.get("/", function(req,res) {
-  var filter = {
+  var query = {
     Talent:req.query.talent,
     Major:req.query.major
+  }
+  var filter = {
+    $or:[]
   };
-  for(var i in filter){
-    if(filter[i]=== undefined){
-      delete filter[i];
+  for(var i in query){
+    if(query[i]!== undefined){
+      filter.["$or"].push({i:query[i]});
     }
   }
   User.find(filter,function(err,users){
@@ -48,8 +51,8 @@ router.post("/auth", function(req, res) {
   User.findOne({UserID:req.body.userid},function(err,user){
     if(user){
       if(user.Password===req.body.pw){
-        res.cookie('isLogin',1,{maxAge: 60 * 60 * 1000});
-        res.cookie('id', user._id,{maxAge: 60 * 60 * 1000});
+        res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
+        res.cookie("id", user._id,{maxAge: 60 * 60 * 1000});
         res.send("ok");
       }else{
         res.send("fail");
@@ -69,15 +72,15 @@ router.get("/fbcheck", function(req,res) {
     graph.get(`/me?fields=id,name,email,gender&access_token=${req.query.access_token}`,function(err,fb){
       User.findOne({UserID:fb.id},function(err,user){
         if(user){
-          res.cookie('isLogin',1,{maxAge: 60 * 60 * 1000});
-          res.cookie('id',user._id,{maxAge: 60 * 60 * 1000});
+          res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
+          res.cookie("id",user._id,{maxAge: 60 * 60 * 1000});
           res.redirect("/");
         }
         else{
           User.create({ UserID:fb.id,Name:fb.name,Password:fb.id,Role:1}, function (err,result) {
             if (err) console.log(err);
-            res.cookie('isLogin',1,{maxAge: 60 * 60 * 1000});
-            res.cookie('id',result._id,{maxAge: 60 * 60 * 1000});
+            res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
+            res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
             res.redirect("/");
           })
         }
@@ -118,8 +121,8 @@ router.post("/update", function(req, res) {
 });
 
 router.get("/logout", function(req, res) {
-  res.clearCookie('isLogin');
-  res.clearCookie('id');
+  res.clearCookie("isLogin");
+  res.clearCookie("id");
   res.redirect("/");
 });
 

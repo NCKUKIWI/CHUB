@@ -1,9 +1,9 @@
-var should = require('should');
-var request = require('request');
-var User = require('../model/User');
+var should = require("should");
+var request = require("request");
+var User = require("../model/User");
 
-describe('User', function() {
-	it('Signup, pw length < 6 ', function(done) {
+describe("User", function() {
+	it("Signup, pw length < 6 ", function(done) {
 		request({
 				url: "http://localhost:3000/user/signup",
 				method: "POST",
@@ -18,7 +18,7 @@ describe('User', function() {
 				done();
 			});
 	})
-	it('Signup', function(done) {
+	it("Signup", function(done) {
 		request({
 				url: "http://localhost:3000/user/signup",
 				method: "POST",
@@ -33,7 +33,7 @@ describe('User', function() {
 				done();
 			});
 	})
-	it('Signup,duplicate and password < 6', function(done) {
+	it("Signup,duplicate and password < 6", function(done) {
 		request({
 				url: "http://localhost:3000/user/signup",
 				method: "POST",
@@ -48,7 +48,7 @@ describe('User', function() {
 				done();
 			});
 	})
-	it('Login', function(done) {
+	it("Login", function(done) {
 		request({
 				url: "http://localhost:3000/user/auth",
 				method: "POST",

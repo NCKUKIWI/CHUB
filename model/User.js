@@ -1,5 +1,5 @@
 var mongoose = require("./mongoose");
-var uniqueValidator = require('mongoose-unique-validator');
+var uniqueValidator = require("mongoose-unique-validator");
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 /*
@@ -37,7 +37,7 @@ userSchema.methods.customMethod = function() {
 };
 */
 
-userSchema.plugin(uniqueValidator,{ message: 'UserId 已經使用過' });
+userSchema.plugin(uniqueValidator,{ message: "UserId 已經使用過" });
 var User = mongoose.model("User", userSchema);
 
 module.exports = User;

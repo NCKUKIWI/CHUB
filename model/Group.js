@@ -1,5 +1,5 @@
 var mongoose = require("./mongoose");
-var uniqueValidator = require('mongoose-unique-validator');
+var uniqueValidator = require("mongoose-unique-validator");
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 /*
@@ -21,7 +21,7 @@ Mutiple option
 var groupSchema = new Schema({
   Name:String,
   Type:String,
-  AdminID:[{type:ObjectId,ref:'User'}],
+  AdminID:[{type:ObjectId,ref:"User"}],
   Website:String,
   Description:String,
   CreateAt: { type: Date, default: Date.now }

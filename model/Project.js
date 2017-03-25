@@ -1,5 +1,5 @@
 var mongoose = require("./mongoose");
-var uniqueValidator = require('mongoose-unique-validator');
+var uniqueValidator = require("mongoose-unique-validator");
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 /*
@@ -25,8 +25,8 @@ var projectSchema = new Schema({
   Need:[String],
   Sponser:[String],
   Description:String,
-  AdminID:[{type:ObjectId,ref:'User'}],
-  GroupID:{type:ObjectId,ref:'Group'},
+  AdminID:[{type:ObjectId,ref:"User"}],
+  GroupID:{type:ObjectId,ref:"Group"},
   CreateAt: { type: Date, default: Date.now }
 });
 
