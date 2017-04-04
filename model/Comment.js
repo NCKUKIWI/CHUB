@@ -22,7 +22,6 @@ var commentSchema = new Schema({
   ProjectID:{type:ObjectId,ref:"Project"},
   ActivityID:{type:ObjectId,ref:"Activity"},
   Context:String,
-  IsRead:Boolean,
   PeopleID:{type:ObjectId,ref:"User"},
   ResCommentID:ObjectId,
   CreateAt: { type: Date, default: Date.now }

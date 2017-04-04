@@ -21,6 +21,7 @@ Mutiple option
 var groupSchema = new Schema({
   Name:String,
   Type:String,
+  MemberID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
   Website:String,
   Description:String,

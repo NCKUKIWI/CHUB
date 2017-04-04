@@ -22,6 +22,7 @@ var activitySchema = new Schema({
   Type:String,
   Description:String,
   Time:[Date],
+  MemberID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
   Context:String,
   GroupID:[{type:ObjectId,ref:"Group"}],
