@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require("../model/User");
 var Message = require("../model/Message");
 var config = require("../config");
+var helper = require("../helper");
 var graph = require("fbgraph");
 
 router.get("/", function(req,res) {
@@ -18,6 +19,7 @@ router.get("/", function(req,res) {
       filter["$or"].push({i:query[i]});
     }
   }
+  if(filter["$or"].length == 0) filter["$or"].push({});
   User.find(filter,function(err,users){
     res.render("users/index",{
       user:req.user,
@@ -36,11 +38,7 @@ router.post("/signup", function(req,res) {
   });
   newUser.save(function(err){
     if(err){
-      var errmsg =[];
-      for(var i in err.errors){
-        errmsg.push(err.errors[i].message);
-      }
-      res.send(errmsg);
+      res.send(helper.handleError(err));
     }else{
       res.send("ok");
     }
@@ -109,11 +107,7 @@ router.post("/update", function(req, res) {
   }
   User.findOneAndUpdate({_id:req.user._id},newData,function(err,user){
     if(err){
-      var errmsg =[];
-      for(var i in err.errors){
-        errmsg.push(err.errors[i].message);
-      }
-      res.send(errmsg);
+      res.send(helper.handleError(err));
     }else{
       res.send("ok");
     }
@@ -146,11 +140,7 @@ router.post("/msg/send", function(req,res) {
   });
   newMsg.save(function(err){
     if(err){
-      var errmsg =[];
-      for(var i in err.errors){
-        errmsg.push(err.errors[i].message);
-      }
-      res.send(errmsg);
+      res.send(helper.handleError(err));
     }else{
       res.send("ok");
     }

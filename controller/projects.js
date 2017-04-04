@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var helper = require("../helper");
 var Project = require("../model/Project");
 var Comment = require("../model/Comment");
 var User = require("../model/User");
@@ -7,7 +8,7 @@ var User = require("../model/User");
 var multer  = require('multer')
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null,`./upload/${req.user._id}`);
+    cb(null,`./upload/${req.body.group_id}`);
   },
   filename: function (req, file, cb) {
     var fileFormat = (file.originalname).split(".");
@@ -45,15 +46,15 @@ router.post("/create", function(req,res) {
   });
   newProject.save(function(err){
     if(err){
-      var errmsg =[];
-      for(var i in err.errors){
-        errmsg.push(err.errors[i].message);
-      }
-      res.send(errmsg);
+      res.send(helper.handleError(err));
     }else{
       res.send("ok");
     }
   });
+});
+
+router.post("/upload",upload.any(),function(req,res) {
+  res.send("ok");
 });
 
 router.get("/edit", function(req,res) {
@@ -62,16 +63,23 @@ router.get("/edit", function(req,res) {
   });
 });
 
-router.post("/addMenmber", function(req,res) {
+router.get("/apply/:id", function(req,res) {
   Project.findById(req.body.project_id, function(err, project) {
-    project.MemberID.push(req.body.user_id);
+    User.find({ _id:{ $in:project.ApplyID } },function(err,apply){
+      res.render("projects/apply",{
+        user:req.user,
+        apply:apply
+      });
+    });
+  });
+});
+
+router.post("/join", function(req,res) {
+  Project.findById(req.body.project_id, function(err, project) {
+    project.ApplyID.push(req.body.user_id);
     project.save(function(err) {
       if(err){
-        var errmsg =[];
-        for(var i in err.errors){
-          errmsg.push(err.errors[i].message);
-        }
-        res.send(errmsg);
+        res.send(helper.handleError(err));
       }else{
         res.send("ok");
       }
@@ -79,17 +87,39 @@ router.post("/addMenmber", function(req,res) {
   });
 });
 
-router.post("/delMember", function(req,res) {
+router.post("/quit", function(req,res) {
   Project.findById(req.body.project_id, function(err, project) {
-    var index = project.MemberID.indexOf(req.body.user_id);
-    project.MemberID.splice(index,1);
+    project.MemberID = helper.removeFromArray(project.MemberID,req.user._id);
     project.save(function(err) {
       if(err){
-        var errmsg =[];
-        for(var i in err.errors){
-          errmsg.push(err.errors[i].message);
-        }
-        res.send(errmsg);
+        res.send(helper.handleError(err));
+      }else{
+        res.send("ok");
+      }
+    });
+  });
+});
+
+router.post("/addMenmber/:pid/:uid", function(req,res) {
+  Project.findById(req.params.pid, function(err, project) {
+    project.ApplyID = helper.removeFromArray(project.ApplyID,req.params.uid);
+    project.MemberID.push(req.params.uid);
+    project.save(function(err) {
+      if(err){
+        res.send(helper.handleError(err));
+      }else{
+        res.send("ok");
+      }
+    });
+  });
+});
+
+router.post("/delMember/:pid/:uid", function(req,res) {
+  Project.findById(req.params.pid, function(err, project) {
+    project.MemberID = helper.removeFromArray(project.MemberID,req.params.uid);
+    project.save(function(err) {
+      if(err){
+        res.send(helper.handleError(err));
       }else{
         res.send("ok");
       }
@@ -105,26 +135,38 @@ router.post("/comment/create", function(req,res) {
   });
   newComment.save(function(err){
     if(err){
-      var errmsg =[];
-      for(var i in err.errors){
-        errmsg.push(err.errors[i].message);
-      }
-      res.send(errmsg);
+      res.send(helper.handleError(err));
     }else{
       res.send("ok");
     }
   });
 });
 
-router.post("/comment/delete", function(req,res) {
-  Comment.remove({ _id:req.body.comment_id }, function (err) {
+router.post("/comment/update/:id", function(req,res) {
+  Comment.findOneAndUpdate({ _id:req.params.id },{Context:req.body.context},function(err,comment){
+    if(err){
+      res.send(helper.handleError(err));
+    }else{
+      res.send("ok");
+    }
+  });
+});
+
+router.post("/comment/delete/:id", function(req,res) {
+  Comment.remove({ _id:req.params.id }, function (err) {
+    res.send("ok");
+  });
+});
+
+router.post("/delete/:id", function(req,res) {
+  Project.remove({ _id:req.params.id }, function (err) {
     res.send("ok");
   });
 });
 
 router.get("/:id", function(req,res) {
-  Project.findOne({_id:req.params.id},function(err,project){
-    User.find({ _id:{ $in:project.MemberID } },function(members){
+  Project.findById(req.params.id,function(err,project){
+    User.find({ _id:{ $in:project.MemberID } },function(err,members){
       res.render("projects/show",{
         user:req.user,
         project:project,
@@ -133,6 +175,5 @@ router.get("/:id", function(req,res) {
     });
   });
 });
-
 
 module.exports = router;

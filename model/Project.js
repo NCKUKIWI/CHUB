@@ -25,6 +25,7 @@ var projectSchema = new Schema({
   Need:[String],
   Sponser:[String],
   Description:String,
+  ApplyID:[{type:ObjectId,ref:"User"}],
   MemberID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
   GroupID:{type:ObjectId,ref:"Group"},

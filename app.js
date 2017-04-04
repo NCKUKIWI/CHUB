@@ -54,6 +54,10 @@ app.use("/user",users);
 //projects routes
 var projects = require("./controller/projects");
 app.use("/project",projects);
+
+//activities routes
+var activities = require("./controller/activities");
+app.use("/activty",activities);
 //insert
 
 app.listen( process.env.PORT || 3000);
