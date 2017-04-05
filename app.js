@@ -37,10 +37,6 @@ app.use(function(req, res, next) {
   }
 });
 
-app.get("/",function(req,res){
-  res.render("index");
-});
-
 //comments routes
 var comments = require("./controller/comments");
 app.use("/comment",comments);
@@ -57,6 +53,10 @@ app.use("/project",projects);
 var activities = require("./controller/activities");
 app.use("/activty",activities);
 //insert
+
+app.get("/*",function(req,res){
+  res.render("index");
+});
 
 app.listen( process.env.PORT || 3000);
 console.log("running on port 3000");

@@ -127,37 +127,6 @@ router.post("/delMember/:pid/:uid", function(req,res) {
   });
 });
 
-router.post("/comment/create", function(req,res) {
-  var newComment = new Comment({
-    ProjectID:req.body.project_id,
-    Context:req.body.context,
-    PeopleID:req.user._id
-  });
-  newComment.save(function(err){
-    if(err){
-      res.send(helper.handleError(err));
-    }else{
-      res.send("ok");
-    }
-  });
-});
-
-router.post("/comment/update/:id", function(req,res) {
-  Comment.findOneAndUpdate({ _id:req.params.id },{Context:req.body.context},function(err,comment){
-    if(err){
-      res.send(helper.handleError(err));
-    }else{
-      res.send("ok");
-    }
-  });
-});
-
-router.post("/comment/delete/:id", function(req,res) {
-  Comment.remove({ _id:req.params.id }, function (err) {
-    res.send("ok");
-  });
-});
-
 router.post("/delete/:id", function(req,res) {
   Project.remove({ _id:req.params.id }, function (err) {
     res.send("ok");
@@ -166,11 +135,14 @@ router.post("/delete/:id", function(req,res) {
 
 router.get("/:id", function(req,res) {
   Project.findById(req.params.id,function(err,project){
-    User.find({ _id:{ $in:project.MemberID } },function(err,members){
-      res.render("projects/show",{
-        user:req.user,
-        project:project,
-        members:members
+    Comment.find({ProjectID:project._id},function(err,comment){
+      User.find({ _id:{ $in:project.MemberID } },function(err,member){
+        res.render("projects/show",{
+          user:req.user,
+          project:project,
+          comment:comment,
+          member:member
+        });
       });
     });
   });

@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Activity = require("../model/Activity");
-
+var Comment = require("../model/Comment");
 
 router.get("/", function(req,res) {
   Activie.find({},function(err,activity){
@@ -42,27 +42,6 @@ router.post("/delete/:id", function(req,res) {
   });
 });
 
-router.post("/comment/create", function(req,res) {
-  var newComment = new Comment({
-    ActivityID:req.body.activity_id,
-    Context:req.body.context,
-    PeopleID:req.user._id
-  });
-  newComment.save(function(err){
-    if(err){
-      res.send(helper.handleError(err));
-    }else{
-      res.send("ok");
-    }
-  });
-});
-
-router.post("/comment/delete/:id", function(req,res) {
-  Comment.remove({ _id:req.params.id }, function (err) {
-    res.send("ok");
-  });
-});
-
 router.post("/join", function(req,res) {
   Activity.findById(req.body.activity_id, function(err, activity) {
     activity.MemberID.push(req.body.user_id);
@@ -91,11 +70,14 @@ router.post("/quit", function(req,res) {
 
 router.get("/:id", function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
-    User.find({ _id:{ $in:activity.MemberID } },function(err,members){
-      res.render("activities/show",{
-        user:req.user,
-        activity:activity,
-        members:members
+    Comment.find({ActivityID:activity._id},function(err,comment){
+      User.find({ _id:{ $in:activity.MemberID } },function(err,member){
+        res.render("activities/show",{
+          user:req.user,
+          activity:activity,
+          comment:comment,
+          members:members
+        });
       });
     });
   });
