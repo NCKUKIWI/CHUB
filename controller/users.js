@@ -21,7 +21,7 @@ router.get("/", function(req,res) {
   }
   if(filter["$or"].length == 0) filter["$or"].push({});
   User.find(filter,function(err,users){
-    res.render("users/index",{
+    res.send({
       user:req.user,
       users:users
     });
@@ -124,7 +124,7 @@ router.post("/update", function(req, res) {
     Email:req.body.email,
     Name:req.body.name,
     Major:req.body.major,
-    Talent:req.body.talent,
+    Talent:req.body.talent.split(","),
     Description:req.body.description,
     Website:req.body.website
   }
@@ -145,7 +145,7 @@ router.get("/logout", function(req, res) {
 
 router.get("/msg", function(req,res) {
   Message.find({ToID:req.user._id,ToIDType:"people"},function(err,msg){
-    res.render("users/msg",{
+    res.send({
       user:req.user,
       msg:msg
     });
@@ -154,7 +154,7 @@ router.get("/msg", function(req,res) {
 
 router.post("/msg/send", function(req,res) {
   var newMsg = new Message({
-    FromID:req.user._id,
+    FromID:req.user.UserID,
     ToID:req.body.toid,
     Context:req.body.context,
     IsRead:0,
@@ -172,10 +172,15 @@ router.post("/msg/send", function(req,res) {
 
 router.get("/:id", function(req,res) {
   User.findOne({UserID:req.params.id},function(err,user){
-    res.render("users/show",{
-      user:req.user,
-      showuser:user
-    });
+    if(user){
+      res.send({
+        user:req.user,
+        userInfo:user
+      });
+    }
+    else{
+      res.send("noUser");
+    }
   });
 });
 
