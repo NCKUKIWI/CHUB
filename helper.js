@@ -1,3 +1,13 @@
+var config = require("./config");
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: config.email.sender,
+      pass: config.email.pw
+    }
+});
+
 exports.handleError = function handleError(err) {
 	var errmsg = [];
 	for(var i in err.errors) {
@@ -12,4 +22,20 @@ exports.removeFromArray = function removeFromArray(arr,element) {
     arr.splice(index,1);
   }
   return arr;
+}
+
+exports.sendEmail = function sendEmail(toEmail,subject,text){
+	var options = {
+	  from: config.email.sender,
+	  to:toEmail,
+	  subject:subject,
+	  text:text
+	};
+	transporter.sendMail(options, function(error, info){
+	    if(error){
+	      console.log(error);
+	    }else{
+	      console.log('訊息發送: ' + info.response);
+	    }
+	});
 }

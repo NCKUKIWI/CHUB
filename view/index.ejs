@@ -1,1 +1,13 @@
+<% layout('./public/layout') %>
 index
+<script type="text/javascript">
+    $("document").ready(function() {
+        $.ajax({
+            type: "POST",
+            url: "/test",
+            success: function(response) {
+              console.log(response);
+            }
+        });
+    });
+</script>

@@ -7,7 +7,7 @@
 
 - [x] project/id: 回傳專案資訊 注意：member（成員以及待審核成員都要有）
 
-- [ ] project/upload: 上傳照片or影片
+- [x] project/upload: 上傳照片or影片
 - [x] project/addCommend: 回覆留言板
 - [x] project/reviseCommend: 修改留言
 - [x] project/deleteCommend: 刪除留言
@@ -28,4 +28,4 @@
 - [x] activity/cancel: 取消報名
 
 ## User
-- [ ] 會員註冊驗證信
+- [x] 會員註冊驗證信

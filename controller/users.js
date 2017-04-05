@@ -29,17 +29,18 @@ router.get("/", function(req,res) {
 });
 
 router.post("/signup", function(req,res) {
-  var newUser = new User({
+  var newUser = {
     UserID:req.body.userid,
     Password:req.body.pw,
     Name:req.body.name,
     Email:req.body.email,
-    Role:1,
-  });
-  newUser.save(function(err){
+    Role:0,
+  };
+  User.create(newUser,function(err,result){
     if(err){
       res.send(helper.handleError(err));
     }else{
+      helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
       res.send("ok");
     }
   });
@@ -75,8 +76,9 @@ router.get("/fbcheck", function(req,res) {
           res.redirect("/");
         }
         else{
-          User.create({ UserID:fb.id,Name:fb.name,Password:fb.id,Role:1}, function (err,result) {
+          User.create({ UserID:fb.id,Name:fb.name,Password:fb.id,Role:0}, function (err,result) {
             if (err) console.log(err);
+            helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
             res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
             res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
             res.redirect("/");
@@ -86,6 +88,27 @@ router.get("/fbcheck", function(req,res) {
     });
   }else{
     res.render("users/fblogin");
+  }
+});
+
+router.get("/emailauth", function(req, res){
+  if(req.query.user && req.query.id){
+    User.findOne({_id:req.query.id,UserID:req.query.user},function(err,user){
+      if(user){
+        user.Role = 1;
+        user.save(function(err){
+          if(err){
+            res.send(helper.handleError(err));
+          }else{
+            res.send("開通成功");
+          }
+        });
+      }else{
+        res.redirect("/");
+      }
+    });
+  }else{
+    res.redirect("/");
   }
 });
 
