@@ -1,5 +1,47 @@
 # API document
 
+## How to pass parameter
+
+### Body
+
+```js
+$.ajax({
+	type: "HTTP Method",
+	url: "/eample",
+	data:{
+    parameter1:"value1",
+    parameter2:"value2"
+  },
+	success: function(response) {
+    //Deal with response
+	}
+});
+```
+
+### Query
+
+```js
+$.ajax({
+	type: "HTTP Method",
+	url: "/example?parameter1=value1&parameter2=value2",
+	success: function(response) {
+    //Deal with response
+	}
+});
+```
+
+### Params
+
+```js
+$.ajax({
+	type: "HTTP Method",
+	url: "/example/parameter",
+	success: function(response) {
+    //Deal with response
+	}
+});
+```
+
 ## User
 
 ### GET /user/
