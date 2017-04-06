@@ -21,16 +21,10 @@ var upload = multer({
 
 router.get("/", function(req,res) {
   Project.find({},function(err,projects){
-    res.render("projects/index",{
+    res.send({
       user:req.user,
       projects:projects
     });
-  });
-});
-
-router.get("/new", function(req,res) {
-  res.render("projects/new",{
-    user:req.user
   });
 });
 
@@ -38,7 +32,7 @@ router.post("/create", function(req,res) {
   var newProject = new Project({
     Type:req.body.type,
     Time:req.body.time,
-    Goal:req.body.goals,
+    Goal:req.body.goal,
     Need:req.body.need.split(","),
     Description:req.body.description,
     MemberID:[req.user._id],
@@ -57,16 +51,10 @@ router.post("/upload",upload.any(),function(req,res) {
   res.send("ok");
 });
 
-router.get("/edit", function(req,res) {
-  res.render("projects/edit",{
-    user:req.user
-  });
-});
-
-router.get("/apply/:id", function(req,res) {
-  Project.findById(req.body.project_id, function(err, project) {
+router.get("/:id/apply", function(req,res) {
+  Project.findById(req.params.id, function(err, project) {
     User.find({ _id:{ $in:project.ApplyID } },function(err,apply){
-      res.render("projects/apply",{
+      res.send({
         user:req.user,
         apply:apply
       });
@@ -89,7 +77,7 @@ router.post("/join", function(req,res) {
 
 router.post("/quit", function(req,res) {
   Project.findById(req.body.project_id, function(err, project) {
-    project.MemberID = helper.removeFromArray(project.MemberID,req.user._id);
+    project.MemberID = helper.removeFromArray(project.MemberID,req.body.user_id);
     project.save(function(err) {
       if(err){
         res.send(helper.handleError(err));
@@ -100,8 +88,8 @@ router.post("/quit", function(req,res) {
   });
 });
 
-router.post("/addMenmber/:pid/:uid", function(req,res) {
-  Project.findById(req.params.pid, function(err, project) {
+router.post("/:id/addMember/:uid", function(req,res) {
+  Project.findById(req.params.id, function(err, project) {
     project.ApplyID = helper.removeFromArray(project.ApplyID,req.params.uid);
     project.MemberID.push(req.params.uid);
     project.save(function(err) {
@@ -114,8 +102,8 @@ router.post("/addMenmber/:pid/:uid", function(req,res) {
   });
 });
 
-router.post("/delMember/:pid/:uid", function(req,res) {
-  Project.findById(req.params.pid, function(err, project) {
+router.post("/:id/delMember/:uid", function(req,res) {
+  Project.findById(req.params.id, function(err, project) {
     project.MemberID = helper.removeFromArray(project.MemberID,req.params.uid);
     project.save(function(err) {
       if(err){
@@ -137,7 +125,7 @@ router.get("/:id", function(req,res) {
   Project.findById(req.params.id,function(err,project){
     Comment.find({ProjectID:project._id},function(err,comment){
       User.find({ _id:{ $in:project.MemberID } },function(err,member){
-        res.render("projects/show",{
+        res.send({
           user:req.user,
           project:project,
           comment:comment,

@@ -5,16 +5,10 @@ var Comment = require("../model/Comment");
 
 router.get("/", function(req,res) {
   Activie.find({},function(err,activity){
-    res.render("activities/index",{
+    res.send({
       user:req.user,
       activity:activity
     });
-  });
-});
-
-router.get("/new", function(req,res) {
-  res.render("activities/new",{
-    user:req.user
   });
 });
 
@@ -57,7 +51,7 @@ router.post("/join", function(req,res) {
 
 router.post("/quit", function(req,res) {
   Activity.findById(req.body.activity_id, function(err, activity) {
-    activity.MemberID = helper.removeFromArray(activity.MemberID,req.user._id);
+    activity.MemberID = helper.removeFromArray(activity.MemberID,req.body.user_id);
     activity.save(function(err) {
       if(err){
         res.send(helper.handleError(err));
@@ -72,7 +66,7 @@ router.get("/:id", function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     Comment.find({ActivityID:activity._id},function(err,comment){
       User.find({ _id:{ $in:activity.MemberID } },function(err,member){
-        res.render("activities/show",{
+        res.send({
           user:req.user,
           activity:activity,
           comment:comment,

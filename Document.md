@@ -46,6 +46,8 @@ $.ajax({
 
 ### GET /user/
 
+Get all users
+
 #### Request
 
 | Query | Requirement | Type |
@@ -74,6 +76,10 @@ $.ajax({
 
 ### POST /user/signup
 
+Create a user in db
+
+#### Request
+
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
 | userid   |  require  | string |
@@ -99,6 +105,10 @@ $.ajax({
 
 ### POST /user/auth
 
+Login a user
+
+#### Request
+
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
 | userid   |  require  | string |
@@ -115,6 +125,10 @@ $.ajax({
 "fail"
 
 ### POST /user/update
+
+Update a user's data
+
+#### Request
 
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
@@ -144,6 +158,8 @@ $.ajax({
 
 ### GET /user/msg
 
+Get user's message
+
 Need login
 
 #### Response
@@ -164,7 +180,11 @@ Need login
 
 ### POST /user/msg/send
 
+Send message to a user
+
 Need login
+
+#### Request
 
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
@@ -187,7 +207,11 @@ Need login
 ]
 ```
 
-### POST /user/:id
+### GET /user/:id
+
+Get one user's data
+
+#### Request
 
 | Query     | Requirement | Type |
 |----------|:-------------:|------:|
@@ -217,3 +241,492 @@ Need login
 #### Fail
 
 "noUser"
+
+## Comment
+
+### POST /comment/creat/
+
+Create a comment to project or activity
+
+Need login
+
+#### Request
+
+| Body     | Requirement | Type |
+|----------|:-------------:|------:|
+| project_id    |  option  | string |
+| activity_id   |  option  | string |
+| context   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+#### Fail
+
+```js
+[
+  "errormsg1",
+  "errormsg2",
+  "errormsg3"
+]
+```
+
+### POST /comment/update/:id
+
+Update the context of comment
+
+Need login
+
+#### Request
+
+| Params     | Requirement | Type |
+|----------|:-------------:|------:|
+| id    |  require  | string |
+
+| Body     | Requirement | Type |
+|----------|:-------------:|------:|
+| context   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+#### Fail
+
+```js
+[
+  "errormsg1",
+  "errormsg2",
+  "errormsg3"
+]
+```
+
+### POST /comment/delete/:id
+
+Delete one comment
+
+Need login
+
+#### Request
+
+| Params     | Requirement | Type |
+|----------|:-------------:|------:|
+| id    |  require  | string |
+
+#### Response
+
+"ok"
+
+### GET /project
+
+Get all projects
+
+#### Response
+
+```js
+{
+	projects:[{
+		Type:"type",
+	  Time:["date"],
+	  Goal:"goal",
+	  Need:["need"],
+	  Sponser:["sponser"],
+	  Description:"description",
+	  ApplyID:["applyid"],
+	  MemberID:["memberid"],
+	  AdminID:["adminid"],
+	  GroupID:"groupid",
+	  CreateAt:"createat"
+	}]
+}
+```
+
+### POST /project/creat/
+
+Create a project
+
+Need login
+
+#### Request
+
+| Body     | Requirement | Type |
+|----------|:-------------:|------:|
+| type   |  require  | string |
+| time   |  require  | string |
+| goal   |  require  | string |
+| need   |  require  | string |
+| description   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+#### Fail
+
+```js
+[
+  "errormsg1",
+  "errormsg2",
+  "errormsg3"
+]
+```
+
+### GET /project/:id/apply
+
+Show the user that apply for the project
+
+#### Request
+
+| Params     | Requirement | Type |
+|----------|:-------------:|------:|
+| id   |  require  | string |
+
+#### Response
+
+```js
+{
+	apply:[{
+    UserID:"UserID",
+    Email:"Email",
+    Password:"pw",
+    Name:"name",
+    Major:"major",
+    Talent:["talent"],
+    Description:"description",
+    Website:"website",
+    Role:"role",
+    CreateAt:"CreateAt"
+  }]
+}
+```
+
+## POST /project/join
+
+That user join a project
+
+#### Request
+
+| Body     | Requirement | Type |
+|----------|:-------------:|------:|
+| project_id   |  require  | string |
+| user_id   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+#### Fail
+
+```js
+[
+  "errormsg1",
+  "errormsg2",
+  "errormsg3"
+]
+```
+
+## POST /project/quit
+
+That user quit from a project
+
+#### Request
+
+| Body     | Requirement | Type |
+|----------|:-------------:|------:|
+| project_id   |  require  | string |
+| user_id   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+#### Fail
+
+```js
+[
+  "errormsg1",
+  "errormsg2",
+  "errormsg3"
+]
+```
+
+## POST /project/:id/addMember/:uid
+
+Allow user join the project
+
+#### Request
+
+| Params     | Requirement | Type |
+|----------|:-------------:|------:|
+| id   |  require  | string |
+| uid   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+#### Fail
+
+```js
+[
+  "errormsg1",
+  "errormsg2",
+  "errormsg3"
+]
+```
+
+## POST /project/:id/delMember/:uid
+
+Delete member form the project
+
+#### Request
+
+| Params     | Requirement | Type |
+|----------|:-------------:|------:|
+| id   |  require  | string |
+| uid   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+#### Fail
+
+```js
+[
+  "errormsg1",
+  "errormsg2",
+  "errormsg3"
+]
+```
+
+## POST /project/delete/:id
+
+Delete a project
+
+#### Request
+
+| Params     | Requirement | Type |
+|----------|:-------------:|------:|
+| id   |  require  | string |
+
+#### Response
+
+"ok"
+
+## GET /project/:id
+
+Get the infomation about the project
+
+#### Request
+
+| Params     | Requirement | Type |
+|----------|:-------------:|------:|
+| id   |  require  | string |
+
+#### Response
+
+```js
+{
+	project:{
+		Type:"type",
+	  Time:["date"],
+	  Goal:"goal",
+	  Need:["need"],
+	  Sponser:["sponser"],
+	  Description:"description",
+	  ApplyID:["applyid"],
+	  MemberID:["memberid"],
+	  AdminID:["adminid"],
+	  GroupID:"groupid",
+	  CreateAt:"createat"
+	},
+	comment:[{
+		ProjectID:"ProjectID",
+		Context:"context",
+		PeopleID:"PeopleID",
+		ResCommentID:"ResCommentID",
+		CreateAt:"CreateAt"
+	}]
+	,
+	member:[{
+	   UserID:"UserID",
+	   Email:"Email",
+	   Password:"pw",
+	   Name:"name",
+	   Major:"major",
+	   Talent:["talent"],
+	   Description:"description",
+	   Website:"website",
+	   Role:"role",
+	   CreateAt:"CreateAt"
+	 }]
+}
+```
+
+## Activity
+
+### GET /activity
+
+Get all activity
+
+#### Response
+
+```js
+{
+	activity:[{
+		Type:"type",
+		Description:"Description",
+		Time:["time"],
+		MemberID:["memberid"],
+		AdminID:["adminid"],
+		Context:"context",
+		GroupID:["groupid"],
+		CreateAt:"CreateAt"
+	}]
+}
+```
+
+### POST /activity/create
+
+Need login
+
+Create a activity
+
+#### Request
+
+| Body     | Requirement | Type |
+|----------|:-------------:|------:|
+| type   |  require  | string |
+| description   |  require  | string |
+| time   |  require  | string |
+| context   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+#### Fail
+
+```js
+[
+  "errormsg1",
+  "errormsg2",
+  "errormsg3"
+]
+```
+
+### POST /activity/join
+
+Join an activity
+
+#### Request
+
+| Body     | Requirement | Type |
+|----------|:-------------:|------:|
+| activity_id   |  require  | string |
+| user_id   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+#### Fail
+
+```js
+[
+  "errormsg1",
+  "errormsg2",
+  "errormsg3"
+]
+```
+
+### POST /activity/quit
+
+Quit from an activity
+
+#### Request
+
+| Body     | Requirement | Type |
+|----------|:-------------:|------:|
+| activity_id   |  require  | string |
+| user_id   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+#### Fail
+
+```js
+[
+  "errormsg1",
+  "errormsg2",
+  "errormsg3"
+]
+```
+
+### GET /activity/:id
+
+#### Request
+
+| Params     | Requirement | Type |
+|----------|:-------------:|------:|
+|  id   |  require  | string |
+
+#### Response
+
+```js
+{
+	activity:{
+		Type:"type",
+		Description:"Description",
+		Time:["time"],
+		MemberID:["memberid"],
+		AdminID:["adminid"],
+		Context:"context",
+		GroupID:["groupid"],
+		CreateAt:"CreateAt"
+	},
+	comment:[{
+		ProjectID:"ProjectID",
+		Context:"context",
+		PeopleID:"PeopleID",
+		ResCommentID:"ResCommentID",
+		CreateAt:"CreateAt"
+	}],
+	member:[{
+	   UserID:"UserID",
+	   Email:"Email",
+	   Password:"pw",
+	   Name:"name",
+	   Major:"major",
+	   Talent:["talent"],
+	   Description:"description",
+	   Website:"website",
+	   Role:"role",
+	   CreateAt:"CreateAt"
+	 }]
+}
+```
