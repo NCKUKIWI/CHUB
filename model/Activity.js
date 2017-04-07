@@ -19,6 +19,7 @@ Mutiple option
 */
 
 var activitySchema = new Schema({
+  Name:String,
   Type:String,
   Description:String,
   Time:[Date],

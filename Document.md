@@ -44,6 +44,33 @@ $.ajax({
 
 ## User
 
+### POST /user/loginStatus
+
+To check whether the session is login
+
+#### Response
+
+##### If session is login
+
+```js
+{
+	me:{
+    UserID:"UserID",
+    Email:"Email",
+    Name:"name",
+    Major:"major",
+    Talent:["talent"],
+    Description:"description",
+    Website:"website",
+    Role:"role"
+  }
+}
+```
+
+##### Not login
+
+"notLogins"
+
 ### GET /user/
 
 Get all users
@@ -62,14 +89,12 @@ Get all users
   users:[{
     UserID:"UserID",
     Email:"Email",
-    Password:"pw",
     Name:"name",
     Major:"major",
     Talent:["talent"],
     Description:"description",
     Website:"website",
-    Role:"role",
-    CreateAt:"CreateAt"
+    Role:"role"
   }]
 }
 ```
@@ -93,7 +118,7 @@ Create a user in db
 
 "ok"
 
-#### Fail
+##### Fail
 
 ```js
 [
@@ -120,7 +145,7 @@ Login a user
 
 "ok"
 
-#### Fail
+##### Fail
 
 "fail"
 
@@ -146,7 +171,7 @@ Update a user's data
 
 "ok"
 
-#### Fail
+##### Fail
 
 ```js
 [
@@ -197,7 +222,7 @@ Need login
 
 "ok"
 
-#### Fail
+##### Fail
 
 ```js
 [
@@ -223,24 +248,22 @@ Get one user's data
 
 ```js
 {
-  userInfo:{
+  user:{
     UserID:"UserID",
     Email:"Email",
-    Password:"pw",
     Name:"name",
     Major:"major",
     Talent:["talent"],
     Description:"description",
     Website:"website",
-    Role:"role",
-    CreateAt:"CreateAt"
+    Role:"role"
   }
 }
 ```
 
-#### Fail
+##### Fail
 
-"noUser"
+"notFound"
 
 ## Comment
 
@@ -264,7 +287,7 @@ Need login
 
 "ok"
 
-#### Fail
+##### Fail
 
 ```js
 [
@@ -296,7 +319,7 @@ Need login
 
 "ok"
 
-#### Fail
+##### Fail
 
 ```js
 [
@@ -320,7 +343,13 @@ Need login
 
 #### Response
 
+##### Success
+
 "ok"
+
+##### Fail
+
+"notFound"
 
 ### GET /project
 
@@ -346,7 +375,7 @@ Get all projects
 }
 ```
 
-### POST /project/creat/
+### POST /project/create/
 
 Create a project
 
@@ -356,6 +385,7 @@ Need login
 
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
+| name   |  require  | string |
 | type   |  require  | string |
 | time   |  require  | string |
 | goal   |  require  | string |
@@ -368,7 +398,7 @@ Need login
 
 "ok"
 
-#### Fail
+##### Fail
 
 ```js
 [
@@ -390,6 +420,8 @@ Show the user that apply for the project
 
 #### Response
 
+##### Success
+
 ```js
 {
 	apply:[{
@@ -407,6 +439,10 @@ Show the user that apply for the project
 }
 ```
 
+##### Fail
+
+"notFound"
+
 ## POST /project/join
 
 That user join a project
@@ -416,7 +452,6 @@ That user join a project
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
 | project_id   |  require  | string |
-| user_id   |  require  | string |
 
 #### Response
 
@@ -424,7 +459,9 @@ That user join a project
 
 "ok"
 
-#### Fail
+##### Fail
+
+"notFound"
 
 ```js
 [
@@ -443,7 +480,6 @@ That user quit from a project
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
 | project_id   |  require  | string |
-| user_id   |  require  | string |
 
 #### Response
 
@@ -451,7 +487,9 @@ That user quit from a project
 
 "ok"
 
-#### Fail
+##### Fail
+
+"notFound"
 
 ```js
 [
@@ -478,7 +516,7 @@ Allow user join the project
 
 "ok"
 
-#### Fail
+##### Fail
 
 ```js
 [
@@ -505,7 +543,7 @@ Delete member form the project
 
 "ok"
 
-#### Fail
+##### Fail
 
 ```js
 [
@@ -527,7 +565,15 @@ Delete a project
 
 #### Response
 
+##### Success
+
 "ok"
+
+##### Fail
+
+"notAdmin"
+
+"notFound"
 
 ## GET /project/:id
 
@@ -540,6 +586,8 @@ Get the infomation about the project
 | id   |  require  | string |
 
 #### Response
+
+##### Success
 
 ```js
 {
@@ -556,7 +604,7 @@ Get the infomation about the project
 	  GroupID:"groupid",
 	  CreateAt:"createat"
 	},
-	comment:[{
+	comments:[{
 		ProjectID:"ProjectID",
 		Context:"context",
 		PeopleID:"PeopleID",
@@ -564,7 +612,7 @@ Get the infomation about the project
 		CreateAt:"CreateAt"
 	}]
 	,
-	member:[{
+	members:[{
 	   UserID:"UserID",
 	   Email:"Email",
 	   Password:"pw",
@@ -578,6 +626,10 @@ Get the infomation about the project
 	 }]
 }
 ```
+
+##### Fail
+
+"notFound"
 
 ## Activity
 
@@ -612,6 +664,7 @@ Create a activity
 
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
+| name   |  require  | string |
 | type   |  require  | string |
 | description   |  require  | string |
 | time   |  require  | string |
@@ -652,6 +705,8 @@ Join an activity
 
 #### Fail
 
+"notFound"
+
 ```js
 [
   "errormsg1",
@@ -679,6 +734,8 @@ Quit from an activity
 
 #### Fail
 
+"notFound"
+
 ```js
 [
   "errormsg1",
@@ -697,6 +754,8 @@ Quit from an activity
 
 #### Response
 
+##### Success
+
 ```js
 {
 	activity:{
@@ -709,24 +768,26 @@ Quit from an activity
 		GroupID:["groupid"],
 		CreateAt:"CreateAt"
 	},
-	comment:[{
+	comments:[{
 		ProjectID:"ProjectID",
 		Context:"context",
 		PeopleID:"PeopleID",
 		ResCommentID:"ResCommentID",
 		CreateAt:"CreateAt"
 	}],
-	member:[{
+	members:[{
 	   UserID:"UserID",
 	   Email:"Email",
-	   Password:"pw",
 	   Name:"name",
 	   Major:"major",
 	   Talent:["talent"],
 	   Description:"description",
 	   Website:"website",
-	   Role:"role",
-	   CreateAt:"CreateAt"
+	   Role:"role"
 	 }]
 }
 ```
+
+##### Fail
+
+"notFound"

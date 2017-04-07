@@ -19,6 +19,7 @@ Mutiple option
 */
 
 var projectSchema = new Schema({
+  Name:String,
   Type:String,
   Time:[Date],
   Goal:String,

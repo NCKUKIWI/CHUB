@@ -39,3 +39,13 @@ exports.sendEmail = function sendEmail(toEmail,subject,text){
 	    }
 	});
 }
+
+exports.checkLogin = function checkLogin(){
+  return function(req, res, next) {
+    if (req.user) {
+      next();
+    } else {
+      res.send("notLogin");
+    }
+  }
+}

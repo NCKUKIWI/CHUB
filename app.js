@@ -27,7 +27,7 @@ app.use(session({
 app.use(cookieParser("secretString"));
 app.use(function(req, res, next) {
   if(req.cookies.isLogin){
-    User.findOne({ _id:req.cookies.id},function(err,user){
+    User.findOne({ _id:req.cookies.id},["_id","Email","Major","Talent","Description","Website","Role"],function(err,user){
       req.user = user;
       next();
     });

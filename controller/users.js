@@ -20,9 +20,9 @@ router.get("/", function(req,res) {
     }
   }
   if(filter["$or"].length == 0) filter["$or"].push({});
-  User.find(filter,function(err,users){
+  User.find(filter,["_id","Email","Major","Talent","Description","Website","Role"],function(err,users){
     res.send({
-      user:req.user,
+      me:req.user,
       users:users
     });
   });
@@ -40,14 +40,14 @@ router.post("/signup", function(req,res) {
     if(err){
       res.send(helper.handleError(err));
     }else{
-      helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
+      //helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
       res.send("ok");
     }
   });
 });
 
 router.post("/auth", function(req, res) {
-  User.findOne({UserID:req.body.userid},function(err,user){
+  User.findOne({UserID:req.body.userid},["UserID","Password"],function(err,user){
     if(user){
       if(user.Password===req.body.pw){
         res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
@@ -69,7 +69,7 @@ router.get("/fblogin", function(req, res) {
 router.get("/fbcheck", function(req,res) {
   if(req.query.access_token){
     graph.get(`/me?fields=id,name,email,gender&access_token=${req.query.access_token}`,function(err,fb){
-      User.findOne({UserID:fb.id},function(err,user){
+      User.findOne({UserID:fb.id},"_id",function(err,user){
         if(user){
           res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
           res.cookie("id",user._id,{maxAge: 60 * 60 * 1000});
@@ -93,7 +93,7 @@ router.get("/fbcheck", function(req,res) {
 
 router.get("/emailauth", function(req, res){
   if(req.query.user && req.query.id){
-    User.findOne({_id:req.query.id,UserID:req.query.user},function(err,user){
+    User.findOne({_id:req.query.id,UserID:req.query.user},["_id","Role"],function(err,user){
       if(user){
         user.Role = 1;
         user.save(function(err){
@@ -112,13 +112,7 @@ router.get("/emailauth", function(req, res){
   }
 });
 
-router.get("/edit", function(req, res) {
-  res.render("users/edit",{
-    user:req.user
-  });
-});
-
-router.post("/update", function(req, res) {
+router.post("/update",helper.checkLogin(),function(req, res) {
   var newData = {
     UserID:req.body.userid,
     Email:req.body.email,
@@ -143,16 +137,16 @@ router.get("/logout", function(req, res) {
   res.redirect("/");
 });
 
-router.get("/msg", function(req,res) {
-  Message.find({ToID:req.user._id,ToIDType:"people"},function(err,msg){
+router.get("/msg",helper.checkLogin(),function(req,res) {
+  Message.find({ToID:req.user._id,ToIDType:"people"}).populate('PeopleID').exec(function(err,msg){
     res.send({
-      user:req.user,
+      me:req.user,
       msg:msg
     });
   });
 });
 
-router.post("/msg/send", function(req,res) {
+router.post("/msg/send",helper.checkLogin(),function(req,res) {
   var newMsg = new Message({
     FromID:req.user.UserID,
     ToID:req.body.toid,
@@ -170,16 +164,26 @@ router.post("/msg/send", function(req,res) {
   });
 });
 
+router.post("/loginStatus", function(req,res) {
+  if(req.user){
+    res.send({
+      me:req.user
+    });
+  }else{
+    res.send("notLogin");
+  }
+});
+
 router.get("/:id", function(req,res) {
-  User.findOne({UserID:req.params.id},function(err,user){
+  User.findOne({UserID:req.params.id},["_id","Email","Major","Talent","Description","Website","Role"],function(err,user){
     if(user){
       res.send({
-        user:req.user,
-        userInfo:user
+        me:req.user,
+        user:user
       });
     }
     else{
-      res.send("noUser");
+      res.send("notFound");
     }
   });
 });
