@@ -71,6 +71,8 @@ To check whether the session is login
 
 "notLogins"
 
+- - -
+
 ### GET /user/
 
 Get all users
@@ -98,6 +100,8 @@ Get all users
   }]
 }
 ```
+
+- - -
 
 ### POST /user/signup
 
@@ -128,6 +132,8 @@ Create a user in db
 ]
 ```
 
+- - -
+
 ### POST /user/auth
 
 Login a user
@@ -148,6 +154,8 @@ Login a user
 ##### Fail
 
 "fail"
+
+- - -
 
 ### POST /user/update
 
@@ -181,6 +189,8 @@ Update a user's data
 ]
 ```
 
+- - -
+
 ### GET /user/msg
 
 Get user's message
@@ -202,6 +212,8 @@ Need login
   }]
 }
 ```
+
+- - -
 
 ### POST /user/msg/send
 
@@ -231,6 +243,8 @@ Need login
   "errormsg3"
 ]
 ```
+
+- - -
 
 ### GET /user/:id
 
@@ -265,6 +279,8 @@ Get one user's data
 
 "notFound"
 
+- - -
+
 ## Comment
 
 ### POST /comment/creat/
@@ -296,6 +312,8 @@ Need login
   "errormsg3"
 ]
 ```
+
+- - -
 
 ### POST /comment/update/:id
 
@@ -329,6 +347,8 @@ Need login
 ]
 ```
 
+- - -
+
 ### POST /comment/delete/:id
 
 Delete one comment
@@ -350,6 +370,8 @@ Need login
 ##### Fail
 
 "notFound"
+
+- - -
 
 ### GET /project
 
@@ -374,6 +396,8 @@ Get all projects
 	}]
 }
 ```
+
+- - -
 
 ### POST /project/create/
 
@@ -407,6 +431,8 @@ Need login
   "errormsg3"
 ]
 ```
+
+- - -
 
 ### GET /project/:id/apply
 
@@ -443,7 +469,9 @@ Show the user that apply for the project
 
 "notFound"
 
-## POST /project/join
+- - -
+
+### POST /project/join
 
 That user join a project
 
@@ -471,7 +499,9 @@ That user join a project
 ]
 ```
 
-## POST /project/quit
+- - -
+
+### POST /project/quit
 
 That user quit from a project
 
@@ -499,7 +529,9 @@ That user quit from a project
 ]
 ```
 
-## POST /project/:id/addMember/:uid
+- - -
+
+### POST /project/:id/addMember/:uid
 
 Allow user join the project
 
@@ -526,7 +558,9 @@ Allow user join the project
 ]
 ```
 
-## POST /project/:id/delMember/:uid
+- - -
+
+### POST /project/:id/delMember/:uid
 
 Delete member form the project
 
@@ -553,7 +587,9 @@ Delete member form the project
 ]
 ```
 
-## POST /project/delete/:id
+- - -
+
+### POST /project/delete/:id
 
 Delete a project
 
@@ -575,7 +611,9 @@ Delete a project
 
 "notFound"
 
-## GET /project/:id
+- - -
+
+### GET /project/:id
 
 Get the infomation about the project
 
@@ -610,8 +648,7 @@ Get the infomation about the project
 		PeopleID:"PeopleID",
 		ResCommentID:"ResCommentID",
 		CreateAt:"CreateAt"
-	}]
-	,
+	}],
 	members:[{
 	   UserID:"UserID",
 	   Email:"Email",
@@ -630,6 +667,8 @@ Get the infomation about the project
 ##### Fail
 
 "notFound"
+
+- - -
 
 ## Activity
 
@@ -654,6 +693,8 @@ Get all activity
 }
 ```
 
+- - -
+
 ### POST /activity/create
 
 Need login
@@ -676,7 +717,7 @@ Create a activity
 
 "ok"
 
-#### Fail
+##### Fail
 
 ```js
 [
@@ -685,6 +726,8 @@ Create a activity
   "errormsg3"
 ]
 ```
+
+- - -
 
 ### POST /activity/join
 
@@ -703,7 +746,7 @@ Join an activity
 
 "ok"
 
-#### Fail
+##### Fail
 
 "notFound"
 
@@ -714,6 +757,8 @@ Join an activity
   "errormsg3"
 ]
 ```
+
+- - -
 
 ### POST /activity/quit
 
@@ -732,7 +777,7 @@ Quit from an activity
 
 "ok"
 
-#### Fail
+##### Fail
 
 "notFound"
 
@@ -743,6 +788,8 @@ Quit from an activity
   "errormsg3"
 ]
 ```
+
+- - -
 
 ### GET /activity/:id
 
