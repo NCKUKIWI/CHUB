@@ -9,11 +9,11 @@ $.ajax({
 	type: "HTTP Method",
 	url: "/eample",
 	data:{
-    parameter1:"value1",
-    parameter2:"value2"
-  },
+    		parameter1:"value1",
+    		parameter2:"value2"
+  	},
 	success: function(response) {
-    //Deal with response
+    		//Deal with response
 	}
 });
 ```
@@ -25,7 +25,7 @@ $.ajax({
 	type: "HTTP Method",
 	url: "/example?parameter1=value1&parameter2=value2",
 	success: function(response) {
-    //Deal with response
+    		//Deal with response
 	}
 });
 ```
@@ -37,7 +37,7 @@ $.ajax({
 	type: "HTTP Method",
 	url: "/example/parameter",
 	success: function(response) {
-    //Deal with response
+    		//Deal with response
 	}
 });
 ```
