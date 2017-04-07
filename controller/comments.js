@@ -20,20 +20,20 @@ router.post("/create",helper.checkLogin(),function(req,res) {
     }
     newComment.save(function(err){
       if(err){
-        res.send(helper.handleError(err));
+        res.send({error:helper.handleError(err)});
       }else{
         res.send("ok");
       }
     });
   }else{
-    res.send("noID");
+    res.send({error:"noID"});
   }
 });
 
 router.post("/update/:id",helper.checkLogin(),function(req,res) {
   Comment.findOneAndUpdate({ _id:req.params.id },{Context:req.body.context},function(err,comment){
     if(err){
-      res.send(helper.handleError(err));
+      res.send({error:helper.handleError(err)});
     }else{
       res.send("ok");
     }
@@ -47,7 +47,7 @@ router.post("/delete/:id",helper.checkLogin(),function(req,res) {
         res.send("ok");
       });
     }else{
-      res.send("notFound");
+      res.send({error:"notFound"});
     }
   });
 });

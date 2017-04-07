@@ -69,7 +69,11 @@ To check whether the session is login
 
 ##### Not login
 
-"notLogins"
+```js
+{
+	error:"notLogin"
+}
+```
 
 - - -
 
@@ -125,11 +129,13 @@ Create a user in db
 ##### Fail
 
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -153,7 +159,11 @@ Login a user
 
 ##### Fail
 
-"fail"
+```js
+{
+	error:"errormsg"
+}
+```
 
 - - -
 
@@ -182,11 +192,13 @@ Update a user's data
 ##### Fail
 
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -237,11 +249,13 @@ Need login
 ##### Fail
 
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -277,7 +291,11 @@ Get one user's data
 
 ##### Fail
 
-"notFound"
+```js
+{
+	error:"errormsg"
+}
+```
 
 - - -
 
@@ -306,11 +324,13 @@ Need login
 ##### Fail
 
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -340,11 +360,13 @@ Need login
 ##### Fail
 
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -369,7 +391,11 @@ Need login
 
 ##### Fail
 
-"notFound"
+```js
+{
+	error:"errormsg"
+}
+```
 
 - - -
 
@@ -425,11 +451,13 @@ Need login
 ##### Fail
 
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -467,7 +495,11 @@ Show the user that apply for the project
 
 ##### Fail
 
-"notFound"
+```js
+{
+	error:"errormsg"
+}
+```
 
 - - -
 
@@ -489,14 +521,14 @@ That user join a project
 
 ##### Fail
 
-"notFound"
-
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -519,14 +551,14 @@ That user quit from a project
 
 ##### Fail
 
-"notFound"
-
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -551,11 +583,13 @@ Allow user join the project
 ##### Fail
 
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -580,11 +614,13 @@ Delete member form the project
 ##### Fail
 
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -607,9 +643,11 @@ Delete a project
 
 ##### Fail
 
-"notAdmin"
-
-"notFound"
+```js
+{
+	error:"errormsg1"
+}
+```
 
 - - -
 
@@ -666,7 +704,11 @@ Get the infomation about the project
 
 ##### Fail
 
-"notFound"
+```js
+{
+	error:"errormsg"
+}
+```
 
 - - -
 
@@ -720,11 +762,13 @@ Create a activity
 ##### Fail
 
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -751,11 +795,13 @@ Join an activity
 "notFound"
 
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -782,11 +828,13 @@ Quit from an activity
 "notFound"
 
 ```js
-[
-  "errormsg1",
-  "errormsg2",
-  "errormsg3"
-]
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
 ```
 
 - - -
@@ -837,4 +885,8 @@ Quit from an activity
 
 ##### Fail
 
-"notFound"
+```js
+{
+	error:"errormsg"
+}
+```

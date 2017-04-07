@@ -38,7 +38,7 @@ router.post("/signup", function(req,res) {
   };
   User.create(newUser,function(err,result){
     if(err){
-      res.send(helper.handleError(err));
+      res.send({error:helper.handleError(err)});
     }else{
       //helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
       res.send("ok");
@@ -54,10 +54,10 @@ router.post("/auth", function(req, res) {
         res.cookie("id", user._id,{maxAge: 60 * 60 * 1000});
         res.send("ok");
       }else{
-        res.send("fail");
+        res.send({error:"pwError"});
       }
     }else{
-      res.send("fail");
+      res.send({error:"notFound"});
     }
   });
 });
@@ -98,7 +98,7 @@ router.get("/emailauth", function(req, res){
         user.Role = 1;
         user.save(function(err){
           if(err){
-            res.send(helper.handleError(err));
+            res.send({error:helper.handleError(err)});
           }else{
             res.send("開通成功");
           }
@@ -124,7 +124,7 @@ router.post("/update",helper.checkLogin(),function(req, res) {
   }
   User.findOneAndUpdate({_id:req.user._id},newData,function(err,user){
     if(err){
-      res.send(helper.handleError(err));
+      res.send({error:helper.handleError(err)});
     }else{
       res.send("ok");
     }
@@ -157,7 +157,7 @@ router.post("/msg/send",helper.checkLogin(),function(req,res) {
   });
   newMsg.save(function(err){
     if(err){
-      res.send(helper.handleError(err));
+      res.send({error:helper.handleError(err)});
     }else{
       res.send("ok");
     }
@@ -170,7 +170,7 @@ router.post("/loginStatus", function(req,res) {
       me:req.user
     });
   }else{
-    res.send("notLogin");
+    res.send({error:"notLogin"});
   }
 });
 
@@ -183,7 +183,7 @@ router.get("/:id", function(req,res) {
       });
     }
     else{
-      res.send("notFound");
+      res.send({error:"notFound"});
     }
   });
 });

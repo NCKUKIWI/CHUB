@@ -25,7 +25,7 @@ router.get("/create",helper.checkLogin(),function(req,res) {
   });
   newActivity.save(function(err){
     if(err){
-      res.send(helper.handleError(err));
+      res.send({error:helper.handleError(err)});
     }else{
       res.send("ok");
     }
@@ -40,10 +40,10 @@ router.post("/delete/:id",helper.checkLogin(),function(req,res) {
           res.send("ok");
         });
       }else{
-        res.send("notAdmin");
+        res.send({error:"notAdmin"});
       }
     }else{
-      res.send("notFound");
+      res.send({error:"notFound"});
     }
   });
 });
@@ -54,13 +54,13 @@ router.post("/join",helper.checkLogin(),function(req,res) {
       activity.MemberID.push(req.body.user_id);
       activity.save(function(err) {
         if(err){
-          res.send(helper.handleError(err));
+          res.send({error:helper.handleError(err)});
         }else{
           res.send("ok");
         }
       });
     }else{
-      res.send("notFound");
+      res.send({error:"notFound"});
     }
   });
 });
@@ -71,14 +71,14 @@ router.post("/quit",helper.checkLogin(),function(req,res) {
       activity.MemberID = helper.removeFromArray(activity.MemberID,req.body.user_id);
       activity.save(function(err) {
         if(err){
-          res.send(helper.handleError(err));
+          res.send({error:helper.handleError(err)});
         }else{
           res.send("ok");
         }
       });
     }
     else{
-      res.send("notFound");
+      res.send({error:"notFound"});
     }
   });
 });
@@ -97,7 +97,7 @@ router.get("/:id", function(req,res) {
         });
       });
     }else{
-      res.send("notFound");
+      res.send({error:"notFound"});
     }
   });
 });
