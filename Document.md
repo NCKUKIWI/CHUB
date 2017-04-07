@@ -54,7 +54,7 @@ To check whether the session is login
 
 ```js
 {
-	me:{
+  me:{
     UserID:"UserID",
     Email:"Email",
     Name:"name",
