@@ -32,10 +32,14 @@ router.post("/create",helper.checkLogin(),function(req,res) {
 
 router.post("/update/:id",helper.checkLogin(),function(req,res) {
   Comment.findOneAndUpdate({ _id:req.params.id },{Context:req.body.context},function(err,comment){
-    if(err){
-      res.send({error:helper.handleError(err)});
+    if(comment){
+      if(err){
+        res.send({error:helper.handleError(err)});
+      }else{
+        res.send("ok");
+      }
     }else{
-      res.send("ok");
+      res.send({error:"notFound"});
     }
   });
 });

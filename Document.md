@@ -437,10 +437,51 @@ Need login
 |----------|:-------------:|------:|
 | name   |  require  | string |
 | type   |  require  | string |
-| time   |  require  | string |
+| time   |  require  | string split by , |
 | goal   |  require  | string |
-| need   |  require  | string |
+| need   |  require  | string split by , |
 | description   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+##### Fail
+
+```js
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
+```
+
+- - -
+
+### POST /project/update/:id
+
+Update a project
+
+Need login
+
+#### Request
+
+| Params     | Requirement | Type |
+|----------|:-------------:|------:|
+| id   |  require  | string |
+
+| Body     | Requirement | Type |
+|----------|:-------------:|------:|
+| name   |  require  | string |
+| type  |  require  | string |
+| time  |  require  | string split by , |
+| goal  |  require  | string |
+| need  |  require  | string split by , |
+| description  |  require  | string |
 
 #### Response
 
@@ -750,8 +791,48 @@ Create a activity
 | name   |  require  | string |
 | type   |  require  | string |
 | description   |  require  | string |
-| time   |  require  | string |
+| time   |  require  | string split by , |
 | context   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+##### Fail
+
+```js
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
+```
+
+- - -
+
+### POST /activity/update/:id
+
+Update an activity
+
+Need login
+
+#### Request
+
+| Params     | Requirement | Type |
+|----------|:-------------:|------:|
+| id   |  require  | string |
+
+| Body     | Requirement | Type |
+|----------|:-------------:|------:|
+| name   |  require  | string |
+| type  |  require  | string |
+| time  |  require  | string split by , |
+| context  |  require  | string |
+| description  |  require  | string |
 
 #### Response
 

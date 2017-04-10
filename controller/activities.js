@@ -18,7 +18,7 @@ router.get("/create",helper.checkLogin(),function(req,res) {
     Name:req.body.name,
     Type:req.body.type,
     Description:req.body.description,
-    Time:req.body.time,
+    Time:req.body.time.split(","),
     MemberID:[req.user._id],
     AdminID:[req.user._id],
     Context:req.body.context
@@ -30,6 +30,27 @@ router.get("/create",helper.checkLogin(),function(req,res) {
       res.send("ok");
     }
   })
+});
+
+router.post("/update/:id",helper.checkLogin(),function(req,res) {
+  var updateData = {
+    Name:req.body.name,
+    Type:req.body.type,
+    Description:req.body.description,
+    Time:req.body.time.split(","),
+    Context:req.body.context
+  }
+  Activity.findOneAndUpdate({ _id:req.params.id },updateData,function(err,activity){
+    if(activity){
+      if(err){
+        res.send({error:helper.handleError(err)});
+      }else{
+        res.send("ok");
+      }
+    }else{
+      res.send({error:"notFound"});
+    }
+  });
 });
 
 router.post("/delete/:id",helper.checkLogin(),function(req,res) {

@@ -45,7 +45,7 @@ exports.checkLogin = function checkLogin(){
     if (req.user) {
       next();
     } else {
-      res.send("notLogin");
+      res.send({error:"notLogin"});
     }
   }
 }

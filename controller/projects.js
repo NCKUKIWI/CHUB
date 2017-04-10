@@ -52,6 +52,28 @@ router.post("/upload",upload.any(),function(req,res) {
   res.send("ok");
 });
 
+router.post("/update/:id",helper.checkLogin(),function(req,res) {
+  var updateData = {
+    Name:req.body.name,
+    Type:req.body.type,
+    Time:req.body.time.split(","),
+    Goal:req.body.goal,
+    Need:req.body.need.split(","),
+    Description:req.body.description
+  }
+  Project.findOneAndUpdate({ _id:req.params.id },updateData,function(err,project){
+    if(project){
+      if(err){
+        res.send({error:helper.handleError(err)});
+      }else{
+        res.send("ok");
+      }
+    }else{
+      res.send({error:"notFound"});
+    }
+  });
+});
+
 router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
     if(project){
