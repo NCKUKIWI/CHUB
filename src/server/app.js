@@ -5,8 +5,26 @@ var session = require("express-session");
 var cookieParser = require("cookie-parser");
 var path = require("path");
 var User = require("./model/User");
-
 var app = express();
+
+
+//webpack setting
+// var webpack = require('webpack');
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import config from '../../webpack.config'
+
+const compiler = webpack(config)
+
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath,
+  stats: { colors: true },
+}))
+
+app.use(webpackHotMiddleware(compiler))
+
+////
 
 app.engine("ejs", engine);
 app.set("views",path.join(__dirname,"view"));  //view的路徑位在資料夾view中
@@ -55,8 +73,9 @@ app.use("/activty",activities);
 //insert
 
 app.get("/*",function(req,res){
-  res.render("index");
+  res.render("index.ejs");
 });
 
 app.listen( process.env.PORT || 3000);
 console.log("running on port 3000");
+
