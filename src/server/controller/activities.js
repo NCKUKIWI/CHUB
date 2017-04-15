@@ -13,7 +13,7 @@ router.get("/", function(req,res) {
   });
 });
 
-router.get("/create",helper.checkLogin(),function(req,res) {
+router.post("/create",helper.checkLogin(),function(req,res) {
   var newActivity = new Activity({
     Name:req.body.name,
     Type:req.body.type,

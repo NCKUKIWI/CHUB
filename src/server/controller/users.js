@@ -29,9 +29,8 @@ router.get("/", function(req,res) {
 });
 
 router.post("/signup", function(req,res) {
-  // console.log(req.body);
   var newUser = {
-    UserID:req.body.email, // 先設相同
+    UserID:req.body.email,
     Password:req.body.password,
     Name:req.body.username,
     Email:req.body.email,
@@ -42,30 +41,10 @@ router.post("/signup", function(req,res) {
       res.send({error:helper.handleError(err)});
     }else{
       //helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
-      console.log(newUser.UserID + " is create successfully.");
-      res.redirect('/')
+      res.send("ok");
     }
   });
 });
-
-// router.post("/login", function(req,res) {
-//   console.log(req.body);
-//   var findUser= {
-//     UserID:req.body.username, // 先設相同
-//     Password:req.body.password,
-//   };
-//   User.find(findUser,function(err,result){
-//     if(err){
-//       res.send({error:helper.handleError(err)});
-//     }else{
-//       //helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
-//       console.log(findUser.UserID + " is find successfully.");
-//       res.redirect('/')
-//     }
-//   });
-// });
-
-
 
 router.post("/auth", function(req, res) {
   User.findOne({UserID:req.body.userid},["UserID","Password"],function(err,user){
@@ -73,8 +52,7 @@ router.post("/auth", function(req, res) {
       if(user.Password===req.body.password){
         res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
         res.cookie("id", user._id,{maxAge: 60 * 60 * 1000});
-        // res.send("ok");
-        console.log("log in")
+        res.send("ok");
       }else{
         res.send({error:"pwError"});
       }

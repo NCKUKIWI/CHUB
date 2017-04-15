@@ -47,9 +47,13 @@ router.post("/update/:id",helper.checkLogin(),function(req,res) {
 router.post("/delete/:id",helper.checkLogin(),function(req,res) {
   Comment.findById(req.params.id,function(err,comment){
     if(comment){
-      comment.remove(function (err) {
-        res.send("ok");
-      });
+      if(comment.PeopleID==req.user._id){
+        comment.remove(function (err) {
+          res.send("ok");
+        });
+      }else{
+        res.send({error:"notAdmin"});
+      }
     }else{
       res.send({error:"notFound"});
     }
