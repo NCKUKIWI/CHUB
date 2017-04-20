@@ -70,6 +70,10 @@ app.use("/project",projects);
 //activities routes
 var activities = require("./controller/activities");
 app.use("/activty",activities);
+
+//groups routes
+var groups = require("./controller/groups");
+app.use("/group",groups);
 //insert
 
 app.get("/*",function(req,res){
