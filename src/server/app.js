@@ -55,10 +55,6 @@ app.use(function(req, res, next) {
   }
 });
 
-//comments routes
-var comments = require("./controller/comments");
-app.use("/comment",comments);
-
 //users routes
 var users = require("./controller/users");
 app.use("/user",users);
@@ -74,6 +70,10 @@ app.use("/activty",activities);
 //groups routes
 var groups = require("./controller/groups");
 app.use("/group",groups);
+
+//messages routes
+var messages = require("./controller/messages");
+app.use("/message",messages);
 //insert
 
 app.get("/*",function(req,res){

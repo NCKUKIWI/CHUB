@@ -146,24 +146,6 @@ router.get("/msg",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/msg/send",helper.checkLogin(),function(req,res) {
-  var newMsg = new Message({
-    FromID:req.user.UserID,
-    ToID:req.body.toid,
-    Context:req.body.context,
-    IsRead:0,
-    FromIDType:"people",
-    ToIDType:"people",
-  });
-  newMsg.save(function(err){
-    if(err){
-      res.send({error:helper.handleError(err)});
-    }else{
-      res.send("ok");
-    }
-  });
-});
-
 router.post("/loginStatus", function(req,res) {
   if(req.user){
     res.send({
