@@ -227,39 +227,6 @@ Need login
 
 - - -
 
-### POST /user/msg/send
-
-Send message to a user
-
-Need login
-
-#### Request
-
-| Body     | Requirement | Type |
-|----------|:-------------:|------:|
-| toid   |  require  | string |
-| context   |  require  | string |
-
-#### Response
-
-##### Success
-
-"ok"
-
-##### Fail
-
-```js
-{
-	error:[
-	  "errormsg1",
-	  "errormsg2",
-	  "errormsg3"
-	]
-}
-```
-
-- - -
-
 ### GET /user/:id
 
 Get one user's data
@@ -299,105 +266,7 @@ Get one user's data
 
 - - -
 
-## Comment
-
-### POST /comment/creat/
-
-Create a comment to project or activity
-
-Need login
-
-#### Request
-
-| Body     | Requirement | Type |
-|----------|:-------------:|------:|
-| project_id    |  option  | string |
-| activity_id   |  option  | string |
-| context   |  require  | string |
-
-#### Response
-
-##### Success
-
-"ok"
-
-##### Fail
-
-```js
-{
-	error:[
-	  "errormsg1",
-	  "errormsg2",
-	  "errormsg3"
-	]
-}
-```
-
-- - -
-
-### POST /comment/update/:id
-
-Update the context of comment
-
-Need login
-
-#### Request
-
-| Params     | Requirement | Type |
-|----------|:-------------:|------:|
-| id    |  require  | string |
-
-| Body     | Requirement | Type |
-|----------|:-------------:|------:|
-| context   |  require  | string |
-
-#### Response
-
-##### Success
-
-"ok"
-
-##### Fail
-
-```js
-{
-	error:[
-	  "errormsg1",
-	  "errormsg2",
-	  "errormsg3"
-	]
-}
-```
-
-- - -
-
-### POST /comment/delete/:id
-
-Delete one comment
-
-Need login
-
-#### Request
-
-| Params     | Requirement | Type |
-|----------|:-------------:|------:|
-| id    |  require  | string |
-
-#### Response
-
-##### Success
-
-"ok"
-
-##### Fail
-
-```js
-{
-	error:"errormsg"
-}
-```
-
-- - -
+## Project
 
 ### GET /project
 
@@ -969,5 +838,70 @@ Quit from an activity
 ```js
 {
 	error:"errormsg"
+}
+```
+
+- - -
+
+## Message
+
+### POST /message/send
+
+Send message
+
+need login
+
+#### Request
+
+| Body     | Requirement | Type |
+|----------|:-------------:|------:|
+| toid   |  require  | string |
+| context   |  require  | string |
+| toidtype  |  require  | string |
+| fromidtype   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+##### Fail
+
+```js
+{
+	error:[
+	  "errormsg1",
+	  "errormsg2",
+	  "errormsg3"
+	]
+}
+```
+
+- - -
+
+### POST /message/delete/:id
+
+Delete message
+
+need login
+
+#### Request
+
+| Query     | Requirement | Type |
+|----------|:-------------:|------:|
+| id   |  require  | string |
+
+#### Response
+
+##### Success
+
+"ok"
+
+##### Fail
+
+```js
+{
+	error:"errormsg1"
 }
 ```
