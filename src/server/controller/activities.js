@@ -107,14 +107,12 @@ router.post("/quit",helper.checkLogin(),function(req,res) {
 router.get("/:id", function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){
-      Comment.find({ActivityID:activity._id}).populate('PeopleID').exec(function(err,comments){
-        User.find({ _id:{ $in:activity.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,member){
-          res.send({
-            me:req.user,
-            activity:activity,
-            comments:comments,
-            members:members
-          });
+      User.find({ _id:{ $in:activity.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,member){
+        res.send({
+          me:req.user,
+          activity:activity,
+          comments:comments,
+          members:members
         });
       });
     }else{

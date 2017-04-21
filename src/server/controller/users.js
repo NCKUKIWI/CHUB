@@ -138,7 +138,7 @@ router.get("/logout", function(req, res) {
 });
 
 router.get("/msg",helper.checkLogin(),function(req,res) {
-  Message.find({ToID:req.user._id,ToIDType:"people"}).populate('PeopleID').exec(function(err,msg){
+  Message.find({ToID:req.user._id,ToIDType:"people"}).exec(function(err,msg){
     res.send({
       me:req.user,
       msg:msg

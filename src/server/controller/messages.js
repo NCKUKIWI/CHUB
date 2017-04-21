@@ -3,8 +3,15 @@ var router = express.Router();
 var Message = require("../model/Message");
 
 router.post("/send",helper.checkLogin(),function(req,res) {
+  var fromid = "";
+  if(req.body.fromtype=="group"){
+    fromid=req.body.groupid;
+  }
+  else{
+    fromid=req.user._id;
+  }
   var newMsg = new Message({
-    FromID:req.user._id,
+    FromID:fromid,
     ToID:req.body.toid,
     Context:req.body.context,
     IsRead:0,

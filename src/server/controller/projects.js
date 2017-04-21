@@ -177,14 +177,12 @@ router.post("/delete/:id",helper.checkLogin(),function(req,res) {
 router.get("/:id",function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
-      Comment.find({ProjectID:project._id}).populate('PeopleID').exec(function(err,comments){
-        User.find({ _id:{ $in:project.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,members){
-          res.send({
-            me:req.user,
-            project:project,
-            commenst:comments,
-            members:members
-          });
+      User.find({ _id:{ $in:project.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,members){
+        res.send({
+          me:req.user,
+          project:project,
+          commenst:comments,
+          members:members
         });
       });
     }

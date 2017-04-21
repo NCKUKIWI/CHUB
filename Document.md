@@ -855,10 +855,11 @@ need login
 
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
+| groupid   |  require  | option |
 | toid   |  require  | string |
 | context   |  require  | string |
-| toidtype  |  require  | string |
-| fromidtype   |  require  | string |
+| totype  |  require  | string |
+| fromtype   |  require  | string |
 
 #### Response
 
