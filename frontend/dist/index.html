@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport" name="viewport">
+	<title>Test</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+  <script type="text/javascript" src="js/paper-full.min.js"></script>
+  <script type="text/paperscript" canvas="myCanvas">
+    // Create a Paper.js Path to draw a line into it:
+    var path = new Path();
+    // Give the stroke a color
+    path.strokeColor = 'black';
+    var start = new Point(100, 100);
+    // Move to start and draw a line from there
+    path.moveTo(start);
+    // Note the plus operator on Point objects.
+    // PaperScript does that for us, and much more!
+    path.lineTo(start + [ 100, -50 ]);
+  </script>
+  <script type="text/paperscript" canvas="myCanvas2">
+    // Create a circle shaped path with its center at the center
+    // of the view and a radius of 30:
+    var path = new Path.Circle({
+      center: view.center,
+      radius: 30,
+      strokeColor: 'black'
+    });
+
+    function onResize(event) {
+      // Whenever the window is resized, recenter the path:
+      path.position = view.center;
+    }
+  </script>
+
+</head>
+
+<body>
+
+<canvas id="myCanvas" resize></canvas>
+<canvas id="myCanvas2" resize="true"></canvas>
+
+
+希望可以一次完成完成people, project, ... 依序這樣
+但每次都要給確定版
+
+
+flow - 4/20
+
+People - 4/30
+
+主頁動畫 - 4/30
+
+側邊欄 - 4/30
+
+Group - 5/15
+
+Project - 5/15
+
+Activity - 5/15
+
+About - 5/30
+
+Space - 5/30
+
+What's on - 5/30
+
+後台 - 5/30
+
+
+
+
+以上所有補上
+自己完成，供測試時間：
+
+
+
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+</body>
+
+
+</html>
+
+
