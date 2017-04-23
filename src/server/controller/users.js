@@ -30,7 +30,7 @@ router.get("/", function(req,res) {
 
 router.post("/signup", function(req,res) {
   var newUser = {
-    UserID:req.body.email,
+    UserID:req.body.userid,
     Password:req.body.password,
     Name:req.body.username,
     Email:req.body.email,

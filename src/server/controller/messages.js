@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var helper = require("../helper");
 var Message = require("../model/Message");
 
 router.post("/send",helper.checkLogin(),function(req,res) {
