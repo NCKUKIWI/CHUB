@@ -2,6 +2,9 @@ var path = require('path')
 var webpack = require('webpack')
 var utils = require('./build/utils')
 var vueLoaderConfig = require('./build/vue-loader.conf')
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+// import './src/client/assets/css/semantic.css'
 
 function resolve (dir) {
   return path.join(__dirname, dir, 'client')
@@ -10,8 +13,8 @@ function resolve (dir) {
 module.exports = {
   entry: path.join(__dirname, 'src/client/main.js'),
   output: {
-    path: path.join(__dirname, 'src/server/public/javascripts/'),
-    publicPath: '/javascripts/',
+    path: path.join(__dirname, 'src/client/assets/js/'),
+    publicPath: '/js/',
     filename: 'build.js'
   },
   resolve: {
@@ -23,15 +26,15 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.(js|vue)$/,
-      //   loader: 'eslint-loader',
-      //   enforce: 'pre',
-      //   include: [resolve('src'), resolve('test')],
-      //   options: {
-      //     formatter: require('eslint-friendly-formatter')
-      //   }
-      // },
+      {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        include: [resolve('src'), resolve('test')],
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -58,10 +61,15 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
+      // {
+      //   test: /\.css$/,
+      //   loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
+      // }
     ]
   },
   devtool: '#cheap-module-eval-source-map',
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    // new ExtractTextPlugin({ filename: 'css/[name].css', disable: false, allChunks: true })
   ]
 }
