@@ -1,0 +1,78 @@
+<template>
+  <div id="All_project">
+    <div class="head">
+      <h1>Project</h1>
+      <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
+      <a class="ui button">search</a>
+    </div>
+    <div class="results">
+      <p>Project Results</p>
+      
+      <div class="ui special cards">
+        <div class="card">
+          <div class="blurring dimmable image">
+            <div class="ui inverted dimmer">
+            <div class="content">
+              <div class="center">
+                <div class="ui primary button info" v-on:click="show">Info</div>
+              </div>
+            </div>
+            </div>
+            <img src="../assets/images/project.png">
+          </div>
+          <div class="content">
+            <a class="header">Project 1</a>
+            <div class="meta">
+            <span class="date">Type: culture</span>
+            </div>
+          </div>
+          <div class="extra content">
+            <a>
+            <i class="users icon"></i>
+            3 members
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui modal projectInfo">
+      <i class="close icon"></i>
+      <div class="header">
+        Project
+      </div>
+      <div class="image content">
+        <div class="ui medium image">
+          <img src="../assets/images/project.png">
+        </div>
+        <div class="description">
+          <div class="ui header">We've auto-chosen a profile image for you.</div>
+          <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+          <p>Is it okay to use this photo?</p>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui blue button">
+          Text Me
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+
+
+<script>
+export default {
+  name: 'All_project',
+  methods: {
+    show: function () {
+      $('.projectInfo').modal('show')
+    }
+  },
+  mounted: function () {
+    $('.special.cards .image').dimmer({
+      on: 'hover'
+    })
+  }
+}
+</script>

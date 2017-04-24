@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Message = require("../model/Message");
+var helper = require("../helper");
 
 router.post("/send",helper.checkLogin(),function(req,res) {
   var fromid = "";
