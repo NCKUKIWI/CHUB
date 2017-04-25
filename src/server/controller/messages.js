@@ -5,21 +5,41 @@ var Message = require("../model/Message");
 var helper = require("../helper");
 
 router.post("/send",helper.checkLogin(),function(req,res) {
-  var fromid = "";
-  if(req.body.fromtype=="group"){
-    fromid=req.body.groupid;
+  var newMsg;
+  if(req.body.fromgid){
+    if(req.body.togid){
+      newMsg = new Message({
+        Context:req.body.context,
+        IsRead:0,
+        FromGID:req.body.fromgid,
+        ToGID:req.body.togid
+      });
+    }else{
+      newMsg = new Message({
+        ToUID:req.body.touid,
+        Context:req.body.context,
+        IsRead:0,
+        FromGID:req.body.fromgid,
+      });
+    }
   }
   else{
-    fromid=req.user._id;
+    if(req.body.togid){
+      newMsg = new Message({
+        FromUID:req.user._id,
+        Context:req.body.context,
+        IsRead:0,
+        ToGID:req.body.togid
+      });
+    }else{
+      newMsg = new Message({
+        FromUID:req.user._id,
+        ToUID:req.user.touid,
+        Context:req.body.context,
+        IsRead:0,
+      });
+    }
   }
-  var newMsg = new Message({
-    FromID:fromid,
-    ToID:req.body.toid,
-    Context:req.body.context,
-    IsRead:0,
-    FromIDType:req.body.fromtype,
-    ToIDType:req.body.totype,
-  });
   newMsg.save(function(err){
     if(err){
       res.send({error:helper.handleError(err)});

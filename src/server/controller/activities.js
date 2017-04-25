@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 var helper = require("../helper");
 var Activity = require("../model/Activity");
-var Comment = require("../model/Comment");
 
 router.get("/", function(req,res) {
   Activie.find({},function(err,activity){
@@ -14,15 +13,29 @@ router.get("/", function(req,res) {
 });
 
 router.post("/create",helper.checkLogin(),function(req,res) {
-  var newActivity = new Activity({
-    Name:req.body.name,
-    Type:req.body.type,
-    Description:req.body.description,
-    Time:req.body.time.split(","),
-    MemberID:[req.user._id],
-    AdminID:[req.user._id],
-    Context:req.body.context
-  });
+  var newActivity;
+  if(req.body.group_id){
+    newActivity = new Activity({
+      Name:req.body.name,
+      Type:req.body.type,
+      Description:req.body.description,
+      Time:req.body.time.split(","),
+      MemberID:[req.user._id],
+      AdminID:[req.user._id],
+      GroupID:req.body.group_id,
+      Context:req.body.context
+    });
+  }else{
+    newActivity = new Activity({
+      Name:req.body.name,
+      Type:req.body.type,
+      Description:req.body.description,
+      Time:req.body.time.split(","),
+      MemberID:[req.user._id],
+      AdminID:[req.user._id],
+      Context:req.body.context
+    });
+  }
   newActivity.save(function(err){
     if(err){
       res.send({error:helper.handleError(err)});

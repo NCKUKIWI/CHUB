@@ -51,7 +51,12 @@ router.post("/update/:id",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.get("/:id/apply",helper.checkLogin(),function(req,res) {
+router.get("/:id/apply",function(req,res) {
+  /*
+  Group.findById(req.params.id).populate("ApplyID","_id Email Major Talent Description Website Role").exec(function(err,data){
+    res.send({data});
+  });
+  */
   Group.findById(req.params.id, function(err, group) {
     if(group){
       User.find({ _id:{ $in:group.ApplyID } },function(err,apply){
@@ -142,6 +147,25 @@ router.post("/delete/:id",helper.checkLogin(),function(req,res) {
       if(group.AdminID.indexOf(req.user._id)!==-1){
         group.remove(function(err){
           res.send("ok");
+        });
+      }else{
+        res.send({error:"notAdmin"});
+      }
+    }else{
+      res.send({error:"notFound"});
+    }
+  });
+});
+
+router.get("/:id/msg",helper.checkLogin(),function(req,res) {
+  Group.findById(req.params.id,function(err,group){
+    if(group){
+      if(groupa.AdminID.indexOf(req.user._id)!=-1){
+        Message.find({ToGID:req.params.id}).populate("FromUID").populate("FromGID").exec(function(err,msg){
+          res.send({
+            me:req.user,
+            msg:msg
+          });
         });
       }else{
         res.send({error:"notAdmin"});

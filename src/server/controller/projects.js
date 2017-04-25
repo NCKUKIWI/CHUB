@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 var helper = require("../helper");
 var Project = require("../model/Project");
-var Comment = require("../model/Comment");
 var User = require("../model/User");
 
 var multer  = require('multer')
@@ -29,16 +28,32 @@ router.get("/", function(req,res) {
 });
 
 router.post("/create",helper.checkLogin(),function(req,res) {
-  var newProject = new Project({
-    Name:req.body.name,
-    Type:req.body.type,
-    Time:req.body.time.split(","),
-    Goal:req.body.goal,
-    Need:req.body.need.split(","),
-    Description:req.body.description,
-    MemberID:[req.user._id],
-    AdminID:[req.user._id]
-  });
+  var newProject;
+  if(req.body.group_id){
+    newProject = new Project({
+      Name:req.body.name,
+      Type:req.body.type,
+      Time:req.body.time.split(","),
+      Goal:req.body.goal,
+      Need:req.body.need.split(","),
+      Description:req.body.description,
+      MemberID:[req.user._id],
+      AdminID:[req.user._id],
+      GroupID:req.body.group_id
+    });
+  }else{
+    newProject = new Project({
+      Name:req.body.name,
+      Type:req.body.type,
+      Time:req.body.time.split(","),
+      Goal:req.body.goal,
+      Need:req.body.need.split(","),
+      Description:req.body.description,
+      MemberID:[req.user._id],
+      AdminID:[req.user._id],
+      GroupID:req.body.group_id
+    });
+  }
   newProject.save(function(err){
     if(err){
       res.send({error:helper.handleError(err)});
@@ -77,7 +92,7 @@ router.post("/update/:id",helper.checkLogin(),function(req,res) {
 router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
     if(project){
-      User.find({ _id:{ $in:project.ApplyID } },function(err,apply){
+      User.find({ _id:{ $in:project.ApplyID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,apply){
         res.send({
           me:req.user,
           apply:apply

@@ -19,8 +19,8 @@ Mutiple option
 */
 
 var projectSchema = new Schema({
-  Name:String,
-  Type:String,
+  Name:{type:String,required:[true,"請輸入專案名稱"]},
+  Type:{type:String,required:[true,"請選擇專案類型"]},
   Time:[Date],
   Goal:String,
   Need:[String],

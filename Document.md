@@ -304,6 +304,7 @@ Need login
 
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
+| group_id  |  option  | string |
 | name   |  require  | string |
 | type   |  require  | string |
 | time   |  require  | string split by , |
@@ -657,6 +658,7 @@ Create a activity
 
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
+| group_id  |  option  | string |
 | name   |  require  | string |
 | type   |  require  | string |
 | description   |  require  | string |
@@ -855,11 +857,10 @@ need login
 
 | Body     | Requirement | Type |
 |----------|:-------------:|------:|
-| groupid   |  require  | option |
-| toid   |  require  | string |
+| fromgid   |  option  | string |
+| touid   |  option  | string |
+| togid  |  option  | string |
 | context   |  require  | string |
-| totype  |  require  | string |
-| fromtype   |  require  | string |
 
 #### Response
 

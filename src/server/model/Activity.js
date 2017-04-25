@@ -19,14 +19,14 @@ Mutiple option
 */
 
 var activitySchema = new Schema({
-  Name:String,
-  Type:String,
+  Name:{type:String,required:[true,"請輸入活動名稱"]},
+  Type:{type:String,required:[true,"請選擇活動類型"]},
   Description:String,
   Time:[Date],
   MemberID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
-  Context:String,
-  GroupID:[{type:ObjectId,ref:"Group"}],
+  Context:{type:String,required:[true,"請輸入活動說明"]},
+  GroupID:{type:ObjectId,ref:"Group"},
   CreateAt: { type: Date, default: Date.now }
 });
 

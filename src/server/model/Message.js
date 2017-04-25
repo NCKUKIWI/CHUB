@@ -19,12 +19,12 @@ Mutiple option
 */
 
 var messageSchema = new Schema({
-  FromID:ObjectId,
-  ToID:ObjectId,
-  Context:String,
+  FromUID:{type:ObjectId,ref:"User"},
+  ToUID:{type:ObjectId,ref:"User"},
+  FromGID:{type:ObjectId,ref:"Group"},
+  ToGID:{type:ObjectId,ref:"Group"},
+  Context:{type:String,required:[true,"請輸入訊息名稱"]},
   IsRead:Boolean,
-  FromIDType:String,
-  ToIDType:String,
   CreateAt: { type: Date, default: Date.now }
 });
 

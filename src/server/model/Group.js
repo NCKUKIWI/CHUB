@@ -19,8 +19,8 @@ Mutiple option
 */
 
 var groupSchema = new Schema({
-  Name:String,
-  Type:String,
+  Name:{type:String,required:[true,"請輸入組織名稱"]},
+  Type:{type:String,required:[true,"請選擇組織類型"]},
   MemberID:[{type:ObjectId,ref:"User"}],
   ApplyID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
