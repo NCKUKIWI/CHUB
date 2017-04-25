@@ -7,16 +7,11 @@
     "test": "mocha --timeout=20000",
     "start": "node ./node_modules/nodemon/bin/nodemon index.js"
   },
-  "bin": {
-    "mvc": "./bin/mvc.js"
-  },
   "author": "CHUB",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
-    "ejs": "^2.4.2",
-    "ejs-locals": "^1.0.2",
     "express": "^4.14.0",
     "express-session": "^1.14.0",
     "fbgraph": "^1.4.1",
@@ -26,8 +21,7 @@
     "nodemailer": "^3.1.8",
     "nodemon": "^1.9.2",
     "vue": "^2.2.2",
-    "vue-router": "^2.3.0",
-    "yargs": "^7.0.2"
+    "vue-router": "^2.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
@@ -54,6 +48,7 @@
     "gulp-load-plugins": "^1.2.4",
     "gulp-sass": "^2.3.2",
     "mocha": "^3.2.0",
+    "node-sass": "^4.5.2",
     "request": "^2.81.0",
     "sass-loader": "^6.0.3",
     "should": "^11.2.1",

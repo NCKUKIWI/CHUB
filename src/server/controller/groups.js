@@ -59,7 +59,7 @@ router.get("/:id/apply",function(req,res) {
   */
   Group.findById(req.params.id, function(err, group) {
     if(group){
-      User.find({ _id:{ $in:group.ApplyID } },function(err,apply){
+      User.find({ _id:{ $in:group.ApplyID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,apply){
         res.send({
           me:req.user,
           apply:apply

@@ -6,10 +6,6 @@
 npm install
 ```
 
-```sh
-npm link
-```
-
 ## Test
 
 ```sh
