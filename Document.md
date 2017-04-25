@@ -44,7 +44,7 @@ $.ajax({
 
 ## User
 
-### POST /user/loginStatus
+### POST /users/loginStatus
 
 To check whether the session is login
 
@@ -77,7 +77,7 @@ To check whether the session is login
 
 - - -
 
-### GET /user/
+### GET /users/
 
 Get all users
 
@@ -107,7 +107,7 @@ Get all users
 
 - - -
 
-### POST /user/signup
+### POST /users/signup
 
 Create a user in db
 
@@ -140,7 +140,7 @@ Create a user in db
 
 - - -
 
-### POST /user/auth
+### POST /users/auth
 
 Login a user
 
@@ -167,7 +167,7 @@ Login a user
 
 - - -
 
-### POST /user/update
+### POST /users/update
 
 Update a user's data
 
@@ -203,7 +203,7 @@ Update a user's data
 
 - - -
 
-### GET /user/msg
+### GET /users/msg
 
 Get user's message
 
@@ -227,7 +227,7 @@ Need login
 
 - - -
 
-### GET /user/:id
+### GET /users/:id
 
 Get one user's data
 
@@ -268,7 +268,7 @@ Get one user's data
 
 ## Project
 
-### GET /project
+### GET /projects
 
 Get all projects
 
@@ -294,7 +294,7 @@ Get all projects
 
 - - -
 
-### POST /project/create/
+### POST /projects/create/
 
 Create a project
 
@@ -332,7 +332,7 @@ Need login
 
 - - -
 
-### POST /project/update/:id
+### POST /projects/update/:id
 
 Update a project
 
@@ -373,7 +373,7 @@ Need login
 
 - - -
 
-### GET /project/:id/apply
+### GET /projects/:id/apply
 
 Show the user that apply for the project
 
@@ -414,7 +414,7 @@ Show the user that apply for the project
 
 - - -
 
-### POST /project/join
+### POST /projects/join
 
 That user join a project
 
@@ -444,7 +444,7 @@ That user join a project
 
 - - -
 
-### POST /project/quit
+### POST /projects/quit
 
 That user quit from a project
 
@@ -474,7 +474,7 @@ That user quit from a project
 
 - - -
 
-### POST /project/:id/addMember/:uid
+### POST /projects/:id/addMember/:uid
 
 Allow user join the project
 
@@ -505,7 +505,7 @@ Allow user join the project
 
 - - -
 
-### POST /project/:id/delMember/:uid
+### POST /projects/:id/delMember/:uid
 
 Delete member form the project
 
@@ -536,7 +536,7 @@ Delete member form the project
 
 - - -
 
-### POST /project/delete/:id
+### POST /projects/delete/:id
 
 Delete a project
 
@@ -562,7 +562,7 @@ Delete a project
 
 - - -
 
-### GET /project/:id
+### GET /projects/:id
 
 Get the infomation about the project
 
@@ -625,7 +625,7 @@ Get the infomation about the project
 
 ## Activity
 
-### GET /activity
+### GET /activities
 
 Get all activity
 
@@ -648,7 +648,7 @@ Get all activity
 
 - - -
 
-### POST /activity/create
+### POST /activities/create
 
 Need login
 
@@ -685,7 +685,7 @@ Create a activity
 
 - - -
 
-### POST /activity/update/:id
+### POST /activities/update/:id
 
 Update an activity
 
@@ -725,7 +725,7 @@ Need login
 
 - - -
 
-### POST /activity/join
+### POST /activities/join
 
 Join an activity
 
@@ -758,7 +758,7 @@ Join an activity
 
 - - -
 
-### POST /activity/quit
+### POST /activities/quit
 
 Quit from an activity
 
@@ -791,7 +791,7 @@ Quit from an activity
 
 - - -
 
-### GET /activity/:id
+### GET /activities/:id
 
 #### Request
 
@@ -847,7 +847,7 @@ Quit from an activity
 
 ## Message
 
-### POST /message/send
+### POST /messages/send
 
 Send message
 
@@ -882,7 +882,7 @@ need login
 
 - - -
 
-### POST /message/delete/:id
+### POST /messages/delete/:id
 
 Delete message
 

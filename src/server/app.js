@@ -1,5 +1,4 @@
 var express = require("express");
-var engine = require("ejs-locals");             //讓express支援layout
 var bodyParser = require("body-parser");
 var session = require("express-session");
 var cookieParser = require("cookie-parser");
@@ -24,11 +23,8 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler))
 
-////
-
-app.engine("ejs", engine);
 app.set("views",path.join(__dirname,"view"));  //view的路徑位在資料夾view中
-app.set("view engine","ejs");                   //使用ejs作為template
+app.set("view engine","ejs");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -57,23 +53,23 @@ app.use(function(req, res, next) {
 
 //users routes
 var users = require("./controller/users");
-app.use("/user",users);
+app.use("/users",users);
 
 //projects routes
 var projects = require("./controller/projects");
-app.use("/project",projects);
+app.use("/projects",projects);
 
 //activities routes
 var activities = require("./controller/activities");
-app.use("/activty",activities);
+app.use("/activties",activities);
 
 //groups routes
 var groups = require("./controller/groups");
-app.use("/group",groups);
+app.use("/groups",groups);
 
 //messages routes
 var messages = require("./controller/messages");
-app.use("/message",messages);
+app.use("/messages",messages);
 //insert
 
 app.get("/*",function(req,res){
