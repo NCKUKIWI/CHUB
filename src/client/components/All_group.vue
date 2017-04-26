@@ -7,7 +7,6 @@
     </div>
     <div class="results">
       <p>Group Results</p>
-      
       <div class="ui special cards">
         <div class="card">
           <div class="blurring dimmable image">

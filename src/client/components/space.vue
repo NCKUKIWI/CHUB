@@ -9,3 +9,13 @@
     </div>
   </div>
 </template>
+<script>
+$(document).ready(function() {
+  new CHECKFRONT.Widget({
+    host: 'chub.checkfront.com',
+    target: 'CHECKFRONT_WIDGET_01',
+    options: 'tabs',
+    provider: 'droplet'
+  }).render()
+})
+</script>
