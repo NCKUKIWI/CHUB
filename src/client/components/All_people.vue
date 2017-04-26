@@ -7,7 +7,7 @@
     </div>
     <div class="results">
       <p>People Results</p>
-      
+
       <div class="ui special cards">
         <div class="card">
           <div class="blurring dimmable image">
@@ -97,4 +97,3 @@ export default {
   }
 }
 </script>
-
