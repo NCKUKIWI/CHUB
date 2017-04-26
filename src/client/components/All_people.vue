@@ -6,7 +6,7 @@
       <a class="ui button">search</a>
     </div>
     <div class="results">
-      <p>People Results</p>
+      <p>People 總覽</p>
       
       <div class="ui special cards">
         <div class="card">
@@ -33,7 +33,7 @@
             </a>
           </div>
         </div>
-        <div class="card">
+        <div class="card" v-for="user in users">
           <div class="blurring dimmable image">
             <div class="ui inverted dimmer">
             <div class="content">
@@ -45,7 +45,7 @@
             <img src="../assets/images/molly.png">
           </div>
           <div class="content">
-            <a class="header">Team Hess</a>
+            <a class="header">{{user.Email}}</a>
             <div class="meta">
             <span class="date">Major in Statics</span>
             </div>
@@ -53,7 +53,7 @@
           <div class="extra content">
             <a>
             <i class="users icon"></i>
-            3 skills
+            0 skills
             </a>
           </div>
         </div>
@@ -85,16 +85,28 @@
 
 <script>
 export default {
+  data: function() {
+    return {
+      users: []
+    }
+  },
   methods: {
     show: function () {
       $('.personalInfo').modal('show')
+      this.$emit('show')
     }
   },
   mounted: function () {
+    var obj = this
     $('.special.cards .image').dimmer({
       on: 'hover'
+    })
+    $.get('http://localhost:3000/users/').then(function(res) {
+      obj.$nextTick(function() {
+        obj.users = res.users
+        console.log(this.users)
+      })
     })
   }
 }
 </script>
-
