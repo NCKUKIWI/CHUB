@@ -7,7 +7,6 @@
     </div>
     <div class="results">
       <p>People 總覽</p>
-      
       <div class="ui special cards">
         <div class="card">
           <div class="blurring dimmable image">
