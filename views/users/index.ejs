@@ -1,0 +1,80 @@
+<% layout('../public/layout') %>
+<div id="All_people">
+    <div class="head">
+        <h1>People</h1>
+        <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
+        <a class="ui button">search</a>
+    </div>
+    <div class="results">
+        <p>People 總覽</p>
+        <div class="ui special cards">
+            <div class="card">
+                <div class="blurring dimmable image">
+                    <div class="ui dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <div class="ui inverted button info" v-on:click="show">Info</div>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="../assets/images/matthew.png">
+                </div>
+                <div class="content">
+                    <a class="header">Team Fu</a>
+                    <div class="meta">
+                        <span class="date">Major in Information & Inductional Management</span>
+                    </div>
+                </div>
+                <div class="extra content">
+                    <a>
+                        <i class="users icon"></i> 2 skills
+                    </a>
+                </div>
+            </div>
+            <div class="card" v-for="user in users">
+                <div class="blurring dimmable image">
+                    <div class="ui inverted dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <div class="ui primary button info" v-on:click="show">Info</div>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="../assets/images/molly.png">
+                </div>
+                <div class="content">
+                    <a class="header">{{user.Email}}</a>
+                    <div class="meta">
+                        <span class="date">Major in Statics</span>
+                    </div>
+                </div>
+                <div class="extra content">
+                    <a>
+                        <i class="users icon"></i> 0 skills
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui modal personalInfo">
+        <i class="close icon"></i>
+        <div class="header">
+            Profile
+        </div>
+        <div class="image content">
+            <div class="ui medium image">
+                <img src="../assets/images/rachel.png">
+            </div>
+            <div class="description">
+                <div class="ui header">We've auto-chosen a profile image for you.</div>
+                <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+                <p>Is it okay to use this photo?</p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui blue button">
+                Text Me
+            </div>
+        </div>
+    </div>
+</div>
