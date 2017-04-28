@@ -92,14 +92,18 @@ router.post("/update/:id",helper.checkLogin(),function(req,res) {
 router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
     if(project){
-      User.find({ _id:{ $in:project.ApplyID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,apply){
-        res.send({
-          me:req.user,
-          apply:apply
+      if(project.AdminID.indexOf(req.user._id)!==-1){
+        User.find({ _id:{ $in:project.ApplyID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,apply){
+          res.send({
+            me:req.user,
+            apply:apply
+          });
         });
-      });
+      }else{
+        res.redirect("back");
+      }
     }else{
-      res.send({error:"notFound"});
+      res.redirect("back");
     }
   });
 });
@@ -191,14 +195,18 @@ router.post("/delete/:id",helper.checkLogin(),function(req,res) {
 
 router.get("/:id",function(req,res) {
   Project.findById(req.params.id,function(err,project){
-    User.find({ _id:{ $in:project.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,members){
-      res.render("projects/show",{
-        me:req.user,
-        project:project,
-        commenst:comments,
-        members:members
+    if(project){
+      User.find({ _id:{ $in:project.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,members){
+        res.render("projects/show",{
+          me:req.user,
+          project:project,
+          commenst:comments,
+          members:members
+        });
       });
-    });
+    }else{
+      res.redirect("back");
+    }
   });
 });
 

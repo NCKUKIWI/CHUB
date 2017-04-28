@@ -170,10 +170,14 @@ router.post("/loginStatus", function(req,res) {
 
 router.get("/:id", function(req,res) {
   User.findOne({UserID:req.params.id},["_id","Email","Major","Talent","Description","Website","Role"],function(err,user){
-    res.render("users/show",{
-      me:req.user,
-      user:user
-    });
+    if(user){
+      res.render("users/show",{
+        me:req.user,
+        user:user
+      });
+    }else{
+      res.redirect("back");
+    }
   });
 });
 

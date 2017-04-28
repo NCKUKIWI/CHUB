@@ -119,14 +119,17 @@ router.post("/quit",helper.checkLogin(),function(req,res) {
 
 router.get("/:id", function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
-    User.find({ _id:{ $in:activity.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,member){
-      res.render("activities/show",{
-        me:req.user,
-        activity:activity,
-        comments:comments,
-        members:members
+    if(activity){
+      User.find({ _id:{ $in:activity.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,member){
+        res.render("activities/show",{
+          me:req.user,
+          activity:activity,
+          members:members
+        });
       });
-    });
+    }else{
+      res.redirect("back");
+    }
   });
 });
 
