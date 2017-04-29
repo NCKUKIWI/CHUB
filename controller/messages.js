@@ -4,7 +4,7 @@ var helper = require("../helper");
 var Message = require("../model/Message");
 var helper = require("../helper");
 
-router.post("/send",helper.checkLogin(),function(req,res) {
+router.post("/send",helper.apiAuth(),function(req,res) {
   var newMsg;
   if(req.body.fromgid){
     if(req.body.togid){
@@ -49,7 +49,7 @@ router.post("/send",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/delete/:id",helper.checkLogin(),function(req,res) {
+router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   Message.findById(req.params.id,function(err,msg){
     if(msg){
       msg.remove(function(err){

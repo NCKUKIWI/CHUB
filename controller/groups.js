@@ -13,7 +13,7 @@ router.get("/", function(req,res) {
   });
 });
 
-router.post("/create",helper.checkLogin(),function(req,res) {
+router.post("/create",helper.apiAuth(),function(req,res) {
   var newGroup = new Group({
     Name:req.body.name,
     Type:req.body.type,
@@ -31,7 +31,7 @@ router.post("/create",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/update/:id",helper.checkLogin(),function(req,res) {
+router.post("/update/:id",helper.apiAuth(),function(req,res) {
   var updateData = {
     Name:req.body.name,
     Type:req.body.type,
@@ -77,7 +77,7 @@ router.get("/:id/apply",helper.checkLogin(),function(req,res) {
 });
 
 
-router.post("/join",helper.checkLogin(),function(req,res) {
+router.post("/join",helper.apiAuth(),function(req,res) {
   Group.findById(req.body.group_id, function(err, group) {
     if(group){
       group.ApplyID.push(req.user._id);
@@ -94,7 +94,7 @@ router.post("/join",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/quit",helper.checkLogin(),function(req,res) {
+router.post("/quit",helper.apiAuth(),function(req,res) {
   Group.findById(req.body.group_id, function(err, group) {
     if(group){
       group.MemberID = helper.removeFromArray(group.MemberID,req.user._id);
@@ -111,7 +111,7 @@ router.post("/quit",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/:id/addMember/:uid",helper.checkLogin(),function(req,res) {
+router.post("/:id/addMember/:uid",helper.apiAuth(),function(req,res) {
   Group.findById(req.params.id, function(err, group) {
     if(group){
       group.ApplyID = helper.removeFromArray(group.ApplyID,req.params.uid);
@@ -129,7 +129,7 @@ router.post("/:id/addMember/:uid",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/:id/delMember/:uid",helper.checkLogin(),function(req,res) {
+router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
   Group.findById(req.params.id, function(err, group) {
     if(group){
       group.MemberID = helper.removeFromArray(group.MemberID,req.params.uid);
@@ -146,7 +146,7 @@ router.post("/:id/delMember/:uid",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/delete/:id",helper.checkLogin(),function(req,res) {
+router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   Group.findById(req.params.id,function(err,group){
     if(group){
       if(group.AdminID.indexOf(req.user._id)!==-1){

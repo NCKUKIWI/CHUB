@@ -1,0 +1,49 @@
+<% layout('../public/layout') %>
+<div class="ui centered grid" style="padding-top:50px;">
+  <div class="ten wide tablet six wide computer column">
+    <form class="ui form" id="signupForm">
+      <div class="field">
+        <div id="errormsg"></div>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="text" name="email" placeholder="Email">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Password">
+      </div>
+      <div class="field">
+        <label>UserID</label>
+        <input type="text" name="userid" placeholder="User ID">
+      </div>
+      <div class="field">
+        <label>Name</label>
+        <input type="text" name="username" placeholder="Name">
+      </div>
+      <div class="ui button" id="signupSubmit">Submit</div>
+    </form>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $("#signupSubmit").on("click",function(){
+      $.ajax({
+        url: "/users/signup",
+        type: "POST",
+        data: $("#signupForm").serialize(),
+        success: function(response) {
+          if (response == "ok") {
+            window.location.href="/users/login";
+          }
+          else {
+            $("#errormsg").empty();
+            for(var i in response["error"]){
+              $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+            }
+          }
+        }
+      });
+    });
+  });
+</script>
