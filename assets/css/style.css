@@ -56,3 +56,28 @@ table {
   color:red;
   line-height:20px;
 }
+
+.head h1{
+font-size: 80px;
+}
+
+.head{
+text-align: left;
+margin-left: 10%;
+}
+
+.head h2{
+margin-right: 50%;
+}
+
+.results{
+margin-top: 30px;
+margin-left: 10%;
+margin-right: 10%;
+}
+
+.results p{
+font-size: 50px;
+margin-bottom: 10px;
+}
+
