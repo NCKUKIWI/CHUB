@@ -31,7 +31,6 @@
     "gulp-sass": "^2.3.2",
     "mocha": "^3.2.0",
     "request": "^2.81.0",
-    "sass-loader": "^6.0.3",
     "should": "^11.2.1"
   }
 }
