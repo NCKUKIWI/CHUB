@@ -28,19 +28,19 @@ router.get("/", function(req,res) {
   });
 });
 
-router.get("/login", function(req,res) {
+router.get("/login",helper.checkLogin(0),function(req,res) {
   res.render("users/login",{
     me:req.user
   });
 });
 
-router.get("/signup", function(req,res) {
+router.get("/signup",helper.checkLogin(0),function(req,res) {
   res.render("users/signup",{
     me:req.user
   });
 });
 
-router.post("/signup", function(req,res) {
+router.post("/signup",function(req,res) {
   var newUser = {
     UserID:req.body.userid,
     Password:req.body.password,
@@ -66,19 +66,19 @@ router.post("/auth", function(req, res) {
         res.cookie("id", user._id,{maxAge: 60 * 60 * 1000});
         res.send("ok");
       }else{
-        res.send({error:"pwError"});
+        res.send({error:"Password Error"});
       }
     }else{
-      res.send({error:"notFound"});
+      res.send({error:"User not found"});
     }
   });
 });
 
-router.get("/fblogin", function(req, res) {
-  res.redirect(`https://www.facebook.com/v2.8/dialog/oauth?client_id=${config.fb_id}&scope=email,public_profile&response_type=token&redirect_uri=http://localhost:3000/user/fbcheck`);
+router.get("/fblogin",helper.checkLogin(0),function(req, res) {
+  res.redirect(`https://www.facebook.com/v2.8/dialog/oauth?client_id=${config.fb_id}&scope=email,public_profile&response_type=token&redirect_uri=http://localhost:3000/users/fbcheck`);
 });
 
-router.get("/fbcheck", function(req,res) {
+router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
   if(req.query.access_token){
     graph.get(`/me?fields=id,name,email,gender&access_token=${req.query.access_token}`,function(err,fb){
       User.findOne({UserID:fb.id},"_id",function(err,user){
@@ -99,11 +99,11 @@ router.get("/fbcheck", function(req,res) {
       });
     });
   }else{
-    res.render("users/fblogin");
+    res.render("users/fbcheck");
   }
 });
 
-router.get("/emailauth", function(req, res){
+router.get("/emailauth",helper.checkLogin(0),function(req, res){
   if(req.query.user && req.query.id){
     User.findOne({_id:req.query.id,UserID:req.query.user},["_id","Role"],function(err,user){
       if(user){
@@ -124,7 +124,7 @@ router.get("/emailauth", function(req, res){
   }
 });
 
-router.post("/update",helper.checkLogin(),function(req, res) {
+router.post("/update",helper.apiAuth(),function(req, res) {
   var newData = {
     UserID:req.body.userid,
     Email:req.body.email,
@@ -170,10 +170,14 @@ router.post("/loginStatus", function(req,res) {
 
 router.get("/:id", function(req,res) {
   User.findOne({UserID:req.params.id},["_id","Email","Major","Talent","Description","Website","Role"],function(err,user){
-    res.render("users/show",{
-      me:req.user,
-      user:user
-    });
+    if(user){
+      res.render("users/show",{
+        me:req.user,
+        user:user
+      });
+    }else{
+      res.redirect("back");
+    }
   });
 });
 

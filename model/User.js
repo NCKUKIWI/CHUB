@@ -20,7 +20,7 @@ Mutiple option
 
 var userSchema = new Schema({
   UserID:{ type:String,required:[true,"請輸入用戶名稱"] ,unique:true },
-  Email:String,
+  Email:{ type:String,required:[true,"請輸入Email"] },
   Password:{ type: String, minlength:[8,"密碼需大於8碼"],required:[true,"請輸入密碼"] },
   Name:{ type: String,required: [true,"請輸入用戶姓名"] },
   Major:String,

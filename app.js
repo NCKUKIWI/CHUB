@@ -62,15 +62,21 @@ app.get("/about",function(req,res){
 });
 
 app.get("/space",function(req,res){
-  res.render("space");
+  res.render("space",{
+    me:req.user
+  });
 });
 
 app.get("/whaton",function(req,res){
-  res.render("what_on");
+  res.render("what_on",{
+    me:req.user
+  });
 });
 
 app.get("/*",function(req,res){
-  res.render("index");
+  res.render("index",{
+    me:req.user
+  });
 });
 
 app.listen( process.env.PORT || 3000);

@@ -27,7 +27,7 @@ router.get("/", function(req,res) {
   });
 });
 
-router.post("/create",helper.checkLogin(),function(req,res) {
+router.post("/create",helper.apiAuth(),function(req,res) {
   var newProject;
   if(req.body.group_id){
     newProject = new Project({
@@ -67,7 +67,7 @@ router.post("/upload",upload.any(),function(req,res) {
   res.send("ok");
 });
 
-router.post("/update/:id",helper.checkLogin(),function(req,res) {
+router.post("/update/:id",helper.apiAuth(),function(req,res) {
   var updateData = {
     Name:req.body.name,
     Type:req.body.type,
@@ -92,19 +92,23 @@ router.post("/update/:id",helper.checkLogin(),function(req,res) {
 router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
     if(project){
-      User.find({ _id:{ $in:project.ApplyID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,apply){
-        res.send({
-          me:req.user,
-          apply:apply
+      if(project.AdminID.indexOf(req.user._id)!==-1){
+        User.find({ _id:{ $in:project.ApplyID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,apply){
+          res.send({
+            me:req.user,
+            apply:apply
+          });
         });
-      });
+      }else{
+        res.redirect("back");
+      }
     }else{
-      res.send({error:"notFound"});
+      res.redirect("back");
     }
   });
 });
 
-router.post("/join",helper.checkLogin(),function(req,res) {
+router.post("/join",helper.apiAuth(),function(req,res) {
   Project.findById(req.body.project_id, function(err, project) {
     if(project){
       project.ApplyID.push(req.user._id);
@@ -121,7 +125,7 @@ router.post("/join",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/quit",helper.checkLogin(),function(req,res) {
+router.post("/quit",helper.apiAuth(),function(req,res) {
   Project.findById(req.body.project_id, function(err, project) {
     if(project){
       project.MemberID = helper.removeFromArray(project.MemberID,req.user._id);
@@ -138,7 +142,7 @@ router.post("/quit",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/:id/addMember/:uid",helper.checkLogin(),function(req,res) {
+router.post("/:id/addMember/:uid",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
     if(project){
       project.ApplyID = helper.removeFromArray(project.ApplyID,req.params.uid);
@@ -156,7 +160,7 @@ router.post("/:id/addMember/:uid",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/:id/delMember/:uid",helper.checkLogin(),function(req,res) {
+router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
     if(project){
       project.MemberID = helper.removeFromArray(project.MemberID,req.params.uid);
@@ -173,7 +177,7 @@ router.post("/:id/delMember/:uid",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/delete/:id",helper.checkLogin(),function(req,res) {
+router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
       if(project.AdminID.indexOf(req.user._id)!==-1){
@@ -191,14 +195,18 @@ router.post("/delete/:id",helper.checkLogin(),function(req,res) {
 
 router.get("/:id",function(req,res) {
   Project.findById(req.params.id,function(err,project){
-    User.find({ _id:{ $in:project.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,members){
-      res.render("projects/show",{
-        me:req.user,
-        project:project,
-        commenst:comments,
-        members:members
+    if(project){
+      User.find({ _id:{ $in:project.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,members){
+        res.render("projects/show",{
+          me:req.user,
+          project:project,
+          commenst:comments,
+          members:members
+        });
       });
-    });
+    }else{
+      res.redirect("back");
+    }
   });
 });
 

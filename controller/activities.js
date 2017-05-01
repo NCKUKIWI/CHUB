@@ -12,7 +12,7 @@ router.get("/", function(req,res) {
   });
 });
 
-router.post("/create",helper.checkLogin(),function(req,res) {
+router.post("/create",helper.apiAuth(),function(req,res) {
   var newActivity;
   if(req.body.group_id){
     newActivity = new Activity({
@@ -45,7 +45,7 @@ router.post("/create",helper.checkLogin(),function(req,res) {
   })
 });
 
-router.post("/update/:id",helper.checkLogin(),function(req,res) {
+router.post("/update/:id",helper.apiAuth(),function(req,res) {
   var updateData = {
     Name:req.body.name,
     Type:req.body.type,
@@ -66,7 +66,7 @@ router.post("/update/:id",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/delete/:id",helper.checkLogin(),function(req,res) {
+router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){
       if(activity.AdminID.indexOf(req.user._id)!==-1){
@@ -82,7 +82,7 @@ router.post("/delete/:id",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/join",helper.checkLogin(),function(req,res) {
+router.post("/join",helper.apiAuth(),function(req,res) {
   Activity.findById(req.body.activity_id, function(err, activity) {
     if(activity){
       activity.MemberID.push(req.body.user_id);
@@ -99,7 +99,7 @@ router.post("/join",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.post("/quit",helper.checkLogin(),function(req,res) {
+router.post("/quit",helper.apiAuth(),function(req,res) {
   Activity.findById(req.body.activity_id, function(err, activity) {
     if(activity){
       activity.MemberID = helper.removeFromArray(activity.MemberID,req.body.user_id);
@@ -119,14 +119,17 @@ router.post("/quit",helper.checkLogin(),function(req,res) {
 
 router.get("/:id", function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
-    User.find({ _id:{ $in:activity.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,member){
-      res.render("activities/show",{
-        me:req.user,
-        activity:activity,
-        comments:comments,
-        members:members
+    if(activity){
+      User.find({ _id:{ $in:activity.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,member){
+        res.render("activities/show",{
+          me:req.user,
+          activity:activity,
+          members:members
+        });
       });
-    });
+    }else{
+      res.redirect("back");
+    }
   });
 });
 

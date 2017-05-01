@@ -6,9 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="/assets/js/semantic.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/assets/css/semantic.min.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/semantic.min.css">
   <script src='//chub.checkfront.com/lib/interface--30.js'></script>
+  <script src='../../assets/js/semantic_setting.js'></script>
 </head>
 <body>
   <div id="app">
@@ -32,6 +33,12 @@
         Activity
       </a>
       <a href="/space" class="item">Space</a>
+      <% if(typeof me !== "undefined" ){ %>
+        <a href="/users/logout" class="item">Logout</a>
+      <% }else{ %>
+        <a href="/users/login" class="item">Login</a>
+        <a href="/users/signup" class="item">Sign Up</a>
+      <% } %>
     </div>
   </div>
   <%- body %>
