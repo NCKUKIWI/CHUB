@@ -53,7 +53,6 @@ gulp.task('watch', ['compile'], function() {
 	gulp.watch('src/scss/*.scss', ['scss']);
 	gulp.watch('src/js/*.js', ['js']);
 	gulp.watch('src/*.html', ['html']);
-	gulp.watch('src/*.php', ['php']);
 	gulp.watch('src/{img,music}/**', ['assets']);
 });
 
