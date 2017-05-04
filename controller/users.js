@@ -21,13 +21,23 @@ router.get("/", function(req,res) {
       filter["$or"].push(queryobj);
     }
   }
-  if(filter["$or"].length == 0) filter["$or"].push({});
-  User.find(filter,["_id","Name", "Email","Major","Talent","Description","Website","Role"],function(err,users){
-    res.render("users/index",{
-      me:req.user,
-      users:users
+  if(filter["$or"].length == 0){
+    User.find({}, ["_id", "Email","Name","Major", "Talent", "Description", "Website", "Role"], function(err, users) {
+    	res.render("users/index", {
+    		me: req.user,
+    		users: users
+    	});
     });
-  });
+  }
+  else{
+    User.find(filter,["_id","Email","Name", "Major", "Talent", "Description", "Website", "Role"], function(err, users) {
+    	res.render("users/index", {
+    		me: req.user,
+    		users: users,
+    		query:query
+    	});
+    });
+  }
 });
 
 router.get("/login",helper.checkLogin(0),function(req,res) {
