@@ -3,35 +3,49 @@
     <div class="head">
         <h1>People</h1>
         <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
-        <a class="ui button">search</a>
     </div>
     <div class="results">
+        <% if(typeof query !=="undefined"){ %>
+          <h2>查詢條件</h2>
+          <h3>
+            <% for(var i in query ){ %>
+              <% if(query[i]){ %>
+                <%= i +" : "+query[i] %>&nbsp;&nbsp;&nbsp;&nbsp;
+              <% } %>
+            <% } %>
+          </h3>
+          <h4>一共<%= users.length %>筆</h4>
+        <% } %>
         <p>People 總覽</p>
         <div class="ui special cards">
-            <% for(var i in users){ %>
-            <div class="card">
-                <div class="blurring dimmable image">
-                    <div class="ui inverted dimmer">
-                        <div class="content">
-                            <div class="center">
-                                <div class="ui primary button info">Info</div>
+            <% if(users.length > 0 ){ %>
+              <% for(var i in users){ %>
+                <div class="card">
+                    <div class="blurring dimmable image">
+                        <div class="ui inverted dimmer">
+                            <div class="content">
+                                <div class="center">
+                                    <div class="ui primary button info">Info</div>
+                                </div>
                             </div>
                         </div>
+                        <img src="/assets/images/molly.png">
                     </div>
-                    <img src="../assets/images/molly.png">
-                </div>
-                <div class="content">
-                    <a class="header"><%= users[i].Email %></a>
-                    <div class="meta">
-                        <span class="date">Major in <%= users[i].Major %></span>
+                    <div class="content">
+                        <a class="header"><%= users[i].Email %></a>
+                        <div class="meta">
+                            <span class="date">Major in <%= users[i].Major %></span>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <a>
+                            <i class="users icon"></i><%= users[i].Talent.length %> talents
+                        </a>
                     </div>
                 </div>
-                <div class="extra content">
-                    <a>
-                        <i class="users icon"></i><%= users[i].Talent.length %> talents
-                    </a>
-                </div>
-            </div>
+              <% } %>
+            <% } else{ %>
+              <h1>查無結果</h1>
             <% } %>
         </div>
     </div>

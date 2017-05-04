@@ -7,8 +7,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="/assets/js/semantic.min.js"></script>
   <script src="/assets/js/semantic_setting.js"></script>
-  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/sidebar.js"></script>
   <script src="/assets/js/login.js"></script>
+  <script src="/assets/js/search.js"></script>
   <link rel="stylesheet" type="text/css" href="/assets/css/semantic.min.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
 </head>
@@ -16,9 +17,9 @@
   <div id="app">
 
     <% include ./menu %>
-    <% include ./sidebar %>
-    <% include ./chat %>
-
+    <% include ./mainSidebar %>
+    <% include ./msgSidebar %>
+    <% include ./searchSidebar %>
     <div class="pusher">
       <!-- Site content !-->
     </div>
