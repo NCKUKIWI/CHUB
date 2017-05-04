@@ -22,7 +22,7 @@ router.get("/", function(req,res) {
     }
   }
   if(filter["$or"].length == 0) filter["$or"].push({});
-  User.find(filter,["_id","Email","Major","Talent","Description","Website","Role"],function(err,users){
+  User.find(filter,["_id","Name", "Email","Major","Talent","Description","Website","Role"],function(err,users){
     res.render("users/index",{
       me:req.user,
       users:users
