@@ -21,3 +21,169 @@
       <% } %>
   </div>
 </div>
+
+    <!--sidebar message-->
+    <div class="ui sidebar right inverted vertical menu" id="msgbar">
+      <div class="arrow"></div>
+        <ul class="ChatLog">
+          <li class="ChatLog__entry">
+            <img class="ChatLog__avatar" src="//placekitten.com/g/50/50" />
+            <p class="ChatLog__message">
+              Hello!
+              <time class="ChatLog__timestamp">6 minutes ago</time>
+            </p>
+          </li>
+          <li class="ChatLog__entry">
+            <img class="ChatLog__avatar" src="//placekitten.com/g/50/50" />
+            <p class="ChatLog__message">
+              What is going on here?
+              <time class="ChatLog__timestamp">5 minutes ago</time>
+            </p>
+          </li>
+          <li class="ChatLog__entry ChatLog__entry_mine">
+            <img class="ChatLog__avatar" src="//placekitten.com/56/56" />
+            <p class="ChatLog__message">
+              I have no idea.
+              <time class="ChatLog__timestamp">4 minutes ago</time>
+            </p>
+          </li>
+          <li class="ChatLog__entry">
+            <img class="ChatLog__avatar" src="//placekitten.com/g/50/50" />
+            <p class="ChatLog__message">
+              I have a neat idea. Maybe I should explain it to you in detail?
+              <time class="ChatLog__timestamp">3 minutes ago</time>
+            </p>
+          </li>
+          <li class="ChatLog__entry ChatLog__entry_mine">
+            <img class="ChatLog__avatar" src="//placekitten.com/50/50" />
+            <p class="ChatLog__message">
+              Sure thing. The more detail the better. In fact, if you could provide definitions for every single term you use, that would be terrific!
+              <time class="ChatLog__timestamp">2 minutes ago</time>
+            </p>
+          </li>
+        </ul>
+
+<style>
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff;
+}
+
+ul.ChatLog {
+  list-style: none;
+}
+
+.ChatLog {
+  max-width: 20em;
+  margin: 0 auto;
+}
+.ChatLog .ChatLog__entry {
+  margin: .5em;
+}
+
+.ChatLog__entry {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  max-width: 100%;
+}
+
+.ChatLog__entry.ChatLog__entry_mine {
+  flex-direction: row-reverse;  
+}
+
+.ChatLog__avatar {
+  flex-shrink: 0;
+  flex-grow: 0;
+  z-index: 1;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  
+}
+
+.ChatLog__entry.ChatLog__entry_mine 
+.ChatLog__avatar {
+  display: none;
+}
+
+.ChatLog__entry .ChatLog__message {
+  position: relative;
+  margin: 0 12px;
+}
+
+.ChatLog__entry .ChatLog__message::before {
+  position: absolute;
+  right: auto;
+  bottom: .6em;
+  left: -12px;
+  height: 0;
+  content: '';
+  border: 6px solid transparent;
+  border-right-color: #ddd;
+  z-index: 2;
+}
+
+.ChatLog__entry.ChatLog__entry_mine .ChatLog__message::before {
+  right: -12px;
+  bottom: .6em;
+  left: auto;
+  border: 6px solid transparent;
+  border-left-color: #08f;
+}
+
+.ChatLog__message {
+  background-color: #ddd;
+  padding: .5em;
+  border-radius: 4px;
+  font-weight: lighter;
+  max-width: 70%;
+}
+
+.ChatLog__entry.ChatLog__entry_mine .ChatLog__message {
+  border-top: 1px solid #07f;
+  border-bottom: 1px solid #07f;
+  background-color: #08f;
+  color: #fff;
+}
+
+.ChatLog__message .ChatLog__timestamp {
+  display: none;
+}
+
+
+  </style>
+    </div>
+    <div class="ui sidebar right inverted vertical menu" id="searchbar">
+      <form class="ui form">
+        <div class="field">
+          <label>First Name</label>
+          <input type="text" name="first-name" placeholder="First Name">
+        </div>
+        <div class="field">
+          <label>Last Name</label>
+          <input type="text" name="last-name" placeholder="Last Name">
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <input type="checkbox" tabindex="0" class="hidden">
+            <label>I agree to the Terms and Conditions</label>
+          </div>
+        </div>
+        <button class="ui button" type="submit">Submit</button>
+      </form>
+      <div class="ui form">
+        <div class="field">
+          <select>
+            <option value="">Gender</option>
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+          </select>
+        </div>
+      </div>
+    </div>
