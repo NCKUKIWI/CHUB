@@ -16,7 +16,9 @@ router.get("/", function(req,res) {
   };
   for(var i in query){
     if(query[i]!== undefined){
-      filter["$or"].push({i:query[i]});
+      var queryobj = {};
+      queryobj[i] = query[i];
+      filter["$or"].push(queryobj);
     }
   }
   if(filter["$or"].length == 0) filter["$or"].push({});
@@ -90,7 +92,7 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
         else{
           User.create({ Email:fb.email,UserID:fb.id,Name:fb.name,Password:fb.id,Role:0}, function (err,result) {
             if (err) console.log(err);
-            helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
+            //helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
             res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
             res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
             res.redirect("/");

@@ -117,6 +117,10 @@ router.post("/quit",helper.apiAuth(),function(req,res) {
   });
 });
 
+router.post("/addCalendar/:id",helper.apiAuth(),function(req,res) {
+  res.send("add activity to calendar");
+});
+
 router.get("/:id", function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){

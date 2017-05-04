@@ -6,7 +6,7 @@ var headers = {
 }
 
 request({
-		url: "http://localhost:3000/user/auth",
+		url: "http://localhost:3000/users/auth",
 		method: "POST",
 		form: {
 			"userid": "cindy@gmail.com",
@@ -16,11 +16,11 @@ request({
 	function(error, response, body) {
 		headers["Cookie"]+=response.headers["set-cookie"][1];
 		request({
-			url: "http://localhost:3000/project/join",
+			url: "http://localhost:3000/activities/join",
 			method: "POST",
 			headers: headers,
 			form: {
-				"project_id":"58fcc54fa5fff73374a32f63"
+				activity_id:"590acc15536a130554db5c37"
 			}
 		}, function(error, response, body) {
 			console.log(body);

@@ -8,29 +8,6 @@
     <div class="results">
         <p>People 總覽</p>
         <div class="ui special cards">
-            <div class="card">
-                <div class="blurring dimmable image">
-                    <div class="ui dimmer">
-                        <div class="content">
-                            <div class="center">
-                                <div class="ui inverted button info">Info</div>
-                            </div>
-                        </div>
-                    </div>
-                    <img src="../assets/images/matthew.png">
-                </div>
-                <div class="content">
-                    <a class="header">Team Fu</a>
-                    <div class="meta">
-                        <span class="date">Major in Information & Inductional Management</span>
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a>
-                        <i class="users icon"></i> 2 skills
-                    </a>
-                </div>
-            </div>
             <% for(var i in users){ %>
             <div class="card">
                 <div class="blurring dimmable image">
@@ -46,12 +23,12 @@
                 <div class="content">
                     <a class="header"><%= users[i].Email %></a>
                     <div class="meta">
-                        <span class="date">Major in Statics</span>
+                        <span class="date">Major in <%= users[i].Major %></span>
                     </div>
                 </div>
                 <div class="extra content">
                     <a>
-                        <i class="users icon"></i> 0 skills
+                        <i class="users icon"></i><%= users[i].Talent.length %> talents
                     </a>
                 </div>
             </div>
