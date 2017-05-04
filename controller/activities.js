@@ -4,7 +4,7 @@ var helper = require("../helper");
 var Activity = require("../model/Activity");
 
 router.get("/", function(req,res) {
-  Activie.find({},function(err,activity){
+  Activity.find({},function(err,activity){
     res.render("activities/index",{
       me:req.user,
       activity:activity

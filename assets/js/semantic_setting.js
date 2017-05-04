@@ -3,6 +3,6 @@ $(document).ready(function(){
     on: 'hover'
   });
   $('.info').on('click', function(){
-    $('.personalInfo').modal('show')
+    $('.ui.modal').modal('show')
   });
 })
