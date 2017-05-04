@@ -1,0 +1,23 @@
+<div class="ui sidebar right inverted vertical menu" id="loginbar">
+  <div class="ui centered grid" style="padding-top:50px; margin:10px;">
+      <% if(typeof me == "undefined" ){ %>
+        <form class="ui form" id="loginForm">
+          <div class="field">
+            <div id="errormsg"></div>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="text" name="userid" placeholder="Email">
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Password">
+          </div>
+          <div class="ui button" id="loginSubmit">Login</div>
+          <a class="ui button" href="/users/fblogin">FB Login</a>
+        </form>
+      <% }else{ %>
+        <%= me.Name %>
+      <% } %>
+  </div>
+</div>

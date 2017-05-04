@@ -1,0 +1,38 @@
+<div class="ui secondary pointing menu">
+  <a href="/" class="item" id="logo">
+    <img style="width:50px;" src="/assets/images/logo.jpg">
+  </a>
+  <a href="/about" class="item">
+    About
+  </a>
+  <a href="/users" class="item">
+    People
+  </a>
+  <a href="/groups" class="item">
+    Group
+  </a>
+  <a href="/projects" class="item">
+    Project
+  </a>
+  <a href="/activities" class="item">
+    Activity
+  </a>
+  <a href="/space" class="item">Space</a>
+  <% if(typeof me !== "undefined" ){ %>
+    <div class="item" id="msgbtn">
+      Message
+    </div>
+    <div class="item" id="loginbtn">
+      Profile
+    </div>
+    <a href="/users/logout" class="item">Logout</a>
+  <% }else{ %>
+    <div class="item" id="loginbtn">
+      Login
+    </div>
+    <a href="/users/signup" class="item">Sign Up</a>
+  <% } %>
+  <div class="item" id="searchbtn">
+    Search
+  </div>
+</div>
