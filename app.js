@@ -46,7 +46,7 @@ app.use("/projects",projects);
 
 //activities routes
 var activities = require("./controller/activities");
-app.use("/activties",activities);
+app.use("/activities",activities);
 
 //groups routes
 var groups = require("./controller/groups");
