@@ -168,6 +168,22 @@ router.post("/loginStatus", function(req,res) {
   }
 });
 
+router.post("/delete/:id",helper.apiAuth(),function(req,res) {
+  User.findById(req.params.id,function(err,user){
+    if(user){
+      if(user._id = req.user._id || req.user.role == 3 ){
+        user.remove(function(err){
+          res.send("ok");
+        });
+      }else{
+        res.send({error:"notAdmin"});
+      }
+    }else{
+      res.send({error:"notFound"});
+    }
+  });
+});
+
 router.get("/:id", function(req,res) {
   User.findOne({UserID:req.params.id},["_id","Email","Major","Talent","Description","Website","Role"],function(err,user){
     if(user){

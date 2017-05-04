@@ -4,7 +4,7 @@ var helper = require("../helper");
 var Activity = require("../model/Activity");
 
 router.get("/", function(req,res) {
-  Activie.find({},function(err,activity){
+  Activity.find({},function(err,activity){
     res.render("activities/index",{
       me:req.user,
       activity:activity
@@ -69,7 +69,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
 router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){
-      if(activity.AdminID.indexOf(req.user._id)!==-1){
+      if(activity.AdminID.indexOf(req.user._id)!==-1 || req.user.role == 3 ){
         activity.remove(function(err){
           res.send("ok");
         });

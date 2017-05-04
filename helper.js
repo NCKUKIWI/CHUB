@@ -40,7 +40,6 @@ exports.sendEmail = function sendEmail(toEmail,subject,text){
 	});
 }
 
-
 exports.apiAuth = function apiAuth(){
   return function(req, res, next) {
     if (req.user) {

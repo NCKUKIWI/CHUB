@@ -149,7 +149,7 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
 router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   Group.findById(req.params.id,function(err,group){
     if(group){
-      if(group.AdminID.indexOf(req.user._id)!==-1){
+      if(group.AdminID.indexOf(req.user._id)!==-1 || req.user.role == 3 ){
         group.remove(function(err){
           res.send("ok");
         });
