@@ -8,6 +8,7 @@
   <div class="results">
     <p>Group Results</p>
     <div class="ui special cards">
+      <% for(var i in groups){ %>
       <div class="card">
         <div class="blurring dimmable image">
           <div class="ui inverted dimmer">
@@ -20,18 +21,19 @@
           <img src="../assets/images/group.png">
         </div>
         <div class="content">
-          <a class="header">Group 1</a>
+          <a class="header"><%= groups[i].Name %></a>
           <div class="meta">
-          <span class="date">Type: life</span>
+          <span class="date">Type: <%= groups[i].Type %></span>
           </div>
         </div>
         <div class="extra content">
           <a>
           <i class="users icon"></i>
-          3 members
+          <%= groups[i].MemberID.length %> members
           </a>
         </div>
       </div>
+      <% } %>
     </div>
   </div>
   <div class="ui modal groupInfo">

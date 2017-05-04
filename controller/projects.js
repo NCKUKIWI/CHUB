@@ -180,7 +180,7 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
 router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
-      if(project.AdminID.indexOf(req.user._id)!==-1){
+      if(project.AdminID.indexOf(req.user._id)!==-1 || req.user.role == 3 ){
         project.remove(function(err){
           res.send("ok");
         });

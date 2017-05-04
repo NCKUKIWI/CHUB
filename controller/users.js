@@ -88,7 +88,7 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
           res.redirect("/");
         }
         else{
-          User.create({ UserID:fb.id,Name:fb.name,Password:fb.id,Role:0}, function (err,result) {
+          User.create({ Email:fb.email,UserID:fb.id,Name:fb.name,Password:fb.id,Role:0}, function (err,result) {
             if (err) console.log(err);
             helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
             res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
@@ -166,6 +166,22 @@ router.post("/loginStatus", function(req,res) {
   }else{
     res.send({error:"notLogin"});
   }
+});
+
+router.post("/delete/:id",helper.apiAuth(),function(req,res) {
+  User.findById(req.params.id,function(err,user){
+    if(user){
+      if(user._id = req.user._id || req.user.role == 3 ){
+        user.remove(function(err){
+          res.send("ok");
+        });
+      }else{
+        res.send({error:"notAdmin"});
+      }
+    }else{
+      res.send({error:"notFound"});
+    }
+  });
 });
 
 router.get("/:id", function(req,res) {

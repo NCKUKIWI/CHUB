@@ -31,6 +31,7 @@
                     </a>
                 </div>
             </div>
+            <% for(var i in users){ %>
             <div class="card">
                 <div class="blurring dimmable image">
                     <div class="ui inverted dimmer">
@@ -43,7 +44,7 @@
                     <img src="../assets/images/molly.png">
                 </div>
                 <div class="content">
-                    <a class="header">{{user.Email}}</a>
+                    <a class="header"><%= users[i].Email %></a>
                     <div class="meta">
                         <span class="date">Major in Statics</span>
                     </div>
@@ -54,6 +55,7 @@
                     </a>
                 </div>
             </div>
+            <% } %>
         </div>
     </div>
     <div class="ui modal personalInfo">
