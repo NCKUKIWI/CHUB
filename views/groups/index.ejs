@@ -14,7 +14,7 @@
           <div class="ui inverted dimmer">
           <div class="content">
             <div class="center">
-              <div class="ui primary button info" v-on:click="show">Info</div>
+              <div class="ui primary button info" group-id="<%= groups[i]._id %>">Info</div>
             </div>
           </div>
           </div>
@@ -36,10 +36,11 @@
       <% } %>
     </div>
   </div>
-  <div class="ui modal groupInfo">
+  <% for(var i in groups) { %>
+  <div class="ui modal <%= groups[i]._id %>">
     <i class="close icon"></i>
     <div class="header">
-      Group
+      <%= groups[i].Name %>
     </div>
     <div class="image content">
       <div class="ui medium image">
@@ -57,4 +58,14 @@
       </div>
     </div>
   </div>
+  <% } %>
 </div>
+
+<script>
+$(document).ready(function(){
+    $('.info').on('click', function(){
+        var id = this.getAttribute('group-id');
+        $('.ui.modal.' + id).modal('show');
+    })
+});
+</script>

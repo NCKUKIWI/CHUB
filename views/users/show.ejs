@@ -1,1 +1,22 @@
-<% layout('../public/layout') %>
+<div class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+        Profile
+    </div>
+    <div class="image content">
+        <div class="ui medium image">
+            <img src="../assets/images/rachel.png">
+        </div>
+        <div class="description">
+            <div class="ui header"><%= user.Name %></div></div>
+            <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+            <p>Is it okay to use this photo?</p>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui blue button">
+            Text Me
+        </div>
+    </div>
+</div>
+
