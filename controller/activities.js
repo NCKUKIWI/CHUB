@@ -6,7 +6,6 @@ var Activity = require("../model/Activity");
 router.get("/", function(req,res) {
   Activity.find({},function(err,activity){
     res.render("activities/index",{
-      me:req.user,
       activity:activity
     });
   });
@@ -126,7 +125,6 @@ router.get("/:id", function(req,res) {
     if(activity){
       User.find({ _id:{ $in:activity.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,member){
         res.render("activities/show",{
-          me:req.user,
           activity:activity,
           members:members
         });

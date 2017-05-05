@@ -25,13 +25,16 @@ app.use(session({
 
 app.use(cookieParser("secretString"));
 app.use(function(req, res, next) {
+  res.locals.query = req.query;
   if(req.cookies.isLogin){
     User.findOne({ _id:req.cookies.id},["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,user){
       req.user = user;
+      res.locals.me = user;
       next();
     });
   }
   else {
+    res.locals.me = false;
     next();
   }
 });
@@ -62,21 +65,15 @@ app.get("/about",function(req,res){
 });
 
 app.get("/space",function(req,res){
-  res.render("space",{
-    me:req.user
-  });
+  res.render("space");
 });
 
 app.get("/whaton",function(req,res){
-  res.render("what_on",{
-    me:req.user
-  });
+  res.render("what_on");
 });
 
 app.get("/*",function(req,res){
-  res.render("index",{
-    me:req.user
-  });
+  res.render("index");
 });
 
 app.listen( process.env.PORT || 3000);

@@ -6,7 +6,7 @@
         <a class="ui button">search</a>
     </div>
     <div class="results">
-        <% if(typeof query !=="undefined"){ %>
+        <% if( Object.keys(query).length>0 ){ %>
           <h2>查詢條件</h2>
           <h3>
             <% for(var i in query ){ %>

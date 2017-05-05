@@ -21,7 +21,6 @@ var upload = multer({
 router.get("/", function(req,res) {
   Project.find({},function(err,projects){
     res.render("projects/index",{
-      me:req.user,
       projects:projects
     });
   });
@@ -94,8 +93,7 @@ router.get("/:id/apply",helper.checkLogin(),function(req,res) {
     if(project){
       if(project.AdminID.indexOf(req.user._id)!==-1){
         User.find({ _id:{ $in:project.ApplyID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,apply){
-          res.send({
-            me:req.user,
+          res.render("projects/apply",{
             apply:apply
           });
         });
@@ -198,7 +196,6 @@ router.get("/:id",function(req,res) {
     if(project){
       User.find({ _id:{ $in:project.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,members){
         res.render("projects/show",{
-          me:req.user,
           project:project,
           commenst:comments,
           members:members

@@ -21,35 +21,20 @@ router.get("/", function(req,res) {
       filter["$or"].push(queryobj);
     }
   }
-  if(filter["$or"].length == 0){
-    User.find({}, ["_id", "Email","Name","Major", "Talent", "Description", "Website", "Role"], function(err, users) {
-    	res.render("users/index", {
-    		me: req.user,
-    		users: users
-    	});
-    });
-  }
-  else{
-    User.find(filter,["_id","Email","Name", "Major", "Talent", "Description", "Website", "Role"], function(err, users) {
-    	res.render("users/index", {
-    		me: req.user,
-    		users: users,
-    		query:query
-    	});
-    });
-  }
+  if(filter["$or"].length == 0) filter["$or"].push({});
+  User.find(filter, ["_id", "Email", "Name", "Major", "Talent", "Description", "Website", "Role"], function(err, users) {
+  	res.render("users/index", {
+  		users: users
+  	});
+  });
 });
 
 router.get("/login",helper.checkLogin(0),function(req,res) {
-  res.render("users/login",{
-    me:req.user
-  });
+  res.render("users/login");
 });
 
 router.get("/signup",helper.checkLogin(0),function(req,res) {
-  res.render("users/signup",{
-    me:req.user
-  });
+  res.render("users/signup");
 });
 
 router.post("/signup",function(req,res) {
@@ -163,8 +148,7 @@ router.get("/logout", function(req, res) {
 
 router.get("/msg",helper.checkLogin(),function(req,res) {
   Message.find({ToUID:req.user._id}).populate("FromUID").populate("FromGID").exec(function(err,msg){
-    res.send({
-      me:req.user,
+    res.render("users/msg",{
       msg:msg
     });
   });
@@ -200,7 +184,6 @@ router.get("/:id", function(req,res) {
   User.findOne({UserID:req.params.id},["_id","Email","Major","Talent","Description","Website","Role"],function(err,user){
     if(user){
       res.render("users/show",{
-        me:req.user,
         user:user
       });
     }else{

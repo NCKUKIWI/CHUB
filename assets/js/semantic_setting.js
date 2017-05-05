@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $('.special.cards .image').dimmer({
+  $('.card > .image').dimmer({
     on: 'hover'
   });
 })

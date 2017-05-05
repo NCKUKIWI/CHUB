@@ -7,7 +7,6 @@ var Group = require("../model/Group");
 router.get("/", function(req,res) {
   Group.find({},function(err,groups){
     res.render("groups/index",{
-      me:req.user,
       groups:groups
     });
   });
@@ -62,7 +61,6 @@ router.get("/:id/apply",helper.checkLogin(),function(req,res) {
       if(group.AdminID.indexOf(req.user._id)!==-1){
         User.find({ _id:{ $in:group.ApplyID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,apply){
           res.render("groups/show",{
-            me:req.user,
             apply:apply
           });
         });
@@ -168,7 +166,6 @@ router.get("/:id/msg",helper.checkLogin(),function(req,res) {
       if(group.AdminID.indexOf(req.user._id)!==-1){
         Message.find({ToGID:req.params.id}).populate("FromUID").populate("FromGID").exec(function(err,msg){
           res.render("groups/msg",{
-            me:req.user,
             msg:msg
           });
         });
@@ -186,7 +183,6 @@ router.get("/:id",function(req,res) {
     if(group){
       User.find({ _id:{ $in:group.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,members){
         res.render("groups/show",{
-          me:req.user,
           group:group,
           members:members
         });
