@@ -4,6 +4,7 @@ var User = require("../model/User");
 var Message = require("../model/Message");
 var config = require("../config");
 var helper = require("../helper");
+var bcrypt = require('bcrypt');
 var graph = require("fbgraph");
 
 router.get("/", function(req,res) {
@@ -29,42 +30,38 @@ router.get("/", function(req,res) {
   });
 });
 
-router.get("/login",helper.checkLogin(0),function(req,res) {
-  res.render("users/login");
-});
-
-router.get("/signup",helper.checkLogin(0),function(req,res) {
-  res.render("users/signup");
-});
-
 router.post("/signup",function(req,res) {
-  var newUser = {
-    UserID:req.body.userid,
-    Password:req.body.password,
-    Name:req.body.username,
-    Email:req.body.email,
-    Role:0,
-  };
-  User.create(newUser,function(err,result){
-    if(err){
-      res.send({error:helper.handleError(err)});
-    }else{
-      //helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
-      res.send("ok");
-    }
+  bcrypt.hash(req.body.password,5,function(err, hash) {
+    var newUser = {
+      UserID:req.body.userid,
+      Password:hash,
+      Name:req.body.username,
+      Email:req.body.email,
+      Role:0,
+    };
+    User.create(newUser,function(err,result){
+      if(err){
+        res.send({error:helper.handleError(err)});
+      }else{
+        //helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
+        res.send("ok");
+      }
+    });
   });
 });
 
 router.post("/auth", function(req, res) {
   User.findOne({UserID:req.body.userid},["UserID","Password"],function(err,user){
     if(user){
-      if(user.Password===req.body.password){
-        res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
-        res.cookie("id", user._id,{maxAge: 60 * 60 * 1000});
-        res.send("ok");
-      }else{
-        res.send({error:"Password Error"});
-      }
+      bcrypt.compare(req.body.password,user.Password,function(err,result) {
+        if(result==true){
+          res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
+          res.cookie("id", user._id,{maxAge: 60 * 60 * 1000});
+          res.send("ok");
+        }else{
+          res.send({error:"Password Error"});
+        }
+      });
     }else{
       res.send({error:"User not found"});
     }
@@ -121,6 +118,10 @@ router.get("/emailauth",helper.checkLogin(0),function(req, res){
   }
 });
 
+router.get("/edit",helper.checkLogin(),function(req,res) {
+  res.render("users/edit");
+});
+
 router.post("/update",helper.apiAuth(),function(req, res) {
   var newData = {
     UserID:req.body.userid,
@@ -147,7 +148,7 @@ router.get("/logout", function(req, res) {
 });
 
 router.get("/msg",helper.checkLogin(),function(req,res) {
-  Message.find({ToUID:req.user._id}).populate("FromUID").populate("FromGID").exec(function(err,msg){
+  Message.find({ToUID:req.user._id}).populate("FromUID","_id Email Major Talent Description Website Role").populate("FromGID").exec(function(err,msg){
     res.render("users/msg",{
       msg:msg
     });
@@ -181,7 +182,7 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
 });
 
 router.get("/:id", function(req,res) {
-  User.findOne({UserID:req.params.id},["_id","Email","Major","Talent","Description","Website","Role"],function(err,user){
+  User.findOne({UserID:req.params.id},["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,user){
     if(user){
       res.render("users/show",{
         user:user

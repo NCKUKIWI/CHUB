@@ -123,7 +123,7 @@ router.post("/addCalendar/:id",helper.apiAuth(),function(req,res) {
 router.get("/:id", function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){
-      User.find({ _id:{ $in:activity.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,member){
+      User.find({ _id:{ $in:activity.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,member){
         res.render("activities/show",{
           activity:activity,
           members:members
