@@ -69,3 +69,18 @@ exports.checkLogin = function checkLogin(v){
     }
   }
 }
+
+exports.encrypt = function encrypt(key,iv,text){
+  var MCrypt = require('mcrypt').MCrypt;
+  var cbc = new MCrypt('rijndael-128','cbc');
+  cbc.open(key,iv);
+  var ciphertext = cbc.encrypt(addpadding(text));
+  return ciphertext.toString("hex");
+}
+
+function  addpadding(string) {
+  var len = string.length;
+  var pad = 32 - (len % 32);
+  string += String.fromCharCode(pad).repeat(pad);
+  return string;
+}

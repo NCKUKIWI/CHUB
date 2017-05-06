@@ -7,21 +7,18 @@ var Activity = require("../model/Activity");
 var sha256 = require("sha256");
 
 router.get("/", function(req,res) {
-  /*
   var timestamp = Date.now();
-  var check =`HashKey=${ config.pay2go.hashkey }&Amt=2000&MerchantID=PG100000002050&MerchantOrderNo=1212389&TimeStamp=${ timestamp }&Version=1.0&HashIV=${ config.pay2go.hashiv }`;
-  check = sha256(check).toUpperCase();
+  //var check =`HashKey=${ config.pay2go.hashkey }&Amt=2000&MerchantID=PG100000002050&MerchantOrderNo=1212389&TimeStamp=${ timestamp }&Version=1.0&HashIV=${ config.pay2go.hashiv }`;
+  //check = sha256(check).toUpperCase();
   var info = `MerchantID=PG100000002050&TimeStamp=${ timestamp }&Version=1.0&MerchantOrderNo=1212389&Amt=2000&ItemDesc=someword`;
-  var tradeinfo = "aes";
+  var tradeinfo = helper.encrypt(config.pay2go.hashkey,config.pay2go.hashiv,info).trim();
   var tradesha = `HashKey=${ config.pay2go.hashkey }&${ tradeinfo }&HashIV=${ config.pay2go.hashiv }`;
   tradesha = sha256(tradesha).toUpperCase();
   res.render("payment",{
     timestamp:timestamp,
-    check:check,
     tradeinfo:tradeinfo,
     tradesha:tradesha
-  });*/
-  res.send("ok");
+  });
 });
 
 router.post("/return", function(req,res) {
