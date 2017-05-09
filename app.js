@@ -24,11 +24,12 @@ app.use(session({
   saveUninitialized: true,
 }));
 
+var userInfo = ["_id", "Email", "Name", "Major", "Skill", "Introduction", "Location", "Role", "Link", "GroupID", "ProjectID", "ActivityID", "portfolio"];
 app.use(cookieParser("secretString"));
 app.use(function(req, res, next) {
   res.locals.query = req.query;
   if(req.cookies.isLogin){
-    User.findOne({ _id:req.cookies.id},["_id", "Email", "Name", "Major", "Skill", "Introduction", "Location", "Role", "Link", "GroupID", "ProjectID", "ActivityID", "portfolio"],function(err,user){
+    User.findById(req.cookies.id,userInfo).populate("GroupID","_id Name").populate("ProjectID","_id Name").populate("ActivityID","_id Name").exec(function(err,user){
       req.user = user;
       res.locals.me = user;
       next();

@@ -26,14 +26,6 @@ router.get("/", function(req,res) {
   });
 });
 
-router.get("/myProject",helper.checkLogin(),function(req,res) {
-  Project.find({"MemberID":{"$in":[req.user._id]}},function(err,projects){
-    res.render("projects/myProject",{
-      projects:projects
-    });
-  });
-});
-
 router.get("/create",helper.checkLogin(),function(req,res) {
   res.render("projects/create");
 });
