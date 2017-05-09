@@ -11,4 +11,12 @@ router.get("/", function(req,res) {
   });
 });
 
+router.get("/projects",function(req,res) {
+  Project.find({"MemberID":{"$in":[req.user._id]}},function(err,projects){
+    res.render("panel/project",{
+      projects:projects
+    });
+  });
+});
+
 module.exports = router;

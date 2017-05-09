@@ -4,6 +4,7 @@ var session = require("express-session");
 var cookieParser = require("cookie-parser");
 var path = require("path");
 var engine = require('ejs-locals');     //讓express支援layout
+var helper = require("./helper");
 var User = require("./model/User");
 var app = express();
 
@@ -57,7 +58,7 @@ app.use("/groups",groups);
 
 //panel routes
 var panel = require("./controller/panel");
-app.use("/panel",panel);
+app.use("/panel",helper.checkLogin(),panel);
 
 //messages routes
 var messages = require("./controller/messages");

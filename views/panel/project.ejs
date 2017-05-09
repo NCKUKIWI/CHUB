@@ -1,15 +1,7 @@
-<% layout('../public/layout') %>
-<div id="All_project">
-  <div class="head">
-    <h1>Project</h1>
-    <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
-    <a class="ui button searchbtn">Search</a>
-    <a class="ui button"  href="/projects/create">Create</a>
-    <a class="ui button"  href="/projects/myProject">My Project</a>
-  </div>
+<% layout('../public/adminlayout') %>
+
   <div class="results">
     <p>Project 總覽</p>
-
     <div class="ui special cards">
       <% for(var i in projects){ %>
       <div class="card">
@@ -62,53 +54,19 @@
       </div>
     </div>
     <div class="actions">
-      <% if(me && projects[i].AdminID.indexOf(me._id)!=-1){ %>
-        <div class="ui red button delproject" project-id="<%= projects[i]._id %>">Delete</div>
-        <a class="ui green button" href="/projects/edit/<%= projects[i]._id %>">Edit</a>
-        <a class="ui green button" href="/projects/<%= projects[i]._id %>/apply">Apply</a>
-      <% } %>
-      <div class="ui blue button">
-        Text Me
-      </div>
-      <div class="ui blue button">
-        Sharing
-      </div>
-      <% if(me && (projects[i].ApplyID.indexOf(me._id)==-1 && projects[i].MemberID.indexOf(me._id)==-1)){ %>
-        <div class="ui blue button joinproject" project-id="<%= projects[i]._id %>">
-          Join
-        </div>
-      <% }else{ %>
-        <div class="ui red button quitproject" project-id="<%= projects[i]._id %>">
-          Quit
-        </div>
-      <% } %>
+      <div class="ui red button delproject" project-id="<%= projects[i]._id %>">Delete</div>
+      <a class="ui green button" href="/projects/edit/<%= projects[i]._id %>">Edit</a>
+      <a class="ui green button" href="/projects/<%= projects[i]._id %>/apply">Apply</a>
+      <div class="ui blue button joinproject" project-id="<%= projects[i]._id %>">Join</div>
     </div>
   </div>
   <% } %>
-</div>
 
 <script>
 $(document).ready(function(){
   $('.info').on('click', function(){
     var id = this.getAttribute('project-id');
     $('.ui.modal.' + id).modal('show');
-  });
-
-  $('.joinproject').on('click', function(){
-    var id = this.getAttribute('project-id');
-    $.ajax({
-      url: "/projects/join/",
-      type: "POST",
-      data:{
-        project_id:id
-      },
-      success: function(response) {
-        toastr.success("申請成功");
-        setTimeout(function(){
-          window.location.href = window.location.href;
-        },3000);
-      }
-    });
   });
 
   $('.quitproject').on('click', function(){

@@ -26,6 +26,18 @@ router.get("/", function(req,res) {
   });
 });
 
+router.get("/myProject",helper.checkLogin(),function(req,res) {
+  Project.find({"MemberID":{"$in":[req.user._id]}},function(err,projects){
+    res.render("projects/myProject",{
+      projects:projects
+    });
+  });
+});
+
+router.get("/create",helper.checkLogin(),function(req,res) {
+  res.render("projects/create");
+});
+
 router.post("/create",helper.apiAuth(),function(req,res) {
   var newProject;
   if(req.body.group_id){
@@ -50,7 +62,6 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       Description:req.body.description,
       MemberID:[req.user._id],
       AdminID:[req.user._id],
-      GroupID:req.body.group_id
     });
   }
   newProject.save(function(err){
@@ -64,6 +75,18 @@ router.post("/create",helper.apiAuth(),function(req,res) {
 
 router.post("/upload",upload.any(),function(req,res) {
   res.send("ok");
+});
+
+router.get("/edit/:id",helper.checkLogin(),function(req,res) {
+  Project.findById(req.params.id,function(err,project){
+    if( project && project.AdminID.indexOf(req.user._id)!=-1 ){
+      res.render("projects/edit",{
+        project:project
+      });
+    }else{
+      res.redirect("back");
+    }
+  });
 });
 
 router.post("/update/:id",helper.apiAuth(),function(req,res) {
@@ -92,9 +115,10 @@ router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
     if(project){
       if(project.AdminID.indexOf(req.user._id)!==-1){
-        User.find({ _id:{ $in:project.ApplyID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,apply){
+        User.find({ _id:{ $in:project.ApplyID } },["_id","Name","Email","Major","Skill","Description","Website","Role"],function(err,apply){
           res.render("projects/apply",{
-            apply:apply
+            apply:apply,
+            project_id:project._id
           });
         });
       }else{
@@ -106,6 +130,7 @@ router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   });
 });
 
+//會員送出申請加入project
 router.post("/join",helper.apiAuth(),function(req,res) {
   Project.findById(req.body.project_id, function(err, project) {
     if(project){
@@ -123,10 +148,12 @@ router.post("/join",helper.apiAuth(),function(req,res) {
   });
 });
 
+//會員退出會員或取消申請
 router.post("/quit",helper.apiAuth(),function(req,res) {
   Project.findById(req.body.project_id, function(err, project) {
     if(project){
       project.MemberID = helper.removeFromArray(project.MemberID,req.user._id);
+      project.ApplyID = helper.removeFromArray(project.ApplyID,req.user._id);
       project.save(function(err) {
         if(err){
           res.send({error:helper.handleError(err)});
@@ -140,6 +167,7 @@ router.post("/quit",helper.apiAuth(),function(req,res) {
   });
 });
 
+//給組織管理者批准申請組織的要求
 router.post("/:id/addMember/:uid",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
     if(project){
@@ -158,9 +186,11 @@ router.post("/:id/addMember/:uid",helper.apiAuth(),function(req,res) {
   });
 });
 
+//給組織管理者刪除會員或申請
 router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
     if(project){
+      project.ApplyID = helper.removeFromArray(project.ApplyID,req.params.uid);
       project.MemberID = helper.removeFromArray(project.MemberID,req.params.uid);
       project.save(function(err) {
         if(err){
@@ -197,7 +227,6 @@ router.get("/:id",function(req,res) {
       User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
         res.render("projects/show",{
           project:project,
-          commenst:comments,
           members:members
         });
       });

@@ -1,0 +1,61 @@
+<% layout('../public/layout') %>
+<div class="ui centered grid" style="padding-top:50px;">
+  <div class="ten wide tablet six wide computer column">
+    <h1>Edit project</h1>
+    <form class="ui form" id="projectForm">
+      <div class="field">
+        <div id="errormsg"></div>
+      </div>
+      <div class="field">
+        <label>Name</label>
+        <input type="text" name="name" placeholder="Name" value="<%= project.Name %>" >
+      </div>
+      <div class="field">
+        <label>Goal</label>
+        <input type="text" name="goal" placeholder="Goal" value="<%= project.Goal %>" >
+      </div>
+      <div class="field">
+        <label>Need</label>
+        <input type="text" name="need" placeholder="Need 請用,分隔" value="<%= project.Need %>" >
+      </div>
+      <div class="field">
+        <label>Time</label>
+        <input type="text" name="time" placeholder="Time" value="<%= project.Time %>">
+      </div>
+      <div class="field">
+        <label>Type</label>
+        <select class="ui fluid dropdown" name="type" value="<%= project.Type %>">
+          <option value="type1">type1</option>
+          <option value="type2">type2</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <textarea name="description" placeholder="Description" ><%= project.Description %></textarea>
+      </div>
+      <div class="ui button" id="projectSubmit">Update</div>
+    </form>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $("#projectSubmit").on("click",function(){
+      $.ajax({
+        url: "/projects/update/<%= project._id %>",
+        type: "POST",
+        data: $("#projectForm").serialize(),
+        success: function(response) {
+          if (response == "ok") {
+            window.location.href="/projects?msg=成功";
+          }
+          else {
+            $("#errormsg").empty();
+            for(var i in response["error"]){
+              $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+            }
+          }
+        }
+      });
+    });
+  });
+</script>
