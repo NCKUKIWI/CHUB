@@ -18,7 +18,6 @@
     "express": "^4.14.0",
     "express-session": "^1.14.0",
     "fbgraph": "^1.4.1",
-    "mcrypt": "^0.1.12",
     "mongoose": "^4.9.0",
     "mongoose-unique-validator": "^1.0.5",
     "multer": "^1.3.0",

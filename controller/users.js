@@ -8,18 +8,18 @@ var bcrypt = require('bcrypt');
 var graph = require("fbgraph");
 
 var userInfo = [
-  "_id", 
-  "Email", 
-  "Name", 
-  "Major", 
-  "Skill", 
-  "Introduction", 
-  "Location", 
-  "Role", 
-  "Link", 
-  "GroupID", 
-  "ProjectID", 
-  "ActivityID", 
+  "_id",
+  "Email",
+  "Name",
+  "Major",
+  "Skill",
+  "Introduction",
+  "Location",
+  "Role",
+  "Link",
+  "GroupID",
+  "ProjectID",
+  "ActivityID",
   "portfolio"
 ];
 
@@ -46,31 +46,6 @@ router.get("/", function(req,res) {
   });
 });
 
-<<<<<<< HEAD
-// router.get("/login",helper.checkLogin(0),function(req,res) {
-//   res.render("users/login");
-// });
-
-// router.get("/signup",helper.checkLogin(0),function(req,res) {
-//   res.render("users/signup");
-// });
-
-router.post("/signup",function(req,res) {
-  var newUser = {
-    UserID:req.body.name,
-    Password:req.body.password,
-    Name:req.body.username,
-    Email:req.body.email,
-    Role:0,
-  };
-  User.create(newUser,function(err,result){
-    if(err){
-      res.send({error:helper.handleError(err)});
-    }else{
-      //helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
-      res.send("ok");
-    }
-=======
 router.post("/signup",function(req,res) {
   bcrypt.hash(req.body.password,5,function(err, hash) {
     var newUser = {
@@ -88,7 +63,6 @@ router.post("/signup",function(req,res) {
         res.send("ok");
       }
     });
->>>>>>> b2fd99e4775660f210972c0de4d52f0d412b7335
   });
 });
 
