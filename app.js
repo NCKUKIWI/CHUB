@@ -27,7 +27,7 @@ app.use(cookieParser("secretString"));
 app.use(function(req, res, next) {
   res.locals.query = req.query;
   if(req.cookies.isLogin){
-    User.findOne({ _id:req.cookies.id},["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,user){
+    User.findOne({ _id:req.cookies.id},["_id", "Email", "Name", "Major", "Skill", "Introduction", "Location", "Role", "Link", "GroupID", "ProjectID", "ActivityID", "portfolio"],function(err,user){
       req.user = user;
       res.locals.me = user;
       next();
@@ -54,6 +54,10 @@ app.use("/activities",activities);
 //groups routes
 var groups = require("./controller/groups");
 app.use("/groups",groups);
+
+//panel routes
+var panel = require("./controller/panel");
+app.use("/panel",panel);
 
 //messages routes
 var messages = require("./controller/messages");

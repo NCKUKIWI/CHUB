@@ -19,15 +19,20 @@ Mutiple option
 */
 
 var userSchema = new Schema({
-  UserID:{ type:String,required:[true,"請輸入用戶名稱"] ,unique:true },
-  Email:{ type:String,required:[true,"請輸入Email"] },
-  Password:{ type: String, minlength:[8,"密碼需大於8碼"],required:[true,"請輸入密碼"] },
-  Name:{ type: String,required: [true,"請輸入用戶姓名"] },
-  Major:String,
-  Talent:[String],
-  Description:{ type: String, minlength:0, maxlength:100 },
-  Website:String,
-  Role:Number,
+  UserID: { type:String,required:[true,"請輸入用戶名稱"] ,unique:true },
+  Email: { type:String,required:[true,"請輸入Email"] },
+  Password: { type: String, minlength:[8,"密碼需大於8碼"],required:[true,"請輸入密碼"] },
+  Name: { type: String,required: [true,"請輸入用戶姓名"] },
+  Major: String,
+  Skill: [String],
+  Location: String,
+  Introduction: { type: String, minlength:0, maxlength:100 },
+  Link: [String],
+  Role: Number,
+  GroupID: [{type:ObjectId,ref:"Group"}],
+  ProjectID: [{type:ObjectId,ref:"Project"}],
+  ActivityID: [{type:ObjectId,ref:"Activity"}],
+  portfolio: [String],
   CreateAt: { type: Date, default: Date.now }
 });
 

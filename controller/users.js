@@ -6,6 +6,22 @@ var config = require("../config");
 var helper = require("../helper");
 var graph = require("fbgraph");
 
+var userInfo = [
+  "_id", 
+  "Email", 
+  "Name", 
+  "Major", 
+  "Skill", 
+  "Introduction", 
+  "Location", 
+  "Role", 
+  "Link", 
+  "GroupID", 
+  "ProjectID", 
+  "ActivityID", 
+  "portfolio"
+];
+
 router.get("/", function(req,res) {
   var query = {
     Talent:req.query.talent,
@@ -22,24 +38,24 @@ router.get("/", function(req,res) {
     }
   }
   if(filter["$or"].length == 0) filter["$or"].push({});
-  User.find(filter, ["_id", "Email", "Name", "Major", "Talent", "Description", "Website", "Role"], function(err, users) {
+  User.find(filter, userInfo, function(err, users) {
   	res.render("users/index", {
   		users: users
   	});
   });
 });
 
-router.get("/login",helper.checkLogin(0),function(req,res) {
-  res.render("users/login");
-});
+// router.get("/login",helper.checkLogin(0),function(req,res) {
+//   res.render("users/login");
+// });
 
-router.get("/signup",helper.checkLogin(0),function(req,res) {
-  res.render("users/signup");
-});
+// router.get("/signup",helper.checkLogin(0),function(req,res) {
+//   res.render("users/signup");
+// });
 
 router.post("/signup",function(req,res) {
   var newUser = {
-    UserID:req.body.userid,
+    UserID:req.body.name,
     Password:req.body.password,
     Name:req.body.username,
     Email:req.body.email,
@@ -122,14 +138,14 @@ router.get("/emailauth",helper.checkLogin(0),function(req, res){
 });
 
 router.post("/update",helper.apiAuth(),function(req, res) {
+  console.log(req.body);
+  console.log(res.locals.me);
   var newData = {
-    UserID:req.body.userid,
-    Email:req.body.email,
-    Name:req.body.name,
-    Major:req.body.major,
-    Talent:req.body.talent.split(","),
-    Description:req.body.description,
-    Website:req.body.website
+    Email: req.body.email,
+    Name: req.body.name,
+    Major: req.body.major,
+    Location: req.body.location,
+    Introduction: req.body.introduction
   }
   User.findOneAndUpdate({_id:req.user._id},newData,function(err,user){
     if(err){
@@ -164,6 +180,7 @@ router.post("/loginStatus", function(req,res) {
   }
 });
 
+// 刪會員需要把其他collection的資料也刪掉，晚點改
 router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   User.findById(req.params.id,function(err,user){
     if(user){
@@ -181,7 +198,7 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
 });
 
 router.get("/:id", function(req,res) {
-  User.findOne({UserID:req.params.id},["_id","Email","Major","Talent","Description","Website","Role"],function(err,user){
+  User.findOne({UserID:req.params.id}, userInfo, function(err,user){
     if(user){
       res.render("users/show",{
         user:user

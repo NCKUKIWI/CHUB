@@ -43,7 +43,131 @@
           </form>
         </div>
       <% }else{ %>
-        <%= me.Name %>
+        <div id="profile">
+          <div style="display: flex; justify-content: space-around;">
+            <a class="ui button" target="_blank" href='/panel'>後台</a>
+            <a class="ui button" id="goSetting">Setting</a>
+          </div>
+          <div style="display: flex; flex-direction: row; justify-content: space-around; margin-top: 10px;">
+            <img style="width:100px; height: 100px; margin-top: 20px" src="/assets/images/profile.png">
+            <h3 style="line-height: 80px;"><%= me.Name %></h3>
+          </div>
+          
+          <div style="text-align: left; margin-top: 20px;">
+            <h3>Group: </h3>
+            <h3>Project: </h3>
+            <h3>Activity: </h3>
+          </div>
+        </div>
+        <div id="setting" style="display: none; color: white !important;">
+          <button class="ui button" id="backProfile">back</button>
+          <h1>-Setting Profile-</h1>
+          <form class="ui form" id="updateForm">
+            <div class="field">
+              <div class="fields">
+                <div class="two wide field" style="text-align: left;">
+                  <h3 >Name: </h3>
+                </div>
+                <div class="four wide field">
+                  <input type="text" name="name" value="<%= me.Name %>">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="fields">
+                <div class="two wide field" style="text-align: left;">
+                  <h3 >Major: </h3>
+                </div>
+                <div class="four wide field">
+                  <input type="text" name="major" value="<%= me.Major %>">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="fields">
+                <div class="two wide field" style="text-align: left;">
+                  <h3 >Email: </h3>
+                </div>
+                <div class="four wide field">
+                  <input type="text" name="email" value="<%= me.Email %>">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="fields">
+                <div class="two wide field" style="text-align: left;">
+                  <h3 >Location: </h3>
+                </div>
+                <div class="four wide field">
+                  <input type="text" name="location" value="<%= me.Location %>">
+                </div>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="two wide field" style="text-align: left;">
+                <h3>Skill: </h3>
+              </div>
+              <div class="four wide field">
+                <select class="ui fluid dropdown">
+                  <option value="">none</option>
+                  <option value="AL">Alabama</option>
+                </select>
+              </div>
+              <div class="four wide field">
+                <select class="ui fluid dropdown">
+                  <option value="">none</option>
+                  <option value="AL">Alabama</option>
+                </select>
+              </div>
+              <div class="four wide field">
+                <select class="ui fluid dropdown">
+                  <option value="">none</option>
+                  <option value="AL">Alabama</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <h3 style="text-align: left;">Introduction: </h3>
+              <textarea name="introduction" value="<%= me.Introduction %>"><%= me.Introduction %></textarea>
+            </div>
+            <div class="field">
+              <div class="fields">
+                <div class="two wide field" style="text-align: left;">
+                  <h3 >Group: </h3>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="fields">
+                <div class="two wide field" style="text-align: left;">
+                  <h3 >Project: </h3>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="fields">
+                <div class="two wide field" style="text-align: left;">
+                  <h3 >Activity: </h3>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="fields">
+                <div class="two wide field" style="text-align: left;">
+                  <h3 >portfolio: </h3>
+                </div>
+              </div>
+            </div>
+            <div class="ui button" tabindex="0" id="updateProfile">Done</div>
+          </form>
+          <h1>-Setting Account-</h1>
+          <button class="ui button">重設密碼</button>
+          <h1>-Setting Notification-</h1>
+          <div class="ui toggle checkbox"">
+            <input type="checkbox" name="public">
+            <label style="color: white !important;">訊息用email通知</label>
+          </div>
+        </div>
       <% } %>
   </div>
 </div>

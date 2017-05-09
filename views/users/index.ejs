@@ -1,77 +1,91 @@
 <% layout('../public/layout') %>
 <div id="All_people">
-    <div class="head">
-        <h1>People</h1>
-        <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
-        <a class="ui button">search</a>
-    </div>
-    <div class="results">
-        <% if( Object.keys(query).length>0 ){ %>
-          <h2>查詢條件</h2>
-          <h3>
-            <% for(var i in query ){ %>
-              <% if(query[i]){ %>
-                <%= i +" : "+query[i] %>&nbsp;&nbsp;&nbsp;&nbsp;
-              <% } %>
-            <% } %>
-          </h3>
-          <h4>一共<%= users.length %>筆</h4>
+  <div class="head">
+    <h1>People</h1>
+    <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
+    <a class="ui button searchbtn">search</a>
+  </div>
+  <div class="results">
+    <% if( Object.keys(query).length>0 ){ %>
+      <h2>查詢條件</h2>
+      <h3>
+        <% for(var i in query ){ %>
+          <% if(query[i]){ %>
+            <%= i +" : "+query[i] %>&nbsp;&nbsp;&nbsp;&nbsp;
+          <% } %>
         <% } %>
-        <p>People 總覽</p>
-        <div class="ui special cards">
-            <% for(var i in users){ %>
-              <div class="card">
-                  <div class="blurring dimmable image">
-                      <div class="ui inverted dimmer">
-                          <div class="content">
-                              <div class="center">
-                                  <div class="ui primary button info" people-id="<%= users[i]._id %>">Info</div>
-                              </div>
-                          </div>
-                      </div>
-                      <img src="/assets/images/molly.png">
-                  </div>
-                  <div class="content">
-                      <a class="header"><%= users[i].Name %></a>
-                      <div class="meta">
-                          <span class="date">Major in <%= users[i].Major %></span>
-                      </div>
-                  </div>
-                  <div class="extra content">
-                      <a>
-                          <i class="users icon"></i><%= users[i].Talent.length %> talents
-                      </a>
-                  </div>
+      </h3>
+      <h4>一共<%= users.length %>筆</h4>
+    <% } %>
+    <p>People 總覽</p>
+    <div class="ui special cards">
+      <% for(var i in users){ %>
+        <div class="card">
+          <div class="blurring dimmable image">
+            <div class="ui inverted dimmer">
+              <div class="content">
+                <div class="center">
+                  <div class="ui primary button info" people-id="<%= users[i]._id %>">Info</div>
+                </div>
               </div>
-              <div class="ui modal <%= users[i]._id %>">
-                  <i class="close icon"></i>
-                  <div class="header">
-                      Profile
-                  </div>
-                  <div class="image content">
-                      <div class="ui medium image">
-                          <img src="/assets/images/rachel.png">
-                      </div>
-                      <div class="description">
-                          <div class="ui header">姓名: <%= users[i].Name %></div>
-                      </div>
-                  </div>
-                  <div class="actions">
-                      <div class="ui blue button">
-                          Text Me
-                      </div>
-                  </div>
+            </div>
+            <img src="/assets/images/molly.png">
+          </div>
+          <div class="content">
+              <a class="header"><%= users[i].Name %></a>
+              <div class="meta">
+                  <span class="date">Major in <%= users[i].Major %></span>
               </div>
-            <% } %>
+          </div>
+          <div class="extra content">
+              <a>
+                  <i class="users icon"></i><%= users[i].skill%> Skills
+              </a>
+          </div>
         </div>
+        <div class="ui modal <%= users[i]._id %>">
+          <i class="close icon"></i>
+          <div class="header">
+            <%= users[i].Name %>
+          </div>
+          <div class="image content">
+            <div class="ui medium image">
+              <img src="/assets/images/rachel.png">
+            </div>
+            <div class="description">
+              <p>Major: <%= users[i].Major %></p>
+              <p>Skills: 
+<!--                 <% for(var j in users[i].Talent){ %>
+                  <% users[i].Talent[j] %>
+                <% } %> -->
+              </p>
+              <p>Group</p>
+              <p>Location: <%= users[i].Location %></p>
+              <p>Introduction: <%= users[i].Introduction %></p>
+              <p>Project</p>
+              <p>Activity</p>
+              <p>portfolio</p>
+            </div>
+          </div>
+          <div class="actions">
+            <div class="ui left button">
+              圖示連結
+            </div>                     
+            <div class="ui blue button">
+                Text Me
+            </div>
+          </div>
+        </div>
+      <% } %>
     </div>
+  </div>
 </div>
 
 <script>
   $(document).ready(function(){
-      $('.info').on('click', function(){
-          var id = this.getAttribute('people-id');
-          $('.ui.modal.' + id).modal('show');
-      })
+    $('.info').on('click', function(){
+      var id = this.getAttribute('people-id');
+      $('.ui.modal.' + id).modal('show');
+    })
   });
 </script>

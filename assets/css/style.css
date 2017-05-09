@@ -81,3 +81,6 @@ font-size: 50px;
 margin-bottom: 10px;
 }
 
+#mainSidebar, #mainSidebar > label{
+  color: white;
+}
