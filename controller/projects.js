@@ -92,7 +92,7 @@ router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
     if(project){
       if(project.AdminID.indexOf(req.user._id)!==-1){
-        User.find({ _id:{ $in:project.ApplyID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,apply){
+        User.find({ _id:{ $in:project.ApplyID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,apply){
           res.render("projects/apply",{
             apply:apply
           });
@@ -194,7 +194,7 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
 router.get("/:id",function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
-      User.find({ _id:{ $in:project.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,members){
+      User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
         res.render("projects/show",{
           project:project,
           commenst:comments,

@@ -62,6 +62,10 @@ app.use("/panel",panel);
 //messages routes
 var messages = require("./controller/messages");
 app.use("/messages",messages);
+
+//payment routes
+var payment = require("./controller/payment");
+app.use("/payment",payment);
 //insert
 
 app.get("/about",function(req,res){

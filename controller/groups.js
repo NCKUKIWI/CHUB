@@ -51,15 +51,10 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
 });
 
 router.get("/:id/apply",helper.checkLogin(),function(req,res) {
-  /*
-  Group.findById(req.params.id).populate("ApplyID","_id Email Major Talent Description Website Role").exec(function(err,data){
-    res.send({data});
-  });
-  */
   Group.findById(req.params.id, function(err, group) {
     if(group){
       if(group.AdminID.indexOf(req.user._id)!==-1){
-        User.find({ _id:{ $in:group.ApplyID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,apply){
+        User.find({ _id:{ $in:group.ApplyID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,apply){
           res.render("groups/show",{
             apply:apply
           });
@@ -164,7 +159,7 @@ router.get("/:id/msg",helper.checkLogin(),function(req,res) {
   Group.findById(req.params.id,function(err,group){
     if(group){
       if(group.AdminID.indexOf(req.user._id)!==-1){
-        Message.find({ToGID:req.params.id}).populate("FromUID").populate("FromGID").exec(function(err,msg){
+        Message.find({ToGID:req.params.id}).populate("FromUID","_id Email Major Talent Description Website Role").populate("FromGID").exec(function(err,msg){
           res.render("groups/msg",{
             msg:msg
           });
@@ -181,7 +176,7 @@ router.get("/:id/msg",helper.checkLogin(),function(req,res) {
 router.get("/:id",function(req,res) {
   Group.findById(req.params.id,function(err,group){
     if(group){
-      User.find({ _id:{ $in:group.MemberID } },["_id","Email","Major","Talent","Description","Website","Role"],function(err,members){
+      User.find({ _id:{ $in:group.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
         res.render("groups/show",{
           group:group,
           members:members
