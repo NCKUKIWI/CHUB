@@ -60,4 +60,26 @@ $(document).ready(function() {
 		})
 		$('#backProfile').trigger( "click" );
 	})
+	$('#msgSend').on('click', function(){
+		sendMessage();
+	})
+	$(document).keypress(function(e) {
+		if(e.which == 13) {
+			sendMessage();
+		}
+	});
 });
+
+
+// 送出訊息
+function sendMessage(){
+	var sendMsg = $('#msgText').val();
+	$(".chatCont").append('<li class="chatEntry chatSent"><img class="avatar" src="//placekitten.com/56/56" /><p class="message">'+sendMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
+	$('#msgText').val('');
+}
+
+// 收到訊息
+function getMessage(receiveText){
+	var getMsg = receiveText;
+	$(".chatCont").append('<li class="chatEntry"><img class="avatar" src="//placekitten.com/g/50/50" /><p class="message">'+getMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
+}

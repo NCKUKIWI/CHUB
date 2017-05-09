@@ -2,43 +2,52 @@
 <div class="ui sidebar right inverted vertical menu" id="msgSidebar">
 
   <div class="arrow"></div>
-    <ul class="ChatLog">
-      <li class="ChatLog__entry">
+  <ul class="ChatLog">
+    <div class="chatCont">
+      <li class="chatEntry">
         <img class="avatar" src="//placekitten.com/g/50/50" />
         <p class="message">
           Hello!
           <time class="timestamp">6 minutes ago</time>
         </p>
       </li>
-      <li class="ChatLog__entry">
+      <li class="chatEntry">
         <img class="avatar" src="//placekitten.com/g/50/50" />
         <p class="message">
           What is going on here?
           <time class="timestamp">5 minutes ago</time>
         </p>
       </li>
-      <li class="ChatLog__entry ChatLog__entry_mine">
+      <li class="chatEntry chatSent">
         <img class="avatar" src="//placekitten.com/56/56" />
         <p class="message">
           I have no idea.
           <time class="timestamp">4 minutes ago</time>
         </p>
       </li>
-      <li class="ChatLog__entry">
+      <li class="chatEntry">
         <img class="avatar" src="//placekitten.com/g/50/50" />
         <p class="message">
           I have a neat idea. Maybe I should explain it to you in detail?
           <time class="timestamp">3 minutes ago</time>
         </p>
       </li>
-      <li class="ChatLog__entry ChatLog__entry_mine">
+      <li class="chatEntry chatSent">
         <img class="avatar" src="//placekitten.com/56/56" />
         <p class="message">
           Sure thing. The more detail the better. In fact, if you could provide definitions for every single term you use, that would be terrific!
           <time class="timestamp">2 minutes ago</time>
         </p>
       </li>
-    </ul>
+    </div>
+  </ul>
+  <div id="inputMsg">
+    <input type="text" id="msgText"></input>
+    <input type="botton" value="Send" id="msgSend"></input>
+  </div>
+
+</div>
+
 
 <style>
 * {
@@ -58,19 +67,22 @@ list-style: none;
 .ChatLog {
 max-width: 20em;
 margin: 0 auto;
+height: 95vh;
+overflow: scroll;
 }
-.ChatLog .ChatLog__entry {
+.ChatLog .chatEntry {
 margin: .5em;
 }
 
-.ChatLog__entry {
+.chatEntry {
+  position: relative;
 display: flex;
 flex-direction: row;
 align-items: flex-end;
 max-width: 100%;
 }
 
-.ChatLog__entry.ChatLog__entry_mine {
+.chatEntry.chatSent {
 flex-direction: row-reverse;
 }
 
@@ -83,16 +95,15 @@ width: 50px;
 border-radius: 25px;
 }
 
-.ChatLog__entry.ChatLog__entry_mine.avatar {
+.chatEntry.chatSent.avatar {
 display: none;
 }
 
-.ChatLog__entry .message {
-position: relative;
+.chatEntry .message {
 margin: 0 12px;
 }
 
-.ChatLog__entry .message::before {
+.chatEntry .message::before {
 position: absolute;
 right: auto;
 bottom: .6em;
@@ -104,7 +115,7 @@ border-right-color: #ddd;
 z-index: 2;
 }
 
-.ChatLog__entry.ChatLog__entry_mine .message::before {
+.chatEntry.chatSent .message::before {
 right: -12px;
 bottom: .6em;
 left: auto;
@@ -120,7 +131,7 @@ font-weight: lighter;
 max-width: 70%;
 }
 
-.ChatLog__entry.ChatLog__entry_mine .message {
+.chatEntry.chatSent .message {
 border-top: 1px solid #07f;
 border-bottom: 1px solid #07f;
 background-color: #08f;
@@ -131,6 +142,20 @@ color: #fff;
 display: none;
 }
 
+#inputMsg {
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+}
+#msgText {
+  float: left;
+  width: 80%;
+  height: 5vh;
+}
+#msgSend {
+  float: left;
+  width: 20%;
+  height: 5vh;
+}
 
 </style>
-</div>
