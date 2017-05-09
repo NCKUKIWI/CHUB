@@ -5,17 +5,19 @@
   <title>CHUB</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="/assets/js/toastr.min.js"></script>
   <script src="/assets/js/semantic.min.js"></script>
   <script src="/assets/js/semantic_setting.js"></script>
   <script src="/assets/js/sidebar.js"></script>
   <script src="/assets/js/login.js"></script>
   <script src="/assets/js/search.js"></script>
+  <link rel="stylesheet" type="text/css" href="/assets/css/toastr.min.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/semantic.min.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
 </head>
 <body>
   <div id="app">
-  
+    <% include ./notify %>
     <% include ./menu %>
     <% include ./mainSidebar %>
     <% include ./msgSidebar %>

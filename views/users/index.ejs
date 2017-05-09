@@ -39,7 +39,7 @@
           </div>
           <div class="extra content">
               <a>
-                  <i class="users icon"></i><%= users[i].skill%> Skills
+                  <i class="users icon"></i><%= users[i].Skill.length %> Skills
               </a>
           </div>
         </div>
@@ -54,10 +54,10 @@
             </div>
             <div class="description">
               <p>Major: <%= users[i].Major %></p>
-              <p>Skills: 
-<!--                 <% for(var j in users[i].Talent){ %>
+              <p>Skills:
+                <% for(var j in users[i].Talent){ %>
                   <% users[i].Talent[j] %>
-                <% } %> -->
+                <% } %>
               </p>
               <p>Group</p>
               <p>Location: <%= users[i].Location %></p>
@@ -70,7 +70,7 @@
           <div class="actions">
             <div class="ui left button">
               圖示連結
-            </div>                     
+            </div>
             <div class="ui blue button">
                 Text Me
             </div>

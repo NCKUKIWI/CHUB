@@ -139,8 +139,6 @@ router.get("/edit",helper.checkLogin(),function(req,res) {
 });
 
 router.post("/update",helper.apiAuth(),function(req, res) {
-  console.log(req.body);
-  console.log(res.locals.me);
   var newData = {
     Email: req.body.email,
     Name: req.body.name,
