@@ -79,7 +79,6 @@ function sendMessage(){
 }
 
 // 收到訊息
-var receiveText = "testtt";
 function getMessage(receiveText){
 	var getMsg = receiveText;
 	$(".chatCont").append('<li class="chatEntry"><img class="avatar" src="//placekitten.com/g/50/50" /><p class="message">'+getMsg+'<time class="timestamp">4 minutes ago</time></p></li>');

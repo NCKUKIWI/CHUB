@@ -67,12 +67,15 @@ list-style: none;
 .ChatLog {
 max-width: 20em;
 margin: 0 auto;
+height: 95vh;
+overflow: scroll;
 }
 .ChatLog .chatEntry {
 margin: .5em;
 }
 
 .chatEntry {
+  position: relative;
 display: flex;
 flex-direction: row;
 align-items: flex-end;
@@ -97,7 +100,6 @@ display: none;
 }
 
 .chatEntry .message {
-position: relative;
 margin: 0 12px;
 }
 
@@ -143,18 +145,17 @@ display: none;
 #inputMsg {
   position: absolute;
   bottom: 0%;
-  background: yellow;
   width: 100%;
 }
 #msgText {
   float: left;
   width: 80%;
-  height: 50px;
+  height: 5vh;
 }
 #msgSend {
   float: left;
   width: 20%;
-  height: 50px;
+  height: 5vh;
 }
 
 </style>
