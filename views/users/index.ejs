@@ -54,17 +54,20 @@
             </div>
             <div class="description">
               <p>Major: <%= users[i].Major %></p>
-              <p>Skills:
-                <% for(var j in users[i].Talent){ %>
-                  <% users[i].Talent[j] %>
+              <p>Skills:&nbsp;
+                <% for(var j = 0; j < users[i].Skill.length; j++){ %>
+                  <%= users[i].Skill[j] %>
+                  <% if(j != users[i].Skill.length - 1){ %>
+                  ,&nbsp;&nbsp;
+                  <% } %>
                 <% } %>
               </p>
-              <p>Group</p>
+              <p>Group: </p>
               <p>Location: <%= users[i].Location %></p>
               <p>Introduction: <%= users[i].Introduction %></p>
-              <p>Project</p>
-              <p>Activity</p>
-              <p>portfolio</p>
+              <p>Project: </p>
+              <p>Activity: </p>
+              <p>portfolio: </p>
             </div>
           </div>
           <div class="actions">

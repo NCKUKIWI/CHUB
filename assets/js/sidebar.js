@@ -49,11 +49,17 @@ $(document).ready(function() {
 		$('#msgSidebar').sidebar('setting', 'transition', 'overlay');
 	})
 	$('#updateProfile').on('click', function(){
-		console.log($('#updateForm').serialize());
+		var skillNum = $('#showSkills a').children().length;
+		var skillArr = [];
+
+		var Data = $('#updateForm').serialize();
+		for(var i = 0; i < skillNum; i++){
+			Data += '&skill=' + $('#showSkills a')[i].text;
+		}
 		$.ajax({
 			url: 'users/update',
 			method: "POST",
-			data: $('#updateForm').serialize(),
+			data: Data,
 			success: function(response) {
 				
 			}
@@ -84,7 +90,7 @@ $(document).ready(function() {
 		})
 
 		var skill = $("input[name='skill']").val();
-		$("input[name='skill']").val('');
+		$("input[name='TextSkill']").val('');
 		$('#showSkills').append('<a class="ui tag label">' + skill + '<i class="icon close"></i></a>');
 		$('#showSkills a').on('click', function(){
 			$(this).remove();
