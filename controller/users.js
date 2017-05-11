@@ -144,7 +144,8 @@ router.post("/update",helper.apiAuth(),function(req, res) {
     Name: req.body.name,
     Major: req.body.major,
     Location: req.body.location,
-    Introduction: req.body.introduction
+    Introduction: req.body.introduction,
+    Skill: req.body.skill
   }
   User.findOneAndUpdate({_id:req.user._id},newData,function(err,user){
     if(err){

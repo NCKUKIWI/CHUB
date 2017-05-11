@@ -35,7 +35,7 @@ $(document).ready(function() {
 	$('#finishProfile').on('click', function(){
 		$('#mainSidebar').css('transition-property', 'width');
 		$('#mainSidebar').css('transition-duration', '0.8s');
-		$('#mainSidebar').css('width', '240px');
+		$('#mainSidebar').css('width', '300px');
 		$('#setting').hide();
 		$('#profile').show();
 		$('#msgSidebar').sidebar('setting', 'transition', 'overlay');
@@ -43,13 +43,13 @@ $(document).ready(function() {
 	$('#backProfile').on('click', function(){
 		$('#mainSidebar').css('transition-property', 'width');
 		$('#mainSidebar').css('transition-duration', '0.8s');
-		$('#mainSidebar').css('width', '240px');
+		$('#mainSidebar').css('width', '300px');
 		$('#setting').hide();
 		$('#profile').show();
 		$('#msgSidebar').sidebar('setting', 'transition', 'overlay');
 	})
 	$('#updateProfile').on('click', function(){
-		// console.log('userid=' + me._id + $('#updateForm').serialize());
+		console.log($('#updateForm').serialize());
 		$.ajax({
 			url: 'users/update',
 			method: "POST",
@@ -60,6 +60,41 @@ $(document).ready(function() {
 		})
 		$('#backProfile').trigger( "click" );
 	})
+	$('#addSkill').on('click', function(){
+		var skillNum = $('#showSkills a').children().length;
+		var skillArr = [];
+		
+		if(skillNum == 3){
+			alert('最多三個skill');
+			$("input[name='skill']").val('');
+			return 0;
+		}
+		var Data = $('#updateForm').serialize();
+		for(var i = 0; i < skillNum; i++){
+			Data += '&skill=' + $('#showSkills a')[i].text;
+		}
+		console.log(Data);
+		$.ajax({
+			url: 'users/update',
+			method: "POST",
+			data: Data,
+			success: function(response) {
+				
+			}
+		})
+
+		var skill = $("input[name='skill']").val();
+		$("input[name='skill']").val('');
+		$('#showSkills').append('<a class="ui tag label">' + skill + '<i class="icon close"></i></a>');
+		$('#showSkills a').on('click', function(){
+			$(this).remove();
+		})
+	})
+
+	$('#showSkills a').on('click', function(){
+		$(this).remove();
+	})
+
 	$('#msgSend').on('click', function(){
 		sendMessage();
 	})

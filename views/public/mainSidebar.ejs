@@ -1,4 +1,4 @@
-<div class="ui sidebar right inverted vertical menu" id="mainSidebar">
+<div class="ui sidebar right inverted vertical menu" id="mainSidebar" style="width: 300px;">
   <div class="ui centered grid" style="padding-top:50px; margin:10px;">
       <% if(!me){ %>
         <div id="loginPart">
@@ -107,24 +107,23 @@
               <div class="two wide field" style="text-align: left;">
                 <h3>Skill: </h3>
               </div>
-              <div class="four wide field">
-                <select class="ui fluid dropdown">
-                  <option value="">none</option>
-                  <option value="AL">Alabama</option>
-                </select>
+              <div class="seven wide field">
+                <div class="ui right labeled left icon input">
+                  <i class="tags icon"></i>
+                  <input type="text" placeholder="Enter Skill" name="skill">
+                  <a class="ui tag label" id="addSkill">
+                    Add Skill
+                  </a>
+                </div>
               </div>
-              <div class="four wide field">
-                <select class="ui fluid dropdown">
-                  <option value="">none</option>
-                  <option value="AL">Alabama</option>
-                </select>
+            </div>
+            <div class="fields" id="showSkills">
+              <div class="two wide field" style="text-align: left;">
+                <h3></h3>
               </div>
-              <div class="four wide field">
-                <select class="ui fluid dropdown">
-                  <option value="">none</option>
-                  <option value="AL">Alabama</option>
-                </select>
-              </div>
+              <% for(var i = 0; i < me.Skill.length; i++){ %>
+                <a class="ui tag label"><%= me.Skill[i] %><i class="icon close"></i></a>
+              <% } %>
             </div>
             <div class="field">
               <h3 style="text-align: left;">Introduction: </h3>
