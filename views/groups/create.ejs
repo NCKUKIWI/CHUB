@@ -1,26 +1,18 @@
 <% layout('../public/layout') %>
 <div class="ui centered grid" style="padding-top:50px;">
   <div class="ten wide tablet six wide computer column">
-    <h1>Edit project</h1>
-    <form class="ui form" id="projectForm">
+    <h1>Create group</h1>
+    <form class="ui form" id="groupForm">
       <div class="field">
         <div id="errormsg"></div>
       </div>
       <div class="field">
         <label>Name</label>
-        <input type="text" name="name" placeholder="Name" value="<%= project.Name %>" >
+        <input type="text" name="name" placeholder="Name">
       </div>
       <div class="field">
-        <label>Goal</label>
-        <input type="text" name="goal" placeholder="Goal" value="<%= project.Goal %>" >
-      </div>
-      <div class="field">
-        <label>Need</label>
-        <input type="text" name="need" placeholder="Need 請用,分隔" value="<%= project.Need %>" >
-      </div>
-      <div class="field">
-        <label>Time</label>
-        <input type="text" name="time" placeholder="Time" value="<%= project.Time %>">
+        <label>Website</label>
+        <input type="text" name="website" placeholder="Website">
       </div>
       <div class="field">
         <label>Type</label>
@@ -31,23 +23,25 @@
       </div>
       <div class="field">
         <label>Description</label>
-        <textarea name="description" placeholder="Description" ><%= project.Description %></textarea>
+        <textarea name="description" placeholder="Description"></textarea>
       </div>
-      <div class="ui button" id="projectSubmit">Update</div>
+      <div class="ui button" id="groupSubmit">Create</div>
     </form>
   </div>
 </div>
 <script>
   $(document).ready(function(){
-    $("select[name=type] option[value=<%= project.Type %>]").attr('selected','selected');
-    $("#projectSubmit").on("click",function(){
+    $("#groupSubmit").on("click",function(){
       $.ajax({
-        url: "/projects/update/<%= project._id %>",
+        url: "/groups/create",
         type: "POST",
-        data: $("#projectForm").serialize(),
+        data: $("#groupForm").serialize(),
         success: function(response) {
           if (response == "ok") {
-            window.location.href="/projects";
+            toastr.success("創立成功");
+            setTimeout(function(){
+              window.location.href="/groups";
+            },3000);
           }
           else {
             $("#errormsg").empty();

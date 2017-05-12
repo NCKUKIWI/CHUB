@@ -61,14 +61,15 @@
       </div>
     </div>
     <div class="actions">
-      <div class="ui blue button">
-        Sharing
-      </div>
-      <div class="ui blue button">
-        Join
-      </div>
+      <% if(me && activity[i].AdminID.indexOf(me._id)!=-1){ %>
+        <div class="ui red button delactivity" project-id="<%= activity[i]._id %>">Delete</div>
+        <a class="ui green button" href="/activities/edit/<%= activity[i]._id %>">Edit</a>
+      <% } %>
       <div class="ui blue button">
         Text Me
+      </div>
+      <div class="ui blue button">
+        Sharing
       </div>
     </div>
   </div>
@@ -77,9 +78,25 @@
 
 <script>
 $(document).ready(function(){
-    $('.info').on('click', function(){
-        var id = this.getAttribute('activity-id');
-        $('.ui.modal.' + id).modal('show');
-    })
+  $('.info').on('click', function(){
+    var id = this.getAttribute('activity-id');
+    $('.ui.modal.' + id).modal('show');
+  });
+
+  $('.delactivity').on('click', function(){
+    var id = this.getAttribute('activity-id');
+    $.ajax({
+      url: "/activities/delete/"+id,
+      type: "POST",
+      success: function(response) {
+        if(response=="ok"){
+          toastr.success("刪除成功");
+          setTimeout(function(){
+            window.location.href = window.location.href;
+          },3000);
+        }
+      }
+    });
+  });
 });
 </script>

@@ -72,14 +72,16 @@
       <div class="ui blue button">
         Sharing
       </div>
-      <% if(me && (projects[i].ApplyID.indexOf(me._id)==-1 && projects[i].MemberID.indexOf(me._id)==-1)){ %>
-        <div class="ui blue button joinproject" project-id="<%= projects[i]._id %>">
-          Join
-        </div>
-      <% }else{ %>
-        <div class="ui red button quitproject" project-id="<%= projects[i]._id %>">
-          Quit
-        </div>
+      <% if(me){ %>
+        <% if(projects[i].ApplyID.indexOf(me._id)==-1 && projects[i].MemberID.indexOf(me._id)==-1){ %>
+          <div class="ui blue button joinproject" project-id="<%= projects[i]._id %>">
+            Join
+          </div>
+        <% }else{ %>
+          <div class="ui red button quitproject" project-id="<%= projects[i]._id %>">
+            Quit
+          </div>
+        <% } %>
       <% } %>
     </div>
   </div>

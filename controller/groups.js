@@ -12,6 +12,10 @@ router.get("/", function(req,res) {
   });
 });
 
+router.get("/create",helper.checkLogin(),function(req,res) {
+  res.render("groups/create");
+});
+
 router.post("/create",helper.apiAuth(),function(req,res) {
   var newGroup = new Group({
     Name:req.body.name,
@@ -26,6 +30,18 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       res.send({error:helper.handleError(err)});
     }else{
       res.send("ok");
+    }
+  });
+});
+
+router.get("/edit/:id",helper.checkLogin(),function(req,res) {
+  Group.findById(req.params.id,function(err,group){
+    if( group && group.AdminID.indexOf(req.user._id)!=-1 ){
+      res.render("groups/edit",{
+        group:group
+      });
+    }else{
+      res.redirect("back");
     }
   });
 });
@@ -55,8 +71,9 @@ router.get("/:id/apply",helper.checkLogin(),function(req,res) {
     if(group){
       if(group.AdminID.indexOf(req.user._id)!==-1){
         User.find({ _id:{ $in:group.ApplyID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,apply){
-          res.render("groups/show",{
-            apply:apply
+          res.render("groups/apply",{
+            apply:apply,
+            group_id:group._id
           });
         });
       }
