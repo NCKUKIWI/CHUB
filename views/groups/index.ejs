@@ -60,7 +60,7 @@
     </div>
     <div class="actions">
       <% if(me && groups[i].AdminID.indexOf(me._id)!=-1){ %>
-        <div class="ui red button delgroup" group-id="<%= groups[i]._id %>">Delete</div>
+        <div class="ui red button delGroup" group-id="<%= groups[i]._id %>">Delete</div>
         <a class="ui green button" href="/groups/edit/<%= groups[i]._id %>">Edit</a>
         <a class="ui green button" href="/groups/<%= groups[i]._id %>/apply">Apply</a>
       <% } %>
@@ -72,11 +72,11 @@
       </div>
       <% if(me){ %>
         <% if(groups[i].ApplyID.indexOf(me._id)==-1 && groups[i].MemberID.indexOf(me._id)==-1){ %>
-          <div class="ui blue button joingroup" group-id="<%= groups[i]._id %>">
+          <div class="ui blue button joinGroup" group-id="<%= groups[i]._id %>">
             Join
           </div>
         <% }else{ %>
-          <div class="ui red button quitgroup" group-id="<%= groups[i]._id %>">
+          <div class="ui red button quitGroup" group-id="<%= groups[i]._id %>">
             Quit
           </div>
         <% } %>
@@ -92,7 +92,7 @@ $(document).ready(function(){
     var id = this.getAttribute('group-id');
     $('.ui.modal.' + id).modal('show');
   });
-  $('.joingroup').on('click', function(){
+  $('.joinGroup').on('click', function(){
     var id = this.getAttribute('group-id');
     $.ajax({
       url: "/groups/join/",
@@ -109,7 +109,7 @@ $(document).ready(function(){
     });
   });
 
-  $('.quitgroup').on('click', function(){
+  $('.quitGroup').on('click', function(){
     var id = this.getAttribute('group-id');
     $.ajax({
       url: "/groups/quit/",
@@ -126,7 +126,7 @@ $(document).ready(function(){
     });
   });
 
-  $('.delgroup').on('click', function(){
+  $('.delGroup').on('click', function(){
     var id = this.getAttribute('group-id');
     $.ajax({
       url: "/groups/delete/"+id,

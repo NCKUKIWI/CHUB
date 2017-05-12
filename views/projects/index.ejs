@@ -62,7 +62,7 @@
     </div>
     <div class="actions">
       <% if(me && projects[i].AdminID.indexOf(me._id)!=-1){ %>
-        <div class="ui red button delproject" project-id="<%= projects[i]._id %>">Delete</div>
+        <div class="ui red button delProject" project-id="<%= projects[i]._id %>">Delete</div>
         <a class="ui green button" href="/projects/edit/<%= projects[i]._id %>">Edit</a>
         <a class="ui green button" href="/projects/<%= projects[i]._id %>/apply">Apply</a>
       <% } %>
@@ -74,11 +74,11 @@
       </div>
       <% if(me){ %>
         <% if(projects[i].ApplyID.indexOf(me._id)==-1 && projects[i].MemberID.indexOf(me._id)==-1){ %>
-          <div class="ui blue button joinproject" project-id="<%= projects[i]._id %>">
+          <div class="ui blue button joinProject" project-id="<%= projects[i]._id %>">
             Join
           </div>
         <% }else{ %>
-          <div class="ui red button quitproject" project-id="<%= projects[i]._id %>">
+          <div class="ui red button quitProject" project-id="<%= projects[i]._id %>">
             Quit
           </div>
         <% } %>
@@ -95,7 +95,7 @@ $(document).ready(function(){
     $('.ui.modal.' + id).modal('show');
   });
 
-  $('.joinproject').on('click', function(){
+  $('.joinProject').on('click', function(){
     var id = this.getAttribute('project-id');
     $.ajax({
       url: "/projects/join/",
@@ -112,7 +112,7 @@ $(document).ready(function(){
     });
   });
 
-  $('.quitproject').on('click', function(){
+  $('.quitProject').on('click', function(){
     var id = this.getAttribute('project-id');
     $.ajax({
       url: "/projects/quit/",
@@ -129,7 +129,7 @@ $(document).ready(function(){
     });
   });
 
-  $('.delproject').on('click', function(){
+  $('.delProject').on('click', function(){
     var id = this.getAttribute('project-id');
     $.ajax({
       url: "/projects/delete/"+id,

@@ -51,10 +51,10 @@
             </div>
           </div>
           <div class="actions">
-            <div class="ui green button acceptbutton" user-id="<%= apply[i]._id %>">
+            <div class="ui green button acceptButton" user-id="<%= apply[i]._id %>">
               Accept
             </div>
-            <div class="ui red button rejectbutton" user-id="<%= apply[i]._id %>">
+            <div class="ui red button rejectButton" user-id="<%= apply[i]._id %>">
               Reject
             </div>
           </div>
@@ -69,7 +69,7 @@
       var id = this.getAttribute('user-id');
       $('.ui.modal.' + id).modal('show');
     })
-    $('.acceptbutton').on('click', function(){
+    $('.acceptButton').on('click', function(){
       var id = this.getAttribute('user-id');
       $.ajax({
         url: "/groups/<%= group_id %>/addMember/"+id,
@@ -83,7 +83,7 @@
         }
       });
     })
-    $('.rejectbutton').on('click', function(){
+    $('.rejectButton').on('click', function(){
       var id = this.getAttribute('user-id');
       $.ajax({
         url: "/groups/<%= group_id %>/delMember/"+id,
