@@ -72,9 +72,16 @@ $(document).ready(function() {
 
 		if(skillNum == 3){
 			alert('最多三個skill');
-			$("input[name='skill']").val('');
+			$("input[name='textSkill']").val('');
 			return 0;
 		}
+
+		var skill = $("input[name='textSkill']").val();
+		$("input[name='textSkill']").val('');
+		$('#showSkills').append('<a class="ui tag label">' + skill + '<i class="icon close"></i></a>');
+		$('#showSkills a').on('click', function(){
+			$(this).remove();
+		})
 		var Data = $('#updateForm').serialize();
 		for(var i = 0; i < skillNum; i++){
 			Data += '&skill=' + $('#showSkills a')[i].text;
@@ -87,13 +94,6 @@ $(document).ready(function() {
 			success: function(response) {
 
 			}
-		})
-
-		var skill = $("input[name='skill']").val();
-		$("input[name='skill']").val('');
-		$('#showSkills').append('<a class="ui tag label">' + skill + '<i class="icon close"></i></a>');
-		$('#showSkills a').on('click', function(){
-			$(this).remove();
 		})
 	})
 
