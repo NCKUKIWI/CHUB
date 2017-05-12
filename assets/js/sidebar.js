@@ -61,7 +61,7 @@ $(document).ready(function() {
 			method: "POST",
 			data: Data,
 			success: function(response) {
-				
+
 			}
 		})
 		$('#backProfile').trigger( "click" );
@@ -69,7 +69,7 @@ $(document).ready(function() {
 	$('#addSkill').on('click', function(){
 		var skillNum = $('#showSkills a').children().length;
 		var skillArr = [];
-		
+
 		if(skillNum == 3){
 			alert('最多三個skill');
 			$("input[name='skill']").val('');
@@ -85,12 +85,12 @@ $(document).ready(function() {
 			method: "POST",
 			data: Data,
 			success: function(response) {
-				
+
 			}
 		})
 
 		var skill = $("input[name='skill']").val();
-		$("input[name='TextSkill']").val('');
+		$("input[name='skill']").val('');
 		$('#showSkills').append('<a class="ui tag label">' + skill + '<i class="icon close"></i></a>');
 		$('#showSkills a').on('click', function(){
 			$(this).remove();
