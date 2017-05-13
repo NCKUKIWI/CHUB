@@ -1,43 +1,37 @@
 <% layout('../public/layout') %>
-<div id="All_activity">
-  <div class="head">
-    <h1>Activity</h1>
-    <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
-    <a class="ui button searchbtn">search</a>
-  </div>
-  <div class="results">
-    <p>Activity 總覽</p>
-
-    <div class="ui special cards">
-      <% for(var i in activity){ %>
-      <div class="card">
-        <div class="blurring dimmable image">
-          <div class="ui inverted dimmer">
+<div class="head">
+  <h1>Activity</h1>
+  <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
+  <a class="ui button searchbtn">search</a>
+</div>
+<div class="ui special cards">
+  <% for(var i in activity){ %>
+    <div class="card">
+      <div class="blurring dimmable image">
+        <div class="ui inverted dimmer">
           <div class="content">
             <div class="center">
               <div class="ui primary button info" activity-id="<%= activity[i]._id %>">Info</div>
             </div>
           </div>
-          </div>
-          <img src="../assets/images/project.png">
         </div>
-        <div class="content">
-          <a class="header"><%= activity[i].Name %></a>
-          <div class="meta">
+        <img src="../assets/images/project.png">
+      </div>
+      <div class="content">
+        <a class="header"><%= activity[i].Name %></a>
+        <div class="meta">
           <span class="date">Type: <%= activity[i].Type %></span>
-          </div>
-        </div>
-        <div class="extra content">
-          <a>
-          <i class="users icon"></i>
-          <%= activity[i].MemberID.length %> members
-          </a>
         </div>
       </div>
-      <% } %>
+      <div class="extra content">
+        <a><i class="users icon"></i>
+          <%= activity[i].MemberID.length %> members
+        </a>
+      </div>
     </div>
-  </div>
-  <% for(var i in activity) { %>
+  <% } %>
+</div>
+<% for(var i in activity) { %>
   <div class="ui modal <%= activity[i]._id %>">
     <i class="close icon"></i>
     <div class="header">
@@ -73,8 +67,7 @@
       </div>
     </div>
   </div>
-  <% } %>
-</div>
+<% } %>
 
 <script>
 $(document).ready(function(){

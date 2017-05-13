@@ -1,43 +1,38 @@
 <% layout('../public/layout') %>
-<div id="All_group">
-  <div class="head">
-    <h1>Group</h1>
-    <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
-    <a class="ui button searchbtn">search</a>
-    <a class="ui button"  href="/groups/create">Create</a>
-  </div>
-  <div class="results">
-    <p>Group Results</p>
-    <div class="ui special cards">
-      <% for(var i in groups){ %>
-      <div class="card">
-        <div class="blurring dimmable image">
-          <div class="ui inverted dimmer">
+<div class="head">
+  <h1>Group</h1>
+  <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
+  <a class="ui button searchbtn">search</a>
+  <a class="ui button"  href="/groups/create">Create</a>
+</div>
+<div class="ui special cards">
+  <% for(var i in groups){ %>
+    <div class="card">
+      <div class="blurring dimmable image">
+        <div class="ui inverted dimmer">
           <div class="content">
             <div class="center">
               <div class="ui primary button info" group-id="<%= groups[i]._id %>">Info</div>
             </div>
           </div>
-          </div>
-          <img src="../assets/images/group.png">
         </div>
-        <div class="content">
-          <a class="header"><%= groups[i].Name %></a>
-          <div class="meta">
+        <img src="../assets/images/group.png">
+      </div>
+      <div class="content">
+        <a class="header"><%= groups[i].Name %></a>
+        <div class="meta">
           <span class="date">Type: <%= groups[i].Type %></span>
-          </div>
-        </div>
-        <div class="extra content">
-          <a>
-          <i class="users icon"></i>
-          <%= groups[i].MemberID.length %> members
-          </a>
         </div>
       </div>
-      <% } %>
+      <div class="extra content">
+        <a><i class="users icon"></i>
+          <%= groups[i].MemberID.length %> members
+        </a>
+      </div>
     </div>
-  </div>
-  <% for(var i in groups) { %>
+  <% } %>
+</div>
+<% for(var i in groups) { %>
   <div class="ui modal <%= groups[i]._id %>">
     <i class="close icon"></i>
     <div class="header">
@@ -83,8 +78,7 @@
       <% } %>
     </div>
   </div>
-  <% } %>
-</div>
+<% } %>
 
 <script>
 $(document).ready(function(){

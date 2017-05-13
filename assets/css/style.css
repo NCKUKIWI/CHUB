@@ -39,7 +39,13 @@ table {
 
 /* reset css end */
 
-#app {
+#main{
+  margin-top: 30px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#menu {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -57,23 +63,19 @@ table {
   line-height:20px;
 }
 
-.head h1{
-font-size: 80px;
+.head{
+  text-align: left;
+  margin-left: 10%;
+  margin-bottom:5%;
 }
 
-.head{
-text-align: left;
-margin-left: 10%;
+.head h1{
+  font-size: 80px;
 }
+
 
 .head h2{
-margin-right: 50%;
-}
-
-.results{
-margin-top: 30px;
-margin-left: 10%;
-margin-right: 10%;
+  margin-right: 50%;
 }
 
 .results p{
@@ -83,4 +85,8 @@ margin-bottom: 10px;
 
 #mainSidebar, #mainSidebar > label{
   color: white;
+}
+
+.textcenter {
+  text-align: center;
 }
