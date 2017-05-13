@@ -1,36 +1,31 @@
 <% layout('../public/adminlayout') %>
-
   <div class="results">
-    <p>Project 總覽</p>
-    <div class="ui special cards">
+    <p style="text-align:center;">Project 總覽</p>
+    <table class="ui unstackable table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Members</th>
+          <th>Setting</th>
+        </tr>
+      </thead>
+      <tbody>
       <% for(var i in projects){ %>
-      <div class="card">
-        <div class="blurring dimmable image">
-          <div class="ui inverted dimmer">
-          <div class="content">
-            <div class="center">
-              <div class="ui primary button info" project-id="<%= projects[i]._id %>">Info</div>
-            </div>
-          </div>
-          </div>
-          <img src="../assets/images/project.png">
-        </div>
-        <div class="content">
-          <a class="header" href="/projects/<%= projects[i]._id %>"><%= projects[i].Name %></a>
-          <div class="meta">
-          <span class="date">Type: <%= projects[i].Type %></span>
-          </div>
-        </div>
-        <div class="extra content">
-          <a>
-          <i class="users icon"></i>
-          <%= projects[i].MemberID.length %> members
-          </a>
-        </div>
-      </div>
+        <tr class="<%= projects[i]._id %>">
+          <td><%= projects[i].Name %></td>
+          <td><%= projects[i].Name %></td>
+          <td><%= projects[i].MemberID.length %> members</td>
+          <td>
+            <div class="ui primary button info" project-id="<%= projects[i]._id %>">Info</div>
+            <div class="ui red button delproject" project-id="<%= projects[i]._id %>">Delete</div>
+            <a class="ui green button" href="/projects/edit/<%= projects[i]._id %>">Edit</a>
+            <a class="ui green button" href="/projects/<%= projects[i]._id %>/apply">Apply</a>
+          </td>
+        </tr>
       <% } %>
-    </div>
-  </div>
+      </tbody>
+    </table>
   <% for(var i in projects){ %>
   <div class="ui modal <%= projects[i]._id %>">
     <i class="close icon"></i>
@@ -68,23 +63,6 @@ $(document).ready(function(){
     $('.ui.modal.' + id).modal('show');
   });
 
-  $('.quitproject').on('click', function(){
-    var id = this.getAttribute('project-id');
-    $.ajax({
-      url: "/projects/quit/",
-      type: "POST",
-      data:{
-        project_id:id
-      },
-      success: function(response) {
-        toastr.success("退出成功");
-        setTimeout(function(){
-          window.location.href = window.location.href;
-        },3000);
-      }
-    });
-  });
-
   $('.delproject').on('click', function(){
     var id = this.getAttribute('project-id');
     $.ajax({
@@ -93,9 +71,7 @@ $(document).ready(function(){
       success: function(response) {
         if(response=="ok"){
           toastr.success("刪除成功");
-          setTimeout(function(){
-            window.location.href = window.location.href;
-          },3000);
+          $("."+id).remove();
         }
       }
     });

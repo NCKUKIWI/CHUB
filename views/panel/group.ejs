@@ -1,0 +1,80 @@
+<% layout('../public/adminlayout') %>
+  <div class="results">
+    <p style="text-align:center;">Group 總覽</p>
+    <table class="ui unstackable table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Members</th>
+          <th>Setting</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% for(var i in groups){ %>
+        <tr class="<%= groups[i]._id %>">
+          <td><%= groups[i].Name %></td>
+          <td><%= groups[i].Name %></td>
+          <td><%= groups[i].MemberID.length %> members</td>
+          <td>
+            <div class="ui primary button info" group-id="<%= groups[i]._id %>">Info</div>
+            <div class="ui red button delGroup" group-id="<%= groups[i]._id %>">Delete</div>
+            <a class="ui green button" href="/groups/edit/<%= groups[i]._id %>">Edit</a>
+            <a class="ui green button" href="/groups/<%= groups[i]._id %>/apply">Apply</a>
+          </td>
+        </tr>
+      <% } %>
+      </tbody>
+    </table>
+  <% for(var i in groups){ %>
+  <div class="ui modal <%= groups[i]._id %>">
+    <i class="close icon"></i>
+    <div class="header">
+      <%= groups[i].Name %>
+    </div>
+    <div class="image content">
+      <div class="ui medium image">
+        <img src="../assets/images/project.png">
+      </div>
+      <div class="description">
+        <p>Type: <%= groups[i].Type %></p>
+        <p>duration </p>
+        <p>Need: <%= groups[i].Need %></p>
+        <p>Description: <%= groups[i].Description %></p>
+        <p>Goal: <%= groups[i].Goal %></p>
+        <p>Contributor: </p>
+        <p>Sponsor: </p>
+        <p>Activities: </p>
+        <p>Teammate: </p>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui red button delGroup" group-id="<%= groups[i]._id %>">Delete</div>
+      <a class="ui green button" href="/groups/edit/<%= groups[i]._id %>">Edit</a>
+      <a class="ui green button" href="/groups/<%= groups[i]._id %>/apply">Apply</a>
+    </div>
+  </div>
+  <% } %>
+
+<script>
+$(document).ready(function(){
+  $('.info').on('click', function(){
+    var id = this.getAttribute('group-id');
+    $('.ui.modal.' + id).modal('show');
+  });
+
+  $('.delGroup').on('click', function(){
+    var id = this.getAttribute('group-id');
+    $.ajax({
+      url: "/groups/delete/"+id,
+      type: "POST",
+      success: function(response) {
+        if(response=="ok"){
+          toastr.success("刪除成功");
+          $("."+id).remove();
+        }
+      }
+    });
+  });
+});
+</script>
