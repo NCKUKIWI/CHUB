@@ -33,6 +33,17 @@ messageSchema.methods.customMethod = function() {
   return this.model("Message").find();
 };
 */
+
+messageSchema.pre("find", function(next) {
+  this.start = Date.now();
+  next();
+});
+
+messageSchema.post("find", function(result) {
+  console.log(JSON.stringify(result,null,4));
+  console.log(`Took ${ Date.now() - this.start} millis`);
+});
+
 messageSchema.plugin(uniqueValidator);
 var Message = mongoose.model("Message", messageSchema);
 

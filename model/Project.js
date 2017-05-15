@@ -21,7 +21,7 @@ Mutiple option
 var projectSchema = new Schema({
   Name:{type:String,required:[true,"請輸入專案名稱"]},
   Type:{type:String,required:[true,"請選擇專案類型"]},
-  Time:[Date],
+  Time:[String],
   Goal:String,
   Need:[String],
   Sponser:[String],
@@ -38,6 +38,17 @@ projectSchema.methods.customMethod = function() {
   return this.model("Project").find();
 };
 */
+
+projectSchema.pre("find", function(next) {
+  this.start = Date.now();
+  next();
+});
+
+projectSchema.post("find", function(result) {
+  console.log(JSON.stringify(result,null,4));
+  console.log(`Took ${ Date.now() - this.start} millis`);
+});
+
 projectSchema.plugin(uniqueValidator);
 var Project = mongoose.model("Project", projectSchema);
 

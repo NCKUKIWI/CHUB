@@ -1,0 +1,97 @@
+<i class="close icon"></i>
+<div class="header">
+  <%= group.Name %>
+</div>
+<div class="image content">
+  <div class="ui medium image">
+    <img src="../assets/images/group.png">
+  </div>
+  <div class="description">
+    <p>Administrator: </p>
+    <p>Type: </p>
+    <p>Member: </p>
+    <p>Project: </p>
+    <p>Activity: </p>
+    <p>Introduction: </p>
+    <p>News: </p>
+    <p>Websites: </p>
+  </div>
+</div>
+<div class="actions">
+  <% if(me && group.AdminID.indexOf(me._id)!=-1){ %>
+    <div class="ui red button delGroup" group-id="<%= group._id %>">Delete</div>
+    <a class="ui green button" href="/groups/edit/<%= group._id %>">Edit</a>
+    <a class="ui green button" href="/groups/<%= group._id %>/apply">Apply</a>
+  <% } %>
+  <div class="ui blue button">
+    Text Me
+  </div>
+  <div class="ui blue button">
+    Sharing
+  </div>
+  <% if(me){ %>
+    <% if(group.ApplyID.indexOf(me._id)==-1 && group.MemberID.indexOf(me._id)==-1){ %>
+      <div class="ui blue button joinGroup" group-id="<%= group._id %>">
+        Join
+      </div>
+    <% }else if(group.ApplyID.indexOf(me._id)!=-1 || group.MemberID.indexOf(me._id)!=-1){ %>
+      <div class="ui red button quitGroup" group-id="<%= group._id %>">
+        Quit
+      </div>
+    <% } %>
+  <% } %>
+</div>
+
+<script>
+$("document").ready(function(){
+  $('.joinGroup').on('click', function(){
+    var id = this.getAttribute('group-id');
+    $.ajax({
+      url: "/groups/join/",
+      type: "POST",
+      data:{
+        group_id:id
+      },
+      success: function(response) {
+        toastr.success("申請成功");
+        setTimeout(function(){
+          window.location.href = window.location.href;
+        },3000);
+      }
+    });
+  });
+
+  $('.quitGroup').on('click', function(){
+    var id = this.getAttribute('group-id');
+    $.ajax({
+      url: "/groups/quit/",
+      type: "POST",
+      data:{
+        group_id:id
+      },
+      success: function(response) {
+        toastr.success("退出成功");
+        setTimeout(function(){
+          window.location.href = window.location.href;
+        },3000);
+      }
+    });
+  });
+
+  $('.delGroup').on('click', function(){
+    var id = this.getAttribute('group-id');
+    $.ajax({
+      url: "/groups/delete/"+id,
+      type: "POST",
+      success: function(response) {
+        if(response=="ok"){
+          toastr.success("刪除成功");
+          setTimeout(function(){
+            window.location.href = window.location.href;
+          },3000);
+        }
+      }
+    });
+  });
+});
+</script>

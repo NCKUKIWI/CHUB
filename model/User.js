@@ -42,6 +42,16 @@ userSchema.methods.customMethod = function() {
 };
 */
 
+userSchema.pre("find", function(next) {
+  this.start = Date.now();
+  next();
+});
+
+userSchema.post("find", function(result) {
+  console.log(JSON.stringify(result,null,4));
+  console.log(`Took ${ Date.now() - this.start} millis`);
+});
+
 userSchema.plugin(uniqueValidator,{ message: "UserId 已經使用過" });
 var User = mongoose.model("User", userSchema);
 

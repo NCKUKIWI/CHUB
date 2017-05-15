@@ -22,7 +22,8 @@ var activitySchema = new Schema({
   Name:{type:String,required:[true,"請輸入活動名稱"]},
   Type:{type:String,required:[true,"請選擇活動類型"]},
   Description:String,
-  Time:[Date],
+  Time:[String],
+  Fee:[Number],
   MemberID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
   Context:{type:String,required:[true,"請輸入活動說明"]},
@@ -35,6 +36,17 @@ activitySchema.methods.customMethod = function() {
   return this.model("Activity").find();
 };
 */
+
+activitySchema.pre("find", function(next) {
+  this.start = Date.now();
+  next();
+});
+
+activitySchema.post("find", function(result) {
+  console.log(JSON.stringify(result,null,4));
+  console.log(`Took ${ Date.now() - this.start} millis`);
+});
+
 activitySchema.plugin(uniqueValidator);
 var Activity = mongoose.model("Activity", activitySchema);
 

@@ -1,0 +1,53 @@
+<i class="close icon"></i>
+<div class="header">
+  <%= activity.Name %>
+</div>
+<div class="image content">
+  <div class="ui medium image">
+    <img src="../assets/images/project.png">
+  </div>
+  <div class="description">
+    <p>Pics&Video: </p>
+    <p>Introduction: </p>
+    <p>Type: </p>
+    <p>Conditions</p>
+    <p>Map: </p>
+    <p>TimeTable: </p>
+    <p>Mission</p>
+    <p>Guest: </p>
+    <p>News</p>
+    <p>Group(sponsor)</p>
+  </div>
+</div>
+<div class="actions">
+  <% if(me && activity.AdminID.indexOf(me._id)!=-1){ %>
+    <div class="ui red button delactivity" project-id="<%= activity[i]._id %>">Delete</div>
+    <a class="ui green button" href="/activities/edit/<%= activity[i]._id %>">Edit</a>
+  <% } %>
+  <div class="ui blue button">
+    Text Me
+  </div>
+  <div class="ui blue button">
+    Sharing
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $('.delactivity').on('click', function(){
+    var id = this.getAttribute('activity-id');
+    $.ajax({
+      url: "/activities/delete/"+id,
+      type: "POST",
+      success: function(response) {
+        if(response=="ok"){
+          toastr.success("刪除成功");
+          setTimeout(function(){
+            window.location.href = window.location.href;
+          },3000);
+        }
+      }
+    });
+  });
+});
+</script>

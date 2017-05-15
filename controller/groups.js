@@ -190,7 +190,7 @@ router.get("/:id/msg",helper.checkLogin(),function(req,res) {
   });
 });
 
-router.get("/:id",function(req,res) {
+router.post("/:id",function(req,res) {
   Group.findById(req.params.id,function(err,group){
     if(group){
       User.find({ _id:{ $in:group.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
@@ -200,7 +200,7 @@ router.get("/:id",function(req,res) {
         });
       });
     }else{
-      res.redirect("back");
+      res.send("notFound");
     }
   });
 });

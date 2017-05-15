@@ -1,0 +1,98 @@
+<i class="close icon"></i>
+<div class="header">
+  <%= project.Name %>
+</div>
+<div class="image content">
+  <div class="ui medium image">
+    <img src="../assets/images/project.png">
+  </div>
+  <div class="description">
+    <p>Type: <%= project.Type %></p>
+    <p>duration </p>
+    <p>Need: <%= project.Need %></p>
+    <p>Description: <%= project.Description %></p>
+    <p>Goal: <%= project.Goal %></p>
+    <p>Contributor: </p>
+    <p>Sponsor: </p>
+    <p>Activities: </p>
+    <p>Teammate: </p>
+  </div>
+</div>
+<div class="actions">
+  <% if(me && project.AdminID.indexOf(me._id)!=-1){ %>
+    <div class="ui red button delProject" project-id="<%= project._id %>">Delete</div>
+    <a class="ui green button" href="/projects/edit/<%= project._id %>">Edit</a>
+    <a class="ui green button" href="/projects/<%= project._id %>/apply">Apply</a>
+  <% } %>
+  <div class="ui blue button">
+    Text Me
+  </div>
+  <div class="ui blue button">
+    Sharing
+  </div>
+  <% if(me){ %>
+    <% if(project.ApplyID.indexOf(me._id)==-1 && project.MemberID.indexOf(me._id)==-1){ %>
+      <div class="ui blue button joinProject" project-id="<%= project._id %>">
+        Join
+      </div>
+    <% }else if(project.ApplyID.indexOf(me._id)!=-1 || project.MemberID.indexOf(me._id)!=-1){ %>
+      <div class="ui red button quitProject" project-id="<%= project._id %>">
+        Quit
+      </div>
+    <% } %>
+  <% } %>
+</div>
+
+<script>
+$(document).ready(function(){
+  $('.joinProject').on('click', function(){
+    var id = this.getAttribute('project-id');
+    $.ajax({
+      url: "/projects/join/",
+      type: "POST",
+      data:{
+        project_id:id
+      },
+      success: function(response) {
+        toastr.success("申請成功");
+        setTimeout(function(){
+          window.location.href = window.location.href;
+        },3000);
+      }
+    });
+  });
+
+  $('.quitProject').on('click', function(){
+    var id = this.getAttribute('project-id');
+    $.ajax({
+      url: "/projects/quit/",
+      type: "POST",
+      data:{
+        project_id:id
+      },
+      success: function(response) {
+        toastr.success("退出成功");
+        setTimeout(function(){
+          window.location.href = window.location.href;
+        },3000);
+      }
+    });
+  });
+
+  $('.delProject').on('click', function(){
+    var id = this.getAttribute('project-id');
+    $.ajax({
+      url: "/projects/delete/"+id,
+      type: "POST",
+      success: function(response) {
+        if(response=="ok"){
+          toastr.success("刪除成功");
+          setTimeout(function(){
+            window.location.href = window.location.href;
+          },3000);
+        }
+      }
+    });
+  });
+});
+</script>

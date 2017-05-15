@@ -22,7 +22,7 @@
         <div class="ui inverted dimmer">
           <div class="content">
             <div class="center">
-              <div class="ui primary button info" people-id="<%= users[i]._id %>">Info</div>
+              <div class="ui primary button info" user-id="<%= users[i]._id %>">Info</div>
             </div>
           </div>
         </div>
@@ -40,47 +40,27 @@
         </a>
       </div>
     </div>
-    <div class="ui modal <%= users[i]._id %>">
-      <i class="close icon"></i>
-      <div class="header">
-        <%= users[i].Name %>
-      </div>
-      <div class="image content">
-        <div class="ui medium image">
-          <img src="/assets/images/rachel.png">
-        </div>
-        <div class="description">
-          <p>Major: <%= users[i].Major %></p>
-          <p>Skills:&nbsp;
-            <% for(var j = 0; j < users[i].Skill.length; j++){ %>
-              <%= users[i].Skill[j] %>
-              <% if(j != users[i].Skill.length - 1){ %>
-                ,&nbsp;&nbsp;
-              <% } %>
-            <% } %>
-          </p>
-          <p>Group: </p>
-          <p>Location: <%= users[i].Location %></p>
-          <p>Introduction: <%= users[i].Introduction %></p>
-          <p>Project: </p>
-          <p>Activity: </p>
-          <p>portfolio: </p>
-        </div>
-      </div>
-      <div class="actions">
-        <div class="ui blue button">
-          Text Me
-        </div>
-      </div>
-    </div>
   <% } %>
+</div>
+
+<div class="ui modal">
 </div>
 
 <script>
   $(document).ready(function(){
     $('.info').on('click', function(){
-      var id = this.getAttribute('people-id');
-      $('.ui.modal.' + id).modal('show');
-    })
+      var id = this.getAttribute('user-id');
+      $.ajax({
+        url: "/users/"+id,
+        type: "POST",
+        success: function(response) {
+          $(".ui.modal").append(response);
+          $(".ui.modal").modal({
+          onHide: function(){
+            $(".ui.modal").empty();
+          }}).modal("show");
+        }
+      });
+    });
   });
 </script>

@@ -34,6 +34,17 @@ groupSchema.methods.customMethod = function() {
   return this.model("Group").find();
 };
 */
+
+groupSchema.pre("find", function(next) {
+  this.start = Date.now();
+  next();
+});
+
+groupSchema.post("find", function(result) {
+  console.log(JSON.stringify(result,null,4));
+  console.log(`Took ${ Date.now() - this.start} millis`);
+});
+
 groupSchema.plugin(uniqueValidator);
 var Group = mongoose.model("Group", groupSchema);
 

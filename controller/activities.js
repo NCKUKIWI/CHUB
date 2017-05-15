@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var helper = require("../helper");
 var Activity = require("../model/Activity");
+var User = require("../model/User");
 
 router.get("/", function(req,res) {
   Activity.find({},function(err,activity){
@@ -120,17 +121,17 @@ router.post("/addCalendar/:id",helper.apiAuth(),function(req,res) {
   res.send("add activity to calendar");
 });
 
-router.get("/:id", function(req,res) {
-  Activity.findById(req.params.id,function(err,activity){
+router.post("/:id", function(req,res) {
+  Activity.findById(req.params.id).populate("MemberID","_id Name").exec(function(err,activity){
     if(activity){
-      User.find({ _id:{ $in:activity.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,member){
+      User.find({ _id:{ $in:activity.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
         res.render("activities/show",{
           activity:activity,
           members:members
         });
       });
     }else{
-      res.redirect("back");
+      res.send("notFound");
     }
   });
 });

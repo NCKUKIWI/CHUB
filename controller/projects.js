@@ -213,7 +213,7 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   });
 });
 
-router.get("/:id",function(req,res) {
+router.post("/:id",function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
       User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
@@ -223,7 +223,7 @@ router.get("/:id",function(req,res) {
         });
       });
     }else{
-      res.redirect("back");
+      res.send("notFound");
     }
   });
 });

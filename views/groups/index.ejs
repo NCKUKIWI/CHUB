@@ -32,108 +32,26 @@
     </div>
   <% } %>
 </div>
-<% for(var i in groups) { %>
-  <div class="ui modal <%= groups[i]._id %>">
-    <i class="close icon"></i>
-    <div class="header">
-      <%= groups[i].Name %>
-    </div>
-    <div class="image content">
-      <div class="ui medium image">
-        <img src="../assets/images/group.png">
-      </div>
-      <div class="description">
-        <p>Administrator: </p>
-        <p>Type: </p>
-        <p>Member: </p>
-        <p>Project: </p>
-        <p>Activity: </p>
-        <p>Introduction: </p>
-        <p>News: </p>
-        <p>Websites: </p>
-      </div>
-    </div>
-    <div class="actions">
-      <% if(me && groups[i].AdminID.indexOf(me._id)!=-1){ %>
-        <div class="ui red button delGroup" group-id="<%= groups[i]._id %>">Delete</div>
-        <a class="ui green button" href="/groups/edit/<%= groups[i]._id %>">Edit</a>
-        <a class="ui green button" href="/groups/<%= groups[i]._id %>/apply">Apply</a>
-      <% } %>
-      <div class="ui blue button">
-        Text Me
-      </div>
-      <div class="ui blue button">
-        Sharing
-      </div>
-      <% if(me){ %>
-        <% if(groups[i].ApplyID.indexOf(me._id)==-1 && groups[i].MemberID.indexOf(me._id)==-1){ %>
-          <div class="ui blue button joinGroup" group-id="<%= groups[i]._id %>">
-            Join
-          </div>
-        <% }else{ %>
-          <div class="ui red button quitGroup" group-id="<%= groups[i]._id %>">
-            Quit
-          </div>
-        <% } %>
-      <% } %>
-    </div>
-  </div>
-<% } %>
+<div class="ui modal">
+</div>
 
 <script>
 $(document).ready(function(){
+
   $('.info').on('click', function(){
     var id = this.getAttribute('group-id');
-    $('.ui.modal.' + id).modal('show');
-  });
-  $('.joinGroup').on('click', function(){
-    var id = this.getAttribute('group-id');
     $.ajax({
-      url: "/groups/join/",
+      url: "/groups/"+id,
       type: "POST",
-      data:{
-        group_id:id
-      },
       success: function(response) {
-        toastr.success("申請成功");
-        setTimeout(function(){
-          window.location.href = window.location.href;
-        },3000);
+        $(".ui.modal").append(response);
+        $(".ui.modal").modal({
+        onHide: function(){
+          $(".ui.modal").empty();
+        }}).modal("show");
       }
     });
   });
 
-  $('.quitGroup').on('click', function(){
-    var id = this.getAttribute('group-id');
-    $.ajax({
-      url: "/groups/quit/",
-      type: "POST",
-      data:{
-        group_id:id
-      },
-      success: function(response) {
-        toastr.success("退出成功");
-        setTimeout(function(){
-          window.location.href = window.location.href;
-        },3000);
-      }
-    });
-  });
-
-  $('.delGroup').on('click', function(){
-    var id = this.getAttribute('group-id');
-    $.ajax({
-      url: "/groups/delete/"+id,
-      type: "POST",
-      success: function(response) {
-        if(response=="ok"){
-          toastr.success("刪除成功");
-          setTimeout(function(){
-            window.location.href = window.location.href;
-          },3000);
-        }
-      }
-    });
-  });
 });
 </script>

@@ -197,17 +197,16 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   });
 });
 
-router.get("/:id", function(req,res) {
-  User.findOne({UserID:req.params.id}, userInfo, function(err,user){
+router.post("/:id", function(req,res) {
+  User.findById(req.params.id,function(err,user){
     if(user){
       res.render("users/show",{
         user:user
       });
     }else{
-      res.redirect("back");
+      res.send("notFound");
     }
   });
 });
-
 
 module.exports = router;
