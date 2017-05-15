@@ -26,7 +26,7 @@ router.get("/", function(req,res) {
   });
 });
 
-router.get("/create",helper.checkLogin(),function(req,res) {
+router.get("/new",helper.checkLogin(),function(req,res) {
   res.render("projects/create");
 });
 

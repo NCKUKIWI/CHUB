@@ -21,8 +21,8 @@
 </div>
 <div class="actions">
   <% if(me && activity.AdminID.indexOf(me._id)!=-1){ %>
-    <div class="ui red button delactivity" project-id="<%= activity[i]._id %>">Delete</div>
-    <a class="ui green button" href="/activities/edit/<%= activity[i]._id %>">Edit</a>
+    <div class="ui red button delactivity" activity-id="<%= activity._id %>">Delete</div>
+    <a class="ui green button" href="/activities/edit/<%= activity._id %>">Edit</a>
   <% } %>
   <div class="ui blue button">
     Text Me

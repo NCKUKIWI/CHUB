@@ -25,7 +25,7 @@ var projectSchema = new Schema({
   Goal:String,
   Need:[String],
   Sponser:[String],
-  Description:String,
+  Description:{type:String,required:[true,"請輸入專案介紹"]},
   ApplyID:[{type:ObjectId,ref:"User"}],
   MemberID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],

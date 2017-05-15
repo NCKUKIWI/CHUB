@@ -1,0 +1,60 @@
+<% layout('../public/layout') %>
+<div class="ui centered grid" style="padding-top:50px;">
+  <div class="ten wide tablet six wide computer column">
+    <h1>Create Activity</h1>
+    <form class="ui form" id="activityForm">
+      <div class="field">
+        <div id="errormsg"></div>
+      </div>
+      <div class="field">
+        <label>Name</label>
+        <input type="text" name="name" placeholder="Name">
+      </div>
+      <div class="field">
+        <label>Fee</label>
+        <input type="text" name="fee" placeholder="Fee">
+      </div>
+      <div class="field">
+        <label>Time</label>
+        <input type="text" name="time" placeholder="Time">
+      </div>
+      <div class="field">
+        <label>Type</label>
+        <select class="ui fluid dropdown" name="type">
+          <option value="type1">type1</option>
+          <option value="type2">type2</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Description</label>
+        <textarea name="description" placeholder="Description"></textarea>
+      </div>
+      <div class="ui button" id="activitySubmit">Create</div>
+    </form>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $("#activitySubmit").on("click",function(){
+      $.ajax({
+        url: "/activities/create",
+        type: "POST",
+        data: $("#activityForm").serialize(),
+        success: function(response) {
+          if (response == "ok") {
+            toastr.success("創立成功");
+            setTimeout(function(){
+              window.location.href="/activities";
+            },3000);
+          }
+          else {
+            $("#errormsg").empty();
+            for(var i in response["error"]){
+              $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+            }
+          }
+        }
+      });
+    });
+  });
+</script>

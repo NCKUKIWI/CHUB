@@ -12,12 +12,17 @@ router.get("/", function(req,res) {
   });
 });
 
+router.get("/new",helper.checkLogin(),function(req,res) {
+  res.render("activities/create");
+});
+
 router.post("/create",helper.apiAuth(),function(req,res) {
   var newActivity;
   if(req.body.group_id){
     newActivity = new Activity({
       Name:req.body.name,
       Type:req.body.type,
+      Fee:[req.body.fee],
       Description:req.body.description,
       Time:req.body.time.split(","),
       MemberID:[req.user._id],
@@ -29,6 +34,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
     newActivity = new Activity({
       Name:req.body.name,
       Type:req.body.type,
+      Fee:[req.body.fee],
       Description:req.body.description,
       Time:req.body.time.split(","),
       MemberID:[req.user._id],
@@ -43,6 +49,18 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       res.send("ok");
     }
   })
+});
+
+router.get("/edit/:id",helper.checkLogin(),function(req,res) {
+  Activity.findById(req.params.id,function(err,activity){
+    if( activity && activity.AdminID.indexOf(req.user._id)!=-1 ){
+      res.render("activities/edit",{
+        activity:activity
+      });
+    }else{
+      res.redirect("back");
+    }
+  });
 });
 
 router.post("/update/:id",helper.apiAuth(),function(req,res) {
