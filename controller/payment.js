@@ -6,17 +6,39 @@ var User = require("../model/User");
 var Activity = require("../model/Activity");
 var sha256 = require("sha256");
 
-router.get("/", function(req,res) {
-  var timestamp = Date.now();
-  var check =`HashKey=${ config.pay2go.hashkey }&Amt=2000&MerchantID=MS11571737&MerchantOrderNo=1212389&TimeStamp=${ timestamp }&Version=1.2&HashIV=${ config.pay2go.hashiv }`;
-  check = sha256(check).toUpperCase();
-  res.render("payment",{
-    timestamp:timestamp,
-    check:check
-  });
+router.get("/return", function(req,res) {
+  console.log(req.body);
+  console.log("------");
+  console.log(req.query);
+  console.log("------");
+  console.log(req.params);
+  res.send("ok");
 });
 
 router.post("/return", function(req,res) {
+  console.log(req.body);
+  console.log("------");
+  console.log(req.query);
+  console.log("------");
+  console.log(req.params);
+  res.send("ok");
+});
+
+router.get("/notify", function(req,res) {
+  console.log(req.body);
+  console.log("------");
+  console.log(req.query);
+  console.log("------");
+  console.log(req.params);
+  res.send("ok");
+});
+
+router.post("/notify", function(req,res) {
+  console.log(req.body);
+  console.log("------");
+  console.log(req.query);
+  console.log("------");
+  console.log(req.params);
   res.send("ok");
 });
 

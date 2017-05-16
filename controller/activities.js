@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var helper = require("../helper");
+var config = require("../config");
+var sha256 = require("sha256");
 var Activity = require("../model/Activity");
 var User = require("../model/User");
 
@@ -143,9 +145,16 @@ router.post("/:id", function(req,res) {
   Activity.findById(req.params.id).populate("MemberID","_id Name").exec(function(err,activity){
     if(activity){
       User.find({ _id:{ $in:activity.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
+        var timestamp = Date.now();
+        var orderNo = (activity._id+timestamp).substr(0, 19);
+        var check =`HashKey=${ config.pay2go.hashkey }&Amt=${ activity.Fee }&MerchantID=MS11571737&MerchantOrderNo=${ orderNo }&TimeStamp=${ timestamp }&Version=1.2&HashIV=${ config.pay2go.hashiv }`;
+        check = sha256(check).toUpperCase();
         res.render("activities/show",{
           activity:activity,
-          members:members
+          members:members,
+          timestamp:timestamp,
+          orderNo:orderNo,
+          check:check
         });
       });
     }else{
