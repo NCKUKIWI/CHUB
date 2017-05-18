@@ -4,10 +4,10 @@ var helper = require("../helper");
 var Project = require("../model/Project");
 var User = require("../model/User");
 
-var multer  = require('multer')
+var multer  = require('multer');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null,`./upload/${req.body.group_id}`);
+    cb(null,`./upload/`);
   },
   filename: function (req, file, cb) {
     var fileFormat = (file.originalname).split(".");
@@ -30,7 +30,7 @@ router.get("/new",helper.checkLogin(),function(req,res) {
   res.render("projects/create");
 });
 
-router.post("/create",helper.apiAuth(),function(req,res) {
+router.post("/create",helper.apiAuth(),upload.any(),function(req,res) {
   var newProject;
   if(req.body.group_id){
     newProject = new Project({
@@ -63,10 +63,6 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       res.send("ok");
     }
   });
-});
-
-router.post("/upload",upload.any(),function(req,res) {
-  res.send("ok");
 });
 
 router.get("/edit/:id",helper.checkLogin(),function(req,res) {

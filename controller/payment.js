@@ -7,38 +7,11 @@ var Activity = require("../model/Activity");
 var sha256 = require("sha256");
 
 router.get("/return", function(req,res) {
-  console.log(req.body);
-  console.log("------");
-  console.log(req.query);
-  console.log("------");
-  console.log(req.params);
-  res.send("ok");
-});
-
-router.post("/return", function(req,res) {
-  console.log(req.body);
-  console.log("------");
-  console.log(req.query);
-  console.log("------");
-  console.log(req.params);
-  res.send("ok");
-});
-
-router.get("/notify", function(req,res) {
-  console.log(req.body);
-  console.log("------");
-  console.log(req.query);
-  console.log("------");
-  console.log(req.params);
-  res.send("ok");
+  res.send("付款成功");
 });
 
 router.post("/notify", function(req,res) {
   console.log(req.body);
-  console.log("------");
-  console.log(req.query);
-  console.log("------");
-  console.log(req.params);
   res.send("ok");
 });
 

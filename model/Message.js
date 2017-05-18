@@ -40,7 +40,7 @@ messageSchema.pre("find", function(next) {
 });
 
 messageSchema.post("find", function(result) {
-  console.log(JSON.stringify(result,null,4));
+  //console.log(JSON.stringify(result,null,4));
   console.log(`Took ${ Date.now() - this.start} millis`);
 });
 

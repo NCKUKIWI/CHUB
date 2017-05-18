@@ -146,7 +146,7 @@ router.post("/:id", function(req,res) {
     if(activity){
       User.find({ _id:{ $in:activity.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
         var timestamp = Date.now();
-        var orderNo = (activity._id+timestamp).substr(0, 19);
+        var orderNo = (activity._id.toString().substr(0, 3)+timestamp).substr(0, 19);
         var check =`HashKey=${ config.pay2go.hashkey }&Amt=${ activity.Fee }&MerchantID=MS11571737&MerchantOrderNo=${ orderNo }&TimeStamp=${ timestamp }&Version=1.2&HashIV=${ config.pay2go.hashiv }`;
         check = sha256(check).toUpperCase();
         res.render("activities/show",{
