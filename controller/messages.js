@@ -25,6 +25,7 @@ router.post("/send",helper.apiAuth(),function(req,res) {
   }
   else{
     if(req.body.togid){
+      console.log('gid');
       newMsg = new Message({
         FromUID:req.user._id,
         Context:req.body.context,
@@ -32,14 +33,17 @@ router.post("/send",helper.apiAuth(),function(req,res) {
         ToGID:req.body.togid
       });
     }else{
+      console.log('uid');
       newMsg = new Message({
         FromUID:req.user._id,
-        ToUID:req.user.touid,
+        ToUID:req.body.touid,
         Context:req.body.context,
         IsRead:0,
       });
     }
   }
+  console.log(req.body);
+  console.log(newMsg);
   newMsg.save(function(err){
     if(err){
       res.send({error:helper.handleError(err)});
