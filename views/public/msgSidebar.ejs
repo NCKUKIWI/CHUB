@@ -1,52 +1,44 @@
 
 <div class="ui sidebar right inverted vertical menu" id="msgSidebar" style="width:400px">
-
+  <!-- 訊息側邊欄 -->
+  <div class="ui vertical pointing labeled icon menu inverted" id="userSidebar">
+<!--     <a class="item">
+      <i class="mail icon"></i>
+      Message
+    </a> -->
+    <!-- <div class="ui divider" style="margin: 0px 0px 0px 0px;"></div> -->
+<!--     <a class="item getUserMessage">
+      <i class="user icon"></i>
+    </a>
+    <a class="item">
+      <i class="user icon"></i>
+    </a> -->
+  </div>
+  <!-- 訊息側邊欄 -->
   <div class="arrow"></div>
   <ul class="ChatLog">
     <div class="chatCont">
-      <li class="chatEntry">
-        <img class="avatar" src="//placekitten.com/g/50/50" />
-        <p class="message">
-          Hello!
-          <time class="timestamp">6 minutes ago</time>
-        </p>
-      </li>
-      <li class="chatEntry">
-        <img class="avatar" src="//placekitten.com/g/50/50" />
-        <p class="message">
-          What is going on here?
-          <time class="timestamp">5 minutes ago</time>
-        </p>
-      </li>
-      <li class="chatEntry chatSent">
-        <img class="avatar" src="//placekitten.com/56/56" />
-        <p class="message">
-          I have no idea.
-          <time class="timestamp">4 minutes ago</time>
-        </p>
-      </li>
-      <li class="chatEntry">
-        <img class="avatar" src="//placekitten.com/g/50/50" />
-        <p class="message">
-          I have a neat idea. Maybe I should explain it to you in detail?
-          <time class="timestamp">3 minutes ago</time>
-        </p>
-      </li>
-      <li class="chatEntry chatSent">
-        <img class="avatar" src="//placekitten.com/56/56" />
-        <p class="message">
-          Sure thing. The more detail the better. In fact, if you could provide definitions for every single term you use, that would be terrific!
-          <time class="timestamp">2 minutes ago</time>
-        </p>
-      </li>
     </div>
-  </ul>
   <div id="inputMsg">
     <input type="text" id="msgText"></input>
-    <input type="botton" value="Send" id="msgSend"></input>
+    <input class="ui blue button" type="botton" value="Send" id="msgSend"></input>
   </div>
-
+  </ul>
 </div>
+
+
+<script>
+  //登入後立即取得訊息的資料
+  <% if(me){ %>
+  $.ajax({
+    url: "users/msg",
+    method: "GET",
+    success: function(req){
+      $('.chatCont').append(req);
+    }
+  }); 
+  <% } %>
+</script>
 
 
 <style>
@@ -69,6 +61,7 @@ max-width: 20em;
 margin: 0 auto;
 height: 95vh;
 overflow: scroll;
+margin-left: 80px;
 }
 .ChatLog .chatEntry {
 margin: .5em;
@@ -149,13 +142,19 @@ display: none;
 }
 #msgText {
   float: left;
-  width: 80%;
+  width: 60%;
   height: 5vh;
 }
 #msgSend {
   float: left;
   width: 20%;
   height: 5vh;
+}
+
+/*之後改成flexbox的形式*/
+#userSidebar{
+  position: absolute;
+  max-width: 90px;
 }
 
 </style>

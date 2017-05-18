@@ -9,6 +9,12 @@ $(document).ready(function() {
 	$("#msgbtn").click(function() {
 		$('#msgSidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
 	});
+	$('#msgSidebar').sidebar({
+		onHide: function () {
+			// $("#userSidebar > .item").removeClass("active");
+			findNotSendMessageUser();
+		}
+	});
 
 	$(".searchbtn").click(function() {
 		$('#searchSidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
@@ -86,7 +92,6 @@ $(document).ready(function() {
 		for(var i = 0; i < skillNum; i++){
 			Data += '&skill=' + $('#showSkills a')[i].text;
 		}
-		console.log(Data);
 		$.ajax({
 			url: 'users/update',
 			method: "POST",
@@ -101,6 +106,7 @@ $(document).ready(function() {
 		$(this).remove();
 	})
 
+	// message js group
 	$('#msgSend').on('click', function(){
 		sendMessage();
 	})
@@ -110,17 +116,56 @@ $(document).ready(function() {
 		}
 	});
 });
-
+var test;
 
 // 送出訊息
 function sendMessage(){
 	var sendMsg = $('#msgText').val();
-	$(".chatCont").append('<li class="chatEntry chatSent"><img class="avatar" src="//placekitten.com/56/56" /><p class="message">'+sendMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
+	if(sendMsg == "") return;
+
+	var toID = $("#userSidebar > .item.active").attr("userid");
+	$(".chatCont > div[messageuserid=\'" + toID + "\']").append('<li class="chatEntry chatSent"><img class="avatar" src="//placekitten.com/56/56" /><p class="message">'+sendMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
 	$('#msgText').val('');
+	
+	var Data = "touid=" + toID + "&context=" + sendMsg;
+	console.log(Data);
+	$.ajax({
+		url: 'messages/send',
+		method: "POST",
+		data: Data,
+		success: function(response) {
+			console.log('send success!');
+		}
+	})
 }
 
 // 收到訊息
-function getMessage(receiveText){
-	var getMsg = receiveText;
-	$(".chatCont").append('<li class="chatEntry"><img class="avatar" src="//placekitten.com/g/50/50" /><p class="message">'+getMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
+// function getMessage(receiveText){
+// 	var getMsg = receiveText;
+// 	$(".chatCont").append('<li class="chatEntry"><img class="avatar" src="//placekitten.com/g/50/50" /><p class="message">'+getMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
+// }
+
+function changeMessageBoard(){
+	$('#userSidebar > .item').removeClass("active");
+	$(this).addClass("active");
+	var userID = $(this).attr("userid");
+	$('.chatCont > div').hide();
+	$(".chatCont > div[messageuserid=\'" + userID + "\'").show();
+}
+
+// 假設使用者沒有傳訊息的話～就把資料刪除
+function findNotSendMessageUser(){
+	console.log('in???');
+	var messageArr = $('.chatCont > div');
+	console.log(messageArr);
+	for(var i in messageArr){
+		console.log('level2');
+		if($(messageArr[i]).children().length == 0){
+			console.log('level3');
+			var id = $(messageArr[i]).attr('messageuserid');
+			$("#userSidebar > .item[userid=\'" + id + "\']").remove();
+			$(".chatCont > div[messageuserid=\'" + id + "\'").remove();
+			break;
+		}
+	}
 }
