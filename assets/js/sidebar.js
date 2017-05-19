@@ -8,17 +8,16 @@ $(document).ready(function() {
 
 	$("#msgbtn").click(function() {
 		$('#msgSidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
-	});
-	$('#msgSidebar').sidebar({
-		onHide: function () {
-			// $("#userSidebar > .item").removeClass("active");
-			findNotSendMessageUser();
-		}
+		findNotSendMessageUser();
 	});
 
 	$(".searchbtn").click(function() {
 		$('#searchSidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
 	});
+
+	$(".R").on('click', function () {
+		$('#searchSidebar').sidebar('setting', 'transition', 'overlay').sidebar('attach events', '.launch.button.R', 'push page');
+	})
 
 	$("#signupbtn").click(function() {
 		$('#mainSidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
@@ -155,7 +154,6 @@ function changeMessageBoard(){
 
 // 假設使用者沒有傳訊息的話～就把資料刪除
 function findNotSendMessageUser(){
-	console.log('in???');
 	var messageArr = $('.chatCont > div');
 	console.log(messageArr);
 	for(var i in messageArr){

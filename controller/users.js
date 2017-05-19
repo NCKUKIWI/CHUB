@@ -170,8 +170,11 @@ router.get("/msg",helper.checkLogin(),function(req,res) {
         msgAll[toMsg[i].FromUID._id].context = [];
         msgAll[toMsg[i].FromUID._id].latestTime = "2017-05-10T17:19:40.520Z";
         msgAll[toMsg[i].FromUID._id].user = toMsg[i].FromUID;
+        msgAll[toMsg[i].FromUID._id].isRead = 0;
       }
       msgAll[toMsg[i].FromUID._id].context.push(toMsg[i]);
+      // 暫時別計算未讀
+      // if(toMsg[i].IsRead == false) msgAll[toMsg[i].FromUID._id].isRead++;
       if(findLatestTime(toMsg[i].CreateAt, msgAll[toMsg[i].FromUID._id].latestTime)){
         msgAll[toMsg[i].FromUID._id].latestTime = toMsg[i].CreateAt;
       }
@@ -185,6 +188,7 @@ router.get("/msg",helper.checkLogin(),function(req,res) {
           msgAll[fromMsg[i].ToUID._id].context = [];
           msgAll[fromMsg[i].ToUID._id].latestTime = "2017-05-10T17:19:40.520Z";
           msgAll[fromMsg[i].ToUID._id].user = fromMsg[i].ToUID;
+          msgAll[fromMsg[i].ToUID._id].isRead = 0;
         }
         msgAll[fromMsg[i].ToUID._id].context.push(fromMsg[i]);
         if(findLatestTime(fromMsg[i].CreateAt, msgAll[fromMsg[i].ToUID._id].latestTime)){

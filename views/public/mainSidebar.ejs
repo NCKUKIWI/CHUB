@@ -170,3 +170,33 @@
       <% } %>
   </div>
 </div>
+<div class="ui black big left attached launch button R">
+    <span class="text">Right</span>
+</div>
+
+<style>
+#searchSidebar.animating.visible ~ .left.attached.launch.button {
+  -webkit-transform: translate3d(-260px, 0, 0);
+  transform: translate3d(-260px, 0, 0);
+  transition: 0.5s all;
+}
+
+#searchSidebar.visible ~ .left.attached.launch.button {
+  -webkit-transform: translate3d(-260px, 0, 0);
+  transform: translate3d(-260px, 0, 0);
+  transition: 0s all;
+}
+
+#searchSidebar.animating:not(visible) ~ .left.attached.launch.button {
+  -webkit-transform: translate3d(0px, 0, 0);
+  transform: translate3d(0px, 0, 0);
+  transition: 0.5s all;
+}
+
+
+.left.attached.launch.button {
+    position: absolute;
+    z-index: 3;
+    right: -3px;
+}  
+</style>
