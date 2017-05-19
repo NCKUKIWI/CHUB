@@ -15,15 +15,15 @@ $(document).ready(function() {
 	});
 
 	// 綁定右邊menu的按紐開啟側邊欄
-	$('#mainSidebar').sidebar('attach events', '#profilebtn', 'push page');
-	$('#msgSidebar').sidebar('attach events', '#msgbtn', 'push page')
+	$('#mainSidebar').sidebar('attach events', '#profilebtn', 'push');
+	$('#msgSidebar').sidebar('attach events', '#msgbtn', 'push')
 	$('#msgSidebar').sidebar({
 		onHide: function () {
 			findNotSendMessageUser();
 		}
 	});
 
-	$('#searchSidebar').sidebar('attach events', '#searchbtn', 'push page')
+	$('#searchSidebar').sidebar('attach events', '#searchbtn', 'push')
 
 
 
@@ -38,7 +38,7 @@ $(document).ready(function() {
 		$('#mainSidebar').css('transition-duration', '0.8s');
 		$('#mainSidebar').css('width', '700px');
 		$('#setting').show();
-		$('#msgSidebar').sidebar('setting', 'transition', 'overlay');
+		$('#mainSidebar').sidebar('attach events', '#profilebtn', 'push');
 	})
 	$('#finishProfile').on('click', function(){
 		$('#mainSidebar').css('transition-property', 'width');
@@ -46,7 +46,7 @@ $(document).ready(function() {
 		$('#mainSidebar').css('width', '300px');
 		$('#setting').hide();
 		$('#profile').show();
-		$('#msgSidebar').sidebar('setting', 'transition', 'overlay');
+		$('#mainSidebar').sidebar('attach events', '#profilebtn', 'push');
 	})
 	$('#backProfile').on('click', function(){
 		$('#mainSidebar').css('transition-property', 'width');
@@ -54,7 +54,7 @@ $(document).ready(function() {
 		$('#mainSidebar').css('width', '300px');
 		$('#setting').hide();
 		$('#profile').show();
-		$('#msgSidebar').sidebar('setting', 'transition', 'overlay');
+		$('#mainSidebar').sidebar('attach events', '#profilebtn', 'push');
 	})
 	$('#updateProfile').on('click', function(){
 		var skillNum = $('#showSkills a').children().length;

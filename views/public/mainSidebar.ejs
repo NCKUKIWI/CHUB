@@ -207,28 +207,32 @@
 </div>
 
 <style>
-/*#searchSidebar.animating.visible ~ .left.attached.launch.button {
+#searchSidebar.animating.visible ~ #rightSidebar {
   -webkit-transform: translate3d(-260px, 0, 0);
   transform: translate3d(-260px, 0, 0);
   transition: 0.5s all;
 }
 
-#searchSidebar.visible ~ .left.attached.launch.button {
+#searchSidebar.visible ~ #rightSidebar {
   -webkit-transform: translate3d(-260px, 0, 0);
   transform: translate3d(-260px, 0, 0);
   transition: 0s all;
 }
 
-#searchSidebar.animating:not(visible) ~ .left.attached.launch.button {
+#searchSidebar.animating:not(visible) ~ #rightSidebar {
   -webkit-transform: translate3d(0px, 0, 0);
   transform: translate3d(0px, 0, 0);
   transition: 0.5s all;
 }
-*/
+
 
 .ui.vertical.icon.menu{
     position: fixed;
     z-index: 3;
     right: -3px;
 }  
+
+#mainSidebar{
+  z-index: 3;
+}
 </style>
