@@ -15,7 +15,14 @@
     <p>Contributor: </p>
     <p>Sponsor: </p>
     <p>Activities: </p>
-    <p>Teammate: </p>
+    <p>Teammate: 
+    <% for(var i in members){ %>
+    <%= members[i].Name %>
+      <% if(i != members.length - 1) {%>
+      ,
+      <% } %>
+    <% } %>
+    </p>
   </div>
 </div>
 <div class="actions">
@@ -24,9 +31,9 @@
     <a class="ui green button" href="/projects/edit/<%= project._id %>">Edit</a>
     <a class="ui green button" href="/projects/<%= project._id %>/apply">Apply</a>
   <% } %>
-  <div class="ui blue button">
+<!--   <div class="ui blue button">
     Text Me
-  </div>
+  </div> -->
   <div class="ui blue button">
     Sharing
   </div>

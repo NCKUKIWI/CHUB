@@ -30,11 +30,13 @@
   </div>
 </div>
 
+
 <script>
 $(document).ready(function() {
   $(".sendText").on("click", function(){
     // 封鎖未登入使用者
     <% if(!me){ %> 
+    NotLogin();
     return;
     <% } %>
 

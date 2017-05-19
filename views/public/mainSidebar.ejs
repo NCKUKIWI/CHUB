@@ -1,6 +1,10 @@
 <div class="ui sidebar right inverted vertical menu" id="mainSidebar" style="width: 300px;">
   <div class="ui centered grid" style="padding-top:50px; margin:10px;">
       <% if(!me){ %>
+        <div style="display: flex; justify-content: space-around;">
+          <a class="ui button" id="loginbtn">LogIn</a>
+          <a class="ui button" id="signupbtn">SignUp</a>
+        </div>
         <div id="loginPart">
           <form class="ui form" id="loginForm">
             <div class="field">
@@ -47,6 +51,7 @@
           <div style="display: flex; justify-content: space-around;">
             <a class="ui button" target="_blank" href='/panel'>後台</a>
             <a class="ui button" id="goSetting">Setting</a>
+            <a class="ui button" href="/users/logout">Logout</a>
           </div>
           <div style="display: flex; flex-direction: row; justify-content: space-around; margin-top: 10px;">
             <img style="width:100px; height: 100px; margin-top: 20px" src="/assets/images/profile.png">
@@ -55,8 +60,17 @@
 
           <div style="text-align: left; margin-top: 20px;">
             <h3>Group: </h3>
+            <div>
+              
+            </div>
             <h3>Project: </h3>
+            <div>
+              
+            </div>
             <h3>Activity: </h3>
+            <div>
+              
+            </div>
           </div>
         </div>
         <div id="setting" style="display: none; color: white !important;">
@@ -129,7 +143,7 @@
               <h3 style="text-align: left;">Introduction: </h3>
               <textarea name="introduction" value="<%= me.Introduction %>"><%= me.Introduction %></textarea>
             </div>
-            <div class="field">
+<!--             <div class="field">
               <div class="fields">
                 <div class="two wide field" style="text-align: left;">
                   <h3 >Group: </h3>
@@ -156,7 +170,7 @@
                   <h3 >portfolio: </h3>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="ui button" tabindex="0" id="updateProfile">Done</div>
           </form>
           <h1>-Setting Account-</h1>
@@ -170,33 +184,55 @@
       <% } %>
   </div>
 </div>
-<div class="ui black big left attached launch button R">
-    <span class="text">Right</span>
+<!-- <div class="ui black big left attached launch button R">
+    <span class="text"></span>
+    <a class="item">
+      <i class="mail icon"></i>
+      Message
+    </a>
+    <span class="text">search</span>
+</div> -->
+<div class="ui vertical icon menu inverted" id="rightSidebar">
+  <a class="item" id="profilebtn">
+    <i class="user icon"></i>
+  </a>
+  <% if(me){ %>
+  <a class="item" id="msgbtn">
+    <i class="mail icon"></i>
+  </a>
+  <% } %>
+  <a class="item" id="searchbtn">
+    <i class="search icon" ></i>
+  </a>
 </div>
 
 <style>
-#searchSidebar.animating.visible ~ .left.attached.launch.button {
+#searchSidebar.animating.visible ~ #rightSidebar {
   -webkit-transform: translate3d(-260px, 0, 0);
   transform: translate3d(-260px, 0, 0);
   transition: 0.5s all;
 }
 
-#searchSidebar.visible ~ .left.attached.launch.button {
+#searchSidebar.visible ~ #rightSidebar {
   -webkit-transform: translate3d(-260px, 0, 0);
   transform: translate3d(-260px, 0, 0);
   transition: 0s all;
 }
 
-#searchSidebar.animating:not(visible) ~ .left.attached.launch.button {
+#searchSidebar.animating:not(visible) ~ #rightSidebar {
   -webkit-transform: translate3d(0px, 0, 0);
   transform: translate3d(0px, 0, 0);
   transition: 0.5s all;
 }
 
 
-.left.attached.launch.button {
-    position: absolute;
+.ui.vertical.icon.menu{
+    position: fixed;
     z-index: 3;
     right: -3px;
 }  
+
+#mainSidebar{
+  z-index: 3;
+}
 </style>
