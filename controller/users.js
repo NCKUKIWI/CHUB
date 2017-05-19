@@ -60,7 +60,7 @@ router.post("/signup",function(req,res) {
       if(err){
         res.send({error:helper.handleError(err)});
       }else{
-        //helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
+        helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://chub.nckuhub.com/users/emailauth?user=${result.UserID}&id=${result._id}`);
         res.send("ok");
       }
     });
