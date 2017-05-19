@@ -126,7 +126,7 @@ function sendMessage(){
 	var toID = $("#userSidebar > .item.active").attr("userid");
 	$(".chatCont > div[messageuserid=\'" + toID + "\']").append('<li class="chatEntry chatSent"><img class="avatar" src="//placekitten.com/56/56" /><p class="message">'+sendMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
 	$('#msgText').val('');
-	
+
 	var Data = "touid=" + toID + "&context=" + sendMsg;
 	console.log(Data);
 	$.ajax({

@@ -1,4 +1,3 @@
-
 <div class="ui sidebar right inverted vertical menu" id="msgSidebar" style="width:400px">
   <!-- 訊息側邊欄 -->
   <div class="ui vertical pointing labeled icon menu inverted" id="userSidebar">
@@ -19,27 +18,27 @@
   <ul class="ChatLog">
     <div class="chatCont">
     </div>
-  <div id="inputMsg">
-    <input type="text" id="msgText"></input>
-    <input class="ui blue button" type="botton" value="Send" id="msgSend"></input>
-  </div>
+    <div id="inputMsg">
+      <input type="text" id="msgText"></input>
+      <input class="ui blue button" type="botton" value="Send" id="msgSend"></input>
+    </div>
   </ul>
 </div>
 
-
-<script>
-  //登入後立即取得訊息的資料
-  <% if(me){ %>
-  $.ajax({
-    url: "users/msg",
-    method: "GET",
-    success: function(req){
-      $('.chatCont').append(req);
-    }
-  }); 
-  <% } %>
-</script>
-
+<% if(me){ %>
+  <script>
+    //登入後立即取得訊息的資料
+    $(document).ready(function(){
+      $.ajax({
+        url: "users/msg",
+        method: "GET",
+        success: function(req){
+          $('.chatCont').append(req);
+        }
+      });
+    })
+  </script>
+<% } %>
 
 <style>
 * {

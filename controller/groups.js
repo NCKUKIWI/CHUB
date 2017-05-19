@@ -36,7 +36,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
 
 router.get("/edit/:id",helper.checkLogin(),function(req,res) {
   Group.findById(req.params.id,function(err,group){
-    if( group && group.AdminID.indexOf(req.user._id)!=-1 ){
+    if( group && (group.AdminID.indexOf(req.user._id)!=-1 || req.user.Role==3)){
       res.render("groups/edit",{
         group:group
       });
@@ -68,19 +68,15 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
 
 router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   Group.findById(req.params.id, function(err, group) {
-    if(group){
-      if(group.AdminID.indexOf(req.user._id)!==-1){
-        User.find({ _id:{ $in:group.ApplyID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,apply){
-          res.render("groups/apply",{
-            apply:apply,
-            group_id:group._id
-          });
+    if(group && (group.AdminID.indexOf(req.user._id)!==-1 || req.user.Role==3)){
+      User.find({ _id:{ $in:group.ApplyID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,apply){
+        res.render("groups/apply",{
+          apply:apply,
+          group_id:group._id
         });
-      }
-      else{
-        res.redirect("back");
-      }
-    }else{
+      });
+    }
+    else{
       res.redirect("back");
     }
   });
@@ -90,14 +86,19 @@ router.get("/:id/apply",helper.checkLogin(),function(req,res) {
 router.post("/join",helper.apiAuth(),function(req,res) {
   Group.findById(req.body.group_id, function(err, group) {
     if(group){
-      group.ApplyID.push(req.user._id);
-      group.save(function(err) {
-        if(err){
-          res.send({error:helper.handleError(err)});
-        }else{
-          res.send("ok");
-        }
-      });
+      if(group.ApplyID.indexOf(req.user._id)==-1 && group.MemberID.indexOf(req.user._id)==-1){
+        group.ApplyID.push(req.user._id);
+        group.save(function(err) {
+          if(err){
+            res.send({error:helper.handleError(err)});
+          }else{
+            res.send("ok");
+          }
+        });
+      }
+      else{
+        res.send({error:"Already join"});
+      }
     }else{
       res.send({error:"notFound"});
     }
@@ -107,7 +108,8 @@ router.post("/join",helper.apiAuth(),function(req,res) {
 router.post("/quit",helper.apiAuth(),function(req,res) {
   Group.findById(req.body.group_id, function(err, group) {
     if(group){
-      group.MemberID = helper.removeFromArray(group.MemberID,req.user._id);
+      group.ApplyID = helper.removeFromArray(group.ApplyID,req.params.uid);
+      group.MemberID = helper.removeFromArray(group.MemberID,req.params.uid);
       group.save(function(err) {
         if(err){
           res.send({error:helper.handleError(err)});
@@ -142,6 +144,7 @@ router.post("/:id/addMember/:uid",helper.apiAuth(),function(req,res) {
 router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
   Group.findById(req.params.id, function(err, group) {
     if(group){
+      group.ApplyID = helper.removeFromArray(group.ApplyID,req.params.uid);
       group.MemberID = helper.removeFromArray(group.MemberID,req.params.uid);
       group.save(function(err) {
         if(err){

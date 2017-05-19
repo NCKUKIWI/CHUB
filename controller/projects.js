@@ -67,7 +67,7 @@ router.post("/create",helper.apiAuth(),upload.any(),function(req,res) {
 
 router.get("/edit/:id",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
-    if( project && project.AdminID.indexOf(req.user._id)!=-1 ){
+    if( project && (project.AdminID.indexOf(req.user._id)!=-1 || req.user.Role==3 ) ){
       res.render("projects/edit",{
         project:project
       });
@@ -101,17 +101,13 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
 
 router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
-    if(project){
-      if(project.AdminID.indexOf(req.user._id)!==-1){
-        User.find({ _id:{ $in:project.ApplyID } },["_id","Name","Email","Major","Skill","Description","Website","Role"],function(err,apply){
-          res.render("projects/apply",{
-            apply:apply,
-            project_id:project._id
-          });
+    if(project && project.AdminID.indexOf(req.user._id)!==-1){
+      User.find({ _id:{ $in:project.ApplyID } },["_id","Name","Email","Major","Skill","Description","Website","Role"],function(err,apply){
+        res.render("projects/apply",{
+          apply:apply,
+          project_id:project._id
         });
-      }else{
-        res.redirect("back");
-      }
+      });
     }else{
       res.redirect("back");
     }

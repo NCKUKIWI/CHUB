@@ -135,10 +135,6 @@ router.get("/emailauth",helper.checkLogin(0),function(req, res){
   }
 });
 
-router.get("/edit",helper.checkLogin(),function(req,res) {
-  res.render("users/edit");
-});
-
 router.post("/update",helper.apiAuth(),function(req, res) {
   var newData = {
     Email: req.body.email,

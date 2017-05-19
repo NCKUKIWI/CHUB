@@ -55,7 +55,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
 
 router.get("/edit/:id",helper.checkLogin(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
-    if( activity && activity.AdminID.indexOf(req.user._id)!=-1 ){
+    if( activity && (activity.AdminID.indexOf(req.user._id)!=-1 || req.user.Role==3)){
       res.render("activities/edit",{
         activity:activity
       });
