@@ -34,27 +34,15 @@ $(document).ready(function() {
 	// show setting profile
 	$('#goSetting').on('click', function(){
 		$('#profile').hide();
-		$('#mainSidebar').css('transition-property', 'width');
-		$('#mainSidebar').css('transition-duration', '0.8s');
-		$('#mainSidebar').css('width', '700px');
 		$('#setting').show();
-		$('#mainSidebar').sidebar('attach events', '#profilebtn', 'push');
 	})
 	$('#finishProfile').on('click', function(){
-		$('#mainSidebar').css('transition-property', 'width');
-		$('#mainSidebar').css('transition-duration', '0.8s');
-		$('#mainSidebar').css('width', '300px');
 		$('#setting').hide();
 		$('#profile').show();
-		$('#mainSidebar').sidebar('attach events', '#profilebtn', 'push');
 	})
 	$('#backProfile').on('click', function(){
-		$('#mainSidebar').css('transition-property', 'width');
-		$('#mainSidebar').css('transition-duration', '0.8s');
-		$('#mainSidebar').css('width', '300px');
 		$('#setting').hide();
 		$('#profile').show();
-		$('#mainSidebar').sidebar('attach events', '#profilebtn', 'push');
 	})
 	$('#updateProfile').on('click', function(){
 		var skillNum = $('#showSkills a').children().length;

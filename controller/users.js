@@ -137,6 +137,7 @@ router.get("/emailauth",helper.checkLogin(0),function(req, res){
 });
 
 router.post("/update",helper.apiAuth(),function(req, res) {
+  if(req.body.skill == null) req.body.skill = [];
   var newData = {
     Email: req.body.email,
     Name: req.body.name,
