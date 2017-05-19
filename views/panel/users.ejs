@@ -1,0 +1,41 @@
+<% layout('../public/adminlayout') %>
+<h1 class="textcenter">User 總覽</h1>
+<table class="ui unstackable table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Setting</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% if(users.length>0){ %>
+    <% for(var i in users){ %>
+      <tr class="<%= users[i]._id %>">
+        <td><%= users[i].Name %></td>
+        <td>
+          <div class="ui red button delUser" user-id="<%= users[i]._id %>">Delete</div>
+        </td>
+      </tr>
+    <% } %>
+  <% }else{ %>
+    <tr><td colspan="2"><p class="textcenter">沒有可管理的 user</p></td></tr>
+  <% } %>
+  </tbody>
+</table>
+<script>
+$(document).ready(function(){
+  $(".delUser").on("click", function(){
+    var id = this.getAttribute("user-id");
+    $.ajax({
+      url: "/users/delete/"+id,
+      type: "POST",
+      success: function(response) {
+        if(response=="ok"){
+          toastr.success("刪除成功");
+          $("."+id).remove();
+        }
+      }
+    });
+  });
+});
+</script>

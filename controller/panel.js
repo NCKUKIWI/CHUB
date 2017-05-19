@@ -6,40 +6,53 @@ var User = require("../model/User");
 var Group = require("../model/Group");
 var Project = require("../model/Project");
 
-router.get("/", function(req,res) {
+router.get("/",helper.checkLogin(),function(req,res) {
   res.render("panel/index",{
   });
 });
 
-router.get("/projects",function(req,res) {
+router.get("/projects",helper.checkLogin(),function(req,res) {
   if(req.user.Role == 3){
     Project.find({},function(err,projects){
-      res.render("panel/project",{
+      res.render("panel/projects",{
         projects:projects
       });
     });
   }else{
     Project.find({"AdminID":{"$in":[req.user._id]}},function(err,projects){
-      res.render("panel/project",{
+      res.render("panel/projects",{
         projects:projects
       });
     });
   }
 });
 
-router.get("/groups",function(req,res) {
+router.get("/groups",helper.checkLogin(),function(req,res) {
   if(req.user.Role==3){
     Group.find({},function(err,groups){
-      res.render("panel/group",{
+      res.render("panel/groups",{
         groups:groups
       });
     });
   }else{
     Group.find({"AdminID":{"$in":[req.user._id]}},function(err,groups){
-      res.render("panel/group",{
+      res.render("panel/groups",{
         groups:groups
       });
     });
+  }
+});
+
+
+router.get("/users",helper.checkLogin(),function(req,res) {
+  if(req.user.Role==3){
+    User.find({},function(err,users){
+      res.render("panel/users",{
+        users:users
+      });
+    });
+  }else{
+    res.redirect("back");
   }
 });
 

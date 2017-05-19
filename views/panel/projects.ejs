@@ -14,7 +14,7 @@
     <% for(var i in projects){ %>
       <tr class="<%= projects[i]._id %>">
         <td><%= projects[i].Name %></td>
-        <td><%= projects[i].Name %></td>
+        <td><%= projects[i].Type %></td>
         <td><%= projects[i].MemberID.length %> members</td>
         <td>
           <div class="ui primary button info" project-id="<%= projects[i]._id %>">Info</div>

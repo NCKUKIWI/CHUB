@@ -1,7 +1,10 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../model/User");
+var Group = require("../model/Group");
+var Project = require("../model/Project");
 var Message = require("../model/Message");
+var Activity = require("../model/Activity");
 var config = require("../config");
 var helper = require("../helper");
 var bcrypt = require('bcrypt');
@@ -60,7 +63,7 @@ router.post("/signup",function(req,res) {
       if(err){
         res.send({error:helper.handleError(err)});
       }else{
-        helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://chub.nckuhub.com/users/emailauth?user=${result.UserID}&id=${result._id}`);
+        helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
         res.send("ok");
       }
     });
@@ -101,7 +104,7 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
         else{
           User.create({ Email:fb.email,UserID:fb.id,Name:fb.name,Password:fb.id,Role:0}, function (err,result) {
             if (err) console.log(err);
-            //helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\nhttp://localhost/user/emailauth?user=${result.UserID}&id=${result._id}`);
+            helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
             res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
             res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
             res.redirect("/");
@@ -232,9 +235,30 @@ router.post("/loginStatus", function(req,res) {
 router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   User.findById(req.params.id,function(err,user){
     if(user){
-      if(user._id = req.user._id || req.user.role == 3 ){
-        user.remove(function(err){
-          res.send("ok");
+      if(user._id == req.user._id || req.user.Role == 3 ){
+        Message.remove({$or:[{"ToUID":user._id}, {"FromUID":user._id}]},function(err){
+          if(err){
+            console.log(err);
+            res.send({error:err});
+          }else{
+            Project.update({$or:[{"ApplyID":user._id},{"AdminID":user._id},{"MemberID":user._id}]},{ $pull: { "MemberID":user._id,"AdminID":user._id,"ApplyID":user._id}},{multi:true},function(err){
+              if(err){
+                console.log(err);
+                res.send({error:err});
+              }else{
+                Group.update({$or:[{"ApplyID":user._id},{"AdminID":user._id},{"MemberID":user._id}]},{ $pull: { "MemberID":user._id,"AdminID":user._id,"ApplyID":user._id}},{multi:true},function(err){
+                  if(err){
+                    console.log(err);
+                    res.send({error:err});
+                  }else{
+                    user.remove(function(err){
+                      res.send("ok");
+                    });
+                  }
+                });
+              }
+            });
+          }
         });
       }else{
         res.send({error:"notAdmin"});
