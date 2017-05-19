@@ -195,6 +195,7 @@ router.get("/:id/msg",helper.checkLogin(),function(req,res) {
 
 router.post("/:id",function(req,res) {
   Group.findById(req.params.id,function(err,group){
+    console.log(group);
     if(group){
       User.find({ _id:{ $in:group.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
         res.render("groups/show",{

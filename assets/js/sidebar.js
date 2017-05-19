@@ -1,29 +1,32 @@
 $(document).ready(function() {
 	// sidebar
+
+	// 登入&註冊按鈕綁定
 	$("#loginbtn").click(function() {
-		$('#mainSidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
 		$("#signupPart").hide();
 		$("#loginPart").show();
 	});
 
-	$("#msgbtn").click(function() {
-		$('#msgSidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
-		findNotSendMessageUser();
-	});
-
-	$(".searchbtn").click(function() {
-		$('#searchSidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
-	});
-
-	$(".R").on('click', function () {
-		$('#searchSidebar').sidebar('setting', 'transition', 'overlay').sidebar('attach events', '.launch.button.R', 'push page');
-	})
+	$("#loginbtn").trigger('click');
 
 	$("#signupbtn").click(function() {
-		$('#mainSidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
 		$("#signupPart").show();
 		$("#loginPart").hide();
 	});
+
+	// 綁定右邊menu的按紐開啟側邊欄
+	$('#mainSidebar').sidebar('attach events', '#profilebtn', 'push page');
+	$('#msgSidebar').sidebar('attach events', '#msgbtn', 'push page')
+	$('#msgSidebar').sidebar({
+		onHide: function () {
+			findNotSendMessageUser();
+		}
+	});
+
+	$('#searchSidebar').sidebar('attach events', '#searchbtn', 'push page')
+
+
+
 
 	// search
 	$('select.dropdown').dropdown();
@@ -166,4 +169,10 @@ function findNotSendMessageUser(){
 			break;
 		}
 	}
+}
+
+// 假設使用者未登入
+function NotLogin(){
+	$(".ui.modal").modal("hide");
+	$('#mainSidebar').sidebar('toggle');
 }

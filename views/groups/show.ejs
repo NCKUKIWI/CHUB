@@ -7,9 +7,23 @@
     <img src="../assets/images/group.png">
   </div>
   <div class="description">
-    <p>Administrator: </p>
-    <p>Type: </p>
-    <p>Member: </p>
+    <p>Administrator:
+    <% for(var i in group.Admin){ %>
+    <%= members[i].Name %>
+      <% if(i != members.length - 1) {%>
+      ,
+      <% } %>
+    <% } %>
+    </p>
+    <p>Type: <%= group.Type %></p>
+    <p>Member: 
+    <% for(var i in members){ %>
+    <%= members[i].Name %>
+      <% if(i != members.length - 1) {%>
+      ,
+      <% } %>
+    <% } %>
+    </p>
     <p>Project: </p>
     <p>Activity: </p>
     <p>Introduction: </p>
@@ -23,9 +37,9 @@
     <a class="ui green button" href="/groups/edit/<%= group._id %>">Edit</a>
     <a class="ui green button" href="/groups/<%= group._id %>/apply">Apply</a>
   <% } %>
-  <div class="ui blue button">
+<!--   <div class="ui blue button">
     Text Me
-  </div>
+  </div> -->
   <div class="ui blue button">
     Sharing
   </div>

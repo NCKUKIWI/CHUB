@@ -43,4 +43,36 @@ router.get("/groups",function(req,res) {
   }
 });
 
+router.get("/users",function(req,res) {
+  // if(req.user.Role==3){
+  //   Group.find({},function(err,groups){
+  //     res.render("panel/group",{
+  //       groups:groups
+  //     });
+  //   });
+  // }else{
+  //   Group.find({"AdminID":{"$in":[req.user._id]}},function(err,groups){
+  //     res.render("panel/group",{
+  //       groups:groups
+  //     });
+  //   });
+  // }
+});
+
+router.get("/abouts",function(req,res) {
+  // if(req.user.Role==3){
+  //   Group.find({},function(err,groups){
+  //     res.render("panel/group",{
+  //       groups:groups
+  //     });
+  //   });
+  // }else{
+  //   Group.find({"AdminID":{"$in":[req.user._id]}},function(err,groups){
+  //     res.render("panel/group",{
+  //       groups:groups
+  //     });
+  //   });
+  // }
+});
+
 module.exports = router;
