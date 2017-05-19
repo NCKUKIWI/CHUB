@@ -38,6 +38,9 @@ $(document).ready(function() {
     return;
     <% } %>
 
+    // 把之前沒有傳訊息的使用者刪掉
+    findNotSendMessageUser();
+
     var Toid = $(this).attr("userid");
     var ToUserName = $(this).attr("userName");
 
@@ -57,7 +60,7 @@ $(document).ready(function() {
 
     // 加入訊息側邊user
     var messagePicture = "<a class='item' userid='" + Toid + "'><i class='user icon'></i> " + ToUserName + "</a>";
-    $("#userSidebar").prepend(messagePicture);
+    $("#userSidebar > .item:first").after(messagePicture);
 
     // 加入訊息中間框框
     $(".chatCont").append("<div messageUserID=\'" + Toid + "\' style='display: none;'></div>")
