@@ -11,7 +11,7 @@ router.post("/return", function(req,res) {
 });
 
 router.post("/notify", function(req,res) {
-  var data = req.body.JSONData.Result;
+  var data = JSON.parse(req.body.JSONData).Result;
   var newPayment = new Payment({
     Amt:data.Amt,
     TradeNo:data.TradeNo,
