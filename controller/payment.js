@@ -20,7 +20,7 @@ router.post("/notify", function(req,res) {
     PaymentType:data.PaymentType,
     EscrowBank:data.EscrowBank
   });
-  newProject.save(function(err){
+  newPayment.save(function(err){
     if(err){
       console.log(err);
       res.send({error:helper.handleError(err)});
