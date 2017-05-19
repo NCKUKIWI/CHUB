@@ -159,7 +159,7 @@ router.get("/logout", function(req, res) {
   res.redirect("/");
 });
 
-router.get("/msg",helper.checkLogin(),function(req,res) {
+router.post("/msg",helper.apiAuth(),function(req,res) {
   var msgAll = {};
   Message.find({ToUID:req.user._id}).populate("FromUID","_id Name Email Major Talent Description Website Role").populate("FromGID").exec(function(err,toMsg){
     // console.log(toMsg);

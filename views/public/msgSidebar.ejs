@@ -16,20 +16,21 @@
   </ul>
 </div>
 
+<script>
 <% if(me){ %>
-  <script>
-    //登入後立即取得訊息的資料
-    $(document).ready(function(){
-      $.ajax({
-        url: "users/msg",
-        method: "GET",
-        success: function(req){
+  $(document).ready(function(){
+    $.ajax({
+      url: "/users/msg",
+      method: "POST",
+      success: function(req){
+        if(!req.error){
           $('.chatCont').append(req);
         }
-      });
-    })
-  </script>
-<% } %>
+      }
+    });
+  })
+  <% } %>
+</script>
 
 <style>
 * {
