@@ -1,4 +1,4 @@
-<div class="ui sidebar right inverted vertical menu" id="mainSidebar" style="width: 300px;">
+<div class="ui sidebar right inverted vertical menu" id="mainSidebar" style="width: 400px;">
   <div class="ui centered grid" style="padding-top:50px; margin:10px;">
       <% if(!me){ %>
         <div style="display: flex; justify-content: space-around;">
@@ -79,49 +79,49 @@
           <form class="ui form" id="updateForm">
             <div class="field">
               <div class="fields">
-                <div class="two wide field" style="text-align: left;">
+                <div class="four wide field" style="text-align: left;">
                   <h3 >Name: </h3>
                 </div>
-                <div class="four wide field">
+                <div class="twelve wide field">
                   <input type="text" name="name" value="<%= me.Name %>">
                 </div>
               </div>
             </div>
             <div class="field">
               <div class="fields">
-                <div class="two wide field" style="text-align: left;">
+                <div class="four wide field" style="text-align: left;">
                   <h3 >Major: </h3>
                 </div>
-                <div class="four wide field">
+                <div class="twelve wide field">
                   <input type="text" name="major" value="<%= me.Major %>">
                 </div>
               </div>
             </div>
             <div class="field">
               <div class="fields">
-                <div class="two wide field" style="text-align: left;">
+                <div class="four wide field" style="text-align: left;">
                   <h3 >Email: </h3>
                 </div>
-                <div class="four wide field">
+                <div class="twelve wide field">
                   <input type="text" name="email" value="<%= me.Email %>">
                 </div>
               </div>
             </div>
             <div class="field">
               <div class="fields">
-                <div class="two wide field" style="text-align: left;">
+                <div class="four wide field" style="text-align: left;">
                   <h3 >Location: </h3>
                 </div>
-                <div class="four wide field">
+                <div class="twelve wide field">
                   <input type="text" name="location" value="<%= me.Location %>">
                 </div>
               </div>
             </div>
             <div class="fields">
-              <div class="two wide field" style="text-align: left;">
+              <div class="four wide field" style="text-align: left;">
                 <h3>Skill: </h3>
               </div>
-              <div class="seven wide field">
+              <div class="twelve wide field">
                 <div class="ui right labeled left icon input">
                   <i class="tags icon"></i>
                   <input type="text" placeholder="Enter Skill" name="textSkill">
@@ -132,7 +132,7 @@
               </div>
             </div>
             <div class="fields" id="showSkills">
-              <div class="two wide field" style="text-align: left;">
+              <div class="four wide field" style="text-align: left;">
                 <h3></h3>
               </div>
               <% for(var i = 0; i < me.Skill.length; i++){ %>
@@ -231,8 +231,4 @@
     z-index: 3;
     right: -3px;
 }  
-
-#mainSidebar{
-  z-index: 3;
-}
 </style>
