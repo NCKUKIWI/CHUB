@@ -41,6 +41,7 @@ router.get("/", function(req,res) {
   if(filter["$or"].length == 0) filter["$or"].push({});
   User.find(filter, userInfo, function(err, users) {
     //之後可能要放入"跟哪些人互通訊息"的欄位進去
+    console.log(users);
   	res.render("users/index", {
   		users: users
   	});
