@@ -27,7 +27,11 @@
 var msgUserArr = <%- JSON.stringify(msgArr) %>;
 
 for(var i in msgUserArr){
-  var messagePicture = "<a class='item' userid='" + msgUserArr[i].user._id + "'><i class='user icon'></i> " + msgUserArr[i].user.Name + "</a>";
+  if(msgUserArr[i].isRead != 0){
+    var messagePicture = "<a class='item' userid='" + msgUserArr[i].user._id + "'><i class='user icon'></i> " + msgUserArr[i].user.Name + "<div class='floating ui red label'>" + msgUserArr[i].isRead + "</div></a>";
+  }
+  else var messagePicture = "<a class='item' userid='" + msgUserArr[i].user._id + "'><i class='user icon'></i> " + msgUserArr[i].user.Name + "</a>"
+
   $("#userSidebar").append(messagePicture); 
 }
 
