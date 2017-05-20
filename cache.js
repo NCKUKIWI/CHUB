@@ -1,6 +1,6 @@
 var mcache = require('memory-cache');
 
-module.exports = function(duration){
+exports.cache = function(duration){
   return function(req,res,next){
     var key = '__express__' + req.originalUrl || req.url;
     var cachedBody = mcache.get(key);
@@ -16,4 +16,8 @@ module.exports = function(duration){
       next();
     }
   }
+}
+
+exports.clear = function(){
+  mcache.clear();
 }

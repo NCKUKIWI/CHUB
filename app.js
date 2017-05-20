@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 var path = require("path");
 var engine = require('ejs-locals');     //讓express支援layout
 var helper = require("./helper");
-var cache = require("./cache");
+var cache = require("./cache").cache;
 var User = require("./model/User");
 
 var app = express();
@@ -14,7 +14,7 @@ app.engine('ejs', engine);
 app.set('views',path.join(__dirname,'views'));  //view的路徑位在資料夾views中
 app.set('view engine','ejs')
 
-//cache for 5 minutes
+//cahe for 5 minutes
 app.use(cache(60 * 5));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
