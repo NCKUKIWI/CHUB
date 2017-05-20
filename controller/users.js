@@ -9,7 +9,7 @@ var config = require("../config");
 var helper = require("../helper");
 var bcrypt = require('bcrypt');
 var graph = require("fbgraph");
-var cache = require("../cache");
+var cacheClear = require("../cache").clear;
 
 var userInfo = [
   "_id",
@@ -66,6 +66,7 @@ router.post("/signup",function(req,res) {
         res.send({error:helper.handleError(err)});
       }else{
         helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
+        cacheClear();
         res.send("ok");
       }
     });
@@ -79,7 +80,7 @@ router.post("/auth", function(req, res) {
         if(result==true){
           res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
           res.cookie("id", user._id,{maxAge: 60 * 60 * 1000});
-          cache.clear();
+          cacheClear();
           res.send("ok");
         }else{
           res.send({error:"Password Error"});
@@ -100,7 +101,7 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
     graph.get(`/me?fields=id,name,email,gender&access_token=${req.query.access_token}`,function(err,fb){
       User.findOne({UserID:fb.id},"_id",function(err,user){
         if(user){
-          cache.clear();
+          cacheClear();
           res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
           res.cookie("id",user._id,{maxAge: 60 * 60 * 1000});
           res.redirect("/");
@@ -109,7 +110,7 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
           User.create({ Email:fb.email,UserID:fb.id,Name:fb.name,Password:fb.id,Role:0,Skill:[],Major:""}, function (err,result) {
             if (err) console.log(err);
             helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
-            cache.clear();
+            cacheClear();
             res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
             res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
             res.redirect("/");
@@ -157,13 +158,14 @@ router.post("/update",helper.apiAuth(),function(req, res) {
     if(err){
       res.send({error:helper.handleError(err)});
     }else{
+      cacheClear();
       res.send("ok");
     }
   });
 });
 
 router.get("/logout", function(req, res) {
-  cache.clear();
+  cacheClear();
   res.clearCookie("isLogin");
   res.clearCookie("id");
   res.redirect("/");
@@ -228,16 +230,6 @@ router.post("/msg",helper.apiAuth(),function(req,res) {
   });
 });
 
-router.post("/loginStatus", function(req,res) {
-  if(req.user){
-    res.send({
-      me:req.user
-    });
-  }else{
-    res.send({error:"notLogin"});
-  }
-});
-
 // 刪會員需要把其他collection的資料也刪掉，晚點改
 router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   User.findById(req.params.id,function(err,user){
@@ -259,6 +251,7 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
                     res.send({error:err});
                   }else{
                     user.remove(function(err){
+                      cacheClear();
                       res.send("ok");
                     });
                   }

@@ -3,6 +3,7 @@ var router = express.Router();
 var helper = require("../helper");
 var Message = require("../model/Message");
 var helper = require("../helper");
+var cacheClear = require("../cache").clear;
 
 router.post("/send",helper.apiAuth(),function(req,res) {
   var newMsg;
@@ -48,6 +49,7 @@ router.post("/send",helper.apiAuth(),function(req,res) {
     if(err){
       res.send({error:helper.handleError(err)});
     }else{
+      cacheClear();
       res.send("ok");
     }
   });
@@ -57,6 +59,7 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   Message.findById(req.params.id,function(err,msg){
     if(msg){
       msg.remove(function(err){
+        cacheClear();
         res.send("ok");
       });
     }else{

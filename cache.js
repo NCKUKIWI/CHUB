@@ -2,18 +2,26 @@ var mcache = require('memory-cache');
 
 exports.cache = function(duration){
   return function(req,res,next){
-    var key = '__express__' + req.originalUrl || req.url;
-    var cachedBody = mcache.get(key);
-    if (cachedBody) {
-      res.send(cachedBody);
-      return;
-    } else {
-      res.sendResponse = res.send;
-      res.send = function(body){
-        mcache.put(key, body, duration * 1000);
-        res.sendResponse(body);
-      }
+    //console.log(req.url);
+    if(req.rawHeaders.indexOf("no-cache")!=-1){
+      //console.log("nocache");
       next();
+    }else{
+      var key = "express" + req.originalUrl || req.url;
+      var cachedBody = mcache.get(key);
+      if (cachedBody) {
+        //console.log("cache found");
+        res.send(cachedBody);
+        return;
+      } else {
+        //console.log("cache create");
+        res.sendResponse = res.send;
+        res.send = function(body){
+          mcache.put(key, body, duration * 1000);
+          res.sendResponse(body);
+        }
+        next();
+      }
     }
   }
 }

@@ -3,6 +3,7 @@ var router = express.Router();
 var helper = require("../helper");
 var User = require("../model/User");
 var Group = require("../model/Group");
+var cacheClear = require("../cache").clear;
 
 router.get("/", function(req,res) {
   Group.find({},function(err,groups){
@@ -34,6 +35,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
           console.log(err);
           res.send({error:err});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -65,6 +67,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
       if(err){
         res.send({error:helper.handleError(err)});
       }else{
+        cacheClear();
         res.send("ok");
       }
     }else{
@@ -99,6 +102,7 @@ router.post("/join",helper.apiAuth(),function(req,res) {
           if(err){
             res.send({error:helper.handleError(err)});
           }else{
+            cacheClear();
             res.send("ok");
           }
         });
@@ -121,6 +125,7 @@ router.post("/quit",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -139,6 +144,7 @@ router.post("/:id/addMember/:uid",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -157,6 +163,7 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -171,6 +178,7 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
     if(group){
       if(group.AdminID.indexOf(req.user._id)!==-1 || req.user.role == 3 ){
         group.remove(function(err){
+          cacheClear();
           res.send("ok");
         });
       }else{
