@@ -30,14 +30,16 @@
       </div>
       <div class="content">
         <a class="header"><%= users[i].Name %></a>
+        <% if(users[i].Major !== undefined){ %>
         <div class="meta">
           <span class="date">Major in <%= users[i].Major %></span>
         </div>
+        <% } %>
       </div>
       <div class="extra content">
-        <a>
-          <i class="users icon"></i><%= users[i].Skill.length %> Skills
-        </a>
+        <% for(var j = 0; j < users[i].Skill.length; j++){ %>
+        <a class="ui basic label"><%= users[i].Skill[j] %></a>
+        <% } %>
       </div>
     </div>
   <% } %>

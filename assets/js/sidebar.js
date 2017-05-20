@@ -90,7 +90,7 @@ $(document).ready(function() {
 			method: "POST",
 			data: Data,
 			success: function(response) {
-
+				console.log('add suuces!');
 			}
 		})
 	})
