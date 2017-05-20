@@ -103,8 +103,14 @@ $(document).ready(function() {
 		sendMessage();
 	})
 	$(document).keypress(function(e) {
-		if(e.which == 13) {
+		if(e.which == 13 && $('#msgText').val() != "") {
 			sendMessage();
+		}
+		if(e.which == 13 && $('#loginPart').css('display') == "block"){
+			$('#loginSubmit').trigger('click');
+		}
+		if(e.which == 13 && $('#signupPart').css('display') == "block"){
+			$('#signupSubmit').trigger('click');
 		}
 	});
 });
@@ -113,7 +119,7 @@ var test;
 // 送出訊息
 function sendMessage(){
 	var sendMsg = $('#msgText').val();
-	if(sendMsg == "") return;
+	// if(sendMsg == "") return;
 
 	var toID = $("#userSidebar > .item.active").attr("userid");
 	$(".chatCont > div[messageuserid=\'" + toID + "\']").append('<li class="chatEntry chatSent"><img class="avatar" src="//placekitten.com/56/56" /><p class="message">'+sendMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
