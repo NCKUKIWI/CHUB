@@ -14,8 +14,8 @@ app.engine('ejs', engine);
 app.set('views',path.join(__dirname,'views'));  //view的路徑位在資料夾views中
 app.set('view engine','ejs')
 
-//cache for 10 minutes
-app.use(cache(10));
+//cache for 5 minutes
+app.use(cache(60 * 5));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use("/assets",express.static(__dirname + "/assets"));

@@ -25,11 +25,18 @@ router.post("/create",helper.apiAuth(),function(req,res) {
     Website:req.body.website,
     Description:req.body.description
   });
-  newGroup.save(function(err){
+  Group.create(newGroup,function(err,result){
     if(err){
       res.send({error:helper.handleError(err)});
     }else{
-      res.send("ok");
+      User.update({_id:req.user._id},{ $push: { "GroupID":result._id } },function(err){
+        if(err){
+          console.log(err);
+          res.send({error:err});
+        }else{
+          res.send("ok");
+        }
+      });
     }
   });
 });

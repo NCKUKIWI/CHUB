@@ -44,13 +44,20 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       Context:req.body.context
     });
   }
-  newActivity.save(function(err){
+  Activity.create(newActivity,function(err,result){
     if(err){
       res.send({error:helper.handleError(err)});
     }else{
-      res.send("ok");
+      User.update({_id:req.user._id},{ $push: { "ActivityID":result._id } },function(err){
+        if(err){
+          console.log(err);
+          res.send({error:err});
+        }else{
+          res.send("ok");
+        }
+      });
     }
-  })
+  });
 });
 
 router.get("/edit/:id",helper.checkLogin(),function(req,res) {

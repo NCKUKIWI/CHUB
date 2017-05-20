@@ -56,11 +56,18 @@ router.post("/create",helper.apiAuth(),upload.any(),function(req,res) {
       AdminID:[req.user._id],
     });
   }
-  newProject.save(function(err){
+  Project.create(newProject,function(err,result){
     if(err){
       res.send({error:helper.handleError(err)});
     }else{
-      res.send("ok");
+      User.update({_id:req.user._id},{ $push: { "ProjectID":result._id } },function(err){
+        if(err){
+          console.log(err);
+          res.send({error:err});
+        }else{
+          res.send("ok");
+        }
+      });
     }
   });
 });
