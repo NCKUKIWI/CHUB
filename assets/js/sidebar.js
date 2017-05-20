@@ -2,12 +2,14 @@ $(document).ready(function() {
 	// sidebar
 
 	// 登入&註冊按鈕綁定
+		$("#signupPart").hide();
+		$("#loginPart").show();
 	$("#loginbtn").click(function() {
 		$("#signupPart").hide();
 		$("#loginPart").show();
 	});
 
-	$("#loginbtn").trigger('click');
+
 
 	$("#signupbtn").click(function() {
 		$("#signupPart").show();
@@ -23,7 +25,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#searchSidebar').sidebar('attach events', '#searchbtn', 'push')
+	$('#searchSidebar').sidebar('attach events', '.searchbtn', 'push')
 
 
 
