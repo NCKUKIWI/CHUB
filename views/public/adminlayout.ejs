@@ -30,12 +30,14 @@
     <div class="ui stackable grid" style="padding-top:50px;">
       <div class="four wide column">
         <div class="ui secondary vertical pointing menu">
-<!--           <a class="item">
+          <% if(me.Role == 3) { %>
+<!--           <a class="item" href="panel/abouts">
             關於簡介管理
-          </a>
+          </a> -->
           <a class="item" href="/panel/users">
             人才資料庫管理
-          </a> -->
+          </a>
+          <% } %>
           <a class="item" href="/panel/groups">
             團隊管理
           </a>

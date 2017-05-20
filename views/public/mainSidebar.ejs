@@ -1,49 +1,60 @@
 <div class="ui sidebar right inverted vertical menu" id="mainSidebar" style="width: 400px;">
   <div class="ui centered grid" style="padding-top:50px; margin:10px;">
       <% if(!me){ %>
-        <div style="display: flex; justify-content: space-around;">
-          <a class="ui button" id="loginbtn">LogIn</a>
-          <a class="ui button" id="signupbtn">SignUp</a>
-        </div>
         <div id="loginPart">
+          <h1>登入</h1>
           <form class="ui form" id="loginForm">
             <div class="field">
               <div id="errormsg"></div>
             </div>
             <div class="field">
-              <label>Email</label>
+              <p>Email</p>
               <input type="text" name="userid" placeholder="Email">
             </div>
             <div class="field">
-              <label>Password</label>
+              <p>Password</p>
               <input type="password" name="password" placeholder="Password">
             </div>
-            <div class="ui button" id="loginSubmit">Login</div>
-            <a class="ui button" href="/users/fblogin">FB Login</a>
+            <div style="display: flex; justify-content: space-around;">
+              <a class="ui button" id="loginSubmit">LogIn</a>
+              <a class="ui button" href="/users/fblogin">FB Login</a>
+            </div>
+            <div style="display: flex; justify-content: space-around; margin-top: 13px;">
+              <div class="ui checkbox">
+                <input type="checkbox" name="rememberUser">
+                <label style="color: white;">Remember me</label>
+              </div>
+              <a class="ui button">忘記密碼</a>
+            </div>
+            <div style="display: flex; justify-content: space-around;">
+              <a class="ui button" id="signupbtn" style="width: 100%; margin: 12px;">Register now</a>
+            </div>
           </form>
         </div>
         <div id="signupPart">
+          <h1>註冊</h1>
           <form class="ui form" id="signupForm">
               <div class="field">
                   <div id="errormsg"></div>
               </div>
               <div class="field">
-                  <label>Email</label>
+                  <p>Email</p>
                   <input type="text" name="email" placeholder="Email">
               </div>
               <div class="field">
-                  <label>Password</label>
+                  <p>Password</p>
                   <input type="password" name="password" placeholder="Password">
               </div>
               <div class="field">
-                  <label>UserID</label>
+                  <p>UserID</p>
                   <input type="text" name="userid" placeholder="User ID">
               </div>
               <div class="field">
-                  <label>Name</label>
+                  <p>Name</p>
                   <input type="text" name="username" placeholder="Name">
               </div>
               <div class="ui button" id="signupSubmit">Signup</div>
+              <div class="ui button" id="loginbtn">back</div>
           </form>
         </div>
       <% }else{ %>
@@ -74,7 +85,7 @@
           </div>
         </div>
         <div id="setting" style="display: none; color: white !important;">
-          <button class="ui button" id="backProfile">back</button>
+          
           <h1>-Setting Profile-</h1>
           <form class="ui form" id="updateForm">
             <div class="field">
@@ -93,7 +104,7 @@
                   <h3 >Major: </h3>
                 </div>
                 <div class="twelve wide field">
-                  <input type="text" name="major" value="<%= me.Major %>">
+                  <input type="text" name="major" value="<%= me.Major !== undefined ? me.Major : ''%>">
                 </div>
               </div>
             </div>
@@ -113,7 +124,7 @@
                   <h3 >Location: </h3>
                 </div>
                 <div class="twelve wide field">
-                  <input type="text" name="location" value="<%= me.Location %>">
+                  <input type="text" name="location" value="<%= me.Location !== undefined ? me.Location : ''%>">
                 </div>
               </div>
             </div>
@@ -141,7 +152,7 @@
             </div>
             <div class="field">
               <h3 style="text-align: left;">Introduction: </h3>
-              <textarea name="introduction" value="<%= me.Introduction %>"><%= me.Introduction %></textarea>
+              <textarea name="introduction" value="<%= me.Introduction %>"><%= me.Introduction !== undefined ? me.Introduction : ''%></textarea>
             </div>
 <!--             <div class="field">
               <div class="fields">
@@ -172,6 +183,7 @@
               </div>
             </div> -->
             <div class="ui button" tabindex="0" id="updateProfile">Done</div>
+            <div class="ui button" id="backProfile">back</div>
           </form>
           <h1>-Setting Account-</h1>
           <button class="ui button">重設密碼</button>
@@ -201,7 +213,7 @@
     <i class="mail icon"></i>
   </a>
   <% } %>
-  <a class="item" id="searchbtn">
+  <a class="item searchbtn">
     <i class="search icon" ></i>
   </a>
 </div>
@@ -231,4 +243,6 @@
     z-index: 3;
     right: -3px;
 }  
+
+
 </style>

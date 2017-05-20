@@ -2,12 +2,14 @@ $(document).ready(function() {
 	// sidebar
 
 	// 登入&註冊按鈕綁定
+		$("#signupPart").hide();
+		$("#loginPart").show();
 	$("#loginbtn").click(function() {
 		$("#signupPart").hide();
 		$("#loginPart").show();
 	});
 
-	$("#loginbtn").trigger('click');
+
 
 	$("#signupbtn").click(function() {
 		$("#signupPart").show();
@@ -23,7 +25,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#searchSidebar').sidebar('attach events', '#searchbtn', 'push')
+	$('#searchSidebar').sidebar('attach events', '.searchbtn', 'push')
 
 
 
@@ -63,6 +65,7 @@ $(document).ready(function() {
 		$('#backProfile').trigger( "click" );
 	})
 	$('#addSkill').on('click', function(){
+		if($("input[name='textSkill']").val() == "") return;
 		var skillNum = $('#showSkills a').children().length;
 		var skillArr = [];
 
@@ -101,8 +104,14 @@ $(document).ready(function() {
 		sendMessage();
 	})
 	$(document).keypress(function(e) {
-		if(e.which == 13) {
+		if(e.which == 13 && $('#msgText').val() != "") {
 			sendMessage();
+		}
+		if(e.which == 13 && $('#loginPart').css('display') == "block"){
+			$('#loginSubmit').trigger('click');
+		}
+		if(e.which == 13 && $('#signupPart').css('display') == "block"){
+			$('#signupSubmit').trigger('click');
 		}
 	});
 });
@@ -111,7 +120,7 @@ var test;
 // 送出訊息
 function sendMessage(){
 	var sendMsg = $('#msgText').val();
-	if(sendMsg == "") return;
+	// if(sendMsg == "") return;
 
 	var toID = $("#userSidebar > .item.active").attr("userid");
 	$(".chatCont > div[messageuserid=\'" + toID + "\']").append('<li class="chatEntry chatSent"><img class="avatar" src="//placekitten.com/56/56" /><p class="message">'+sendMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
@@ -148,9 +157,7 @@ function findNotSendMessageUser(){
 	var messageArr = $('.chatCont > div');
 	console.log(messageArr);
 	for(var i in messageArr){
-		console.log('level2');
 		if($(messageArr[i]).children().length == 0){
-			console.log('level3');
 			var id = $(messageArr[i]).attr('messageuserid');
 			$("#userSidebar > .item[userid=\'" + id + "\']").remove();
 			$(".chatCont > div[messageuserid=\'" + id + "\'").remove();

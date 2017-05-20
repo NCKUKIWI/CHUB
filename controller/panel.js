@@ -57,8 +57,10 @@ router.get("/users",helper.checkLogin(),function(req,res) {
 });
 
 router.get("/abouts",helper.checkLogin(),function(req,res) {
-  res.render("panel/about",{
-  });
+  if(req.user.Role == 3){
+    res.render("panel/about",{
+    });
+  }
 });
 
 module.exports = router;

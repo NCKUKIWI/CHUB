@@ -274,6 +274,7 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
 router.post("/:id", function(req,res) {
   User.findById(req.params.id,function(err,user){
     if(user){
+      console.log(user);
       res.render("users/show",{
         user:user
       });
