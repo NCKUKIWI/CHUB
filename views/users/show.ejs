@@ -7,7 +7,7 @@
     <img src="/assets/images/rachel.png">
   </div>
   <div class="description">
-    <p>Major: <%= user.Major %></p>
+    <p>Major: <%= user.Major !== undefined ? user.Major : "" %></p>
     <p>Skills:&nbsp;
       <% for(var j = 0; j < user.Skill.length; j++){ %>
         <%= user.Skill[j] %>
@@ -17,18 +17,20 @@
       <% } %>
     </p>
     <p>Group: </p>
-    <p>Location: <%= user.Location %></p>
-    <p>Introduction: <%= user.Introduction %></p>
+    <p>Location: <%= user.Location !== undefined ? user.Location : "" %></p>
+    <p>Introduction: <%= user.Introduction !== undefined ? user.Introduction : null%></p>
     <p>Project: </p>
     <p>Activity: </p>
     <p>portfolio: </p>
   </div>
 </div>
+<% if(me._id.toString().indexOf(user._id.toString()) == -1){ %>
 <div class="actions">
   <div class="ui blue button sendText" userid="<%= user._id %>" userName = "<%= user.Name %>">
     Text Me
   </div>
 </div>
+<% } %>
 
 
 <script>

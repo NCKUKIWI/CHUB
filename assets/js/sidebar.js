@@ -65,6 +65,7 @@ $(document).ready(function() {
 		$('#backProfile').trigger( "click" );
 	})
 	$('#addSkill').on('click', function(){
+		if($("input[name='textSkill']").val() == "") return;
 		var skillNum = $('#showSkills a').children().length;
 		var skillArr = [];
 
@@ -156,9 +157,7 @@ function findNotSendMessageUser(){
 	var messageArr = $('.chatCont > div');
 	console.log(messageArr);
 	for(var i in messageArr){
-		console.log('level2');
 		if($(messageArr[i]).children().length == 0){
-			console.log('level3');
 			var id = $(messageArr[i]).attr('messageuserid');
 			$("#userSidebar > .item[userid=\'" + id + "\']").remove();
 			$(".chatCont > div[messageuserid=\'" + id + "\'").remove();

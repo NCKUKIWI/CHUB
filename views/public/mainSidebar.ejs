@@ -17,7 +17,7 @@
             </div>
             <div style="display: flex; justify-content: space-around;">
               <a class="ui button" id="loginSubmit">LogIn</a>
-              <a class="ui button" id="/users/fblogin">FB Login</a>
+              <a class="ui button" href="/users/fblogin">FB Login</a>
             </div>
             <div style="display: flex; justify-content: space-around; margin-top: 13px;">
               <div class="ui checkbox">
@@ -85,7 +85,7 @@
           </div>
         </div>
         <div id="setting" style="display: none; color: white !important;">
-          <button class="ui button" id="backProfile">back</button>
+          
           <h1>-Setting Profile-</h1>
           <form class="ui form" id="updateForm">
             <div class="field">
@@ -104,7 +104,7 @@
                   <h3 >Major: </h3>
                 </div>
                 <div class="twelve wide field">
-                  <input type="text" name="major" value="<%= me.Major %>">
+                  <input type="text" name="major" value="<%= me.Major !== undefined ? me.Major : ''%>">
                 </div>
               </div>
             </div>
@@ -124,7 +124,7 @@
                   <h3 >Location: </h3>
                 </div>
                 <div class="twelve wide field">
-                  <input type="text" name="location" value="<%= me.Location %>">
+                  <input type="text" name="location" value="<%= me.Location !== undefined ? me.Location : ''%>">
                 </div>
               </div>
             </div>
@@ -152,7 +152,7 @@
             </div>
             <div class="field">
               <h3 style="text-align: left;">Introduction: </h3>
-              <textarea name="introduction" value="<%= me.Introduction %>"><%= me.Introduction %></textarea>
+              <textarea name="introduction" value="<%= me.Introduction %>"><%= me.Introduction !== undefined ? me.Introduction : ''%></textarea>
             </div>
 <!--             <div class="field">
               <div class="fields">
@@ -183,6 +183,7 @@
               </div>
             </div> -->
             <div class="ui button" tabindex="0" id="updateProfile">Done</div>
+            <div class="ui button" id="backProfile">back</div>
           </form>
           <h1>-Setting Account-</h1>
           <button class="ui button">重設密碼</button>
@@ -242,4 +243,6 @@
     z-index: 3;
     right: -3px;
 }  
+
+
 </style>
