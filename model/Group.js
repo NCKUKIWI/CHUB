@@ -19,11 +19,11 @@ Mutiple option
 */
 
 var groupSchema = new Schema({
-  Name:{type:String,required:[true,"請輸入組織名稱"]},
+  Name:{type:String,required:[true,"請輸入組織名稱"],unique:true},
   Type:{type:String,required:[true,"請選擇組織類型"]},
-  MemberID:[{type:ObjectId,ref:"User"}],
-  ApplyID:[{type:ObjectId,ref:"User"}],
-  AdminID:[{type:ObjectId,ref:"User"}],
+  MemberID:{type:[ObjectId],ref:"User"},
+  ApplyID:{type:[ObjectId],ref:"User"},
+  AdminID:{type:[ObjectId],ref:"User"},
   Website:String,
   Description:{type:String,required:[true,"請輸入組織介紹"]},
   CreateAt: { type: Date, default: Date.now }
@@ -45,7 +45,7 @@ groupSchema.post("find", function(result) {
   console.log(`Took ${ Date.now() - this.start} millis`);
 });
 
-groupSchema.plugin(uniqueValidator);
+groupSchema.plugin(uniqueValidator,{ message: "Name 已經使用過" });
 var Group = mongoose.model("Group", groupSchema);
 
 module.exports = Group;

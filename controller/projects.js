@@ -4,20 +4,27 @@ var helper = require("../helper");
 var Project = require("../model/Project");
 var User = require("../model/User");
 var cacheClear = require("../cache").clear;
-
+var fs = require("fs");
+var rimraf = require("rimraf");
 var multer  = require('multer');
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null,`./upload/`);
+    if (!fs.existsSync(`${__dirname}/../uploads/project/${req.params.id}`)){
+      fs.mkdirSync(`${__dirname}/../uploads/project/${req.params.id}`);
+    }
+    cb(null,`${__dirname}/../uploads/project/${req.params.id}`);
   },
   filename: function (req, file, cb) {
     var fileFormat = (file.originalname).split(".");
-    cb(null,"project." + fileFormat[fileFormat.length - 1]);
+    //"logo." + fileFormat[fileFormat.length - 1]
+    cb(null,"logo.png");
   }
 });
+
 var upload = multer({
   storage: storage
-});
+}).single("cover");
 
 router.get("/", function(req,res) {
   Project.find({},function(err,projects){
@@ -31,15 +38,15 @@ router.get("/new",helper.checkLogin(),function(req,res) {
   res.render("projects/create");
 });
 
-router.post("/create",helper.apiAuth(),upload.any(),function(req,res) {
+router.post("/create",helper.apiAuth(),function(req,res) {
   var newProject;
   if(req.body.group_id){
     newProject = new Project({
       Name:req.body.name,
       Type:req.body.type,
-      Time:req.body.time.split(","),
+      Time:(req.body.time)?(req.body.time.split(",")):[],
       Goal:req.body.goal,
-      Need:req.body.need.split(","),
+      Need:(req.body.need)?(req.body.need.split(",")):[],
       Description:req.body.description,
       MemberID:[req.user._id],
       AdminID:[req.user._id],
@@ -49,9 +56,9 @@ router.post("/create",helper.apiAuth(),upload.any(),function(req,res) {
     newProject = new Project({
       Name:req.body.name,
       Type:req.body.type,
-      Time:req.body.time.split(","),
+      Time:(req.body.time)?(req.body.time.split(",")):[],
       Goal:req.body.goal,
-      Need:req.body.need.split(","),
+      Need:(req.body.need)?(req.body.need.split(",")):[],
       Description:req.body.description,
       MemberID:[req.user._id],
       AdminID:[req.user._id],
@@ -63,13 +70,35 @@ router.post("/create",helper.apiAuth(),upload.any(),function(req,res) {
     }else{
       User.update({_id:req.user._id},{ $push: { "ProjectID":result._id } },function(err){
         if(err){
-          console.log(err);
-          res.send({error:err});
+         console.log(err);
+         res.send({error:err});
         }else{
           cacheClear();
-          res.send("ok");
+          res.send(result._id);
         }
       });
+    }
+  });
+});
+
+router.post("/upload/:id",helper.apiAuth(),function(req,res) {
+  Project.findById(req.params.id,function(err,project){
+    if(project){
+      if(project.AdminID.indexOf(req.user._id)!=-1){
+        upload(req,res,function(err){
+          console.log(req.body);
+          if(err){
+            console.log(err);
+            res.send({error:err})
+          }else{
+            res.send("ok");
+          }
+        });
+      }else{
+        res.send("notAdmin");
+      }
+    }else{
+      res.send("notFound");
     }
   });
 });
@@ -203,13 +232,25 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
   });
 });
 
-router.post("/delete/:id",helper.apiAuth(),function(req,res) {
+router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
-      if(project.AdminID.indexOf(req.user._id)!==-1 || req.user.role == 3 ){
+      if(project.AdminID.indexOf(req.user._id)!==-1 || req.user.Role == 3 ){
         project.remove(function(err){
-          cacheClear();
-          res.send("ok");
+          if(err){
+            console.log(err);
+            res.send({error:err});
+          }else{
+            rimraf(`${__dirname}/../uploads/project/${req.params.id}`,function () { });
+            User.update({"ProjectID":req.params.id},{$pull:{"ProjectID":req.params.id}},function(err){
+              if(err){
+                res.send({error:err});
+              }else{
+                cacheClear();
+                res.send("ok");
+              }
+            });
+          }
         });
       }else{
         res.send({error:"notAdmin"});

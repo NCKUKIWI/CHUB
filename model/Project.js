@@ -19,16 +19,16 @@ Mutiple option
 */
 
 var projectSchema = new Schema({
-  Name:{type:String,required:[true,"請輸入專案名稱"]},
+  Name:{type:String,required:[true,"請輸入專案名稱"],unique:true},
   Type:{type:String,required:[true,"請選擇專案類型"]},
-  Time:[String],
+  Time:{type:[String],required:[true,"請選擇專案時間"]},
   Goal:String,
   Need:[String],
   Sponser:[String],
   Description:{type:String,required:[true,"請輸入專案介紹"]},
-  ApplyID:[{type:ObjectId,ref:"User"}],
-  MemberID:[{type:ObjectId,ref:"User"}],
-  AdminID:[{type:ObjectId,ref:"User"}],
+  ApplyID:{type:[ObjectId],ref:"User"},
+  MemberID:{type:[ObjectId],ref:"User"},
+  AdminID:{type:[ObjectId],ref:"User"},
   GroupID:{type:ObjectId,ref:"Group"},
   CreateAt: { type: Date, default: Date.now }
 });
@@ -49,7 +49,7 @@ projectSchema.post("find", function(result) {
   console.log(`Took ${ Date.now() - this.start} millis`);
 });
 
-projectSchema.plugin(uniqueValidator);
+projectSchema.plugin(uniqueValidator,{ message: "Name 已經使用過" });
 var Project = mongoose.model("Project", projectSchema);
 
 module.exports = Project;

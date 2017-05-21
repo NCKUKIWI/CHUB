@@ -17,6 +17,7 @@ app.set('view engine','ejs')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use("/assets",express.static(__dirname + "/assets"));
+app.use("/uploads",express.static(__dirname + "/uploads"));
 
 //Handle sessions and cookie
 app.use(session({

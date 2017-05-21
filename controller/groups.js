@@ -4,6 +4,26 @@ var helper = require("../helper");
 var User = require("../model/User");
 var Group = require("../model/Group");
 var cacheClear = require("../cache").clear;
+var fs = require("fs");
+var rimraf = require("rimraf");
+var multer  = require('multer');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    if (!fs.existsSync(`${__dirname}/../uploads/group/${req.params.id}`)){
+      fs.mkdirSync(`${__dirname}/../uploads/group/${req.params.id}`);
+    }
+    cb(null,`${__dirname}/../uploads/group/${req.params.id}`);
+  },
+  filename: function (req, file, cb) {
+    var fileFormat = (file.originalname).split(".");
+    cb(null,"logo.png");
+  }
+});
+
+var upload = multer({
+  storage: storage
+}).single("cover");
 
 router.get("/", function(req,res) {
   Group.find({},function(err,groups){
@@ -30,15 +50,36 @@ router.post("/create",helper.apiAuth(),function(req,res) {
     if(err){
       res.send({error:helper.handleError(err)});
     }else{
-      User.update({_id:req.user._id},{ $push: { "GroupID":result._id } },function(err){
+      User.update({_id:req.user._id},{$push:{"GroupID":result._id}},function(err){
         if(err){
           console.log(err);
           res.send({error:err});
         }else{
           cacheClear();
-          res.send("ok");
+          res.send(result._id);
         }
       });
+    }
+  });
+});
+
+router.post("/upload/:id",helper.apiAuth(),function(req,res) {
+  Group.findById(req.params.id,function(err,group){
+    if(group){
+      if(group.AdminID.indexOf(req.user._id)!=-1){
+        upload(req,res,function(err){
+          if(err){
+            console.log(err);
+            res.send({error:err})
+          }else{
+            res.send("ok");
+          }
+        });
+      }else{
+        res.send("notAdmin");
+      }
+    }else{
+      res.send("notFound");
     }
   });
 });
@@ -173,13 +214,26 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
   });
 });
 
-router.post("/delete/:id",helper.apiAuth(),function(req,res) {
+router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   Group.findById(req.params.id,function(err,group){
     if(group){
-      if(group.AdminID.indexOf(req.user._id)!==-1 || req.user.role == 3 ){
+      if(group.AdminID.indexOf(req.user._id)!=-1 || req.user.Role == 3 ){
         group.remove(function(err){
-          cacheClear();
-          res.send("ok");
+          if(err){
+            console.log(err);
+            res.send({error:err});
+          }else{
+            rimraf(`${__dirname}/../uploads/group/${req.params.id}`,function () { });
+            User.update({"GroupID":req.params.id},{$pull:{"GroupID":req.params.id}},function(err){
+              if(err){
+                console.log(err);
+                res.send({error:err});
+              }else{
+                cacheClear();
+                res.send("ok");
+              }
+            });
+          }
         });
       }else{
         res.send({error:"notAdmin"});

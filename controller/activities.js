@@ -6,6 +6,26 @@ var sha256 = require("sha256");
 var Activity = require("../model/Activity");
 var User = require("../model/User");
 var cacheClear = require("../cache").clear;
+var fs = require("fs");
+var rimraf = require("rimraf");
+var multer  = require('multer');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    if (!fs.existsSync(`${__dirname}/../uploads/activity/${req.params.id}`)){
+      fs.mkdirSync(`${__dirname}/../uploads/activity/${req.params.id}`);
+    }
+    cb(null,`${__dirname}/../uploads/activity/${req.params.id}`);
+  },
+  filename: function (req, file, cb) {
+    var fileFormat = (file.originalname).split(".");
+    cb(null,"logo.png");
+  }
+});
+
+var upload = multer({
+  storage: storage
+}).single("cover");
 
 router.get("/", function(req,res) {
   Activity.find({},function(err,activity){
@@ -62,6 +82,27 @@ router.post("/create",helper.apiAuth(),function(req,res) {
   });
 });
 
+router.post("/upload/:id",helper.apiAuth(),function(req,res) {
+  Activity.findById(req.params.id,function(err,activity){
+    if(activity){
+      if(activity.AdminID.indexOf(req.user._id)!=-1){
+        upload(req,res,function(err){
+          if(err){
+            console.log(err);
+            res.send({error:err})
+          }else{
+            res.send("ok");
+          }
+        });
+      }else{
+        res.send("notAdmin");
+      }
+    }else{
+      res.send("notFound");
+    }
+  });
+});
+
 router.get("/edit/:id",helper.checkLogin(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if( activity && (activity.AdminID.indexOf(req.user._id)!=-1 || req.user.Role==3)){
@@ -96,13 +137,25 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
   });
 });
 
-router.post("/delete/:id",helper.apiAuth(),function(req,res) {
+router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){
-      if(activity.AdminID.indexOf(req.user._id)!==-1 || req.user.role == 3 ){
+      if(activity.AdminID.indexOf(req.user._id)!==-1 || req.user.Role == 3 ){
         activity.remove(function(err){
-          cacheClear();
-          res.send("ok");
+          if(err){
+            console.log(err);
+            res.send({error:err});
+          }else{
+            rimraf(`${__dirname}/../uploads/activity/${req.params.id}`,function () { });
+            User.update({"ActivityID":req.params.id},{$pull:{"ActivityID":req.params.id}},function(err){
+              if(err){
+                res.send({error:err});
+              }else{
+                cacheClear();
+                res.send("ok");
+              }
+            });
+          }
         });
       }else{
         res.send({error:"notAdmin"});

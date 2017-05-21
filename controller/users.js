@@ -230,8 +230,7 @@ router.post("/msg",helper.apiAuth(),function(req,res) {
   });
 });
 
-// 刪會員需要把其他collection的資料也刪掉，晚點改
-router.post("/delete/:id",helper.apiAuth(),function(req,res) {
+router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   User.findById(req.params.id,function(err,user){
     if(user){
       if(user._id == req.user._id || req.user.Role == 3 ){

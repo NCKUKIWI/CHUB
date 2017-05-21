@@ -28,7 +28,7 @@ $(document).ready(function(){
     var id = this.getAttribute("user-id");
     $.ajax({
       url: "/users/delete/"+id,
-      type: "POST",
+      type: "DELETE",
       success: function(response) {
         if(response=="ok"){
           toastr.success("刪除成功");

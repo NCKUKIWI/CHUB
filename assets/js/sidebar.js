@@ -58,7 +58,6 @@ $(document).ready(function() {
 			url: 'users/update',
 			method: "POST",
 			data: Data,
-		  headers: { "cache-control": "no-cache" },
 			success: function(response) {
 
 			}
@@ -90,7 +89,6 @@ $(document).ready(function() {
 			url: 'users/update',
 			method: "POST",
 			data: Data,
-		  headers: { "cache-control": "no-cache" },
 			success: function(response) {
 
 			}

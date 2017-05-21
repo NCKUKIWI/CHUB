@@ -5,7 +5,6 @@ $(document).ready(function() {
 				url: "/users/auth",
 				type: "POST",
 				data: $("#loginForm").serialize(),
-				headers: { "cache-control": "no-cache" },
 				success: function(response) {
 					if(response == "ok") {
 						window.location.href = "/";
@@ -22,7 +21,6 @@ $(document).ready(function() {
 			url: "/users/signup",
 			type: "POST",
 			data: $("#signupForm").serialize(),
-			headers: { "cache-control": "no-cache" },
 			success: function(response) {
 				if(response == "ok") {
 					window.location.href = "/";

@@ -4,7 +4,7 @@
 </div>
 <div class="image content">
   <div class="ui medium image">
-    <img src="../assets/images/group.png">
+    <img src="/uploads/group/<%= group._id %>/logo.png">
   </div>
   <div class="description">
     <p>Administrator:
@@ -16,7 +16,7 @@
     <% } %>
     </p>
     <p>Type: <%= group.Type %></p>
-    <p>Member: 
+    <p>Member:
     <% for(var i in members){ %>
     <%= members[i].Name %>
       <% if(i != members.length - 1) {%>
@@ -96,7 +96,7 @@ $("document").ready(function(){
     var id = this.getAttribute('group-id');
     $.ajax({
       url: "/groups/delete/"+id,
-      type: "POST",
+      type: "DELETE",
       success: function(response) {
         if(response=="ok"){
           toastr.success("刪除成功");

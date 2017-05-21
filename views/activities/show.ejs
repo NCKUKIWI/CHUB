@@ -4,7 +4,7 @@
 </div>
 <div class="image content">
   <div class="ui medium image">
-    <img src="../assets/images/project.png">
+    <img src="/uploads/activity/<%= activity._id %>/logo.png">
   </div>
   <div class="description">
     <p>Pics&Video: </p>
@@ -48,7 +48,7 @@ $(document).ready(function(){
     var id = this.getAttribute('activity-id');
     $.ajax({
       url: "/activities/delete/"+id,
-      type: "POST",
+      type: "DELETE",
       success: function(response) {
         if(response=="ok"){
           toastr.success("刪除成功");

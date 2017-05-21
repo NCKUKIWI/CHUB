@@ -70,7 +70,7 @@ $(document).ready(function(){
     var id = this.getAttribute('project-id');
     $.ajax({
       url: "/projects/delete/"+id,
-      type: "POST",
+      type: "DELETE",
       success: function(response) {
         if(response=="ok"){
           toastr.success("刪除成功");

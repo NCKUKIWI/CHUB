@@ -4,7 +4,7 @@
 </div>
 <div class="image content">
   <div class="ui medium image">
-    <img src="../assets/images/project.png">
+    <img src="/uploads/project/<%= project._id %>/logo.png">
   </div>
   <div class="description">
     <p>Type: <%= project.Type %></p>
@@ -15,7 +15,7 @@
     <p>Contributor: </p>
     <p>Sponsor: </p>
     <p>Activities: </p>
-    <p>Teammate: 
+    <p>Teammate:
     <% for(var i in members){ %>
     <%= members[i].Name %>
       <% if(i != members.length - 1) {%>
@@ -90,7 +90,7 @@ $(document).ready(function(){
     var id = this.getAttribute('project-id');
     $.ajax({
       url: "/projects/delete/"+id,
-      type: "POST",
+      type: "DELETE",
       success: function(response) {
         if(response=="ok"){
           toastr.success("刪除成功");
