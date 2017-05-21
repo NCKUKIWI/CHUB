@@ -8,20 +8,11 @@
   </div>
   <div class="description">
     <p>Administrator:
-    <% for(var i in group.Admin){ %>
-    <%= members[i].Name %>
-      <% if(i != members.length - 1) {%>
-      ,
-      <% } %>
-    <% } %>
     </p>
     <p>Type: <%= group.Type %></p>
     <p>Member: 
     <% for(var i in members){ %>
-    <%= members[i].Name %>
-      <% if(i != members.length - 1) {%>
-      ,
-      <% } %>
+      <a class="ui label openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
     <% } %>
     </p>
     <p>Project: </p>

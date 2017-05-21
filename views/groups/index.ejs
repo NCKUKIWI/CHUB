@@ -37,21 +37,9 @@
 
 <script>
 $(document).ready(function(){
-
-  $('.info').on('click', function(){
-    var id = this.getAttribute('group-id');
-    $.ajax({
-      url: "/groups/"+id,
-      type: "POST",
-      success: function(response) {
-        $(".ui.modal").append(response);
-        $(".ui.modal").modal({
-        onHide: function(){
-          $(".ui.modal").empty();
-        }}).modal("show");
-      }
-    });
-  });
-
+<% if(id !== undefined){ %>
+  console.log('click trigger');
+  $('.primary.info[group-id=<%= id %>]').trigger('click');
+<% } %>
 });
 </script>

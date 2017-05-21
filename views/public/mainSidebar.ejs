@@ -72,15 +72,21 @@
           <div style="text-align: left; margin-top: 20px;">
             <h3>Group: </h3>
             <div>
-              
+              <% for(var i = 0; i < me.GroupID.length; i++){ %>
+              <button class="ui inverted button info" group-id="<%= me.GroupID[i]._id %>"><%= me.GroupID[i].Name %></button>
+              <% } %>
             </div>
             <h3>Project: </h3>
             <div>
-              
+              <% for(var i = 0; i < me.ProjectID.length; i++){ %>
+              <button class="ui inverted button info" project-id="<%= me.ProjectID[i]._id %>"><%= me.ProjectID[i].Name %></button>
+              <% } %>
             </div>
             <h3>Activity: </h3>
             <div>
-              
+              <% for(var i = 0; i < me.ActivityID.length; i++){ %>
+              <button class="ui inverted button info" activity-id="<%= me.ActivityID[i]._id %>"><%= me.ActivityID[i].Name %></button>
+              <% } %>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ var router = express.Router();
 var helper = require("../helper");
 var Project = require("../model/Project");
 var User = require("../model/User");
+var cacheClear = require("../cache").clear;
 
 var multer  = require('multer');
 var storage = multer.diskStorage({
@@ -21,7 +22,8 @@ var upload = multer({
 router.get("/", function(req,res) {
   Project.find({},function(err,projects){
     res.render("projects/index",{
-      projects:projects
+      projects:projects,
+      id: req.query.id
     });
   });
 });
@@ -65,6 +67,7 @@ router.post("/create",helper.apiAuth(),upload.any(),function(req,res) {
           console.log(err);
           res.send({error:err});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -98,6 +101,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
       if(err){
         res.send({error:helper.handleError(err)});
       }else{
+        cacheClear();
         res.send("ok");
       }
     }else{
@@ -130,6 +134,7 @@ router.post("/join",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -149,6 +154,7 @@ router.post("/quit",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -168,6 +174,7 @@ router.post("/:id/addMember/:uid",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -187,6 +194,7 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -201,6 +209,7 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
     if(project){
       if(project.AdminID.indexOf(req.user._id)!==-1 || req.user.role == 3 ){
         project.remove(function(err){
+          cacheClear();
           res.send("ok");
         });
       }else{
@@ -213,18 +222,27 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
 });
 
 router.post("/:id",function(req,res) {
-  Project.findById(req.params.id,function(err,project){
-    if(project){
-      User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
-        res.render("projects/show",{
-          project:project,
-          members:members
+  if(req.body.page != 'true'){
+    Project.findById(req.params.id,function(err,project){
+      if(project){
+        User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
+          res.render("projects/show",{
+            project:project,
+            members:members
+          });
         });
+      }else{
+        res.send("notFound");
+      }
+    });
+  }else{
+    Project.findById(req.params.id,function(err,projects){
+      res.render("projects/index",{
+        projects: projects,
+        query: req.params.id
       });
-    }else{
-      res.send("notFound");
-    }
-  });
+    });
+  }
 });
 
 module.exports = router;

@@ -3,11 +3,13 @@ var router = express.Router();
 var helper = require("../helper");
 var User = require("../model/User");
 var Group = require("../model/Group");
+var cacheClear = require("../cache").clear;
 
 router.get("/", function(req,res) {
   Group.find({},function(err,groups){
     res.render("groups/index",{
-      groups:groups
+      groups:groups,
+      id: req.query.id
     });
   });
 });
@@ -34,6 +36,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
           console.log(err);
           res.send({error:err});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -65,6 +68,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
       if(err){
         res.send({error:helper.handleError(err)});
       }else{
+        cacheClear();
         res.send("ok");
       }
     }else{
@@ -99,6 +103,7 @@ router.post("/join",helper.apiAuth(),function(req,res) {
           if(err){
             res.send({error:helper.handleError(err)});
           }else{
+            cacheClear();
             res.send("ok");
           }
         });
@@ -121,6 +126,7 @@ router.post("/quit",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -139,6 +145,7 @@ router.post("/:id/addMember/:uid",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -157,6 +164,7 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -171,6 +179,7 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
     if(group){
       if(group.AdminID.indexOf(req.user._id)!==-1 || req.user.role == 3 ){
         group.remove(function(err){
+          cacheClear();
           res.send("ok");
         });
       }else{
@@ -201,7 +210,8 @@ router.get("/:id/msg",helper.checkLogin(),function(req,res) {
 });
 
 router.post("/:id",function(req,res) {
-  Group.findById(req.params.id,function(err,group){
+  // 要關聯管理員、project、activity，並且避免管理員被選進member
+  Group.findById(req.params.id).populate("GroupID","_id Name").populate("ProjectID","_id Name").populate("ActivityID","_id Name").exec(function(err,group){
     console.log(group);
     if(group){
       User.find({ _id:{ $in:group.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){

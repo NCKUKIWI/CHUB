@@ -5,8 +5,8 @@ var cookieParser = require("cookie-parser");
 var path = require("path");
 var engine = require('ejs-locals');     //讓express支援layout
 var helper = require("./helper");
-var cache = require("./cache").cache;
 var User = require("./model/User");
+var cache = require("./cache").cache;
 
 var app = express();
 
@@ -14,8 +14,6 @@ app.engine('ejs', engine);
 app.set('views',path.join(__dirname,'views'));  //view的路徑位在資料夾views中
 app.set('view engine','ejs')
 
-//cahe for 5 minutes
-app.use(cache(60 * 5));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use("/assets",express.static(__dirname + "/assets"));
@@ -47,46 +45,46 @@ app.use(function(req, res, next) {
 
 //users routes
 var users = require("./controller/users");
-app.use("/users",users);
+app.use("/users",cache(60*5),users);
 
 //projects routes
 var projects = require("./controller/projects");
-app.use("/projects",projects);
+app.use("/projects",cache(60*5),projects);
 
 //activities routes
 var activities = require("./controller/activities");
-app.use("/activities",activities);
+app.use("/activities",cache(60*5),activities);
 
 //groups routes
 var groups = require("./controller/groups");
-app.use("/groups",groups);
+app.use("/groups",cache(60*5),groups);
 
 //panel routes
 var panel = require("./controller/panel");
-app.use("/panel",helper.checkLogin(),panel);
+app.use("/panel",helper.checkLogin(),cache(60*5),panel);
 
 //messages routes
 var messages = require("./controller/messages");
-app.use("/messages",messages);
+app.use("/messages",cache(60*5),messages);
 
 //payment routes
 var payment = require("./controller/payment");
 app.use("/payment",payment);
 //insert
 
-app.get("/about",function(req,res){
+app.get("/about",cache(60*5),function(req,res){
   res.render("about");
 });
 
-app.get("/space",function(req,res){
+app.get("/space",cache(60*5),function(req,res){
   res.render("space");
 });
 
-app.get("/whaton",function(req,res){
+app.get("/whaton",cache(60*5),function(req,res){
   res.render("what_on");
 });
 
-app.get("/*",function(req,res){
+app.get("/*",cache(60*5),function(req,res){
   res.render("index");
 });
 

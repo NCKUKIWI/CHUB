@@ -5,11 +5,13 @@ var config = require("../config");
 var sha256 = require("sha256");
 var Activity = require("../model/Activity");
 var User = require("../model/User");
+var cacheClear = require("../cache").clear;
 
 router.get("/", function(req,res) {
   Activity.find({},function(err,activity){
     res.render("activities/index",{
-      activity:activity
+      activity:activity,
+      id: req.query.id
     });
   });
 });
@@ -53,6 +55,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
           console.log(err);
           res.send({error:err});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -85,6 +88,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
       if(err){
         res.send({error:helper.handleError(err)});
       }else{
+        cacheClear();
         res.send("ok");
       }
     }else{
@@ -98,6 +102,7 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
     if(activity){
       if(activity.AdminID.indexOf(req.user._id)!==-1 || req.user.role == 3 ){
         activity.remove(function(err){
+          cacheClear();
           res.send("ok");
         });
       }else{
@@ -117,6 +122,7 @@ router.post("/join",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });
@@ -134,6 +140,7 @@ router.post("/quit",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
+          cacheClear();
           res.send("ok");
         }
       });

@@ -16,20 +16,34 @@
         <% } %>
       <% } %>
     </p>
-    <p>Group: </p>
+    <p>Group: 
+      <% for(var i = 0; i < user.GroupID.length; i++){ %>
+      <a class="ui label openInfo" type="groups" id="<%= user.GroupID[i]._id %>"><%= user.GroupID[i].Name %></a>
+      <% } %>
+    </p>
     <p>Location: <%= user.Location !== undefined ? user.Location : "" %></p>
     <p>Introduction: <%= user.Introduction !== undefined ? user.Introduction : ''%></p>
-    <p>Project: </p>
-    <p>Activity: </p>
+    <p>Project: 
+      <% for(var i = 0; i < user.ProjectID.length; i++){ %>
+      <a class="ui label openInfo" type="projects" id="<%= user.ProjectID[i]._id %>"><%= user.ProjectID[i].Name %></a>
+      <% } %>
+    </p>
+    <p>Activity: 
+      <% for(var i = 0; i < user.ActivityID.length; i++){ %>
+      <a class="ui label openInfo" type="activities" id="<%= user.ActivityID[i]._id %>"><%= user.ActivityID[i].Name %></a>
+      <% } %>
+    </p>
     <p>portfolio: </p>
   </div>
 </div>
-<% if(me._id.toString().indexOf(user._id.toString()) == -1){ %>
-<div class="actions">
-  <div class="ui blue button sendText" userid="<%= user._id %>" userName = "<%= user.Name %>">
-    Text Me
+<% if(me) { %>
+  <% if(me._id.toString().indexOf(user._id.toString()) == -1){ %>
+  <div class="actions">
+    <div class="ui blue button sendText" userid="<%= user._id %>" userName = "<%= user.Name %>">
+      Text Me
+    </div>
   </div>
-</div>
+  <% } %>
 <% } %>
 
 
