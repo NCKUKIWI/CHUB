@@ -22,11 +22,11 @@ var activitySchema = new Schema({
   Name:{type:String,required:[true,"請輸入活動名稱"],unique:true},
   Type:{type:String,required:[true,"請選擇活動類型"]},
   Description:{type:String,required:[true,"請輸入活動說明"]},
-  Time:{type:[String],required:[true,"請選擇活動時間"]},
+  Time:[{type:String,required:[true,"請選擇活動時間"]}],
   Fee:[Number],
-  MemberID:{type:[ObjectId],ref:"User"},
-  AdminID:{type:[ObjectId],ref:"User"},
-  GroupID:{type:ObjectId,ref:"Group"},
+  MemberID:[{type:ObjectId,ref:"User"}],
+  AdminID:[{type:ObjectId,ref:"User"}],
+  GroupID:[{type:ObjectId,ref:"Group"}],
   CreateAt: { type: Date, default: Date.now }
 });
 

@@ -29,9 +29,9 @@ var userSchema = new Schema({
   Introduction: { type: String, minlength:0, maxlength:100 },
   Link: [String],
   Role: Number,
-  GroupID: {type:[ObjectId],ref:"Group"},
-  ProjectID: {type:[ObjectId],ref:"Project"},
-  ActivityID: {type:[ObjectId],ref:"Activity"},
+  GroupID: [{type:ObjectId,ref:"Group"}],
+  ProjectID: [{type:ObjectId,ref:"Project"}],
+  ActivityID: [{type:ObjectId,ref:"Activity"}],
   portfolio: [String],
   CreateAt: { type: Date, default: Date.now }
 });
