@@ -57,7 +57,7 @@ $(document).ready(function() {
 		$.ajax({
 			url: 'users/update',
 			method: "POST",
-			data: Data,
+			data: Data
 			success: function(response) {
 
 			}
@@ -88,9 +88,9 @@ $(document).ready(function() {
 		$.ajax({
 			url: 'users/update',
 			method: "POST",
-			data: Data,
+			data: Data
 			success: function(response) {
-
+				console.log('add suuces!');
 			}
 		})
 	})
@@ -120,7 +120,6 @@ var test;
 // 送出訊息
 function sendMessage(){
 	var sendMsg = $('#msgText').val();
-	// if(sendMsg == "") return;
 
 	var toID = $("#userSidebar > .item.active").attr("userid");
 	$(".chatCont > div[messageuserid=\'" + toID + "\']").append('<li class="chatEntry chatSent"><img class="avatar" src="//placekitten.com/56/56" /><p class="message">'+sendMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
@@ -132,8 +131,8 @@ function sendMessage(){
 		url: 'messages/send',
 		method: "POST",
 		data: Data,
+		headers: { "cache-control": "no-cache" },
 		success: function(response) {
-			console.log('send success!');
 		}
 	})
 }

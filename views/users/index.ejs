@@ -4,7 +4,7 @@
   <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
   <a class="ui button searchbtn">search</a>
 </div>
-<% if( Object.keys(query).length>0 ){ %>
+<% if( Object.keys(query).length>0  && id === undefined){ %>
   <h2>查詢條件</h2>
   <h3>
     <% for(var i in query ){ %>
@@ -30,14 +30,16 @@
       </div>
       <div class="content">
         <a class="header"><%= users[i].Name %></a>
+        <% if(users[i].Major !== undefined){ %>
         <div class="meta">
           <span class="date">Major in <%= users[i].Major %></span>
         </div>
+        <% } %>
       </div>
       <div class="extra content">
-        <a>
-          <i class="users icon"></i><%= users[i].Skill.length %> Skills
-        </a>
+        <% for(var j = 0; j < users[i].Skill.length; j++){ %>
+        <a class="ui basic label"><%= users[i].Skill[j] %></a>
+        <% } %>
       </div>
     </div>
   <% } %>
@@ -47,20 +49,10 @@
 </div>
 
 <script>
-  $(document).ready(function(){
-    $('.info').on('click', function(){
-      var id = this.getAttribute('user-id');
-      $.ajax({
-        url: "/users/"+id,
-        type: "POST",
-        success: function(response) {
-          $(".ui.modal").append(response);
-          $(".ui.modal").modal({
-          onHide: function(){
-            $(".ui.modal").empty();
-          }}).modal("show");
-        }
-      });
-    });
-  });
+$(document).ready(function(){
+<% if(id !== undefined){ %>
+  console.log('click trigger');
+  $('.primary.info[user-id=<%= id %>]').trigger('click');
+<% } %>
+});
 </script>

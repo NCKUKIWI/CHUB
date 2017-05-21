@@ -16,18 +16,18 @@
               <input type="password" name="password" placeholder="Password">
             </div>
             <div style="display: flex; justify-content: space-around;">
-              <a class="ui button" id="loginSubmit">LogIn</a>
-              <a class="ui button" href="/users/fblogin">FB Login</a>
+              <a class="ui button" id="loginSubmit" style="width: 100%;">LogIn</a>
+              <a class="ui button" href="/users/fblogin" style="width: 100%">FB Login</a>
             </div>
-            <div style="display: flex; justify-content: space-around; margin-top: 13px;">
-              <div class="ui checkbox">
+            <div style="display: flex; justify-content: space-around; margin-top: 13px; align-items: baseline;">
+              <div class="ui checkbox" style="width: 100%;">
                 <input type="checkbox" name="rememberUser">
                 <label style="color: white;">Remember me</label>
               </div>
-              <a class="ui button">忘記密碼</a>
+              <a class="ui button" style="width: 85%;">忘記密碼</a>
             </div>
             <div style="display: flex; justify-content: space-around;">
-              <a class="ui button" id="signupbtn" style="width: 100%; margin: 12px;">Register now</a>
+              <a class="ui button" id="signupbtn" style="width: 100%; margin-top: 12px;">Register now</a>
             </div>
           </form>
         </div>
@@ -72,15 +72,21 @@
           <div style="text-align: left; margin-top: 20px;">
             <h3>Group: </h3>
             <div>
-              
+              <% for(var i = 0; i < me.GroupID.length; i++){ %>
+              <button class="ui inverted button info" group-id="<%= me.GroupID[i]._id %>"><%= me.GroupID[i].Name %></button>
+              <% } %>
             </div>
             <h3>Project: </h3>
             <div>
-              
+              <% for(var i = 0; i < me.ProjectID.length; i++){ %>
+              <button class="ui inverted button info" project-id="<%= me.ProjectID[i]._id %>"><%= me.ProjectID[i].Name %></button>
+              <% } %>
             </div>
             <h3>Activity: </h3>
             <div>
-              
+              <% for(var i = 0; i < me.ActivityID.length; i++){ %>
+              <button class="ui inverted button info" activity-id="<%= me.ActivityID[i]._id %>"><%= me.ActivityID[i].Name %></button>
+              <% } %>
             </div>
           </div>
         </div>
@@ -185,13 +191,13 @@
             <div class="ui button" tabindex="0" id="updateProfile">Done</div>
             <div class="ui button" id="backProfile">back</div>
           </form>
-          <h1>-Setting Account-</h1>
+<!--           <h1>-Setting Account-</h1>
           <button class="ui button">重設密碼</button>
           <h1>-Setting Notification-</h1>
           <div class="ui toggle checkbox">
             <input type="checkbox" name="public">
             <label style="color: white !important;">訊息用email通知</label>
-          </div>
+          </div> -->
         </div>
       <% } %>
   </div>

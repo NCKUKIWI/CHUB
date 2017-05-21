@@ -30,7 +30,8 @@ var upload = multer({
 router.get("/", function(req,res) {
   Activity.find({},function(err,activity){
     res.render("activities/index",{
-      activity:activity
+      activity:activity,
+      id: req.query.id
     });
   });
 });

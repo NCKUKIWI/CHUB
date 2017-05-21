@@ -38,19 +38,8 @@
 
 <script>
 $(document).ready(function(){
-  $('.info').on('click', function(){
-    var id = this.getAttribute('activity-id');
-    $.ajax({
-      url: "/activities/"+id,
-      type: "POST",
-      success: function(response) {
-        $(".ui.modal").append(response);
-        $(".ui.modal").modal({
-        onHide: function(){
-          $(".ui.modal").empty();
-        }}).modal("show");
-      }
-    });
-  });
+<% if(id !== undefined){ %>
+  $('.primary.info[activity-id=<%= id %>]').trigger('click');
+<% } %>
 });
 </script>

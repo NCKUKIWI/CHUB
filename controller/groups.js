@@ -28,7 +28,8 @@ var upload = multer({
 router.get("/", function(req,res) {
   Group.find({},function(err,groups){
     res.render("groups/index",{
-      groups:groups
+      groups:groups,
+      id: req.query.id
     });
   });
 });
@@ -263,7 +264,8 @@ router.get("/:id/msg",helper.checkLogin(),function(req,res) {
 });
 
 router.post("/:id",function(req,res) {
-  Group.findById(req.params.id,function(err,group){
+  // 要關聯管理員、project、activity，並且避免管理員被選進member
+  Group.findById(req.params.id).populate("GroupID","_id Name").populate("ProjectID","_id Name").populate("ActivityID","_id Name").exec(function(err,group){
     console.log(group);
     if(group){
       User.find({ _id:{ $in:group.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){

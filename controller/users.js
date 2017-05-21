@@ -47,7 +47,8 @@ router.get("/", function(req,res) {
     //之後可能要放入"跟哪些人互通訊息"的欄位進去
     console.log(users);
   	res.render("users/index", {
-  		users: users
+  		users: users,
+      id: req.query.id
   	});
   });
 });
@@ -269,7 +270,7 @@ router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
 });
 
 router.post("/:id", function(req,res) {
-  User.findById(req.params.id,function(err,user){
+  User.findById(req.params.id,userInfo).populate("GroupID","_id Name").populate("ProjectID","_id Name").populate("ActivityID","_id Name").exec(function(err,user){
     if(user){
       console.log(user);
       res.render("users/show",{

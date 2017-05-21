@@ -29,7 +29,8 @@ var upload = multer({
 router.get("/", function(req,res) {
   Project.find({},function(err,projects){
     res.render("projects/index",{
-      projects:projects
+      projects:projects,
+      id: req.query.id
     });
   });
 });
@@ -262,18 +263,27 @@ router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
 });
 
 router.post("/:id",function(req,res) {
-  Project.findById(req.params.id,function(err,project){
-    if(project){
-      User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
-        res.render("projects/show",{
-          project:project,
-          members:members
+  if(req.body.page != 'true'){
+    Project.findById(req.params.id,function(err,project){
+      if(project){
+        User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
+          res.render("projects/show",{
+            project:project,
+            members:members
+          });
         });
+      }else{
+        res.send("notFound");
+      }
+    });
+  }else{
+    Project.findById(req.params.id,function(err,projects){
+      res.render("projects/index",{
+        projects: projects,
+        query: req.params.id
       });
-    }else{
-      res.send("notFound");
-    }
-  });
+    });
+  }
 });
 
 module.exports = router;
