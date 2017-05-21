@@ -57,7 +57,7 @@ $(document).ready(function() {
 		$.ajax({
 			url: 'users/update',
 			method: "POST",
-			data: Data
+			data: Data,
 			success: function(response) {
 
 			}
@@ -88,7 +88,7 @@ $(document).ready(function() {
 		$.ajax({
 			url: 'users/update',
 			method: "POST",
-			data: Data
+			data: Data,
 			success: function(response) {
 				console.log('add suuces!');
 			}
