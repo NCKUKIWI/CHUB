@@ -17,10 +17,7 @@
     <p>Activities: </p>
     <p>Teammate:
     <% for(var i in members){ %>
-    <%= members[i].Name %>
-      <% if(i != members.length - 1) {%>
-      ,
-      <% } %>
+      <a class="ui label openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
     <% } %>
     </p>
   </div>
