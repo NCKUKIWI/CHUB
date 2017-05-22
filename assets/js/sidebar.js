@@ -140,13 +140,21 @@ function sendMessage(){
 function changeMessageBoard(){
 	$('#userSidebar > .item').removeClass("active");
 	$(this).addClass("active");
-	var userID = $(this).attr("userid");
-	$('.chatCont > div').hide();
-	$(".chatCont > div[messageuserid=\'" + userID + "\'").show();
 
 	// 如果是通知的那個區塊，就把send隱藏，沒有就顯示
-	if($('#userSidebar > .item.active > .mail').length == 1) $('#inputMsg').hide();
+	if($('#userSidebar > .item.active > .mail').length == 1){
+		$('#inputMsg').hide();
+		$('.chatCont > div').hide();
+		return;
+	}
 	else $('#inputMsg').show();
+
+
+	var userID = $(this).attr("userid");
+	$('.chatCont > div').hide();
+	$(".chatCont > div[messageuserid=\'" + userID + "\']").show();
+
+
 }
 
 // 假設使用者沒有傳訊息的話～就把資料刪除
@@ -157,7 +165,7 @@ function findNotSendMessageUser(){
 		if($(messageArr[i]).children().length == 0){
 			var id = $(messageArr[i]).attr('messageuserid');
 			$("#userSidebar > .item[userid=\'" + id + "\']").remove();
-			$(".chatCont > div[messageuserid=\'" + id + "\'").remove();
+			$(".chatCont > div[messageuserid=\'" + id + "\']").remove();
 			break;
 		}
 	}
