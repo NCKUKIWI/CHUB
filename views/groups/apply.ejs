@@ -8,7 +8,7 @@
             <div class="ui inverted dimmer">
               <div class="content">
                 <div class="center">
-                  <div class="ui primary button info" user-id="<%= apply[i]._id %>">Info</div>
+                  <div class="ui primary button infoApply" user-id="<%= apply[i]._id %>">Info</div>
                 </div>
               </div>
             </div>
@@ -21,9 +21,9 @@
               </div>
           </div>
           <div class="extra content">
-              <a>
-                  <i class="users icon"></i><%= apply[i].Skill.length %> Skills
-              </a>
+            <% for(var j = 0; j < apply[i].Skill.length; j++){ %>
+            <a class="ui basic label"><%= apply[i].Skill[j] %></a>
+            <% } %>
           </div>
         </div>
         <div class="ui modal <%= apply[i]._id %>">
@@ -43,8 +43,8 @@
                 <% } %>
               </p>
               <p>Group</p>
-              <p>Location: <%= apply[i].Location %></p>
-              <p>Introduction: <%= apply[i].Introduction %></p>
+              <p>Location: <%= user.Location !== undefined ? user.Location : "" %></p>
+              <p>Introduction: <%= user.Introduction !== undefined ? user.Introduction : ''%></p>
               <p>Project</p>
               <p>Activity</p>
               <p>portfolio</p>
@@ -65,7 +65,7 @@
 
 <script>
   $(document).ready(function(){
-    $('.info').on('click', function(){
+    $('.infoApply').on('click', function(){
       var id = this.getAttribute('user-id');
       $('.ui.modal.' + id).modal('show');
     })

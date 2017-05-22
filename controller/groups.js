@@ -121,7 +121,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
 router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   Group.findById(req.params.id, function(err, group) {
     if(group && (group.AdminID.indexOf(req.user._id)!==-1 || req.user.Role==3)){
-      User.find({ _id:{ $in:group.ApplyID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,apply){
+      User.find({ _id:{ $in:group.ApplyID } },["_id","Name","Email","Major","Skill","Description","Website","Role"],function(err,apply){
         res.render("groups/apply",{
           apply:apply,
           group_id:group._id
