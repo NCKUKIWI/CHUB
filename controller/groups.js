@@ -27,6 +27,17 @@ var upload = multer({
 
 router.get("/", function(req,res) {
   Group.find({},function(err,groups){
+    for(var i in groups){
+      fs.stat('/uploads/group/' + groups[i] + "logo.png", function(err, stat){
+        if(stat&&stat.isFile()) {
+          groups[i].hasCover = 1;
+          console.log('文件存在');
+        } else {
+          groups[i].hasCover = 0;
+          console.log('文件不存在或不是标准文件');
+        }
+      });
+    }
     res.render("groups/index",{
       groups:groups,
       id: req.query.id

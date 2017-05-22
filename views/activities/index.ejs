@@ -16,7 +16,11 @@
             </div>
           </div>
         </div>
+        <% if(activity[i].hasCover == 1){ %>
         <img src="/uploads/activity/<%= activity[i]._id %>/logo.png">
+        <% }else {%>
+        <img src="/assets/images/group.png">
+        <% } %>
       </div>
       <div class="content">
         <a class="header"><%= activity[i].Name %></a>

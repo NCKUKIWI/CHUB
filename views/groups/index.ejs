@@ -16,7 +16,11 @@
             </div>
           </div>
         </div>
+        <% if(groups[i].hasCover == 1){ %>
         <img src="/uploads/group/<%= groups[i]._id %>/logo.png">
+        <% }else {%>
+        <img src="/assets/images/group.png">
+        <% } %>
       </div>
       <div class="content">
         <a class="header"><%= groups[i].Name %></a>

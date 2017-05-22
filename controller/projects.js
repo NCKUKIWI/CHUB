@@ -28,6 +28,17 @@ var upload = multer({
 
 router.get("/", function(req,res) {
   Project.find({},function(err,projects){
+    for(var i in projects){
+      fs.stat('/uploads/project/' + projects[i] + "logo.png", function(err, stat){
+        if(stat&&stat.isFile()) {
+          projects[i].hasCover = 1;
+          console.log('文件存在');
+        } else {
+          projects[i].hasCover = 0;
+          console.log('文件不存在或不是标准文件');
+        }
+      });
+    }
     res.render("projects/index",{
       projects:projects,
       id: req.query.id
