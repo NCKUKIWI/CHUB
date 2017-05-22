@@ -78,7 +78,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
           res.send({error:err});
         }else{
           cacheClear();
-          res.send("ok");
+          res.send(result._id);
         }
       });
     }

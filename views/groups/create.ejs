@@ -1,11 +1,17 @@
 <% layout('../public/layout') %>
 <div class="ui centered grid" style="padding-top:50px;">
-  <div class="ten wide tablet six wide computer column" id="part1">
+  <div class="ten wide tablet six wide computer column">
     <h1>Create group</h1>
-    <form class="ui form" id="groupForm">
+    <form class="ui form" id="groupCoverForm">
       <div class="field">
         <div id="errormsg"></div>
       </div>
+      <div class="field">
+        <label>Photo</label>
+        <input type="file" name="cover" id="file">
+      </div>
+    </form>
+    <form class="ui form" id="groupForm">
       <div class="field">
         <label>Name</label>
         <input type="text" name="name" placeholder="Name">
@@ -28,68 +34,83 @@
       <div class="ui button" id="groupSubmit">Create</div>
     </form>
   </div>
-  <div class="ten wide tablet six wide computer column" id="part2" style="display:none;">
-    <form class="ui form" id="groupCoverForm">
-      <h1>Upload logo for the group</h1>
-      <div class="field">
-        <div id="errormsg"></div>
-      </div>
-      <div class="field">
-        <label>Photo</label>
-        <input type="file" name="cover">
-      </div>
-      <div class="ui button" id="groupCoverSubmit">Upload</div>
-      <a class="ui button" href="/groups" >Skip</a>
-    </form>
-  </div>
 </div>
 <script>
   $(document).ready(function(){
+    var create = 0;
     var id;
     $("#groupSubmit").on("click",function(){
-      $.ajax({
-        url: "/groups/create",
-        type: "POST",
-        data: $("#groupForm").serialize(),
-        success: function(response) {
-          if (response == "ok") {
-            toastr.success("創立成功");
-            $("#part1").remove();
-            id = response;
-            $("#part2").show();
-          }
-          else {
-            $("#errormsg").empty();
-            for(var i in response["error"]){
-              $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+      if(create==0){
+        $.ajax({
+          url: "/groups/create",
+          type: "POST",
+          data: $("#groupForm").serialize(),
+          success: function(response) {
+            if (!response.error) {
+              id = response;
+              create = 1;
+              if($("#file").val()!=""){
+                var formData = new FormData($("#groupCoverForm")[0]);
+                $.ajax({
+                  url: "/groups/upload/"+id,
+                  type: "POST",
+                  data:formData,
+                  contentType: false,
+                  processData: false,
+                  success: function(response) {
+                    if (response == "ok") {
+                      toastr.success("創立成功");
+                      setTimeout(function(){
+                        window.location.href="/groups";
+                      },3000);
+                    }
+                    else {
+                      $("#errormsg").empty();
+                      for(var i in response["error"]){
+                        $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+                      }
+                    }
+                  }
+                });
+              }else{
+                toastr.success("創立成功");
+                setTimeout(function(){
+                  window.location.href="/groups";
+                },3000);
+              }
+            }
+            else {
+              $("#errormsg").empty();
+              for(var i in response["error"]){
+                $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+              }
             }
           }
-        }
-      });
-    });
-    $("#groupCoverSubmit").on("click",function(){
-      var formData = new FormData($("#groupCoverForm")[0]);
-      $.ajax({
-        url: "/groups/upload/"+id,
-        type: "POST",
-        data:formData,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-          if (response == "ok") {
-            toastr.success("上傳成功");
-            setTimeout(function(){
-              window.location.href="/groups";
-            },3000);
-          }
-          else {
-            $("#errormsg").empty();
-            for(var i in response["error"]){
-              $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+        });
+      }else{
+        var formData = new FormData($("#groupCoverForm")[0]);
+        $.ajax({
+          url: "/groups/upload/"+id,
+          type: "POST",
+          data:formData,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+            if (response == "ok") {
+              toastr.success("創立成功");
+              setTimeout(function(){
+                window.location.href="/groups";
+              },3000);
+            }
+            else {
+              $("#errormsg").empty();
+              for(var i in response["error"]){
+                $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+              }
             }
           }
-        }
-      });
+        });
+      }
     });
   });
 </script>
