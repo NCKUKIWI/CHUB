@@ -110,7 +110,6 @@ $(document).ready(function() {
 		}
 	});
 });
-var test;
 
 // 送出訊息
 function sendMessage(){
