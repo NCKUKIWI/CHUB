@@ -93,33 +93,41 @@ router.post("/auth", function(req, res) {
 });
 
 router.get("/fblogin",helper.checkLogin(0),function(req, res) {
-  res.redirect(`https://www.facebook.com/v2.8/dialog/oauth?client_id=${config.fb_id}&scope=email,public_profile&response_type=token&redirect_uri=${config.website}/users/fbcheck`);
+  res.redirect(`https://www.facebook.com/v2.8/dialog/oauth?client_id=${config.fb_id}&scope=email,public_profile&response_type=code&redirect_uri=${config.website}/users/fbcheck`);
 });
 
 router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
-  if(req.query.access_token){
-    graph.get(`/me?fields=id,name,email,gender&access_token=${req.query.access_token}`,function(err,fb){
-      User.findOne({UserID:fb.id},"_id",function(err,user){
-        if(user){
-          cacheClear();
-          res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
-          res.cookie("id",user._id,{maxAge: 60 * 60 * 1000});
-          res.redirect("/");
-        }
-        else{
-          User.create({ Email:fb.email,UserID:fb.id,Name:fb.name,Password:fb.id,Role:0,Skill:[],Major:""}, function (err,result) {
-            if (err) console.log(err);
-            helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
+  if(req.query.code){
+    graph.authorize({
+      "client_id": config.fb_id,
+      "redirect_uri": config.website+"/users/fbcheck",
+      "client_secret": config.fb_secret,
+      "code": req.query.code
+    }, function (err,result) {
+      graph.get(`/me?fields=id,name,email,gender&access_token=${result.access_token}`,function(err,fb){
+        User.findOne({UserID:fb.id},"_id",function(err,user){
+          if(user){
             cacheClear();
             res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
-            res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
+            res.cookie("id",user._id,{maxAge: 60 * 60 * 1000});
             res.redirect("/");
-          })
-        }
+          }
+          else{
+            User.create({ Email:fb.email,UserID:fb.id,Name:fb.name,Password:fb.id,Role:0,Skill:[],Major:""}, function (err,result) {
+              if (err) console.log(err);
+              helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
+              cacheClear();
+              res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
+              res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
+              res.redirect("/");
+            })
+          }
+        });
       });
     });
-  }else{
-    res.render("users/fbcheck");
+  }
+  else{
+    res.redirect("/");
   }
 });
 
