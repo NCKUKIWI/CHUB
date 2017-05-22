@@ -144,6 +144,10 @@ function changeMessageBoard(){
 	var userID = $(this).attr("userid");
 	$('.chatCont > div').hide();
 	$(".chatCont > div[messageuserid=\'" + userID + "\'").show();
+
+	// 如果是通知的那個區塊，就把send隱藏，沒有就顯示
+	if($('#userSidebar > .item.active > .mail').length == 1) $('#inputMsg').hide();
+	else $('#inputMsg').show();
 }
 
 // 假設使用者沒有傳訊息的話～就把資料刪除
