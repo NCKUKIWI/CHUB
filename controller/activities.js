@@ -29,17 +29,6 @@ var upload = multer({
 
 router.get("/", function(req,res) {
   Activity.find({},function(err,activity){
-    for(var i in activity){
-      fs.stat('/uploads/activity/' + activity[i] + "logo.png", function(err, stat){
-        if(stat&&stat.isFile()) {
-          activity[i].hasCover = 1;
-          console.log('文件存在');
-        } else {
-          activity[i].hasCover = 0;
-          console.log('文件不存在或不是标准文件');
-        }
-      });
-    }
     res.render("activities/index",{
       activity:activity,
       id: req.query.id
@@ -60,6 +49,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       Fee:[req.body.fee],
       Description:req.body.description,
       Time:req.body.time.split(","),
+      hasCover:0,
       MemberID:[req.user._id],
       AdminID:[req.user._id],
       GroupID:req.body.group_id,
@@ -72,6 +62,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       Fee:[req.body.fee],
       Description:req.body.description,
       Time:req.body.time.split(","),
+      hasCover:0,
       MemberID:[req.user._id],
       AdminID:[req.user._id],
       Context:req.body.context
@@ -103,7 +94,16 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
             console.log(err);
             res.send({error:err})
           }else{
-            res.send("ok");
+            activity.hasCover = 1;
+            activity.save(function(err){
+              if(err){
+                console.log(err);
+                res.send({error:err});
+              }
+              else{
+                res.send("ok");
+              }
+            });
           }
         });
       }else{

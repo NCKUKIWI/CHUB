@@ -27,17 +27,6 @@ var upload = multer({
 
 router.get("/", function(req,res) {
   Group.find({},function(err,groups){
-    for(var i in groups){
-      fs.stat('/uploads/group/' + groups[i] + "logo.png", function(err, stat){
-        if(stat&&stat.isFile()) {
-          groups[i].hasCover = 1;
-          console.log('文件存在');
-        } else {
-          groups[i].hasCover = 0;
-          console.log('文件不存在或不是标准文件');
-        }
-      });
-    }
     res.render("groups/index",{
       groups:groups,
       id: req.query.id
@@ -56,6 +45,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
     MemberID:[req.user._id],
     AdminID:[req.user._id],
     Website:req.body.website,
+    hasCover:0,
     Description:req.body.description
   });
   Group.create(newGroup,function(err,result){
@@ -84,7 +74,16 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
             console.log(err);
             res.send({error:err})
           }else{
-            res.send("ok");
+            group.hasCover = 1;
+            group.save(function(err){
+              if(err){
+                console.log(err);
+                res.send({error:err});
+              }
+              else{
+                res.send("ok");
+              }
+            });
           }
         });
       }else{

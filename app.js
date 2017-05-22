@@ -44,48 +44,50 @@ app.use(function(req, res, next) {
   }
 });
 
+app.use(cache(3 * 60));
+
 //users routes
 var users = require("./controller/users");
-app.use("/users",cache(60*5),users);
+app.use("/users",users);
 
 //projects routes
 var projects = require("./controller/projects");
-app.use("/projects",cache(60*5),projects);
+app.use("/projects",projects);
 
 //activities routes
 var activities = require("./controller/activities");
-app.use("/activities",cache(60*5),activities);
+app.use("/activities",activities);
 
 //groups routes
 var groups = require("./controller/groups");
-app.use("/groups",cache(60*5),groups);
+app.use("/groups",groups);
 
 //panel routes
 var panel = require("./controller/panel");
-app.use("/panel",helper.checkLogin(),cache(60*5),panel);
+app.use("/panel",helper.checkLogin(),panel);
 
 //messages routes
 var messages = require("./controller/messages");
-app.use("/messages",cache(60*5),messages);
+app.use("/messages",messages);
 
 //payment routes
 var payment = require("./controller/payment");
 app.use("/payment",payment);
 //insert
 
-app.get("/about",cache(60*5),function(req,res){
+app.get("/about",function(req,res){
   res.render("about");
 });
 
-app.get("/space",cache(60*5),function(req,res){
+app.get("/space",function(req,res){
   res.render("space");
 });
 
-app.get("/whaton",cache(60*5),function(req,res){
+app.get("/whaton",function(req,res){
   res.render("what_on");
 });
 
-app.get("/*",cache(60*5),function(req,res){
+app.get("/*",function(req,res){
   res.render("index");
 });
 

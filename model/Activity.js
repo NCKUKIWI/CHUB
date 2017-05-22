@@ -24,6 +24,7 @@ var activitySchema = new Schema({
   Description:{type:String,required:[true,"請輸入活動說明"]},
   Time:[{type:String,required:[true,"請選擇活動時間"]}],
   Fee:[Number],
+  hasCover:Number,
   MemberID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
   GroupID:[{type:ObjectId,ref:"Group"}],
