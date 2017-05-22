@@ -25,6 +25,7 @@ var groupSchema = new Schema({
   ApplyID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
   Website:String,
+  hasCover:Number,
   Description:{type:String,required:[true,"請輸入組織介紹"]},
   CreateAt: { type: Date, default: Date.now }
 });

@@ -28,17 +28,6 @@ var upload = multer({
 
 router.get("/", function(req,res) {
   Project.find({},function(err,projects){
-    for(var i in projects){
-      fs.stat('/uploads/project/' + projects[i] + "logo.png", function(err, stat){
-        if(stat&&stat.isFile()) {
-          projects[i].hasCover = 1;
-          console.log('文件存在');
-        } else {
-          projects[i].hasCover = 0;
-          console.log('文件不存在或不是标准文件');
-        }
-      });
-    }
     res.render("projects/index",{
       projects:projects,
       id: req.query.id
@@ -60,6 +49,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       Goal:req.body.goal,
       Need:(req.body.need)?(req.body.need.split(",")):[],
       Description:req.body.description,
+      hasCover:0,
       MemberID:[req.user._id],
       AdminID:[req.user._id],
       GroupID:req.body.group_id
@@ -72,6 +62,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       Goal:req.body.goal,
       Need:(req.body.need)?(req.body.need.split(",")):[],
       Description:req.body.description,
+      hasCover:0,
       MemberID:[req.user._id],
       AdminID:[req.user._id],
     });
@@ -98,12 +89,20 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
     if(project){
       if(project.AdminID.indexOf(req.user._id)!=-1){
         upload(req,res,function(err){
-          console.log(req.body);
           if(err){
             console.log(err);
             res.send({error:err})
           }else{
-            res.send("ok");
+            project.hasCover = 1;
+            project.save(function(err){
+              if(err){
+                console.log(err);
+                res.send({error:err});
+              }
+              else{
+                res.send("ok");
+              }
+            });
           }
         });
       }else{
