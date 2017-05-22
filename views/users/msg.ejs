@@ -36,10 +36,11 @@ for(var i in msgUserArr){
 }
 
 // 顯示第一個訊息
-$($("#userSidebar > .item")[0]).addClass('active');
-var userID = $("#userSidebar > .active").attr("userid");
-$(".chatCont > div[messageuserid=\'" + userID + "\'").show();
+// $($("#userSidebar > .item")[0]).addClass('active');
+// var userID = $("#userSidebar > .active").attr("userid");
+// $(".chatCont > div[messageuserid=\'" + userID + "\'").show();
 
 $('#userSidebar > .item').on('click', changeMessageBoard);
+$($("#userSidebar > .item")[0]).trigger('click');
 
 </script>
