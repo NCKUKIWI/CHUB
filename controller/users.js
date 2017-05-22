@@ -29,8 +29,8 @@ var userInfo = [
 
 router.get("/", function(req,res) {
   var query = {
-    Talent:req.query.talent,
-    Major:req.query.major
+    Skill:(req.query.skill)?(new RegExp(req.query.skill, "i")):undefined,
+    Major:(req.query.major)?(new RegExp(req.query.major, "i")):undefined
   }
   var filter = {
     $or:[]
@@ -45,7 +45,6 @@ router.get("/", function(req,res) {
   if(filter["$or"].length == 0) filter["$or"].push({});
   User.find(filter, userInfo, function(err, users) {
     //之後可能要放入"跟哪些人互通訊息"的欄位進去
-    console.log(users);
   	res.render("users/index", {
   		users: users,
       id: req.query.id

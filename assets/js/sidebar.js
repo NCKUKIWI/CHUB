@@ -9,8 +9,6 @@ $(document).ready(function() {
 		$("#loginPart").show();
 	});
 
-
-
 	$("#signupbtn").click(function() {
 		$("#signupPart").show();
 		$("#loginPart").hide();
@@ -26,9 +24,6 @@ $(document).ready(function() {
 	});
 
 	$('#searchSidebar').sidebar('attach events', '.searchbtn', 'push')
-
-
-
 
 	// search
 	$('select.dropdown').dropdown();

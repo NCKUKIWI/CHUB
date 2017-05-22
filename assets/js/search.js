@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$("#searchSubmit").on("click", function() {
-		window.location.href="/users?talent="+$("input[name=talent]").val()+"&major="+$("input[name=major]").val();
+		window.location.href="/users?skill="+$("input[name=skill]").val()+"&major="+$("input[name=major]").val();
 	});
   $('.info').on('click', InfoRouter);
 });
@@ -37,7 +37,7 @@ function infoAjax(url) {
       $('.openInfo').on('click', openInfo);
     }
   });
-  
+
 }
 
 function openInfo() {
