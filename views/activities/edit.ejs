@@ -2,10 +2,16 @@
 <div class="ui centered grid" style="padding-top:50px;">
   <div class="ten wide tablet six wide computer column">
     <h1>Create Activity</h1>
-    <form class="ui form" id="activityForm">
+    <form class="ui form" id="activityCoverForm">
       <div class="field">
         <div id="errormsg"></div>
       </div>
+      <div class="field">
+        <label>Cover</label>
+        <input type="file" name="cover" id="file">
+      </div>
+    </form>
+    <form class="ui form" id="activityForm">
       <div class="field">
         <label>Name</label>
         <input type="text" name="name" placeholder="Name" value="<%= activity.Name %>">
@@ -43,10 +49,35 @@
         data: $("#activityForm").serialize(),
         success: function(response) {
           if (response == "ok") {
-            toastr.success("更新成功");
-            setTimeout(function(){
-              window.location.href="/activities";
-            },3000);
+            if($("#file").val()!=""){
+              var formData = new FormData($("#activityCoverForm")[0]);
+              $.ajax({
+                url: "/activities/upload/<%= activity._id %>",
+                type: "POST",
+                data:formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                  if (response == "ok") {
+                    toastr.success("更新成功");
+                    setTimeout(function(){
+                      window.location.href="/activities";
+                    },3000);
+                  }
+                  else {
+                    $("#errormsg").empty();
+                    for(var i in response["error"]){
+                      $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+                    }
+                  }
+                }
+              });
+            }else{
+              toastr.success("更新成功");
+              setTimeout(function(){
+                window.location.href="/activities";
+              },3000);
+            }
           }
           else {
             $("#errormsg").empty();
