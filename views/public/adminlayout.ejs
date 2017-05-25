@@ -29,30 +29,58 @@
     </div>
     <div class="ui stackable grid" style="padding-top:50px;">
       <div class="four wide column">
-        <div class="ui secondary vertical pointing menu">
-          <% if(me.Role == 3) { %>
-<!--           <a class="item" href="panel/abouts">
+        <div class="ui secondary vertical pointing menu styled accordion">
+          <a class="item" href="panel/abouts">
             關於簡介管理
-          </a> -->
-          <a class="item" href="/panel/users">
-            人才資料庫管理
           </a>
-          <% } %>
-          <a class="item" href="/panel/groups">
-            團隊管理
-          </a>
-          <a class="item" href="/panel/projects">
-            專案管理
-          </a>
-<!--           <a class="item">
-            活動管理
-          </a>
-          <a class="item">
-            空間管理
-          </a>
-          <a class="item">
-            網站數據分析
-          </a> -->
+          <div class="title">
+            <i class="dropdown icon"></i>
+            人才
+          </div>
+          <div class="content">
+            <a class="item" href="/panel/users">
+              人才資料庫管理
+            </a>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            專案
+          </div>
+          <div class="content">
+            <a class="item" href="/projects/new">
+              新增專案
+            </a>
+            <a class="item" href="/panel/projects">
+              專案管理
+            </a>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            團隊
+          </div>
+          <div class="content">
+            <a class="item" href="/groups/new">
+              新增團隊
+            </a>
+            <a class="item" href="/panel/groups">
+              團隊訊息
+            </a>
+            <a class="item" href="/panel/groups">
+              團隊管理
+            </a>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            活動
+          </div>
+          <div class="content">
+            <a class="item" href="/activities/new">
+              新增活動
+            </a>
+            <a class="item">
+              活動管理
+            </a>
+          </div>
         </div>
       </div>
       <div class="ten wide column">

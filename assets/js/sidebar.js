@@ -1,34 +1,29 @@
 $(document).ready(function() {
-	// sidebar
+	$("#signupPart").hide();
 
-	// 登入&註冊按鈕綁定
-		$("#signupPart").hide();
-		$("#loginPart").show();
+	//按下登入
 	$("#loginbtn").click(function() {
 		$("#signupPart").hide();
 		$("#loginPart").show();
 	});
 
+	//按下註冊
 	$("#signupbtn").click(function() {
 		$("#signupPart").show();
 		$("#loginPart").hide();
 	});
 
 	// 綁定右邊menu的按紐開啟側邊欄
-	$('#mainSidebar').sidebar('attach events', '#profilebtn', 'push');
-	$('#msgSidebar').sidebar('attach events', '#msgbtn', 'push')
-	$('#msgSidebar').sidebar({
+	$("#mainSidebar").sidebar("attach events", "#profilebtn", "push");
+	$("#searchSidebar").sidebar("attach events", ".searchbtn", "push");
+	$("#msgSidebar").sidebar("attach events", "#msgbtn", "push");
+	$("#msgSidebar").sidebar({
 		onHide: function () {
 			findNotSendMessageUser();
 		}
 	});
 
-	$('#searchSidebar').sidebar('attach events', '.searchbtn', 'push')
-
-	// search
-	$('select.dropdown').dropdown();
-
-	// show setting profile
+	//顯示Setting
 	$('#goSetting').on('click', function(){
 		$('#profile').hide();
 		$('#setting').show();
@@ -41,10 +36,11 @@ $(document).ready(function() {
 		$('#setting').hide();
 		$('#profile').show();
 	})
+
+	//更新個人資料
 	$('#updateProfile').on('click', function(){
 		var skillNum = $('#showSkills a').children().length;
 		var skillArr = [];
-
 		var Data = $('#updateForm').serialize();
 		for(var i = 0; i < skillNum; i++){
 			Data += '&skill=' + $('#showSkills a')[i].text;
@@ -54,22 +50,29 @@ $(document).ready(function() {
 			method: "POST",
 			data: Data,
 			success: function(response) {
-
+				if(response.error){
+					$("#errormsg").empty();
+					for(var i in response["error"]){
+						$("#errormsg").append(`<p>${response["error"][i]}</p>`);
+					}
+				}
+				else{
+					$('#backProfile').trigger( "click" );
+				}
 			}
 		})
-		$('#backProfile').trigger( "click" );
-	})
+	});
+
+	//新增Skill
 	$('#addSkill').on('click', function(){
 		if($("input[name='textSkill']").val() == "") return;
 		var skillNum = $('#showSkills a').children().length;
 		var skillArr = [];
-
 		if(skillNum == 3){
 			alert('最多三個skill');
 			$("input[name='textSkill']").val('');
 			return 0;
 		}
-
 		var skill = $("input[name='textSkill']").val();
 		$("input[name='textSkill']").val('');
 		$('#showSkills').append('<a class="ui tag label">' + skill + '<i class="icon close"></i></a>');
@@ -90,6 +93,7 @@ $(document).ready(function() {
 		})
 	})
 
+	//remove skill
 	$('#showSkills a').on('click', function(){
 		$(this).remove();
 	})
@@ -140,7 +144,6 @@ function sendMessage(){
 function changeMessageBoard(){
 	$('#userSidebar > .item').removeClass("active");
 	$(this).addClass("active");
-
 	// 如果是通知的那個區塊，就把send隱藏，沒有就顯示
 	if($('#userSidebar > .item.active > .mail').length == 1){
 		$('#inputMsg').hide();
@@ -148,13 +151,9 @@ function changeMessageBoard(){
 		return;
 	}
 	else $('#inputMsg').show();
-
-
 	var userID = $(this).attr("userid");
 	$('.chatCont > div').hide();
 	$(".chatCont > div[messageuserid=\'" + userID + "\']").show();
-
-
 }
 
 // 假設使用者沒有傳訊息的話～就把資料刪除

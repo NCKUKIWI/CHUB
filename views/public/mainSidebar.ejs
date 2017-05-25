@@ -19,7 +19,7 @@
               <a class="ui button" id="loginSubmit" style="width: 100%;">LogIn</a>
               <a class="ui button" href="/users/fblogin" style="width: 100%">FB Login</a>
             </div>
-<!--             <div style="display: flex; justify-content: space-around; margin-top: 13px; align-items: baseline;">
+<!--        <div style="display: flex; justify-content: space-around; margin-top: 13px; align-items: baseline;">
               <div class="ui checkbox" style="width: 100%;">
                 <input type="checkbox" name="rememberUser">
                 <label style="color: white;">Remember me</label>
@@ -91,47 +91,51 @@
           </div>
         </div>
         <div id="setting" style="display: none; color: white !important;">
-          
           <h1>-Setting Profile-</h1>
+          <form class="ui form" id="updateCoverForm">
+            <div class="field">
+              <div id="errormsg"></div>
+            </div>
+            <div class="fields">
+              <div class="four wide field" style="text-align: left;">
+                <h3 >Avatar: </h3>
+              </div>
+              <div class="twelve wide field">
+                <input type="file" name="avatar">
+              </div>
+            </div>
+          </form>
           <form class="ui form" id="updateForm">
-            <div class="field">
-              <div class="fields">
-                <div class="four wide field" style="text-align: left;">
-                  <h3 >Name: </h3>
-                </div>
-                <div class="twelve wide field">
-                  <input type="text" name="name" value="<%= me.Name %>">
-                </div>
+            <div class="fields">
+              <div class="four wide field" style="text-align: left;">
+                <h3 >Name: </h3>
+              </div>
+              <div class="twelve wide field">
+                <input type="text" name="name" value="<%= me.Name %>">
               </div>
             </div>
-            <div class="field">
-              <div class="fields">
-                <div class="four wide field" style="text-align: left;">
-                  <h3 >Major: </h3>
-                </div>
-                <div class="twelve wide field">
-                  <input type="text" name="major" value="<%= me.Major !== undefined ? me.Major : ''%>">
-                </div>
+            <div class="fields">
+              <div class="four wide field" style="text-align: left;">
+                <h3 >Major: </h3>
+              </div>
+              <div class="twelve wide field">
+                <input type="text" name="major" value="<%= me.Major !== undefined ? me.Major : ''%>">
               </div>
             </div>
-            <div class="field">
-              <div class="fields">
-                <div class="four wide field" style="text-align: left;">
-                  <h3 >Email: </h3>
-                </div>
-                <div class="twelve wide field">
-                  <input type="text" name="email" value="<%= me.Email %>">
-                </div>
+            <div class="fields">
+              <div class="four wide field" style="text-align: left;">
+                <h3 >Email: </h3>
+              </div>
+              <div class="twelve wide field">
+                <input type="text" name="email" value="<%= me.Email %>">
               </div>
             </div>
-            <div class="field">
-              <div class="fields">
-                <div class="four wide field" style="text-align: left;">
-                  <h3 >Location: </h3>
-                </div>
-                <div class="twelve wide field">
-                  <input type="text" name="location" value="<%= me.Location !== undefined ? me.Location : ''%>">
-                </div>
+            <div class="fields">
+              <div class="four wide field" style="text-align: left;">
+                <h3 >Location: </h3>
+              </div>
+              <div class="twelve wide field">
+                <input type="text" name="location" value="<%= me.Location !== undefined ? me.Location : ''%>">
               </div>
             </div>
             <div class="fields">
@@ -160,44 +164,35 @@
               <h3 style="text-align: left;">Introduction: </h3>
               <textarea name="introduction" value="<%= me.Introduction %>"><%= me.Introduction !== undefined ? me.Introduction : ''%></textarea>
             </div>
-<!--             <div class="field">
+            <div class="field">
               <div class="fields">
                 <div class="two wide field" style="text-align: left;">
                   <h3 >Group: </h3>
                 </div>
               </div>
             </div>
-            <div class="field">
-              <div class="fields">
-                <div class="two wide field" style="text-align: left;">
-                  <h3 >Project: </h3>
-                </div>
+            <div class="fields">
+              <div class="two wide field" style="text-align: left;">
+                <h3 >Project: </h3>
               </div>
             </div>
-            <div class="field">
-              <div class="fields">
-                <div class="two wide field" style="text-align: left;">
-                  <h3 >Activity: </h3>
-                </div>
+            <div class="fields">
+              <div class="two wide field" style="text-align: left;">
+                <h3 >Activity: </h3>
               </div>
             </div>
-            <div class="field">
-              <div class="fields">
-                <div class="two wide field" style="text-align: left;">
-                  <h3 >portfolio: </h3>
-                </div>
+            <div class="fields">
+              <div class="two wide field" style="text-align: left;">
+                <h3 >portfolio: </h3>
               </div>
-            </div> -->
+            </div>
             <div class="ui button" tabindex="0" id="updateProfile">Done</div>
             <div class="ui button" id="backProfile">back</div>
           </form>
-<!--           <h1>-Setting Account-</h1>
+          <!--
+          <h1>-Setting Account-</h1>
           <button class="ui button">重設密碼</button>
-          <h1>-Setting Notification-</h1>
-          <div class="ui toggle checkbox">
-            <input type="checkbox" name="public">
-            <label style="color: white !important;">訊息用email通知</label>
-          </div> -->
+          -->
         </div>
       <% } %>
   </div>
@@ -245,10 +240,10 @@
 
 
 .ui.vertical.icon.menu{
-    position: fixed;
-    z-index: 3;
-    right: -3px;
-}  
+  position: fixed;
+  z-index: 3;
+  right: -3px;
+}
 
 
 </style>

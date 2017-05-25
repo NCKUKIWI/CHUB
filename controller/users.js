@@ -10,6 +10,26 @@ var helper = require("../helper");
 var bcrypt = require('bcrypt');
 var graph = require("fbgraph");
 var cacheClear = require("../cache").clear;
+var fs = require("fs");
+var rimraf = require("rimraf");
+var multer  = require('multer');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    if (!fs.existsSync(`${__dirname}/../uploads/user/${req.params.id}`)){
+      fs.mkdirSync(`${__dirname}/../uploads/user/${req.params.id}`);
+    }
+    cb(null,`${__dirname}/../uploads/user/${req.params.id}`);
+  },
+  filename: function (req, file, cb) {
+    var fileFormat = (file.originalname).split(".");
+    cb(null,"avatar.png");
+  }
+});
+
+var upload = multer({
+  storage: storage
+}).single("avatar");
 
 var userInfo = [
   "_id",
@@ -60,6 +80,7 @@ router.post("/signup",function(req,res) {
       Name:req.body.username,
       Email:req.body.email,
       Role:0,
+      hasCover:0
     };
     User.create(newUser,function(err,result){
       if(err){
@@ -92,6 +113,36 @@ router.post("/auth", function(req, res) {
   });
 });
 
+router.post("/upload/:id",helper.apiAuth(),function(req,res) {
+  User.findById(req.params.id,function(err,user){
+    if(user){
+      if(user._id == req.user._id){
+        upload(req,res,function(err){
+          if(err){
+            console.log(err);
+            res.send({error:err})
+          }else{
+            user.hasCover = 1;
+            user.save(function(err){
+              if(err){
+                console.log(err);
+                res.send({error:err});
+              }
+              else{
+                res.send("ok");
+              }
+            });
+          }
+        });
+      }else{
+        res.send("notAdmin");
+      }
+    }else{
+      res.send("notFound");
+    }
+  });
+});
+
 router.get("/fblogin",helper.checkLogin(0),function(req, res) {
   res.redirect(`https://www.facebook.com/v2.8/dialog/oauth?client_id=${config.fb_id}&scope=email,public_profile&response_type=code&redirect_uri=${config.website}/users/fbcheck`);
 });
@@ -113,7 +164,7 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
             res.redirect("/");
           }
           else{
-            User.create({ Email:fb.email,UserID:fb.id,Name:fb.name,Password:fb.id,Role:0,Skill:[],Major:""}, function (err,result) {
+            User.create({ Email:fb.email,UserID:fb.id,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:""}, function (err,result) {
               if (err) console.log(err);
               helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
               cacheClear();
@@ -257,6 +308,7 @@ router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
                     console.log(err);
                     res.send({error:err});
                   }else{
+                    rimraf(`${__dirname}/../uploads/user/${req.params.id}`,function () { });
                     user.remove(function(err){
                       cacheClear();
                       res.send("ok");
