@@ -1,8 +1,0 @@
-<% layout('../public/layout') %>
-<script>
-if(window.location.href.indexOf("access_token")!= -1){
-  window.location.href=window.location.href.replace("#","");
-}else{
-  history.back();
-}
-</script>

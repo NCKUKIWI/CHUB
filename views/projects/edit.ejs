@@ -2,10 +2,16 @@
 <div class="ui centered grid" style="padding-top:50px;">
   <div class="ten wide tablet six wide computer column">
     <h1>Edit project</h1>
-    <form class="ui form" id="projectForm">
+    <form class="ui form" id="projectCoverForm">
       <div class="field">
         <div id="errormsg"></div>
       </div>
+      <div class="field">
+        <label>Photo</label>
+        <input type="file" name="cover">
+      </div>
+    </form>
+    <form class="ui form" id="projectForm">
       <div class="field">
         <label>Name</label>
         <input type="text" name="name" placeholder="Name" value="<%= project.Name %>" >
@@ -47,7 +53,35 @@
         data: $("#projectForm").serialize(),
         success: function(response) {
           if (response == "ok") {
-            window.location.href="/projects";
+            if($("#file").val()!=""){
+              var formData = new FormData($("#projectCoverForm")[0]);
+              $.ajax({
+                url: "/projects/upload/<%= project._id %>",
+                type: "POST",
+                data:formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                  if (response == "ok") {
+                    toastr.success("更新成功");
+                    setTimeout(function(){
+                      window.location.href="/projects";
+                    },3000);
+                  }
+                  else {
+                    $("#errormsg").empty();
+                    for(var i in response["error"]){
+                      $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+                    }
+                  }
+                }
+              });
+            }else{
+              toastr.success("更新成功");
+              setTimeout(function(){
+                window.location.href="/projects";
+              },3000);
+            }
           }
           else {
             $("#errormsg").empty();
