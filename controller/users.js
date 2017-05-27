@@ -10,6 +10,7 @@ var helper = require("../helper");
 var bcrypt = require('bcrypt');
 var graph = require("fbgraph");
 var cacheClear = require("../cache").clear;
+var msgSorting = require("../assets/js/message.js");
 
 var userInfo = [
   "_id",
@@ -181,55 +182,14 @@ router.get("/logout", function(req, res) {
 
 router.post("/msg",helper.apiAuth(),function(req,res) {
   var msgAll = {};
+  var msgAll2 = {};
   Message.find({ToUID:req.user._id}).populate("FromUID","_id Name Email Major Talent Description Website Role").populate("FromGID").exec(function(err,toMsg){
-    // console.log(toMsg);
-    for(var i in toMsg){
-      toMsg[i].isOther = 1;
-      if(!msgAll.hasOwnProperty(toMsg[i].FromUID._id)){
-        msgAll[toMsg[i].FromUID._id] = {};
-        msgAll[toMsg[i].FromUID._id].context = [];
-        msgAll[toMsg[i].FromUID._id].latestTime = "2017-05-10T17:19:40.520Z";
-        msgAll[toMsg[i].FromUID._id].user = toMsg[i].FromUID;
-        msgAll[toMsg[i].FromUID._id].isRead = 0;
-      }
-      msgAll[toMsg[i].FromUID._id].context.push(toMsg[i]);
-      // 暫時別計算未讀
-      // if(toMsg[i].IsRead == false) msgAll[toMsg[i].FromUID._id].isRead++;
-      if(findLatestTime(toMsg[i].CreateAt, msgAll[toMsg[i].FromUID._id].latestTime)){
-        msgAll[toMsg[i].FromUID._id].latestTime = toMsg[i].CreateAt;
-      }
-    }
+    // 整理對方的訊息(step 1)
+    msgSorting(toMsg, msgAll2, 1, "FromUID");
     Message.find({FromUID:req.user._id}).populate("ToUID","_id Name Email Major Talent Description Website Role").populate("ToGID").exec(function(err,fromMsg){
-      // console.log(fromMsg);
-      for(var i in fromMsg){
-        fromMsg[i].isOther = 0;
-        if(!msgAll.hasOwnProperty(fromMsg[i].ToUID._id)){
-          msgAll[fromMsg[i].ToUID._id] = {};
-          msgAll[fromMsg[i].ToUID._id].context = [];
-          msgAll[fromMsg[i].ToUID._id].latestTime = "2017-05-10T17:19:40.520Z";
-          msgAll[fromMsg[i].ToUID._id].user = fromMsg[i].ToUID;
-          msgAll[fromMsg[i].ToUID._id].isRead = 0;
-        }
-        msgAll[fromMsg[i].ToUID._id].context.push(fromMsg[i]);
-        if(findLatestTime(fromMsg[i].CreateAt, msgAll[fromMsg[i].ToUID._id].latestTime)){
-          msgAll[fromMsg[i].ToUID._id].latestTime = fromMsg[i].CreateAt;
-        }
-      }
-      var msgArr = [];
-      // msgAll.sort(function(a,b){
-      //   return new Date(a.CreateAt) - new Date(b.CreateAt);
-      // });
-      for(var i in msgAll){
-        msgAll[i].context.sort(function(a, b){
-          return new Date(a.CreateAt) - new Date(b.CreateAt);
-        })
-        msgArr.push(msgAll[i]);
-      }
-      msgArr.sort(function(a,b){
-        return new Date(b.latestTime ) - new Date(a.latestTime);
-      });
+      // 整理我方的訊息(step 2)
+      var msgArr = msgSorting(fromMsg, msgAll2, 0, "ToUID");
 
-      // console.log(msgArr);
       res.render("users/msg",{
         toUserID: req.user._id,
         msgArr: msgArr
@@ -289,8 +249,6 @@ router.post("/:id", function(req,res) {
   });
 });
 
-function findLatestTime(a, b){
-  return new Date(b) - new Date(a) < 0;
-}
+
 
 module.exports = router;
