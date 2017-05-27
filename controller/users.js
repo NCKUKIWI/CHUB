@@ -233,13 +233,12 @@ router.get("/logout", function(req, res) {
 
 router.post("/msg",helper.apiAuth(),function(req,res) {
   var msgAll = {};
-  var msgAll2 = {};
   Message.find({ToUID:req.user._id}).populate("FromUID","_id Name Email Major Talent Description Website Role").populate("FromGID").exec(function(err,toMsg){
     // 整理對方的訊息(step 1)
-    msgSorting(toMsg, msgAll2, 1, "FromUID");
+    msgSorting(toMsg, msgAll, 1, "FromUID");
     Message.find({FromUID:req.user._id}).populate("ToUID","_id Name Email Major Talent Description Website Role").populate("ToGID").exec(function(err,fromMsg){
       // 整理我方的訊息(step 2)
-      var msgArr = msgSorting(fromMsg, msgAll2, 0, "ToUID");
+      var msgArr = msgSorting(fromMsg, msgAll, 0, "ToUID");
 
       res.render("users/msg",{
         toUserID: req.user._id,
