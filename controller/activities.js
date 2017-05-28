@@ -18,7 +18,7 @@ var storage = multer.diskStorage({
     cb(null,`${__dirname}/../uploads/activity/${req.params.id}`);
   },
   filename: function (req, file, cb) {
-    var fileFormat = (file.originalname).split(".");
+    //var fileFormat = (file.originalname).split(".");
     cb(null,"logo.png");
   }
 });

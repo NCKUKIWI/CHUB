@@ -128,7 +128,7 @@ $(document).ready(function(){
           if($("#userAvatarForm #avatar").val()!=""){
             var formData = new FormData($("#userAvatarForm")[0]);
             $.ajax({
-              url: "/users/upload/<%= me._id %>",
+              url: "/users/upload/",
               type: "POST",
               data:formData,
               contentType: false,

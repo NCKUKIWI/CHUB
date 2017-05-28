@@ -15,12 +15,12 @@ var fs = require("fs");
 var rimraf = require("rimraf");
 var multer  = require('multer');
 
-var storage = multer.diskStorage({
+var avatarStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    if (!fs.existsSync(`${__dirname}/../uploads/user/${req.params.id}`)){
-      fs.mkdirSync(`${__dirname}/../uploads/user/${req.params.id}`);
+    if (!fs.existsSync(`${__dirname}/../uploads/user/${req.user._id}`)){
+      fs.mkdirSync(`${__dirname}/../uploads/user/${req.user._id}`);
     }
-    cb(null,`${__dirname}/../uploads/user/${req.params.id}`);
+    cb(null,`${__dirname}/../uploads/user/${req.user._id}`);
   },
   filename: function (req, file, cb) {
     var fileFormat = (file.originalname).split(".");
@@ -28,9 +28,25 @@ var storage = multer.diskStorage({
   }
 });
 
-var upload = multer({
-  storage: storage
+var portfolioStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    if (!fs.existsSync(`${__dirname}/../uploads/user/${req.user._id}`)){
+      fs.mkdirSync(`${__dirname}/../uploads/user/${req.user._id}`);
+    }
+    cb(null,`${__dirname}/../uploads/user/${req.user._id}`);
+  },
+  filename: function (req, file, cb) {
+    cb(null,file.originalname);
+  }
+});
+
+var avatarUpload = multer({
+  storage: avatarStorage
 }).single("avatar");
+
+var portfolioUpload = multer({
+  storage: portfolioStorage
+}).single("portfolio");
 
 var userInfo = [
   "_id",
@@ -42,6 +58,7 @@ var userInfo = [
   "Location",
   "Role",
   "Link",
+  "hasCover",
   "GroupID",
   "ProjectID",
   "ActivityID",
@@ -114,32 +131,40 @@ router.post("/auth", function(req, res) {
   });
 });
 
-router.post("/upload/:id",helper.apiAuth(),function(req,res) {
-  User.findById(req.params.id,function(err,user){
-    if(user){
-      if(user._id.toString() == req.user._id.toString()){
-        upload(req,res,function(err){
-          if(err){
-            console.log(err);
-            res.send({error:err})
-          }else{
-            user.hasCover = 1;
-            user.save(function(err){
-              if(err){
-                console.log(err);
-                res.send({error:err});
-              }
-              else{
-                res.send("ok");
-              }
-            });
-          }
-        });
-      }else{
-        res.send("notAdmin");
-      }
+router.post("/upload/",helper.apiAuth(),function(req,res) {
+  avatarUpload(req,res,function(err){
+    if(err){
+      console.log(err);
+      res.send({error:err})
     }else{
-      res.send("notFound");
+      User.update({_id:req.user._id},{"hasCover":1},function(err){
+        if(err){
+          console.log(err);
+          res.send({error:err})
+        }
+        else{
+          res.send("ok");
+        }
+      });
+    }
+  });
+});
+
+router.post("/portfolio/upload/",helper.apiAuth(),function(req,res) {
+  portfolioUpload(req,res,function(err){
+    if(err){
+      console.log(err);
+      res.send({error:err})
+    }else{
+      User.update({_id:req.user._id},{$push:{"portfolio":req.file.originalname}},function(err){
+        if(err){
+          console.log(err);
+          res.send({error:err})
+        }
+        else{
+          res.send("ok");
+        }
+      });
     }
   });
 });
