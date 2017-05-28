@@ -2,7 +2,7 @@
   <h1>-Setting Profile-</h1>
   <form class="ui form" id="userAvatarForm">
     <div class="field">
-      <div id="errormsg"></div>
+      <div class="errormsg"></div>
     </div>
     <div class="fields">
       <div class="four wide field" style="text-align: left;">
@@ -119,9 +119,9 @@ $(document).ready(function(){
       data: Data,
       success: function(response) {
         if(response.error){
-          $("#setting #errormsg").empty();
+          $("#setting .errormsg").empty();
           for(var i in response["error"]){
-            $("#setting #errormsg").append(`<p>${response["error"][i]}</p>`);
+            $("#setting .errormsg").append(`<p>${response["error"][i]}</p>`);
           }
         }
         else{
@@ -142,9 +142,9 @@ $(document).ready(function(){
                   },3000);
                 }
                 else {
-                  $("#setting #errormsg").empty();
+                  $("#setting .errormsg").empty();
                   for(var i in response["error"]){
-                    $("#setting #errormsg").append(`<p>${response["error"][i]}</p>`);
+                    $("#setting .errormsg").append(`<p>${response["error"][i]}</p>`);
                   }
                 }
               }

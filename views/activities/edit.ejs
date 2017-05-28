@@ -4,11 +4,11 @@
     <h1>Create Activity</h1>
     <form class="ui form" id="activityCoverForm">
       <div class="field">
-        <div id="errormsg"></div>
+        <div class="errormsg"></div>
       </div>
       <div class="field">
         <label>Cover</label>
-        <input type="file" name="cover" id="file">
+        <input type="file" name="cover" id="cover">
       </div>
     </form>
     <form class="ui form" id="activityForm">
@@ -49,7 +49,7 @@
         data: $("#activityForm").serialize(),
         success: function(response) {
           if (response == "ok") {
-            if($("#file").val()!=""){
+            if($("#cover").val()!=""){
               var formData = new FormData($("#activityCoverForm")[0]);
               $.ajax({
                 url: "/activities/upload/<%= activity._id %>",
@@ -65,9 +65,9 @@
                     },3000);
                   }
                   else {
-                    $("#errormsg").empty();
+                    $("#activityCoverForm .errormsg").empty();
                     for(var i in response["error"]){
-                      $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+                      $("#activityCoverForm .errormsg").append(`<p>${response["error"][i]}</p>`);
                     }
                   }
                 }
@@ -80,9 +80,9 @@
             }
           }
           else {
-            $("#errormsg").empty();
+            $("#activityCoverForm .errormsg").empty();
             for(var i in response["error"]){
-              $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+              $("#activityCoverForm .errormsg").append(`<p>${response["error"][i]}</p>`);
             }
           }
         }

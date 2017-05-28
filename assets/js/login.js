@@ -9,8 +9,8 @@ $(document).ready(function() {
 					if(response == "ok") {
 						window.location.href = "/";
 					} else {
-						$("#loginForm #errormsg").empty();
-						$("#loginForm #errormsg").append(response["error"])
+						$("#loginForm .errormsg").empty();
+						$("#loginForm .errormsg").append(response["error"])
 					}
 				}
 			});
@@ -25,9 +25,9 @@ $(document).ready(function() {
 				if(response == "ok") {
 					window.location.href = "/";
 				} else {
-					$("#signupForm #errormsg").empty();
+					$("#signupForm .errormsg").empty();
 					for(var i in response["error"]) {
-						$("#signupForm #errormsg").append(`<p>${response["error"][i]}</p>`);
+						$("#signupForm .errormsg").append(`<p>${response["error"][i]}</p>`);
 					}
 				}
 			}

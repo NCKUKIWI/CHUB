@@ -4,11 +4,11 @@
     <h1>Create group</h1>
     <form class="ui form" id="groupCoverForm">
       <div class="field">
-        <div id="errormsg"></div>
+        <div class="errormsg"></div>
       </div>
       <div class="field">
         <label>Photo</label>
-        <input type="file" name="cover" id="file">
+        <input type="file" name="cover" id="cover">
       </div>
     </form>
     <form class="ui form" id="groupForm">
@@ -49,7 +49,7 @@
             if (!response.error) {
               id = response;
               create = 1;
-              if($("#file").val()!=""){
+              if($("#cover").val()!=""){
                 var formData = new FormData($("#groupCoverForm")[0]);
                 $.ajax({
                   url: "/groups/upload/"+id,
@@ -65,9 +65,9 @@
                       },3000);
                     }
                     else {
-                      $("#errormsg").empty();
+                      $("#groupCoverForm .errormsg").empty();
                       for(var i in response["error"]){
-                        $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+                        $("#groupCoverForm .errormsg").append(`<p>${response["error"][i]}</p>`);
                       }
                     }
                   }
@@ -80,9 +80,9 @@
               }
             }
             else {
-              $("#errormsg").empty();
+              $("#groupCoverForm .errormsg").empty();
               for(var i in response["error"]){
-                $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+                $("#groupCoverForm .errormsg").append(`<p>${response["error"][i]}</p>`);
               }
             }
           }
@@ -103,9 +103,9 @@
               },3000);
             }
             else {
-              $("#errormsg").empty();
+              $("#groupCoverForm .errormsg").empty();
               for(var i in response["error"]){
-                $("#errormsg").append(`<p>${response["error"][i]}</p>`);
+                $("#groupCoverForm .errormsg").append(`<p>${response["error"][i]}</p>`);
               }
             }
           }
