@@ -1,0 +1,197 @@
+<div id="setting" style="display: none; color: white !important;">
+  <h1>-Setting Profile-</h1>
+  <form class="ui form" id="userAvatarForm">
+    <div class="field">
+      <div id="errormsg"></div>
+    </div>
+    <div class="fields">
+      <div class="four wide field" style="text-align: left;">
+        <h3 >Avatar: </h3>
+      </div>
+      <div class="twelve wide field">
+        <input type="file" name="avatar" id="avatar">
+      </div>
+    </div>
+  </form>
+  <form class="ui form" id="updateForm">
+    <div class="fields">
+      <div class="four wide field" style="text-align: left;">
+        <h3 >Name: </h3>
+      </div>
+      <div class="twelve wide field">
+        <input type="text" name="name" value="<%= me.Name %>">
+      </div>
+    </div>
+    <div class="fields">
+      <div class="four wide field" style="text-align: left;">
+        <h3 >Major: </h3>
+      </div>
+      <div class="twelve wide field">
+        <input type="text" name="major" value="<%= me.Major !== undefined ? me.Major : ''%>">
+      </div>
+    </div>
+    <div class="fields">
+      <div class="four wide field" style="text-align: left;">
+        <h3 >Email: </h3>
+      </div>
+      <div class="twelve wide field">
+        <input type="text" name="email" value="<%= me.Email %>">
+      </div>
+    </div>
+    <div class="fields">
+      <div class="four wide field" style="text-align: left;">
+        <h3 >Location: </h3>
+      </div>
+      <div class="twelve wide field">
+        <input type="text" name="location" value="<%= me.Location !== undefined ? me.Location : ''%>">
+      </div>
+    </div>
+    <div class="fields">
+      <div class="four wide field" style="text-align: left;">
+        <h3>Skill: </h3>
+      </div>
+      <div class="twelve wide field">
+        <div class="ui right labeled left icon input">
+          <i class="tags icon"></i>
+          <input type="text" placeholder="Enter Skill" name="textSkill">
+          <a class="ui tag label" id="addSkill">
+            Add Skill
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="fields" id="showSkills">
+      <div class="four wide field" style="text-align: left;">
+        <h3></h3>
+      </div>
+      <% for(var i = 0; i < me.Skill.length; i++){ %>
+        <a class="ui tag label"><%= me.Skill[i] %><i class="icon close"></i></a>
+      <% } %>
+    </div>
+    <div class="field">
+      <h3 style="text-align: left;">Introduction: </h3>
+      <textarea name="introduction" value="<%= me.Introduction %>"><%= me.Introduction !== undefined ? me.Introduction : ''%></textarea>
+    </div>
+    <div class="field">
+      <div class="fields">
+        <div class="two wide field" style="text-align: left;">
+          <h3 >Group: </h3>
+        </div>
+      </div>
+    </div>
+    <div class="fields">
+      <div class="two wide field" style="text-align: left;">
+        <h3 >Project: </h3>
+      </div>
+    </div>
+    <div class="fields">
+      <div class="two wide field" style="text-align: left;">
+        <h3 >Activity: </h3>
+      </div>
+    </div>
+    <div class="fields">
+      <div class="two wide field" style="text-align: left;">
+        <h3 >portfolio: </h3>
+      </div>
+    </div>
+    <div class="ui button" tabindex="0" id="updateProfile">Done</div>
+    <div class="ui button" id="backProfile">back</div>
+  </form>
+  <!--
+  <h1>-Setting Account-</h1>
+  <button class="ui button">重設密碼</button>
+  -->
+</div>
+
+<script>
+$(document).ready(function(){
+  //更新個人資料
+  $('#updateProfile').on('click', function(){
+    var skillNum = $('#showSkills a').children().length;
+    var skillArr = [];
+    var Data = $('#updateForm').serialize();
+    for(var i = 0; i < skillNum; i++){
+      Data += '&skill=' + $('#showSkills a')[i].text;
+    }
+    $.ajax({
+      url: 'users/update',
+      method: "POST",
+      data: Data,
+      success: function(response) {
+        if(response.error){
+          $("#setting #errormsg").empty();
+          for(var i in response["error"]){
+            $("#setting #errormsg").append(`<p>${response["error"][i]}</p>`);
+          }
+        }
+        else{
+          if($("#userAvatarForm #avatar").val()!=""){
+            var formData = new FormData($("#userAvatarForm")[0]);
+            $.ajax({
+              url: "/users/upload/<%= me._id %>",
+              type: "POST",
+              data:formData,
+              contentType: false,
+              processData: false,
+              success: function(response) {
+                console.log(response);
+                if(response == "ok") {
+                  toastr.success("更新成功");
+                  setTimeout(function(){
+                    window.location.reload();
+                  },3000);
+                }
+                else {
+                  $("#setting #errormsg").empty();
+                  for(var i in response["error"]){
+                    $("#setting #errormsg").append(`<p>${response["error"][i]}</p>`);
+                  }
+                }
+              }
+            });
+          }
+          else{
+            toastr.success("更新成功");
+            setTimeout(function(){
+              window.location.reload();
+            },3000);
+          }
+        }
+      }
+    })
+  });
+  //新增Skill
+  $('#addSkill').on('click', function(){
+    if($("input[name='textSkill']").val() == "") return;
+    var skillNum = $('#showSkills a').children().length;
+    var skillArr = [];
+    if(skillNum == 3){
+      alert('最多三個skill');
+      $("input[name='textSkill']").val('');
+      return 0;
+    }
+    var skill = $("input[name='textSkill']").val();
+    $("input[name='textSkill']").val('');
+    $('#showSkills').append('<a class="ui tag label">' + skill + '<i class="icon close"></i></a>');
+    $('#showSkills a').on('click', function(){
+      $(this).remove();
+    })
+    var Data = $('#updateForm').serialize();
+    for(var i = 0; i < skillNum; i++){
+      Data += '&skill=' + $('#showSkills a')[i].text;
+    }
+    $.ajax({
+      url: 'users/update',
+      method: "POST",
+      data: Data,
+      success: function(response) {
+        console.log('add suuces!');
+      }
+    })
+  })
+  //remove skill
+  $('#showSkills a').on('click', function(){
+    $(this).remove();
+  })
+});
+</script>

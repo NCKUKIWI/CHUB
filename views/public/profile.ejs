@@ -1,0 +1,35 @@
+<div id="profile">
+  <div style="display: flex; justify-content: space-around;">
+    <a class="ui button" target="_blank" href='/panel'>後台</a>
+    <a class="ui button" id="goSetting">Setting</a>
+    <a class="ui button" href="/users/logout">Logout</a>
+  </div>
+  <div style="display: flex; flex-direction: row; justify-content: space-around; margin-top: 10px;">
+    <% if(me.hasCover){ %>
+      <img style="width:100px; height: 100px; margin-top: 20px" src="/uploads/user/<%= me._id %>/avatar.png">
+    <% }else{ %>
+      <img style="width:100px; height: 100px; margin-top: 20px" src="/assets/images/profile.png">
+    <% } %>
+    <h3 style="line-height: 80px;"><%= me.Name %></h3>
+  </div>
+  <div style="text-align: left; margin-top: 20px;">
+    <h3>Group: </h3>
+    <div>
+      <% for(var i = 0; i < me.GroupID.length; i++){ %>
+        <button class="ui inverted button info" group-id="<%= me.GroupID[i]._id %>"><%= me.GroupID[i].Name %></button>
+      <% } %>
+    </div>
+    <h3>Project: </h3>
+    <div>
+      <% for(var i = 0; i < me.ProjectID.length; i++){ %>
+        <button class="ui inverted button info" project-id="<%= me.ProjectID[i]._id %>"><%= me.ProjectID[i].Name %></button>
+      <% } %>
+    </div>
+    <h3>Activity: </h3>
+    <div>
+      <% for(var i = 0; i < me.ActivityID.length; i++){ %>
+      <button class="ui inverted button info" activity-id="<%= me.ActivityID[i]._id %>"><%= me.ActivityID[i].Name %></button>
+      <% } %>
+    </div>
+  </div>
+</div>

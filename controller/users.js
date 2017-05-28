@@ -117,7 +117,7 @@ router.post("/auth", function(req, res) {
 router.post("/upload/:id",helper.apiAuth(),function(req,res) {
   User.findById(req.params.id,function(err,user){
     if(user){
-      if(user._id == req.user._id){
+      if(user._id.toString() == req.user._id.toString()){
         upload(req,res,function(err){
           if(err){
             console.log(err);
