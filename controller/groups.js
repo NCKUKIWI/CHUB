@@ -281,10 +281,41 @@ router.get("/:id/msg",helper.checkLogin(),function(req,res) {
   });
 });
 
+router.get("/:id/projects/new",helper.checkLogin(),function(req,res) {
+  Group.findById(req.params.id,function(err,group){
+    if(group){
+      if(group.AdminID.indexOf(req.user._id)!==-1 || req.user.Role==3){
+        res.render("projects/create",{
+          group_id:req.params.id
+        });
+      }else{
+        res.redirect("back");
+      }
+    }else{
+      res.redirect("back");
+    }
+  });
+});
+
+router.get("/:id/activities/new",helper.checkLogin(),function(req,res) {
+  Group.findById(req.params.id,function(err,group){
+    if(group){
+      if(group.AdminID.indexOf(req.user._id)!==-1 || req.user.Role==3){
+        res.render("activities/create",{
+          group_id:req.params.id
+        });
+      }else{
+        res.redirect("back");
+      }
+    }else{
+      res.redirect("back");
+    }
+  });
+});
+
 router.post("/:id",function(req,res) {
   // 要關聯管理員、project、activity，並且避免管理員被選進member
   Group.findById(req.params.id).populate("GroupID","_id Name").populate("ProjectID","_id Name").populate("ActivityID","_id Name").exec(function(err,group){
-    console.log(group);
     if(group){
       User.find({ _id:{ $in:group.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
         res.render("groups/show",{

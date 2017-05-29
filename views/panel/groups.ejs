@@ -17,6 +17,8 @@
         <td><%= groups[i].Name %></td>
         <td><%= groups[i].MemberID.length %> members</td>
         <td>
+          <a class="ui green button" href="/groups/<%= groups[i]._id %>/projects/new">Create Project</a>
+          <a class="ui green button" href="/groups/<%= groups[i]._id %>/activities/new">Create Activity</a>
           <div class="ui primary button info" group-id="<%= groups[i]._id %>">Info</div>
           <div class="ui red button delGroup" group-id="<%= groups[i]._id %>">Delete</div>
           <a class="ui green button" href="/groups/edit/<%= groups[i]._id %>">Edit</a>
