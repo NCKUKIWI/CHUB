@@ -29,43 +29,11 @@
   <% } %>
   </tbody>
 </table>
-<% for(var i in projects){ %>
-  <div class="ui modal <%= projects[i]._id %>">
-    <i class="close icon"></i>
-    <div class="header">
-      <%= projects[i].Name %>
-    </div>
-    <div class="image content">
-      <div class="ui medium image">
-        <img src="../assets/images/project.png">
-      </div>
-      <div class="description">
-        <p>Type: <%= projects[i].Type %></p>
-        <p>duration </p>
-        <p>Need: <%= projects[i].Need %></p>
-        <p>Description: <%= projects[i].Description %></p>
-        <p>Goal: <%= projects[i].Goal %></p>
-        <p>Contributor: </p>
-        <p>Sponsor: </p>
-        <p>Activities: </p>
-        <p>Teammate: </p>
-      </div>
-    </div>
-    <div class="actions">
-      <div class="ui red button delproject" project-id="<%= projects[i]._id %>">Delete</div>
-      <a class="ui green button" href="/projects/edit/<%= projects[i]._id %>">Edit</a>
-      <a class="ui green button" href="/projects/<%= projects[i]._id %>/apply">Apply</a>
-    </div>
-  </div>
-<% } %>
+<div class="ui modal">
+</div>
 
 <script>
 $(document).ready(function(){
-  $('.info').on('click', function(){
-    var id = this.getAttribute('project-id');
-    $('.ui.modal.' + id).modal('show');
-  });
-
   $('.delproject').on('click', function(){
     var id = this.getAttribute('project-id');
     $.ajax({

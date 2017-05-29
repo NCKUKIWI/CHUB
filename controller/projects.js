@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var helper = require("../helper");
 var Project = require("../model/Project");
+var Group = require("../model/Group");
 var User = require("../model/User");
 var cacheClear = require("../cache").clear;
 var fs = require("fs");
@@ -42,17 +43,34 @@ router.get("/new",helper.checkLogin(),function(req,res) {
 router.post("/create",helper.apiAuth(),function(req,res) {
   var newProject;
   if(req.body.group_id){
-    newProject = new Project({
-      Name:req.body.name,
-      Type:req.body.type,
-      Time:(req.body.time)?(req.body.time.split(",")):[],
-      Goal:req.body.goal,
-      Need:(req.body.need)?(req.body.need.split(",")):[],
-      Description:req.body.description,
-      hasCover:0,
-      MemberID:[req.user._id],
-      AdminID:[req.user._id],
-      GroupID:req.body.group_id
+    Group.findById(req.body.group_id,function(err,group){
+      newProject = new Project({
+        Name:req.body.name,
+        Type:req.body.type,
+        Time:(req.body.time)?(req.body.time.split(",")):[],
+        Goal:req.body.goal,
+        Need:(req.body.need)?(req.body.need.split(",")):[],
+        Description:req.body.description,
+        hasCover:0,
+        MemberID:group.AdminID,
+        AdminID:group.AdminID,
+        GroupID:req.body.group_id
+      });
+      Project.create(newProject,function(err,result){
+        if(err){
+          res.send({error:helper.handleError(err)});
+        }else{
+          User.update({_id:{ $in:group.AdminID } },{ $push: { "ProjectID":result._id } },function(err){
+            if(err){
+             console.log(err);
+             res.send({error:err});
+            }else{
+              cacheClear();
+              res.send(result._id);
+            }
+          });
+        }
+      });
     });
   }else{
     newProject = new Project({
@@ -66,22 +84,22 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       MemberID:[req.user._id],
       AdminID:[req.user._id],
     });
+    Project.create(newProject,function(err,result){
+      if(err){
+        res.send({error:helper.handleError(err)});
+      }else{
+        User.update({_id:req.user._id},{ $push: { "ProjectID":result._id } },function(err){
+          if(err){
+           console.log(err);
+           res.send({error:err});
+          }else{
+            cacheClear();
+            res.send(result._id);
+          }
+        });
+      }
+    });
   }
-  Project.create(newProject,function(err,result){
-    if(err){
-      res.send({error:helper.handleError(err)});
-    }else{
-      User.update({_id:req.user._id},{ $push: { "ProjectID":result._id } },function(err){
-        if(err){
-         console.log(err);
-         res.send({error:err});
-        }else{
-          cacheClear();
-          res.send(result._id);
-        }
-      });
-    }
-  });
 });
 
 router.post("/upload/:id",helper.apiAuth(),function(req,res) {

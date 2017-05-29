@@ -13,6 +13,7 @@
       <tr class="<%= users[i]._id %>">
         <td><%= users[i].Name %></td>
         <td>
+          <div class="ui primary button info" user-id="<%= users[i]._id %>">Info</div>
           <div class="ui red button delUser" user-id="<%= users[i]._id %>">Delete</div>
         </td>
       </tr>
@@ -22,6 +23,9 @@
   <% } %>
   </tbody>
 </table>
+<div class="ui modal">
+</div>
+
 <script>
 $(document).ready(function(){
   $(".delUser").on("click", function(){

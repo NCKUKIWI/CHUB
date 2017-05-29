@@ -4,6 +4,7 @@ var helper = require("../helper");
 var config = require("../config");
 var sha256 = require("sha256");
 var Activity = require("../model/Activity");
+var Group = require("../model/Group");
 var User = require("../model/User");
 var cacheClear = require("../cache").clear;
 var fs = require("fs");
@@ -43,17 +44,34 @@ router.get("/new",helper.checkLogin(),function(req,res) {
 router.post("/create",helper.apiAuth(),function(req,res) {
   var newActivity;
   if(req.body.group_id){
-    newActivity = new Activity({
-      Name:req.body.name,
-      Type:req.body.type,
-      Fee:[req.body.fee],
-      Description:req.body.description,
-      Time:req.body.time.split(","),
-      hasCover:0,
-      MemberID:[req.user._id],
-      AdminID:[req.user._id],
-      GroupID:req.body.group_id,
-      Context:req.body.context
+    Group.findById(req.body.group_id,function(err,group){
+      newActivity = new Activity({
+        Name:req.body.name,
+        Type:req.body.type,
+        Fee:[req.body.fee],
+        Description:req.body.description,
+        Time:req.body.time.split(","),
+        hasCover:0,
+        MemberID:group.AdminID,
+        AdminID:group.AdminID,
+        GroupID:req.body.group_id,
+        Context:req.body.context
+      });
+    });
+    Activity.create(newActivity,function(err,result){
+      if(err){
+        res.send({error:helper.handleError(err)});
+      }else{
+        User.update({_id:req.user._id},{ $push: { "ActivityID":result._id } },function(err){
+          if(err){
+            console.log(err);
+            res.send({error:err});
+          }else{
+            cacheClear();
+            res.send(result._id);
+          }
+        });
+      }
     });
   }else{
     newActivity = new Activity({
@@ -67,22 +85,22 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       AdminID:[req.user._id],
       Context:req.body.context
     });
+    Activity.create(newActivity,function(err,result){
+      if(err){
+        res.send({error:helper.handleError(err)});
+      }else{
+        User.update({_id:{ $in:group.AdminID }},{ $push: { "ActivityID":result._id } },function(err){
+          if(err){
+            console.log(err);
+            res.send({error:err});
+          }else{
+            cacheClear();
+            res.send(result._id);
+          }
+        });
+      }
+    });
   }
-  Activity.create(newActivity,function(err,result){
-    if(err){
-      res.send({error:helper.handleError(err)});
-    }else{
-      User.update({_id:req.user._id},{ $push: { "ActivityID":result._id } },function(err){
-        if(err){
-          console.log(err);
-          res.send({error:err});
-        }else{
-          cacheClear();
-          res.send(result._id);
-        }
-      });
-    }
-  });
 });
 
 router.post("/upload/:id",helper.apiAuth(),function(req,res) {
