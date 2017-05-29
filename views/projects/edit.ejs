@@ -54,28 +54,33 @@
         success: function(response) {
           if (response == "ok") {
             if($("#cover").val()!=""){
-              var formData = new FormData($("#projectCoverForm")[0]);
-              $.ajax({
-                url: "/projects/upload/<%= project._id %>",
-                type: "POST",
-                data:formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                  if (response == "ok") {
-                    toastr.success("更新成功");
-                    setTimeout(function(){
-                      window.location.href="/projects";
-                    },3000);
-                  }
-                  else {
-                    $("#projectCoverForm .errormsg").empty();
-                    for(var i in response["error"]){
-                      $("#projectCoverForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+              var cover = $("#cover")[0].files[0];
+              if(cover.type == "image/png" || cover.type == "image/jpeg"){
+                var formData = new FormData($("#projectCoverForm")[0]);
+                $.ajax({
+                  url: "/projects/upload/<%= project._id %>",
+                  type: "POST",
+                  data:formData,
+                  contentType: false,
+                  processData: false,
+                  success: function(response) {
+                    if (response == "ok") {
+                      toastr.success("更新成功");
+                      setTimeout(function(){
+                        window.location.href="/projects";
+                      },3000);
+                    }
+                    else {
+                      $("#projectCoverForm .errormsg").empty();
+                      for(var i in response["error"]){
+                        $("#projectCoverForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+                      }
                     }
                   }
-                }
-              });
+                });
+              }else{
+                alert("請上傳jpg或png檔案");
+              }
             }else{
               toastr.success("更新成功");
               setTimeout(function(){

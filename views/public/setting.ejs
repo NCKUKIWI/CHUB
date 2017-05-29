@@ -126,29 +126,33 @@ $(document).ready(function(){
         }
         else{
           if($("#userAvatarForm #avatar").val()!=""){
-            var formData = new FormData($("#userAvatarForm")[0]);
-            $.ajax({
-              url: "/users/upload/",
-              type: "POST",
-              data:formData,
-              contentType: false,
-              processData: false,
-              success: function(response) {
-                console.log(response);
-                if(response == "ok") {
-                  toastr.success("更新成功");
-                  setTimeout(function(){
-                    window.location.reload();
-                  },3000);
-                }
-                else {
-                  $("#setting .errormsg").empty();
-                  for(var i in response["error"]){
-                    $("#setting .errormsg").append(`<p>${response["error"][i]}</p>`);
+            var avatar = $("#avatar")[0].files[0];
+            if(avatar.type == "image/png" || avatar.type == "image/jpeg"){
+              var formData = new FormData($("#userAvatarForm")[0]);
+              $.ajax({
+                url: "/users/upload/",
+                type: "POST",
+                data:formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                  if(response == "ok") {
+                    toastr.success("更新成功");
+                    setTimeout(function(){
+                      window.location.reload();
+                    },3000);
+                  }
+                  else {
+                    $("#setting .errormsg").empty();
+                    for(var i in response["error"]){
+                      $("#setting .errormsg").append(`<p>${response["error"][i]}</p>`);
+                    }
                   }
                 }
-              }
-            });
+              });
+            }else{
+              alert("請上傳jpg或png檔案");
+            }
           }
           else{
             toastr.success("更新成功");
