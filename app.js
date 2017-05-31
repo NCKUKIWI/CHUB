@@ -44,7 +44,7 @@ app.use(function(req, res, next) {
   }
 });
 
-app.use(cache(3 * 60));
+//app.use(cache(3 * 60));
 
 //users routes
 var users = require("./controller/users");
