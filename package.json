@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --timeout=20000",
-    "start": "node ./node_modules/nodemon/bin/nodemon app.js"
+    "start": "node ./node_modules/nodemon/bin/nodemon -e '.js .ejs .css .html' app.js -V"
   },
   "author": "CHUB",
   "license": "ISC",

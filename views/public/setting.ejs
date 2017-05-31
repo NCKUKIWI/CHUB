@@ -1,106 +1,94 @@
 <div id="setting" style="display: none; color: white !important;">
-  <h1>-Setting Profile-</h1>
-  <form class="ui form" id="userAvatarForm">
-    <div class="field">
-      <div class="errormsg"></div>
-    </div>
-    <div class="fields">
-      <div class="four wide field" style="text-align: left;">
-        <h3 >Avatar: </h3>
+  <h1>-Setting-</h1>
+  <div class="ui top attached tabular menu">
+    <div class="item active" data-tab="profileSetting">Profile</div>
+    <div class="item" data-tab="accountSetting">Account</div>
+  </div>
+  <div class="ui tab active" data-tab="profileSetting">
+    <form class="ui form" id="userAvatarForm">
+      <div class="field">
+        <div class="errormsg"></div>
       </div>
-      <div class="twelve wide field">
-        <input type="file" name="avatar" id="avatar">
-      </div>
-    </div>
-  </form>
-  <form class="ui form" id="updateForm">
-    <div class="fields">
-      <div class="four wide field" style="text-align: left;">
-        <h3 >Name: </h3>
-      </div>
-      <div class="twelve wide field">
-        <input type="text" name="name" value="<%= me.Name %>">
-      </div>
-    </div>
-    <div class="fields">
-      <div class="four wide field" style="text-align: left;">
-        <h3 >Major: </h3>
-      </div>
-      <div class="twelve wide field">
-        <input type="text" name="major" value="<%= me.Major !== undefined ? me.Major : ''%>">
-      </div>
-    </div>
-    <div class="fields">
-      <div class="four wide field" style="text-align: left;">
-        <h3 >Email: </h3>
-      </div>
-      <div class="twelve wide field">
-        <input type="text" name="email" value="<%= me.Email %>">
-      </div>
-    </div>
-    <div class="fields">
-      <div class="four wide field" style="text-align: left;">
-        <h3 >Location: </h3>
-      </div>
-      <div class="twelve wide field">
-        <input type="text" name="location" value="<%= me.Location !== undefined ? me.Location : ''%>">
-      </div>
-    </div>
-    <div class="fields">
-      <div class="four wide field" style="text-align: left;">
-        <h3>Skill: </h3>
-      </div>
-      <div class="twelve wide field">
-        <div class="ui right labeled left icon input">
-          <i class="tags icon"></i>
-          <input type="text" placeholder="Enter Skill" name="textSkill">
-          <a class="ui tag label" id="addSkill">
-            Add Skill
-          </a>
+      <div class="fields">
+        <div class="four wide field" style="text-align: left;">
+          <h3 >Avatar: </h3>
+        </div>
+        <div class="twelve wide field">
+          <input type="file" name="avatar" id="avatar">
         </div>
       </div>
-    </div>
-    <div class="fields" id="showSkills">
-      <div class="four wide field" style="text-align: left;">
-        <h3></h3>
+    </form>
+    <form class="ui form" id="updateForm">
+      <div class="fields">
+        <div class="four wide field" style="text-align: left;">
+          <h3 >Name: </h3>
+        </div>
+        <div class="twelve wide field">
+          <input type="text" name="name" value="<%= me.Name %>">
+        </div>
       </div>
-      <% for(var i = 0; i < me.Skill.length; i++){ %>
-        <a class="ui tag label"><%= me.Skill[i] %><i class="icon close"></i></a>
-      <% } %>
-    </div>
-    <div class="field">
-      <h3 style="text-align: left;">Introduction: </h3>
-      <textarea name="introduction" value="<%= me.Introduction %>"><%= me.Introduction !== undefined ? me.Introduction : ''%></textarea>
-    </div>
-    <div class="field">
+      <div class="fields">
+        <div class="four wide field" style="text-align: left;">
+          <h3 >Major: </h3>
+        </div>
+        <div class="twelve wide field">
+          <input type="text" name="major" value="<%= me.Major !== undefined ? me.Major : ''%>">
+        </div>
+      </div>
+      <div class="fields">
+        <div class="four wide field" style="text-align: left;">
+          <h3 >Email: </h3>
+        </div>
+        <div class="twelve wide field">
+          <input type="text" name="email" value="<%= me.Email %>">
+        </div>
+      </div>
+      <div class="fields">
+        <div class="four wide field" style="text-align: left;">
+          <h3 >Location: </h3>
+        </div>
+        <div class="twelve wide field">
+          <input type="text" name="location" value="<%= me.Location !== undefined ? me.Location : ''%>">
+        </div>
+      </div>
+      <div class="fields">
+        <div class="four wide field" style="text-align: left;">
+          <h3>Skill: </h3>
+        </div>
+        <div class="twelve wide field">
+          <div class="ui right labeled left icon input">
+            <i class="tags icon"></i>
+            <input type="text" placeholder="Enter Skill" name="textSkill">
+            <a class="ui tag label" id="addSkill">
+              Add Skill
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="fields" id="showSkills">
+        <div class="four wide field" style="text-align: left;">
+          <h3></h3>
+        </div>
+        <% for(var i = 0; i < me.Skill.length; i++){ %>
+          <a class="ui tag label"><%= me.Skill[i] %><i class="icon close"></i></a>
+        <% } %>
+      </div>
+      <div class="field">
+        <h3 style="text-align: left;">Introduction: </h3>
+        <textarea name="introduction" value="<%= me.Introduction %>"><%= me.Introduction !== undefined ? me.Introduction : ''%></textarea>
+      </div>
       <div class="fields">
         <div class="two wide field" style="text-align: left;">
-          <h3 >Group: </h3>
+          <h3 >portfolio: </h3>
         </div>
       </div>
-    </div>
-    <div class="fields">
-      <div class="two wide field" style="text-align: left;">
-        <h3 >Project: </h3>
-      </div>
-    </div>
-    <div class="fields">
-      <div class="two wide field" style="text-align: left;">
-        <h3 >Activity: </h3>
-      </div>
-    </div>
-    <div class="fields">
-      <div class="two wide field" style="text-align: left;">
-        <h3 >portfolio: </h3>
-      </div>
-    </div>
-    <div class="ui button" tabindex="0" id="updateProfile">Done</div>
-    <div class="ui button" id="backProfile">back</div>
-  </form>
-  <!--
-  <h1>-Setting Account-</h1>
-  <button class="ui button">重設密碼</button>
-  -->
+      <div class="ui button" tabindex="0" id="updateProfile">Done</div>
+      <div class="ui button" id="backProfile">back</div>
+    </form>
+  </div>
+  <div class="ui tab" data-tab="accountSetting">
+    <!-- <button class="ui button">重設密碼</button> -->
+  </div>
 </div>
 
 <script>
