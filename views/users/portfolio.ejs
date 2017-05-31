@@ -1,0 +1,97 @@
+<% layout('../public/layout') %>
+<div class="ui centered grid" style="padding-top:50px;">
+  <div class="ten wide tablet six wide computer column">
+    <% if(user._id.toString() == me._id.toString()){ %>
+      <h1>Upload portofolio</h1>
+      <form class="ui form" id="portfolioForm">
+        <div class="field">
+          <div class="errormsg"></div>
+        </div>
+        <div class="field">
+          <input type="file" name="portfolio" id="portfolio">
+        </div>
+        <div class="ui button" id="portfolioSubmit">Upload</div>
+      </form>
+    <% } %>
+    <div style="margin-top:30px;">
+      <% if(user.portfolio.length == 0){ %>
+        沒有上傳檔案
+      <% }else{ %>
+        <table class="ui unstackable table">
+          <thead>
+            <tr>
+              <th>File</th>
+              <th>Setting</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% for(var i = 0 ; i <  user.portfolio.length ; i++){ %>
+            <tr id="portfolio-<%= i %>">
+              <td><a href="/uploads/user/<%= me._id %>/<%= user.portfolio[i] %>"><%= user.portfolio[i] %></a></td>
+              <td><div class="ui button portfolioDel" file-number="<%= i %>" file-name="<%= user.portfolio[i] %>">Delete</div></td>
+            </tr>
+          <% } %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $("#portfolioSubmit").on("click",function(){
+      if($("#portfolio").val()!=""){
+        var portfolio = $("#portfolio")[0].files[0];
+        if(portfolio.type == "image/png" || portfolio.type == "image/jpeg" || portfolio.type =="application/pdf" ){
+          var formData = new FormData($("#portfolioForm")[0]);
+          $.ajax({
+            url: "/users/portfolio/upload",
+            type: "POST",
+            data:formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+              if (response == "ok") {
+                toastr.success("上傳成功");
+                setTimeout(function(){
+                  window.location.href="/users/portfolio/<%= me._id %>";
+                },3000);
+              }
+              else {
+                $("#portfolioForm .errormsg").empty();
+                for(var i in response["error"]){
+                  $("#portfolioForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+                }
+              }
+            }
+          });
+        }
+        else {
+          alert("請上傳圖片或pdf檔案");
+        }
+      }
+    });
+    $(".portfolioDel").on("click",function(){
+      var num = this.getAttribute("file-number");
+      $.ajax({
+        url: "/users/portfolio/delete",
+        type: "DELETE",
+        data:{
+          file:this.getAttribute("file-name")
+        },
+        success: function(response) {
+          if (response == "ok") {
+            toastr.success("刪除成功");
+            $("#portfolio-"+num).remove();
+          }
+          else {
+            $("#portfolioForm .errormsg").empty();
+            for(var i in response["error"]){
+              $("#portfolioForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+            }
+          }
+        }
+      });
+    });
+  });
+</script>

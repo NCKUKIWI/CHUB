@@ -150,7 +150,19 @@ router.post("/upload/",helper.apiAuth(),function(req,res) {
   });
 });
 
-router.post("/portfolio/upload/",helper.apiAuth(),function(req,res) {
+router.get("/portfolio/:id",helper.checkLogin(),function(req, res) {
+  User.findById(req.params.id,userInfo,function(err,user){
+    if(user){
+      res.render("users/portfolio",{
+        user:user
+      });
+    }else{
+      res.redirect("/");
+    }
+  });
+});
+
+router.post("/portfolio/upload",helper.apiAuth(),function(req,res) {
   portfolioUpload(req,res,function(err){
     if(err){
       console.log(err);
@@ -167,6 +179,24 @@ router.post("/portfolio/upload/",helper.apiAuth(),function(req,res) {
       });
     }
   });
+});
+
+router.delete("/portfolio/delete",helper.apiAuth(),function(req,res) {
+  if(req.body.file){
+    User.update({_id:req.user._id},{ $pull:{ "portfolio":req.body.file}},function(err){
+      if(err){
+        console.log(err);
+        res.send({error:err});
+      }
+      else{
+        rimraf(`${__dirname}/../uploads/user/${req.user._id}/${req.body.file}`,function(){});
+        res.send("ok");
+      }
+    });
+  }
+  else{
+    res.send("noFileName");
+  }
 });
 
 router.get("/fblogin",helper.checkLogin(0),function(req, res) {
