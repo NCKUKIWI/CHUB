@@ -1,7 +1,9 @@
 <div id="setting" style="display: none; color: white !important;">
   <h1>-Setting-</h1>
+  <i class="chevron circle left big icon" id="backProfile" style="position: absolute; top: 20px; left: 24px"></i>
   <div class="ui top attached tabular menu">
     <div class="item active" data-tab="profileSetting">Profile</div>
+    <div class="item" data-tab="portfolioSetting">Portfolio</div>
     <div class="item" data-tab="accountSetting">Account</div>
   </div>
   <div class="ui tab active" data-tab="profileSetting">
@@ -77,17 +79,47 @@
         <h3 style="text-align: left;">Introduction: </h3>
         <textarea name="introduction" value="<%= me.Introduction %>"><%= me.Introduction !== undefined ? me.Introduction : ''%></textarea>
       </div>
-      <div class="fields">
-        <div class="two wide field" style="text-align: left;">
-          <h3 >portfolio: </h3>
-        </div>
-      </div>
       <div class="ui button" tabindex="0" id="updateProfile">Done</div>
-      <div class="ui button" id="backProfile">back</div>
     </form>
   </div>
   <div class="ui tab" data-tab="accountSetting">
     <!-- <button class="ui button">重設密碼</button> -->
+  </div>
+  <div class="ui tab" data-tab="portfolioSetting">
+    <div class="ui centered grid" style="padding-top:50px;">
+      <div class="sixteen wide tablet sixteen wide computer column">
+        <!-- <h1>Upload portofolio</h1> -->
+        <form class="ui form" id="portfolioForm">
+          <div class="field">
+            <div class="errormsg"></div>
+          </div>
+          <div class="field">
+            <input type="file" name="portfolio" id="portfolio">
+          </div>
+          <div class="ui button" id="portfolioSubmit">Upload</div>
+        </form>
+        <div style="margin-top:30px;">
+          <% if(me.portfolio.length != 0){ %>
+            <table class="ui unstackable table">
+              <thead>
+                <tr>
+                  <th>File</th>
+                  <th>Setting</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% for(var i = 0 ; i <  me.portfolio.length ; i++){ %>
+                <tr id="portfolio-<%= i %>">
+                  <td><a href="/uploads/user/<%= me._id %>/<%= me.portfolio[i] %>" target="_blank"><%= me.portfolio[i] %></a></td>
+                  <td><div class="ui button portfolioDel" file-number="<%= i %>" file-name="<%= me.portfolio[i] %>">Delete</div></td>
+                </tr>
+              <% } %>
+              </tbody>
+            </table>
+          <% } %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -185,5 +217,64 @@ $(document).ready(function(){
   $('#showSkills a').on('click', function(){
     $(this).remove();
   })
+
+  //update Porfolio
+  $("#portfolioSubmit").on("click",function(){
+    if($("#portfolio").val()!=""){
+      var portfolio = $("#portfolio")[0].files[0];
+      if(portfolio.type == "image/png" || portfolio.type == "image/jpeg" || portfolio.type =="application/pdf" ){
+        var formData = new FormData($("#portfolioForm")[0]);
+        $.ajax({
+          url: "/users/portfolio/upload",
+          type: "POST",
+          data:formData,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+            if (response == "ok") {
+              toastr.success("上傳成功");
+              setTimeout(function(){
+                // window.location.href="/users/portfolio/<%= me._id %>";
+
+                // 晚點做把上傳資料append進去
+                window.location.href="/";
+              },3000);
+            }
+            else {
+              $("#portfolioForm .errormsg").empty();
+              for(var i in response["error"]){
+                $("#portfolioForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+              }
+            }
+          }
+        });
+      }
+      else {
+        alert("請上傳圖片或pdf檔案");
+      }
+    }
+  });
+  $(".portfolioDel").on("click",function(){
+    var num = this.getAttribute("file-number");
+    $.ajax({
+      url: "/users/portfolio/delete",
+      type: "DELETE",
+      data:{
+        file:this.getAttribute("file-name")
+      },
+      success: function(response) {
+        if (response == "ok") {
+          toastr.success("刪除成功");
+          $("#portfolio-"+num).remove();
+        }
+        else {
+          $("#portfolioForm .errormsg").empty();
+          for(var i in response["error"]){
+            $("#portfolioForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+          }
+        }
+      }
+    });
+  });
 });
 </script>

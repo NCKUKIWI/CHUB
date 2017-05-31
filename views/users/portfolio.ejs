@@ -27,7 +27,7 @@
           <tbody>
           <% for(var i = 0 ; i <  user.portfolio.length ; i++){ %>
             <tr id="portfolio-<%= i %>">
-              <td><a href="/uploads/user/<%= me._id %>/<%= user.portfolio[i] %>"><%= user.portfolio[i] %></a></td>
+              <td><a href="/uploads/user/<%= me._id %>/<%= user.portfolio[i] %>" target="_blank"><%= user.portfolio[i] %></a></td>
               <td><div class="ui button portfolioDel" file-number="<%= i %>" file-name="<%= user.portfolio[i] %>">Delete</div></td>
             </tr>
           <% } %>
@@ -37,6 +37,7 @@
     </div>
   </div>
 </div>
+
 <script>
   $(document).ready(function(){
     $("#portfolioSubmit").on("click",function(){
