@@ -28,10 +28,10 @@ $(document).ready(function() {
 		$('#profile').hide();
 		$('#setting').show();
 	})
-	$('#finishProfile').on('click', function(){
-		$('#setting').hide();
-		$('#profile').show();
-	})
+	// $('#finishProfile').on('click', function(){
+	// 	$('#setting').hide();
+	// 	$('#profile').show();
+	// })
 	$('#backProfile').on('click', function(){
 		$('#setting').hide();
 		$('#profile').show();
