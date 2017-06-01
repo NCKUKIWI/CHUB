@@ -114,7 +114,7 @@ $(document).ready(function(){
       Data += '&skill=' + $('#showSkills a')[i].text;
     }
     $.ajax({
-      url: 'users/update',
+      url: '/users/update',
       method: "POST",
       data: Data,
       success: function(response) {
