@@ -1,15 +1,56 @@
-<div class="ui sidebar right inverted vertical menu" id="searchSidebar">
-  <div class="ui centered grid" style="padding-top:50px; margin:10px;">
-    <form class="ui form">
-        <div class="field">
-            <p>Talent</p>
-            <input type="text" name="skill" placeholder="Skill">
-        </div>
-        <div class="field">
-            <p>Major</p>
-            <input type="text" name="major" placeholder="Major">
-        </div>
-        <div class="ui button" id="searchSubmit">查詢</div>
+<div class="ui sidebar right inverted vertical menu" id="searchSidebar" style="color: white; width:260px">
+  <div class="ui centered grid" style="padding-top:20px; margin:10px;">
+    <h1>Search</h1>
+    <div class="ui search">
+      <div class="ui icon input">
+        <input class="prompt" type="text" placeholder="Search All">
+        <i class="search icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
+    <div class="ui selection dropdown" style="margin-top: 20px;">
+      <input type="hidden" name="type">
+      <i class="dropdown icon"></i>
+      <div class="default text">Advance: Search Type</div>
+      <div class="menu">
+        <div class="item" data-value="searchPeople">People</div>
+        <div class="item" data-value="searchGroup">Group</div>
+        <div class="item" data-value="searchProject">project</div>
+        <div class="item" data-value="searchActivity">activity</div>
+      </div>
+    </div>
+    <form class="ui form" id="searchPeople" style="display: none; margin-top: 10px">
+      <div class="field">
+          <p>Talent</p>
+          <input type="text" name="skill" placeholder="Skill">
+      </div>
+      <div class="field">
+          <p>Major</p>
+          <input type="text" name="major" placeholder="Major">
+      </div>
+      <div class="ui button" id="searchSubmit">查詢</div>
+    </form>
+    <form class="ui form" id="searchGroup" style="display: none; margin-top: 10px">
+      <h1>group</h1>
+    </form>
+    <form class="ui form" id="searchProject" style="display: none; margin-top: 10px">
+      <h1>project</h1>
+    </form>
+    <form class="ui form" id="searchActivity" style="display: none; margin-top: 10px">
+      <h1>activity</h1>
     </form>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#searchSidebar > div > .ui.dropdown').dropdown({
+      onChange: function(value, text, $selectedItem) {
+        console.log(value);
+        $('#searchSidebar > div > .ui.form').hide();
+        $('#' + value).show();
+      }
+    })
+  });
+
+</script>

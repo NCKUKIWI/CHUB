@@ -73,6 +73,11 @@ app.use("/messages",messages);
 //payment routes
 var payment = require("./controller/payment");
 app.use("/payment",payment);
+
+//search routes
+var search = require("./controller/search");
+app.use("/search",search);
+
 //insert
 
 app.get("/about",function(req,res){

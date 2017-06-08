@@ -10,7 +10,6 @@ var helper = require("../helper");
 var bcrypt = require('bcrypt');
 var graph = require("fbgraph");
 var cacheClear = require("../cache").clear;
-var msgSorting = require("../assets/js/message.js");
 var fs = require("fs");
 var rimraf = require("rimraf");
 var multer  = require('multer');
@@ -273,6 +272,12 @@ router.post("/update",helper.apiAuth(),function(req, res) {
     if(err){
       res.send({error:helper.handleError(err)});
     }else{
+      User.find({}, function(err, user){
+        var major = Search.createItem(user,'Major');
+        var skill = Search.createItem(user,'Skill');
+        Search.create(major);
+        Search.create(skill);
+      });
       cacheClear();
       res.send("ok");
     }
@@ -290,10 +295,10 @@ router.post("/msg",helper.apiAuth(),function(req,res) {
   var msgAll = {};
   Message.find({ToUID:req.user._id}).populate("FromUID","_id Name Email Major Talent Description Website Role").populate("FromGID").exec(function(err,toMsg){
     // 整理對方的訊息(step 1)
-    msgSorting(toMsg, msgAll, 1, "FromUID");
+    Message.msgSorting(toMsg, msgAll, 1, "FromUID");
     Message.find({FromUID:req.user._id}).populate("ToUID","_id Name Email Major Talent Description Website Role").populate("ToGID").exec(function(err,fromMsg){
       // 整理我方的訊息(step 2)
-      var msgArr = msgSorting(fromMsg, msgAll, 0, "ToUID");
+      var msgArr = Message.msgSorting(fromMsg, msgAll, 0, "ToUID");
 
       res.render("users/msg",{
         toUserID: req.user._id,

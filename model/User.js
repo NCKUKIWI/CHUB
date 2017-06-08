@@ -54,6 +54,27 @@ userSchema.post("find", function(result) {
 });
 
 userSchema.plugin(uniqueValidator,{ message: "UserId 已經使用過" });
-var User = mongoose.model("User", userSchema);
 
-module.exports = User;
+
+// 找出所有的Skill
+userSchema.statics.fliterSkill= function(query){
+  var search = {};
+  search.skill = [];
+  search.major = [];
+  for(var i in query){
+    if(query[i].Major != '') search.major.push(query[i].Major);
+    if(query[i].Skill.length != 0){
+      search.skill = search.skill.concat(query[i].Skill);
+    }
+  }
+
+  // 消除重複值
+  search.skill = search.skill.filter(function(el, i, arr){
+    return arr.indexOf(el) === i;
+  })
+  search.major = search.major.filter(function(el, i, arr){
+    return arr.indexOf(el) === i;
+  })
+}
+
+module.exports = mongoose.model("User", userSchema);

@@ -7,7 +7,7 @@ var cacheClear = require("../cache").clear;
 var fs = require("fs");
 var rimraf = require("rimraf");
 var multer  = require('multer');
-var msgSorting = require("../assets/js/message.js");
+var Message = require("../model/Message");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -262,9 +262,9 @@ router.get("/:id/msg",helper.checkLogin(),function(req,res) {
       if(group.AdminID.indexOf(req.user._id)!==-1){
         var msgAll = {};
         Message.find({ToGID:req.params.id}).populate("FromUID","_id Email Major Talent Description Website Role").populate("FromGID").exec(function(err,msg){
-          msgSorting(msg, msgAll, 1, "FromUID");
+          Message.msgSorting(msg, msgAll, 1, "FromUID");
           Message.find({FromUID:req.params.id}).populate("ToGID","_id Email Major Talent Description Website Role").populate("FromGID").exec(function(err,msg){
-            var msgArr = msgSorting(msg, msgAll, 0, "TOGID");
+            var msgArr = Message.msgSorting(msg, msgAll, 0, "TOGID");
             console.log(msgArr);
             res.render("groups/msg",{
               toGroupID: req.params.id,
