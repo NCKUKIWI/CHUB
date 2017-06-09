@@ -2,6 +2,7 @@ $(document).ready(function() {
 	$("#searchSubmit").on("click", function() {
 		window.location.href="/users?skill="+$("input[name=skill]").val()+"&major="+$("input[name=major]").val();
 	});
+  // 各個user, project, activity 按鈕綁定
   $('.info').on('click', InfoRouter);
 });
 

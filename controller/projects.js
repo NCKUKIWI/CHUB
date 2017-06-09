@@ -28,7 +28,27 @@ var upload = multer({
 }).single("cover");
 
 router.get("/", function(req,res) {
-  Project.find({},function(err,projects){
+  var needArr;
+  if(req.query.need != undefined) needArr = req.query.need.split(',');
+  for(var i in needArr){
+    needArr[i] = (new RegExp(needArr[i], "i"));
+  }
+  var query = {
+    Need:(req.query.need)?{'$in': needArr}:undefined,
+    Type:(req.query.type)?(new RegExp(req.query.type, "i")):undefined
+  }
+  var filter = {
+    $or:[]
+  };
+  for(var i in query){
+    if(query[i]!== undefined){
+      var queryobj = {};
+      queryobj[i] = query[i];
+      filter["$or"].push(queryobj);
+    }
+  }
+  if(filter["$or"].length == 0) filter["$or"].push({});
+  Project.find(filter,function(err,projects){
     res.render("projects/index",{
       projects:projects,
       id: req.query.id
@@ -47,9 +67,9 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       newProject = new Project({
         Name:req.body.name,
         Type:req.body.type,
-        Time:(req.body.time)?(req.body.time.split(",")):[],
+        Time:(req.body.time)?(req.body.time.replace(/\s/g, "").split(",")):[],
         Goal:req.body.goal,
-        Need:(req.body.need)?(req.body.need.split(",")):[],
+        Need:(req.body.need)?(req.body.need.replace(/\s/g, "").split(",")):[],
         Description:req.body.description,
         hasCover:0,
         MemberID:group.AdminID,
@@ -148,9 +168,9 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
   var updateData = {
     Name:req.body.name,
     Type:req.body.type,
-    Time:req.body.time.split(","),
+    Time:req.body.time.replace(/\s/g, "").split(","),
     Goal:req.body.goal,
-    Need:req.body.need.split(","),
+    Need:req.body.need.replace(/\s/g, "").split(","),
     Description:req.body.description
   }
   Project.findOneAndUpdate({ _id:req.params.id },updateData,function(err,project){
