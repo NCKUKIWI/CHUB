@@ -148,15 +148,11 @@ router.get("/forgetpw",helper.checkLogin(0),function(req, res) {
 });
 
 router.post("/forgetpw",function(req, res) {
-  User.findOne({$or:[{"Email":req.body.userid},{"UserID":req.body.userid}]},["_id","UserID","Email","CreateAt","socialAcc"],function(err,user){
+  User.findOne({$or:[{"Email":req.body.userid},{"UserID":req.body.userid}]},["_id","UserID","Email","CreateAt"],function(err,user){
     if(user){
-      if(!user.socialAcc){
-        var token = user._id.toString() + new Date(user.CreateAt).getTime();
-        helper.sendEmail(user.Email,"忘記密碼",`您好請點擊以下更改密碼\n\n${config.website}/users/forgetpw?token=${token}`);
-        res.send("ok");
-      }else{
-        res.send({error:"Please login via Facebook"});
-      }
+      var token = user._id.toString() + new Date(user.CreateAt).getTime();
+      helper.sendEmail(user.Email,"忘記密碼",`您好請點擊以下更改密碼\n\n${config.website}/users/forgetpw?token=${token}`);
+      res.send("ok");
     }else{
       res.send({error:"User not found"});
     }

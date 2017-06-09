@@ -30,7 +30,6 @@ var userSchema = new Schema({
   Link: [String],
   Role: Number,
   hasCover:Number,
-  socialAcc:Number,
   GroupID: [{type:ObjectId,ref:"Group"}],
   ProjectID: [{type:ObjectId,ref:"Project"}],
   ActivityID: [{type:ObjectId,ref:"Activity"}],
