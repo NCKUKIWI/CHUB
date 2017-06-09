@@ -34,8 +34,8 @@ router.get("/", function(req,res) {
     needArr[i] = (new RegExp(needArr[i], "i"));
   }
   var query = {
-    Need:{'$in': needArr},
-    Type:(req.query.type)?(new RegExp(req.query.type, "i")):''
+    Need:(req.query.need)?{'$in': needArr}:undefined,
+    Type:(req.query.type)?(new RegExp(req.query.type, "i")):undefined
   }
   var filter = {
     $or:[]
