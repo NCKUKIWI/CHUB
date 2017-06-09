@@ -28,7 +28,8 @@ var upload = multer({
 }).single("cover");
 
 router.get("/", function(req,res) {
-  needArr = req.query.need.split(',');
+  var needArr;
+  if(req.query.need != undefined) needArr = req.query.need.split(',');
   for(var i in needArr){
     needArr[i] = (new RegExp(needArr[i], "i"));
   }
