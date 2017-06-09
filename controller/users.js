@@ -272,12 +272,6 @@ router.post("/update",helper.apiAuth(),function(req, res) {
     if(err){
       res.send({error:helper.handleError(err)});
     }else{
-      User.find({}, function(err, user){
-        var major = Search.createItem(user,'Major');
-        var skill = Search.createItem(user,'Skill');
-        Search.create(major);
-        Search.create(skill);
-      });
       cacheClear();
       res.send("ok");
     }
