@@ -30,6 +30,7 @@ var userSchema = new Schema({
   Link: [String],
   Role: Number,
   hasCover:Number,
+  socialAcc:Number,
   GroupID: [{type:ObjectId,ref:"Group"}],
   ProjectID: [{type:ObjectId,ref:"Project"}],
   ActivityID: [{type:ObjectId,ref:"Activity"}],
@@ -50,7 +51,7 @@ userSchema.pre("find", function(next) {
 
 userSchema.post("find", function(result) {
   //console.log(JSON.stringify(result,null,4));
-  console.log(`Took ${ Date.now() - this.start} millis`);
+  console.log(`Modal user took ${ Date.now() - this.start} millis`);
 });
 
 userSchema.plugin(uniqueValidator,{ message: "UserId 已經使用過" });

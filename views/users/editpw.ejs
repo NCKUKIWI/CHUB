@@ -1,0 +1,43 @@
+<% layout('../public/layout') %>
+<% layout('../public/layout') %>
+<div class="ui centered grid" style="padding-top:50px;">
+  <div class="ten wide tablet six wide computer column">
+    <h1>Edit Password</h1>
+    <form class="ui form" id="editpwForm">
+      <div class="field">
+        <div class="errormsg"></div>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password">
+      </div>
+      <input type="hidden" name="id" value="<%= user._id %>">
+      <div class="ui button" id="editpwSubmit">Update</div>
+    </form>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $("#editpwSubmit").on("click",function(){
+      $.ajax({
+        url: "/users/editpw",
+        type: "POST",
+        data: $("#editpwForm").serialize(),
+        success: function(response) {
+          if (response == "ok") {
+            toastr.success("修改成功");
+            setTimeout(function(){
+              window.location.href="/";
+            },3000);
+          }
+          else {
+            $("#editpwForm .errormsg").empty();
+            for(var i in response["error"]){
+              $("#editpwForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+            }
+          }
+        }
+      });
+    });
+  });
+</script>

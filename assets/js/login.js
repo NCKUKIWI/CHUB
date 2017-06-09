@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$("#loginSubmit").on("click", function() {
-		if($("input[name=userid]").val() != "") {
+		if($("#loginForm input[name=userid]").val() != "") {
 			$.ajax({
 				url: "/users/auth",
 				type: "POST",

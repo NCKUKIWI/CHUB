@@ -1,16 +1,26 @@
 $(document).ready(function() {
 	$("#signupPart").hide();
+	$("#forgetPw").hide();
 
 	//按下登入
 	$("#loginbtn").click(function() {
 		$("#signupPart").hide();
+		$("#forgetPw").hide();
 		$("#loginPart").show();
 	});
 
 	//按下註冊
 	$("#signupbtn").click(function() {
-		$("#signupPart").show();
 		$("#loginPart").hide();
+		$("#forgetPw").hide();
+		$("#signupPart").show();
+	});
+
+	//按下忘記密碼
+	$("#forgetbtn").click(function() {
+		$("#signupPart").hide();
+		$("#loginPart").hide();
+		$("#forgetPw").show();
 	});
 
 	// 綁定右邊menu的按紐開啟側邊欄

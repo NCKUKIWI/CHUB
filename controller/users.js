@@ -113,7 +113,7 @@ router.post("/signup",function(req,res) {
 });
 
 router.post("/auth", function(req, res) {
-  User.findOne({UserID:req.body.userid},["UserID","Password"],function(err,user){
+  User.findOne({$or:[{"Email":req.body.userid},{"UserID":req.body.userid}]},["UserID","Password"],function(err,user){
     if(user){
       bcrypt.compare(req.body.password,user.Password,function(err,result) {
         if(result==true){
@@ -129,6 +129,57 @@ router.post("/auth", function(req, res) {
       res.send({error:"User not found"});
     }
   });
+});
+
+router.get("/forgetpw",helper.checkLogin(0),function(req, res) {
+  if(req.query.token){
+    var id = req.query.token.slice(0,24);
+    User.findById(id,["_id"],function(err,user){
+      if(user){
+        res.render("users/editpw",{
+          user:user
+        });
+      }else{
+        res.redirect("/");
+      }
+    });
+  }else{
+    res.redirect("/");
+  }
+});
+
+router.post("/forgetpw",function(req, res) {
+  User.findOne({$or:[{"Email":req.body.userid},{"UserID":req.body.userid}]},["_id","UserID","Email","CreateAt","socialAcc"],function(err,user){
+    if(user){
+      if(!user.socialAcc){
+        var token = user._id.toString() + new Date(user.CreateAt).getTime();
+        helper.sendEmail(user.Email,"忘記密碼",`您好請點擊以下更改密碼\n\n${config.website}/users/forgetpw?token=${token}`);
+        res.send("ok");
+      }else{
+        res.send({error:"Please login via Facebook"});
+      }
+    }else{
+      res.send({error:"User not found"});
+    }
+  });
+});
+
+router.post("/editpw",function(req, res) {
+  if(req.body.id){
+    bcrypt.hash(req.body.password,5,function(err, hash) {
+      User.update({_id:req.body.id},{"Password":hash},function(err){
+        if(err){
+          console.log(err);
+          res.send({error:helper.handleError(err)});
+        }
+        else{
+          res.send("ok");
+        }
+      });
+    });
+  }else{
+    res.send({error:"User not found"});
+  }
 });
 
 router.post("/upload/",helper.apiAuth(),function(req,res) {

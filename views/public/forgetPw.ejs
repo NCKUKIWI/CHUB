@@ -1,0 +1,39 @@
+<div id="forgetPw">
+  <h1>忘記密碼</h1>
+  <form class="ui form" id="forgetPwForm">
+    <div class="field">
+      <div class="errormsg"></div>
+    </div>
+    <div class="field">
+      <p>Email or ID</p>
+      <input type="text" name="userid" placeholder="Email or ID">
+    </div>
+    <div style="display: flex; justify-content: space-around;">
+      <a class="ui button" id="forgetpwbtn" style="width: 100%; margin-top: 12px;">Submit</a>
+    </div>
+  </form>
+</div>
+<script>
+$(document).ready(function() {
+	$("#forgetpwbtn").on("click", function() {
+		if($("#forgetPwForm input[name=userid]").val() != "") {
+			$.ajax({
+				url: "/users/forgetpw",
+				type: "POST",
+				data: $("#forgetPwForm").serialize(),
+				success: function(response) {
+					if(response == "ok") {
+            toastr.success("請到信箱收取信件");
+            setTimeout(function(){
+              window.location.href="/";
+            },3000);
+					} else {
+						$("#forgetPwForm .errormsg").empty();
+						$("#forgetPwForm .errormsg").append(response["error"])
+					}
+				}
+			});
+		}
+	});
+});
+</script>

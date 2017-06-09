@@ -23,7 +23,7 @@ var activitySchema = new Schema({
   Type:{type:String,required:[true,"請選擇活動類型"]},
   Description:{type:String,required:[true,"請輸入活動說明"]},
   Time:[{type:String,required:[true,"請選擇活動時間"]}],
-  Fee:[Number],
+  Fee:[{type:Number,required:[true,"請輸入活動費用"]}],
   hasCover:Number,
   MemberID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
@@ -44,7 +44,7 @@ activitySchema.pre("find", function(next) {
 
 activitySchema.post("find", function(result) {
   //console.log(JSON.stringify(result,null,4));
-  console.log(`Took ${ Date.now() - this.start} millis`);
+  console.log(`Modal activity took ${ Date.now() - this.start} millis`);
 });
 
 activitySchema.plugin(uniqueValidator,{ message: "Name 已經使用過" });
