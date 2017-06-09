@@ -14,12 +14,25 @@ var Activity = require("../model/Activity");
 // var rimraf = require("rimraf");
 // var multer  = require('multer');
 
+router.get('/projectNeed', function(req, res){
+  var filter = []; // 加條件去query用的
+  filter.push({Need: (new RegExp(req.query.need, "i"))});
+  Project.find({$or:filter}).distinct("Need", function(err,Need) {
+    var results = [];
+    for(var i in Need){
+      var obj = {
+        "name": Need[i],
+        "value" : Need[i],
+      }
+      results.push(obj);
+    }
+    res.send(results);
+  });
+})
+
 router.get('/', function(req,res){
   console.log(req.query);
-  var queryColumn = {
-    Skill: 1,
-    Major: 1
-  }
+
   var results = {}; // 放query出來的值
   var filter = []; // 加條件去query用的
 
@@ -81,7 +94,7 @@ router.get('/', function(req,res){
             for(var i in query){
               var obj = {
                 'title': query[i].Name,
-                'url': '/project?id=' + query[i]._id
+                'url': '/projects?id=' + query[i]._id
               }
               results.project.results.push(obj);
             }

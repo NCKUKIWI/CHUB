@@ -29,7 +29,21 @@ var upload = multer({
 }).single("cover");
 
 router.get("/", function(req,res) {
-  Activity.find({},function(err,activity){
+  var query = {
+    Type:(req.query.type)?(new RegExp(req.query.type, "i")):undefined
+  }
+  var filter = {
+    $or:[]
+  };
+  for(var i in query){
+    if(query[i]!== undefined){
+      var queryobj = {};
+      queryobj[i] = query[i];
+      filter["$or"].push(queryobj);
+    }
+  }
+  if(filter["$or"].length == 0) filter["$or"].push({});
+  Activity.find(filter,function(err,activity){
     res.render("activities/index",{
       activity:activity,
       id: req.query.id
@@ -62,7 +76,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       if(err){
         res.send({error:helper.handleError(err)});
       }else{
-        User.update({_id:req.user._id},{ $push: { "ActivityID":result._id } },function(err){
+        User.update({_id:{ $in:group.AdminID }},{ $push: { "ActivityID":result._id } },function(err){
           if(err){
             console.log(err);
             res.send({error:err});
@@ -89,7 +103,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       if(err){
         res.send({error:helper.handleError(err)});
       }else{
-        User.update({_id:{ $in:group.AdminID }},{ $push: { "ActivityID":result._id } },function(err){
+        User.update({_id:req.user._id},{ $push: { "ActivityID":result._id } },function(err){
           if(err){
             console.log(err);
             res.send({error:err});

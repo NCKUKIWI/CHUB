@@ -3,7 +3,7 @@
     <h1>Search</h1>
     <div class="ui search">
       <div class="ui icon input">
-        <input class="prompt" type="text" placeholder="Search All">
+        <input class="prompt" type="text" placeholder="Search All Name">
         <i class="search icon"></i>
       </div>
       <div class="results"></div>
@@ -15,7 +15,7 @@
       <div class="menu">
         <div class="item" data-value="searchPeople">People</div>
         <div class="item" data-value="searchGroup">Group</div>
-        <div class="item" data-value="searchProject">project</div>
+        <div class="item" data-value="searchProject">Project</div>
         <div class="item" data-value="searchActivity">activity</div>
       </div>
     </div>
@@ -32,12 +32,74 @@
     </form>
     <form class="ui form" id="searchGroup" style="display: none; margin-top: 10px">
       <h1>group</h1>
+      <div class="ui selection dropdown" style="margin-top: 20px;">
+        <input type="hidden" name="type">
+        <i class="dropdown icon"></i>
+        <div class="default text">type</div>
+        <div class="menu">
+          <div class="item" data-value="groups">All type</div>
+          <div class="item" data-value="groups">文化生活</div>
+          <div class="item" data-value="groups">智慧科技與數位內容</div>
+          <div class="item" data-value="groups">創新與社會服務</div>
+        </div>
+      </div>
     </form>
-    <form class="ui form" id="searchProject" style="display: none; margin-top: 10px">
+    <form class="ui form" id="searchProject" style="display: none; margin-top: 10px" action="/projects">
       <h1>project</h1>
+      <div class="ui selection dropdown" style="margin-top: 20px;">
+        <input type="hidden" name="type">
+        <i class="dropdown icon"></i>
+        <div class="default text">type</div>
+        <div class="menu">
+          <div class="item" data-value="">All type</div>
+          <div class="item" data-value="文化生活">文化生活</div>
+          <div class="item" data-value="智慧科技與數位內容">智慧科技與數位內容</div>
+          <div class="item" data-value="創新與社會服務">創新與社會服務</div>
+        </div>
+      </div>
+      <div class="ui fluid multiple search selection dropdown" style="margin-top: 20px;">
+        <input name="need" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Needs</div>
+<!--         <div class="menu">
+          <div class="item" data-value="angular">Angular</div>
+          <div class="item" data-value="css">CSS</div>
+          <div class="item" data-value="design">Graphic Design</div>
+          <div class="item" data-value="ember">Ember</div>
+          <div class="item" data-value="html">HTML</div>
+          <div class="item" data-value="ia">Information Architecture</div>
+          <div class="item" data-value="javascript">Javascript</div>
+          <div class="item" data-value="mech">Mechanical Engineering</div>
+          <div class="item" data-value="meteor">Meteor</div>
+          <div class="item" data-value="node">NodeJS</div>
+          <div class="item" data-value="plumbing">Plumbing</div>
+          <div class="item" data-value="python">Python</div>
+          <div class="item" data-value="rails">Rails</div>
+          <div class="item" data-value="react">React</div>
+          <div class="item" data-value="repair">Kitchen Repair</div>
+          <div class="item" data-value="ruby">Ruby</div>
+          <div class="item" data-value="ui">UI Design</div>
+          <div class="item" data-value="ux">User Experience</div>
+        </div> -->
+
+      </div>
+      <button class="ui button" type="" style="margin-top: 10px;">summit</button>
     </form>
     <form class="ui form" id="searchActivity" style="display: none; margin-top: 10px">
       <h1>activity</h1>
+      <div class="ui selection dropdown" style="margin-top: 20px;">
+        <input type="hidden" name="type">
+        <i class="dropdown icon"></i>
+        <div class="default text">type</div>
+        <div class="menu">
+          <div class="item" data-value="activities">All type</div>
+          <div class="item" data-value="activities">Workshop</div>
+          <div class="item" data-value="activities">Forum</div>
+          <div class="item" data-value="activities">Exhibition</div>
+          <div class="item" data-value="activities">Conference</div>
+          <div class="item" data-value="activities">Competition</div>
+        </div>
+      </div>
     </form>
   </div>
 </div>
@@ -49,6 +111,22 @@
         console.log(value);
         $('#searchSidebar > div > .ui.form').hide();
         $('#' + value).show();
+      }
+    });
+    $('#searchSidebar > div > .form > .dropdown').dropdown({
+      onChange: function(value, text, obj){
+        if($('#searchSidebar > div > .ui.dropdown')[0].innerText == 'Project') return; // project會要進階搜尋
+        if(text == 'All type') window.location.href="/" + value;
+        else window.location.href="/" + value + "?type=" + text;
+      }
+    });
+    $(".ui.dropdown.multiple").dropdown({
+      apiSettings: {
+        url: '/search/projectNeed?need={query}',
+        onResponse: function(results){
+          console.log(results);
+          return {"success": true,results};
+        }
       }
     })
   });

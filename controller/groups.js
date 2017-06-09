@@ -27,7 +27,21 @@ var upload = multer({
 }).single("cover");
 
 router.get("/", function(req,res) {
-  Group.find({},function(err,groups){
+  var query = {
+    Type:(req.query.type)?(new RegExp(req.query.type, "i")):undefined
+  }
+  var filter = {
+    $or:[]
+  };
+  for(var i in query){
+    if(query[i]!== undefined){
+      var queryobj = {};
+      queryobj[i] = query[i];
+      filter["$or"].push(queryobj);
+    }
+  }
+  if(filter["$or"].length == 0) filter["$or"].push({});
+  Group.find(filter,function(err,groups){
     res.render("groups/index",{
       groups:groups,
       id: req.query.id
