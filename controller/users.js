@@ -133,8 +133,8 @@ router.post("/auth", function(req, res) {
 router.get("/forgetpw",helper.checkLogin(0),function(req, res) {
   if(req.query.token){
     var id = req.query.token.slice(0,24);
-    User.findById(id,["_id"],function(err,user){
-      if(user){
+    User.findById(id,["_id","forgetPw"],function(err,user){
+      if(user && user.forgetPw == 1){
         res.render("users/editpw",{
           user:user
         });
@@ -150,9 +150,18 @@ router.get("/forgetpw",helper.checkLogin(0),function(req, res) {
 router.post("/forgetpw",function(req, res) {
   User.findOne({$or:[{"Email":req.body.userid},{"UserID":req.body.userid}]},["_id","UserID","Email","CreateAt"],function(err,user){
     if(user){
-      var token = user._id.toString() + new Date(user.CreateAt).getTime();
-      helper.sendEmail(user.Email,"忘記密碼",`您好請點擊以下更改密碼\n\n${config.website}/users/forgetpw?token=${token}`);
-      res.send("ok");
+      user.forgetPw = 1;
+      user.save(function(err){
+        if(err){
+          console.log(err);
+          res.send({error:err});
+        }
+        else{
+          var token = user._id.toString() + new Date(user.CreateAt).getTime();
+          helper.sendEmail(user.Email,"忘記密碼",`您好請點擊以下更改密碼\n\n${config.website}/users/forgetpw?token=${token}`);
+          res.send("ok");
+        }
+      });
     }else{
       res.send({error:"User not found"});
     }
@@ -162,7 +171,7 @@ router.post("/forgetpw",function(req, res) {
 router.post("/editpw",function(req, res) {
   if(req.body.id){
     bcrypt.hash(req.body.password,5,function(err, hash) {
-      User.update({_id:req.body.id},{"Password":hash},function(err){
+      User.update({_id:req.body.id},{"Password":hash,"forgetPw":0},function(err){
         if(err){
           console.log(err);
           res.send({error:helper.handleError(err)});
