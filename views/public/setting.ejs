@@ -6,6 +6,7 @@
     <div class="item" data-tab="portfolioSetting">Portfolio</div>
     <div class="item" data-tab="accountSetting">Account</div>
   </div>
+  <!-- profile -->
   <div class="ui tab active" data-tab="profileSetting">
     <form class="ui form" id="userAvatarForm">
       <div class="field">
@@ -82,16 +83,43 @@
       <div class="ui button" tabindex="0" id="updateProfile">Done</div>
     </form>
   </div>
+  <!-- profile end -->
+  <!-- update pw -->
   <div class="ui tab" data-tab="accountSetting">
-    <!-- <button class="ui button">重設密碼</button> -->
-  </div>
-  <div class="ui tab" data-tab="portfolioSetting">
-    <div class="ui centered grid" style="padding-top:50px;">
+    <div class="ui centered grid" style="padding-top:25px;">
       <div class="sixteen wide tablet sixteen wide computer column">
-        <!-- <h1>Upload portofolio</h1> -->
+        <form class="ui form" id="editpwForm">
+          <div class="field">
+            <div class="errormsg"></div>
+          </div>
+          <div class="field">
+            <h3 >New Password:</h3>
+          </div>
+          <div class="field">
+            <input type="password" name="password">
+          </div>
+          <div class="field">
+            <h3 >Confirm Password:</h3>
+          </div>
+          <div class="field">
+            <input type="password" name="password2">
+          </div>
+          <div class="ui button" id="editpwSubmit">Update</div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- updatepw end -->
+  <!-- portfolio -->
+  <div class="ui tab" data-tab="portfolioSetting">
+    <div class="ui centered grid" style="padding-top:25px;">
+      <div class="sixteen wide tablet sixteen wide computer column">
         <form class="ui form" id="portfolioForm">
           <div class="field">
             <div class="errormsg"></div>
+          </div>
+          <div class="field">
+            <h3>Upload files</h3>
           </div>
           <div class="field">
             <input type="file" name="portfolio" id="portfolio">
@@ -121,10 +149,13 @@
       </div>
     </div>
   </div>
+  <!-- portfolio end -->
 </div>
 
 <script>
+
 $(document).ready(function(){
+
   //更新個人資料
   $('#updateProfile').on('click', function(){
     var skillNum = $('#showSkills a').children().length;
@@ -182,8 +213,9 @@ $(document).ready(function(){
           }
         }
       }
-    })
+    });
   });
+
   //新增Skill
   $('#addSkill').on('click', function(){
     if($("input[name='textSkill']").val() == "") return;
@@ -211,12 +243,13 @@ $(document).ready(function(){
       success: function(response) {
         console.log('add suuces!');
       }
-    })
-  })
+    });
+  });
+
   //remove skill
   $('#showSkills a').on('click', function(){
     $(this).remove();
-  })
+  });
 
   //update Porfolio
   $("#portfolioSubmit").on("click",function(){
@@ -254,6 +287,8 @@ $(document).ready(function(){
       }
     }
   });
+
+  //del Porfolio
   $(".portfolioDel").on("click",function(){
     var num = this.getAttribute("file-number");
     $.ajax({
@@ -276,5 +311,31 @@ $(document).ready(function(){
       }
     });
   });
+
+  //edit pw
+  $("#editpwSubmit").on("click",function(){
+    if($("#editpwForm input[name=password]").val()!=""){
+      $.ajax({
+        url: "/users/editpw",
+        type: "POST",
+        data: $("#editpwForm").serialize(),
+        success: function(response) {
+          if (response == "ok") {
+            toastr.success("修改成功");
+            setTimeout(function(){
+              window.location.href="/";
+            },3000);
+          }
+          else {
+            $("#editpwForm .errormsg").empty();
+            for(var i in response["error"]){
+              $("#editpwForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+            }
+          }
+        }
+      });
+    }
+  });
 });
+
 </script>

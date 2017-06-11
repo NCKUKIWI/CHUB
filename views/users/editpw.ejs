@@ -11,6 +11,10 @@
         <label>Password</label>
         <input type="password" name="password">
       </div>
+      <div class="field">
+        <label>Confirm Password</label>
+        <input type="password" name="password2">
+      </div>
       <input type="hidden" name="id" value="<%= user._id %>">
       <div class="ui button" id="editpwSubmit">Update</div>
     </form>
@@ -19,25 +23,27 @@
 <script>
   $(document).ready(function(){
     $("#editpwSubmit").on("click",function(){
-      $.ajax({
-        url: "/users/editpw",
-        type: "POST",
-        data: $("#editpwForm").serialize(),
-        success: function(response) {
-          if (response == "ok") {
-            toastr.success("修改成功");
-            setTimeout(function(){
-              window.location.href="/";
-            },3000);
-          }
-          else {
-            $("#editpwForm .errormsg").empty();
-            for(var i in response["error"]){
-              $("#editpwForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+      if($("#editpwForm input[name=password]").val()!=""){
+        $.ajax({
+          url: "/users/editpw",
+          type: "POST",
+          data: $("#editpwForm").serialize(),
+          success: function(response) {
+            if (response == "ok") {
+              toastr.success("修改成功");
+              setTimeout(function(){
+                window.location.href="/";
+              },3000);
+            }
+            else {
+              $("#editpwForm .errormsg").empty();
+              for(var i in response["error"]){
+                $("#editpwForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+              }
             }
           }
-        }
-      });
+        });
+      }
     });
   });
 </script>

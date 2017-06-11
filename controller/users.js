@@ -90,25 +90,33 @@ router.get("/", function(req,res) {
 });
 
 router.post("/signup",function(req,res) {
-  bcrypt.hash(req.body.password,5,function(err, hash) {
-    var newUser = {
-      UserID:req.body.userid,
-      Password:hash,
-      Name:req.body.username,
-      Email:req.body.email,
-      Role:0,
-      hasCover:0
-    };
-    User.create(newUser,function(err,result){
-      if(err){
-        res.send({error:helper.handleError(err)});
-      }else{
-        helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
-        cacheClear();
-        res.send("ok");
-      }
+  if(req.body.password2==""){
+    res.send({error:["請再輸入一次密碼"]});
+  }
+  else if(req.body.password!=req.body.password2){
+    res.send({error:["兩次密碼不一致"]});
+  }
+  else{
+    bcrypt.hash(req.body.password,5,function(err, hash) {
+      var newUser = {
+        UserID:req.body.userid,
+        Password:hash,
+        Name:req.body.username,
+        Email:req.body.email,
+        Role:0,
+        hasCover:0
+      };
+      User.create(newUser,function(err,result){
+        if(err){
+          res.send({error:helper.handleError(err)});
+        }else{
+          helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
+          cacheClear();
+          res.send("ok");
+        }
+      });
     });
-  });
+  }
 });
 
 router.post("/auth", function(req, res) {
@@ -169,20 +177,30 @@ router.post("/forgetpw",function(req, res) {
 });
 
 router.post("/editpw",function(req, res) {
-  if(req.body.id){
-    bcrypt.hash(req.body.password,5,function(err, hash) {
-      User.update({_id:req.body.id},{"Password":hash,"forgetPw":0},function(err){
-        if(err){
-          console.log(err);
-          res.send({error:helper.handleError(err)});
-        }
-        else{
-          res.send("ok");
-        }
-      });
-    });
-  }else{
+  if(!req.user && !req.body.id){
     res.send({error:"User not found"});
+  }
+  else{
+    var id = (req.body.id)?req.body.id:req.user._id;
+    if(req.body.password2==""){
+      res.send({error:["請再輸入一次密碼"]});
+    }
+    else if(req.body.password!=req.body.password2){
+      res.send({error:["兩次密碼不一致"]});
+    }
+    else{
+      bcrypt.hash(req.body.password,5,function(err, hash) {
+        User.update({_id:id},{"Password":hash,"forgetPw":0},function(err){
+          if(err){
+            console.log(err);
+            res.send({error:helper.handleError(err)});
+          }
+          else{
+            res.send("ok");
+          }
+        });
+      });
+    }
   }
 });
 
