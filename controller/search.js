@@ -5,14 +5,6 @@ var Group = require("../model/Group");
 var Project = require("../model/Project");
 var Message = require("../model/Message");
 var Activity = require("../model/Activity");
-// var config = require("../config");
-// var helper = require("../helper");
-// var bcrypt = require('bcrypt');
-// var graph = require("fbgraph");
-// var cacheClear = require("../cache").clear;
-// var fs = require("fs");
-// var rimraf = require("rimraf");
-// var multer  = require('multer');
 
 router.get('/projectNeed', function(req, res){
   var filter = []; // 加條件去query用的
@@ -40,7 +32,7 @@ router.get('/', function(req,res){
   filter.push({Name: (new RegExp(req.query.query, "i"))});
   // filter.push({Skill: req.query.query});
   // filter.push({Major: req.query.query});
-  
+
   User.find({$or:filter}, function(err, query){
     if(query.length != 0){
       results.people = {
@@ -83,7 +75,7 @@ router.get('/', function(req,res){
               'url': '/activities?id=' + query[i]._id
             }
             results.activity.results.push(obj);
-          }       
+          }
         }
         Project.find({$or:filter}, function(err, query){
           if(query.length != 0){

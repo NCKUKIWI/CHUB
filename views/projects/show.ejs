@@ -9,16 +9,20 @@
   <div class="description">
     <p>Type: <%= project.Type %></p>
     <p>duration </p>
-    <p>Need: <%= project.Need %></p>
+    <p>Need:
+      <% for(var i =0 ; i < project.Need.length  ;i ++){ %>
+        <label class="ui label"><%= project.Need[i] %></label>
+      <% } %>
+    </p>
     <p>Description: <%= project.Description %></p>
     <p>Goal: <%= project.Goal %></p>
     <p>Contributor: </p>
     <p>Sponsor: </p>
     <p>Activities: </p>
     <p>Teammate:
-    <% for(var i in members){ %>
-      <a class="ui label openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
-    <% } %>
+      <% for(var i in members){ %>
+        <a class="ui label openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
+      <% } %>
     </p>
   </div>
 </div>
