@@ -3,16 +3,17 @@ var bodyParser = require("body-parser");
 var session = require("express-session");
 var cookieParser = require("cookie-parser");
 var path = require("path");
-var engine = require('ejs-locals');     //讓express支援layout
+var engine = require("ejs-locals");     //讓express支援layout
 var helper = require("./helper");
 var User = require("./model/User");
+var logger = require("morgan");
 var cache = require("./cache").cache;
 
 var app = express();
 
-app.engine('ejs', engine);
-app.set('views',path.join(__dirname,'views'));  //view的路徑位在資料夾views中
-app.set('view engine','ejs')
+app.engine("ejs", engine);
+app.set("views",path.join(__dirname,"views"));  //view的路徑位在資料夾views中
+app.set("view engine","ejs")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -44,7 +45,15 @@ app.use(function(req, res, next) {
   }
 });
 
-app.use(cache(3*60));
+app.use(logger(function(tokens,req,res) {
+  return [
+    "---------\n",
+    tokens.method(req, res),
+    tokens.url(req, res),
+    tokens["response-time"](req, res),
+    "ms"
+  ].join(" ");
+}));
 
 //users routes
 var users = require("./controller/users");

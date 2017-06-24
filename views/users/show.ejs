@@ -1,59 +1,109 @@
-<i class="close icon"></i>
-<div class="header">
-  <%= user.Name %>
-</div>
-<div class="image content">
-  <div class="ui medium image">
-    <img src="/assets/images/rachel.png">
+<div class="dark_mask"></div>
+<div id="detail_left">
+  <div class="share_icons">
+    <img src="/assets/images/share_fb.png">
+    <img src="/assets/images/share_twitter.png">
+    <img src="/assets/images/share_ig.png">
+    <img src="/assets/images/share_wp.png">
   </div>
-  <div class="description">
-    <p>Major: <%= user.Major !== undefined ? user.Major : "" %></p>
-    <p>Skills:&nbsp;
-      <% for(var j = 0; j < user.Skill.length; j++){ %>
-        <%= user.Skill[j] %>
-        <% if(j != user.Skill.length - 1){ %>
-          ,&nbsp;&nbsp;
+  <div id="detail_brief">
+      <img src="/assets/images/people_ex.png">
+      <p class="name"><%= user.Name %></p>
+      <% if(me) { %>
+        <% if(me._id.toString().indexOf(user._id.toString()) == -1){ %>
+          <a href="#" class="sendText" id="text_me" userid="<%= user._id %>" userName = "<%= user.Name %>"></a>
         <% } %>
       <% } %>
-    </p>
-    <p>Group: 
-      <% for(var i = 0; i < user.GroupID.length; i++){ %>
-      <a class="ui label openInfo" type="groups" id="<%= user.GroupID[i]._id %>"><%= user.GroupID[i].Name %></a>
-      <% } %>
-    </p>
-    <p>Location: <%= user.Location !== undefined ? user.Location : "" %></p>
-    <p>Introduction: <%= user.Introduction !== undefined ? user.Introduction : ''%></p>
-    <p>Project: 
-      <% for(var i = 0; i < user.ProjectID.length; i++){ %>
-      <a class="ui label openInfo" type="projects" id="<%= user.ProjectID[i]._id %>"><%= user.ProjectID[i].Name %></a>
-      <% } %>
-    </p>
-    <p>Activity: 
-      <% for(var i = 0; i < user.ActivityID.length; i++){ %>
-      <a class="ui label openInfo" type="activities" id="<%= user.ActivityID[i]._id %>"><%= user.ActivityID[i].Name %></a>
-      <% } %>
-    </p>
-    <p>portfolio: </p>
   </div>
 </div>
-<% if(me) { %>
-  <% if(me._id.toString().indexOf(user._id.toString()) == -1){ %>
-  <div class="actions">
-    <div class="ui blue button sendText" userid="<%= user._id %>" userName = "<%= user.Name %>">
-      Text Me
+<div id="detail_upper_right">
+  <p class="upper_tag">People</p>
+  <p class="upper_tag last">Major</p>
+</div>
+<div id="detail_right">
+  <p id="detail_major">
+    <p class="title">Major</p><span>/</span>
+    <p class="short"><%= user.Major !== undefined ? user.Major : "" %></p>
+    <p id="detail_skills">
+      <p class="title">Skills</p><span>/</span>
+      <p class="short">
+        <% for(var j = 0; j < user.Skill.length; j++){ %>
+          <%= user.Skill[j] %>
+          <% if(j != user.Skill.length - 1){ %>
+            ,&nbsp;&nbsp;
+          <% } %>
+        <% } %>
+      </p>
+    </p>
+    <p id="detail_group">
+      <p class="title">Group</p><span>/</span>
+      <p class="short">
+        <% for(var i = 0; i < user.GroupID.length; i++){ %>
+          <a type="groups" id="<%= user.GroupID[i]._id %>"><%= user.GroupID[i].Name %></a>
+        <% } %>
+      </p>
+    </p>
+    <p id="detail_location">
+      <p class="title">Location</p><span>/</span>
+      <p class="short"><%= user.Location %></p>
+    </p>
+    <p id="detail_intro">
+      <p class="title with_space">Introduction</p><span>/</span>
+      <p class="long">
+        <%= user.Introduction %>
+      </p>
+    </p>
+      <p id="detail_project">
+        <p class="title with_space">Project</p><span>/</span>
+        <p class="long">
+          <% for(var i = 0; i < user.ProjectID.length; i++){ %>
+            <a type="projects" id="<%= user.ProjectID[i]._id %>"><%= user.ProjectID[i].Name %></a>
+          <% } %>
+        </p>
+      </p>
+      <p id="detail_activity">
+        <p class="title with_space">Activity</p><span>/</span>
+        <p class="long">
+          <% for(var i = 0; i < user.ActivityID.length; i++){ %>
+            <a type="activities" id="<%= user.ActivityID[i]._id %>"><%= user.ActivityID[i].Name %></a>
+          <% } %>
+        </p>
+      </p>
+      <p id="detail_portfolio">
+        <p class="title with_space">Portfolio</p><span>/</span>
+        <p class="short"><a class="port_demo">123123</a>｜<a class="port_demo">123123</a>｜<a class="port_demo">123123</a></p>
+      </p>
+</div>
+<a href="#" class="close_icon" id="close_window"></a>
+<div class="float_portfolio">
+    <div id="portfolio_upper_left">
+        <p class="upper_tag">portfolio</p>
+        <p class="upper_tag last">Affective Interaction</p>
     </div>
-  </div>
-  <% } %>
-<% } %>
-
+    <svg class="slideshow_btn" id="go_prev" width="20">
+				<line id="line_1" x1="20" y1="0" x2="0" y2="10" />
+				<line id="line_2" x1="20" y1="20" x2="0" y2="10" />
+			</svg>
+    <svg class="slideshow_btn" id="go_next" width="20">
+				<line id="line_1" x1="0" y1="0" x2="20" y2="10" />
+				<line id="line_2" x1="0" y1="20" x2="20" y2="10" />
+			</svg>
+    <div id="portfolio">
+        <!--<img class="portfolio_pic end" src="img/portfolio_end.png">-->
+    </div>
+    <div class="portfolio_pic_counter">
+        <span class="port_counter now">01</span><span class="port_counter total">/10</span>
+    </div>
+    <a href="#" class="close_icon" id="close_portfolio">　</a>
+</div>
 
 <script>
 $(document).ready(function() {
   $(".sendText").on("click", function(){
     // 封鎖未登入使用者
-    <% if(!me){ %> 
-    NotLogin();
-    return;
+    <% if(!me){ %>
+      NotLogin();
+      return;
     <% } %>
 
     // 把之前沒有傳訊息的使用者刪掉

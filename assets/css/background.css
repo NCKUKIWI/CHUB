@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
+.bottom {
+  position: fixed;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../images/bg_pic.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.cover {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+  background-image: url("../images/bg_cover.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

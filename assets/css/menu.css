@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
+.top_left_logo {
+    position: fixed;
+    z-index: 100;
+    margin: 50px 80px;
+    transition: opacity 0.2s;
+}
+
+.top_left_logo:hover {
+    opacity: 0.7;
+}
+
+.top_left_logo:active {
+    opacity: 0.4;
+}
+
+.left_bar {
+    position: fixed;
+    z-index: 100;
+    bottom: 51vh;
+    transform: rotate(-90deg);
+    height: 0vw;
+}
+
+.left_bar p {
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+.left_bar a {
+    position: relative;
+    float: left;
+    margin: 30px;
+    top: -190px;
+    text-decoration: none;
+    color: white;
+    opacity: 0.7;
+}
+
+.left_bar a:after {
+    position: absolute;
+    margin: auto;
+    content: "";
+    display: block;
+    left: 0;
+    right: 0;
+    top: 35px;
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+    background: white;
+    opacity: 0.7;
+    transition: opacity 0.2s, height 0.2s, width 0.2s, top 0.2s;
+}
+
+.left_bar a:hover {
+    opacity: 1;
+}
+
+.left_bar a:hover:after {
+    opacity: 1;
+    height: 16px;
+    width: 16px;
+    top: 33px;
+}
+
+.left_bar a:active {
+    opacity: 0.4;
+}
+
+.bottom_left_bar {
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    margin: 50px 80px;
+    width: 100vw;
+}
+
+.bottom_left_bar:hover .menu_icon {
+    cursor: pointer;
+}
+
+.bottom_left_bar:hover #burger_icon #menuline_1, .bottom_left_bar:hover #burger_icon #menuline_2 {
+    stroke-dasharray: 32;
+}
+
+.bottom_left_bar:hover .menu_content {
+    left: 0;
+    opacity: 1;
+    padding-bottom: 100px;
+    transition: opacity 0.2s;
+}
+
+.bottom_left_bar:hover .menu_content:active {
+    opacity: 0.4;
+}
+
+.bottom_left_bar #burger_icon {
+    position: absolute;
+    top: 0px;
+    left: 46px;
+}
+
+.bottom_left_bar #burger_icon circle {
+    stroke: #ed9027;
+    fill: #ed9027;
+}
+
+.bottom_left_bar #burger_icon line {
+    stroke-width: 2;
+    stroke: #ed9027;
+    transition: stroke-dasharray 0.2s;
+}
+
+.bottom_left_bar #burger_icon #menuline_1 {
+    stroke-dasharray: 19;
+}
+
+.bottom_left_bar #burger_icon #menuline_2 {
+    stroke-dasharray: 23;
+}
+
+.bottom_left_bar .menu_content {
+    position: relative;
+    display: inline;
+    top: -15px;
+    left: -30px;
+    opacity: 0;
+    line-height: 30px;
+    font-size: 12px;
+    font-weight: 100;
+    margin-left: 30px;
+    text-decoration: none;
+    color: white;
+    transition: left 1s ease-out, opacity 1s ease-in;
+}
+
+.bottom_left_bar .menu_content:before {
+    position: absolute;
+    top: 25px;
+    left: 1px;
+    content: "";
+    display: block;
+    height: 1px;
+    width: 0px;
+    background: #ed9027;
+    transition: width 0.2s;
+}
+
+.bottom_left_bar .menu_content:hover:before {
+    width: 20px;
+}
+
+.bottom_left_bar .menu_content:active {
+    opacity: 0.4;
+}

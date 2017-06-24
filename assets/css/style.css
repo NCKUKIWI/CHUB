@@ -1,92 +1,34 @@
-/*html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
-*/
-
-/* HTML5 display-role reset for older browsers */
-
-/*article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-    display: block;
-}
-
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
 body {
-    line-height: 1;
+    font-family: 'Noto Sans', helvetica, Microsoft JhengHei, serif, sans-serif, monospace;
+    color: white;
 }
 
-ol, ul {
-    list-style: none;
+h1 {
+    line-height: 120px;
+    font-size: 45px;
+    font-weight: 100;
+    letter-spacing: 5px;
 }
 
-blockquote, q {
-    quotes: none;
+p {
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: 100;
+    letter-spacing: 0px;
 }
 
-blockquote:before, blockquote:after, q:before, q:after {
-    content: '';
-    content: none;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-*/
-
-/* reset css end */
-
-#main{
-  margin-top: 30px;
-  margin-left: 10%;
-  margin-right: 10%;
-}
-
-#menu {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-}
-
-#logo {
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
-}
+/* old */
 
 .errormsg {
-  color:red;
-  line-height:20px;
+    color: red;
+    line-height: 20px;
 }
 
-.head{
-  text-align: left;
-  margin-left: 10%;
-  margin-bottom:5%;
-}
-
-.head h1{
-  font-size: 80px;
-}
-
-
-.head h2{
-  margin-right: 50%;
-}
-
-.results p{
-font-size: 50px;
-margin-bottom: 10px;
-}
-
-#mainSidebar, #mainSidebar > label{
-  color: white;
+#mainSidebar, #mainSidebar>label {
+    color: white;
 }
 
 .textcenter {
-  text-align: center;
+    text-align: center;
 }

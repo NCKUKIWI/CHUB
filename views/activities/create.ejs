@@ -1,4 +1,13 @@
 <% layout('../public/layout') %>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="/assets/js/multidatepicker.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/multidatepicker.css">
+<script>
+  $(document).ready(function(){
+    $("input[name=time]").multiDatesPicker();
+  });
+</script>
 <div class="ui centered grid" style="padding-top:50px;">
   <div class="ten wide tablet six wide computer column">
     <h1>Create Activity</h1>

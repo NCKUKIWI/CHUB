@@ -1,0 +1,275 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
+.float_window {
+    position: fixed;
+    margin: auto;
+    z-index: 90;
+    left: 0;
+    right: 0;
+    top: 15vh;
+    width: 1100px;
+    height: 70vh;
+    opacity: 0;
+}
+
+.float_window .dark_mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.float_window #detail_left {
+    position: relative;
+    left: 70px;
+}
+
+.float_window #detail_left .share_icons {
+    position: absolute;
+}
+
+.float_window #detail_left .share_icons img {
+    display: list-item;
+    width: 30px;
+    margin: 20px 0px;
+    transition: opacity 0.2s;
+}
+
+.float_window #detail_left .share_icons img:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.float_window #detail_left .share_icons img:active {
+    opacity: 0.4;
+}
+
+.float_window #detail_left #detail_brief {
+    position: relative;
+    margin: 0px 70px;
+    width: 100%;
+}
+
+.float_window #detail_left #detail_brief img {
+    width: 25vh;
+}
+
+.float_window #detail_left #detail_brief .name {
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+.float_window #detail_left #detail_brief .name:before {
+    position: relative;
+    content: "";
+    display: block;
+    height: 6px;
+    width: 7vw;
+    margin-top: 6vh;
+    margin-bottom: 4vh;
+    background: #ed9027;
+}
+
+.float_window #detail_left #detail_brief .sub_name {
+    font-size: 20px;
+    margin-top: 0.5vh;
+    letter-spacing: 4px;
+    color: #ed9027;
+}
+
+.float_window #detail_left #detail_brief #text_me {
+    position: absolute;
+    float: left;
+    background: url("../images/text_me.png");
+    height: 18px;
+    width: 85px;
+    margin: 10vh 0px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.float_window #detail_left #detail_brief #text_me:hover {
+    opacity: 0.7;
+}
+
+.float_window #detail_left #detail_brief #text_me:active {
+    opacity: 0.4;
+}
+
+.float_window #detail_upper_right {
+    position: absolute;
+    top: 2%;
+    left: 460px;
+}
+
+.float_window #detail_right {
+    position: absolute;
+    top: 6%;
+    left: 460px;
+    height: 82%;
+    width: 640px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-top: 30px;
+}
+
+.float_window #detail_right .title {
+    font-size: 14px;
+    font-style: italic;
+    display: inline;
+}
+
+.float_window #detail_right .title.with_space {
+    position: relative;
+    line-height: 55px;
+}
+
+.float_window #detail_right span {
+    color: #ed9027;
+    margin: 0px 8px;
+}
+
+.float_window #detail_right .short {
+    display: inline;
+}
+
+.float_window #detail_right .long {
+    position: relative;
+    top: -10px;
+    margin-bottom: -5px;
+    left: 40px;
+    line-height: 24px;
+}
+
+.float_window #detail_right a {
+    text-decoration: underline;
+    transition: opacity 0.2s;
+}
+
+.float_window #detail_right a:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.float_window #detail_right a:active {
+    opacity: 0.4;
+}
+
+.float_portfolio {
+    position: absolute;
+    z-index: 90;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+}
+
+.float_portfolio #portfolio_upper_left {
+    position: absolute;
+    margin: 30px 40px;
+}
+
+.float_portfolio #portfolio_upper_left .upper_tag {
+    font-style: italic;
+    color: #ed9027;
+}
+
+.float_portfolio #portfolio_upper_left .upper_tag.last {
+    color: white;
+    font-style: normal;
+}
+
+.float_portfolio .slideshow_btn {
+    position: absolute;
+    top: 35vh;
+    z-index: 150;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.float_portfolio .slideshow_btn line {
+    stroke-width: 2;
+    stroke: #ed9027;
+}
+
+.float_portfolio .slideshow_btn.disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+
+.float_portfolio .slideshow_btn.disabled:hover {
+    opacity: 0.4;
+}
+
+.float_portfolio .slideshow_btn:hover {
+    opacity: 0.7;
+}
+
+.float_portfolio .slideshow_btn:active {
+    opacity: 0.4;
+}
+
+.float_portfolio #go_prev {
+    left: 50px;
+}
+
+.float_portfolio #go_next {
+    right: 50px;
+}
+
+.float_portfolio #portfolio {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+}
+
+.float_portfolio #portfolio .portfolio_pic {
+    position: relative;
+    width: 50%;
+    top: 0px;
+    opacity: 0.3;
+    margin: 30px;
+    transition: opacity 0.5s, width 0.5s, top 0.5s;
+}
+
+.float_portfolio #portfolio .portfolio_pic.center {
+    width: 55%;
+    top: 0;
+    opacity: 1;
+}
+
+.float_portfolio .portfolio_pic_counter {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 10vh;
+}
+
+.float_portfolio .portfolio_pic_counter .port_counter {
+    color: #ed9027;
+    letter-spacing: 2px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.close_icon {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    background: url("../images/close.png");
+    height: 17px;
+    width: 16px;
+    text-decoration: none;
+}
+
+.close_icon:hover {
+    background: url("../images/close_on.png");
+}
+
+.close_icon:active {
+    opacity: 0.4;
+}

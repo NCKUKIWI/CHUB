@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
+#intro_left {
+  position: absolute;
+  left: 20vw;
+  top: 20vh;
+  width: 16vw; }
+  #intro_left p {
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: 100;
+    letter-spacing: 3px; }
+  #intro_left .space {
+    height: 14vh; }
+  #intro_left #you_can {
+    float: left;
+    margin-right: 15px; }
+  #intro_left #search {
+    position: relative;
+    z-index: 20;
+    float: left;
+    background: url("../img/search.png");
+    height: 18px;
+    width: 82px;
+    text-decoration: none; }
+    #intro_left #search:hover {
+      background: url("../img/search_on.png"); }
+    #intro_left #search:active {
+      opacity: 0.4; }
+
+.main_round_pic {
+  position: absolute;
+  left: 48vw;
+  top: 20vh;
+  width: 40vw;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%); }
+
+.hide_scrollbar {
+  position: relative;
+  z-index: 100;
+  width: 62vw;
+  height: 100vh;
+  overflow: hidden; }
+
+#view_left {
+  position: absolute;
+  z-index: 100;
+  left: 15vw;
+  top: 5vh;
+  width: 48vw;
+  height: 90vh;
+  overflow: scroll; }
+  #view_left .people_left {
+    position: relative;
+    width: 11vw;
+    margin: 15px 10px; }
+    #view_left .people_left .people_pic {
+      position: relative;
+      width: 100%;
+      transition: brightness 0.5s; }
+    #view_left .people_left .people_more {
+      position: absolute;
+      z-index: 20;
+      left: 0;
+      right: 0;
+      bottom: 26px;
+      margin: auto;
+      width: 20px;
+      opacity: 0;
+      transition: bottom 0.5s, width 0.5s, opacity 1s; }
+    #view_left .people_left:hover {
+      cursor: pointer; }
+    #view_left .people_left:active .people_pic {
+      opacity: 0.4; }
+  #view_left .row {
+    position: absolute;
+    width: 13vw; }
+  #view_left #row_1 {
+    left: 0vw;
+    top: 8vh; }
+  #view_left #row_2 {
+    left: 12.5vw;
+    top: 0vh; }
+  #view_left #row_3 {
+    left: 25vw;
+    top: 15vh; }
+
+#view_upper_right {
+  position: absolute;
+  z-index: 100;
+  left: 56vw;
+  top: 20vh;
+  margin-left: 20px; }
+
+#view_right {
+  position: absolute;
+  z-index: 100;
+  left: 62vw;
+  top: 26vh;
+  width: 28vw;
+  height: 60vh;
+  overflow: scroll; }
+  #view_right .people_info {
+    display: inline-block;
+    margin: 22px; }
+    #view_right .people_info .name {
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 20px; }
+    #view_right .people_info .major {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      color: #ed9027; }
+    #view_right .people_info .skill {
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 10px;
+      line-height: 14px; }
+    #view_right .people_info .after {
+      position: relative;
+      top: 15px;
+      left: 1px;
+      content: "";
+      display: block;
+      height: 2px;
+      width: 0px;
+      background: #ed9027;
+      transition: width 0.2s; }
+    #view_right .people_info:hover {
+      cursor: pointer; }
+    #view_right .people_info:active {
+      opacity: 0.4; }
+
+.upper_tag {
+  position: relative;
+  float: left;
+  font-size: 14px;
+  font-weight: 100;
+  letter-spacing: 1px;
+  line-height: 28px; }
+  .upper_tag:after {
+    position: absolute;
+    top: 14px;
+    right: -30px;
+    content: "";
+    display: block;
+    height: 1px;
+    width: 20px;
+    background: #ed9027; }
+  .upper_tag.last {
+    position: relative;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0px 6px;
+    margin-left: 35px; }
+    .upper_tag.last:after {
+      opacity: 0; }

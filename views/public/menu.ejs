@@ -1,21 +1,31 @@
-<div class="ui secondary pointing menu" style="margin-top: 0px;">
-  <a href="/" class="item" id="logo">
-    <img style="width:50px;" src="/assets/images/logo.jpg">
-  </a>
-  <a href="/about" class="item">
-    About
-  </a>
-  <a href="/users" class="item">
-    People
-  </a>
-  <a href="/groups" class="item">
-    Group
-  </a>
-  <a href="/projects" class="item">
-    Project
-  </a>
-  <a href="/activities" class="item">
-    Activity
-  </a>
-  <a href="/space" class="item">Space</a>
+<div class="menu">
+	<div class="top_left_logo">
+		<a href="http://localhost:3000/">
+			<img id="chub_logo" src="/assets/images/chub_logo.png">
+		</a>
+	</div>
+	<div class="left_bar">
+		<p id="sub_menu">
+			<a href="/activities">Activity</a>
+			<a href="/groups">Group</a>
+			<a href="/projects">Projects</a>
+			<a href="/users">People</a>
+		</p>
+	</div>
+	<div class="bottom_left_bar">
+		<img class="menu_icon" src="/assets/images/menu_icon.png">
+		<svg class="menu_icon" id="burger_icon" width="32">
+			<circle cx="2" cy="2" r="1.5"/>
+			<line id="menuline_1" x1="0" y1="10" x2="32" y2="10" />
+			<line id="menuline_2" x1="0" y1="17" x2="32" y2="17" />
+			<line id="menuline_3" x1="0" y1="24" x2="32" y2="24" />
+		</svg>
+		<a class="menu_content" href="/about">About</a>
+		<a class="menu_content" href="/users">People</a>
+		<a class="menu_content" href="/groups">Group</a>
+		<a class="menu_content" href="/projects">Project</a>
+		<a class="menu_content" href="/activities">Activity</a>
+		<a class="menu_content" href="/space">Space</a>
+		<a class="menu_content" href="/whaton">What's on</a>
+	</div>
 </div>

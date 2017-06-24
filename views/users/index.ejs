@@ -1,58 +1,80 @@
 <% layout('../public/layout') %>
-<div class="head">
-  <h1>People</h1>
-  <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
-  <a class="ui button searchbtn">search</a>
-</div>
-<% if( Object.keys(query).length>0  && id === undefined){ %>
-  <h2>查詢條件</h2>
-  <h3>
-    <% for(var i in query ){ %>
-      <% if(query[i]){ %>
-        <%= i +" : "+query[i] %>&nbsp;&nbsp;&nbsp;&nbsp;
-      <% } %>
-    <% } %>
-  </h3>
-  <h4>一共<%= users.length %>筆</h4>
-<% } %>
-<div class="ui special cards">
-  <% for(var i in users){ %>
-    <div class="card">
-      <div class="blurring dimmable image">
-        <div class="ui inverted dimmer">
-          <div class="content">
-            <div class="center">
-              <div class="ui primary button info" user-id="<%= users[i]._id %>">Info</div>
-            </div>
-          </div>
-        </div>
-        <img src="/assets/images/molly.png">
+<div id="fullpage">
+	<div class="main_page">
+    <div class="section" id="people_intro">
+      <div id="intro_left">
+        <h1>People</h1>
+        <p>C-Hub is a creative space came about from the interconnection among
+          Creativity, Human, Urban, and Building Environment.</p>
+        <div class="space"></div>
+        <img id="you_can" src="/assets/images/you_can.png">
+        <a href="#" id="search"></a>
       </div>
-      <div class="content">
-        <a class="header"><%= users[i].Name %></a>
-        <% if(users[i].Major !== undefined){ %>
-        <div class="meta">
-          <span class="date">Major in <%= users[i].Major %></span>
-        </div>
-        <% } %>
-      </div>
-      <div class="extra content">
-        <% for(var j = 0; j < users[i].Skill.length; j++){ %>
-        <a class="ui basic label"><%= users[i].Skill[j] %></a>
-        <% } %>
+      <div id="intro_right">
+        <img class="main_round_pic" src="/assets/images/people_round.png">
       </div>
     </div>
-  <% } %>
+		<div class="section" id="people_view">
+			<div class="hide_scrollbar">
+				<div id="view_left" class="syncscroll" name="view_people">
+					<div class="row" id="row_1">
+					<% for(var i =0 ; i<users.length ; i+=3){ %>
+						<div class="people_left">
+							<img class="people_pic" id="pic_<%= users[i].id %>" src="/assets/images/people_ex.png" user-id="<%= users[i].id %>">
+							<img class="people_more" src="/assets/images/people_more.png">
+						</div>
+					<% } %>
+					</div>
+					<div class="row" id="row_2">
+					<% for(var i =1 ; i<users.length ; i+=3){ %>
+						<div class="people_left">
+							<img class="people_pic" id="pic_<%= users[i].id %>" src="/assets/images/people_ex.png" user-id="<%= users[i].id %>">
+							<img class="people_more" src="/assets/images/people_more.png">
+						</div>
+					<% } %>
+					</div>
+					<div class="row" id="row_3">
+					<% for(var i =2 ; i<users.length ; i+=3){ %>
+						<div class="people_left">
+							<img class="people_pic" id="pic_<%= users[i].id %>" src="/assets/images/people_ex.png" user-id="<%= users[i].id %>">
+							<img class="people_more" src="/assets/images/people_more.png">
+						</div>
+					<% } %>
+					</div>
+				</div>
+			</div>
+			<div id="view_upper_right">
+				<p class="upper_tag">People</p>
+				<p class="upper_tag last">Major</p>
+			</div>
+			<div id="view_right" class="syncscroll" name="view_people">
+				<% for(var i =0 ; i<users.length;i++){ %>
+					<div class="people_info" id="info_<%= users[i].id %>" user-id="<%= users[i].id %>">
+						<p class="name"><%= users[i].Name %></p>
+						<p class="major"><%= users[i].Major %></p>
+						<p class="skill">
+							<% for(var j = 0 ; j<users[i].Skill.length;j++){%>
+								<%= users[i].Skill[j] %><br>
+							<% } %>
+						</p>
+						<span class="after"></span>
+					</div>
+				<% } %>
+			</div>
+		</div>
+    <div class="section" id="footer">
+      <% include ../public/footer %>
+    </div>
+  </div>
 </div>
 
-<div class="ui modal">
+<div class="float_window">
 </div>
 
 <script>
 $(document).ready(function(){
-<% if(id !== undefined){ %>
-  console.log('click trigger');
-  $('.primary.info[user-id=<%= id %>]').trigger('click');
-<% } %>
+	<% if(id !== undefined){ %>
+	  $('.primary.info[user-id=<%= id %>]').trigger('click');
+	<% } %>
 });
 </script>

@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
+.right_sidebar {
+    position: fixed;
+    z-index: 100;
+    right: 0;
+    width: 30px;
+    top: 120px;
+}
+
+.right_sidebar .side_icon {
+    float: right;
+    margin: 18px 0px;
+    cursor: pointer;
+}
+
+.right_sidebar .side_icon img {
+    width: 20px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.right_sidebar .side_icon:after {
+    position: relative;
+    top: 8px;
+    right: 1px;
+    content: "";
+    display: block;
+    height: 2px;
+    width: 60px;
+    background: #ed9027;
+    transition: right 0.2s;
+}
+
+.right_sidebar .side_icon:hover img {
+    opacity: 1;
+}
+
+.right_sidebar .side_icon:active img {
+    opacity: 0.4;
+}
+
+.right_sidebar .side_icon:active:after {
+    right: 51px;
+}
