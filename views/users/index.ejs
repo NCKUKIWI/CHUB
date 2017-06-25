@@ -5,19 +5,19 @@
 
 <div id="fullpage">
 	<div class="main_page">
-    <div class="section" id="people_intro">
-      <div id="intro_left">
-        <h1>People</h1>
-        <p>C-Hub is a creative space came about from the interconnection among
-          Creativity, Human, Urban, and Building Environment.</p>
-        <div class="space"></div>
-        <img id="you_can" src="/assets/images/you_can.png">
-        <a href="#" id="search" class="searchbtn"></a>
-      </div>
-      <div id="intro_right">
-        <img class="main_round_pic" src="/assets/images/people_round.png">
-      </div>
-    </div>
+		<div class="section" id="people_intro">
+			<div id="intro_left">
+				<h1>People</h1>
+				<p>C-Hub is a creative space came about from the interconnection among
+					Creativity, Human, Urban, and Building Environment.</p>
+				<div class="space"></div>
+				<img id="you_can" src="img/you_can.png">
+				<a href="#" id="search">　</a>
+			</div>
+			<div id="intro_right">
+				<img class="main_round_pic" src="img/people_round.png">
+			</div>
+		</div>
 		<div class="section" id="people_view">
 			<div class="hide_scrollbar">
 				<div id="view_left" class="syncscroll" name="view_people">
@@ -51,7 +51,7 @@
 				<p class="upper_tag">People</p>
 				<p class="upper_tag last">Major</p>
 			</div>
-			<div id="view_right" class="syncscroll" name="view_people">
+			<div id="view_right" class="syncscroll with_scroll" name="view_people">
 				<% for(var i =0 ; i<users.length;i++){ %>
 					<div class="people_info" id="info_<%= users[i].id %>" user-id="<%= users[i].id %>">
 						<p class="name"><%= users[i].Name %></p>

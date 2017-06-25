@@ -27,11 +27,22 @@
     letter-spacing: 3px;
 }
 
+.left_bar .item_now {
+    opacity: 1;
+}
+
+.left_bar .item_now:after {
+    opacity: 1;
+    height: 16px;
+    width: 16px;
+    top: 33px;
+}
+
 .left_bar a {
     position: relative;
     float: left;
-    margin: 30px;
-    top: -190px;
+    padding: 0px 30px 30px 30px;
+    top: -160px;
     text-decoration: none;
     color: white;
     opacity: 0.7;
@@ -132,6 +143,7 @@
     margin-left: 30px;
     text-decoration: none;
     color: white;
+    text-shadow: 0px 0px 20px black, 0px 0px 20px black, 0px 0px 20px black;
     transition: left 1s ease-out, opacity 1s ease-in;
 }
 

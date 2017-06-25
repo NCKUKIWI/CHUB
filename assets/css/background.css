@@ -6,15 +6,22 @@
   height: 100vh;
   background-image: url("../images/bg_pic.png");
   background-repeat: no-repeat;
-  background-size: cover;
-}
+  background-size: cover; }
 
 .cover {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  opacity: 0.5;
+  opacity: 0.3;
   background-image: url("../images/bg_cover.png");
   background-repeat: no-repeat;
-  background-size: cover;
-}
+  background-size: cover; }
+
+.project_cover {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  background-image: url("../images/project_cover.png");
+  background-repeat: no-repeat;
+  background-size: cover; }

@@ -1,81 +1,93 @@
 <div class="dark_mask"></div>
 <div id="detail_left">
-  <div class="share_icons">
-    <img src="/assets/images/share_fb.png">
-    <img src="/assets/images/share_twitter.png">
-    <img src="/assets/images/share_ig.png">
-  </div>
-  <div id="detail_brief">
-      <img src="/uploads/user/<%= user.id %>/avatar.png">
-      <p class="name"><%= user.Name %></p>
-      <% if(me) { %>
-        <% if(me._id.toString().indexOf(user._id.toString()) == -1){ %>
-          <a href="#" class="sendText" id="text_me" userid="<%= user._id %>" userName = "<%= user.Name %>"></a>
-        <% } %>
+	<div class="share_icons">
+		<img src="/assets/images/share_fb.png">
+		<img src="/assets/images/share_twitter.png">
+		<img src="/assets/images/share_ig.png">
+	</div>
+	<div id="detail_brief">
+		<img src="/uploads/user/<%= user.id %>/avatar.png">
+		<p class="name"><%= user.Name %></p>
+    <% if(me) { %>
+      <% if(me._id.toString().indexOf(user._id.toString()) == -1){ %>
+        <a href="#" class="sendText" id="text_me" userid="<%= user._id %>" userName = "<%= user.Name %>"></a>
       <% } %>
-  </div>
+    <% } %>
+	</div>
 </div>
 <div id="detail_upper_right">
-  <p class="upper_tag">People</p>
-  <p class="upper_tag last">Major</p>
+	<p class="upper_tag">People</p>
+	<p class="upper_tag last">Major</p>
 </div>
-<div id="detail_right">
-  <p id="detail_major">
-    <p class="title">Major</p><span>/</span>
-    <p class="short"><%= user.Major !== undefined ? user.Major : "" %></p>
-    <p id="detail_skills">
-      <p class="title">Skills</p><span>/</span>
-      <p class="short">
-        <% for(var j = 0; j < user.Skill.length; j++){ %>
-          <%= user.Skill[j] %>
-          <% if(j != user.Skill.length - 1){ %>
-            ,
-          <% } %>
+<div class="with_scroll" id="detail_right">
+	<p></p>
+	<p id="detail_major">
+    <p class="title">Major</p>
+    <span>/</span>
+    <p class="short">
+      <%= user.Major !== undefined ? user.Major : "" %>
+    </p>
+  </p>
+	<p id="detail_skills">
+    <p class="title">Skills</p>
+    <span>/</span>
+    <p class="short">
+      <% for(var j = 0; j < user.Skill.length; j++){ %>
+        <%= user.Skill[j] %>
+        <% if(j != user.Skill.length - 1){ %>
+          ,
         <% } %>
-      </p>
+      <% } %>
     </p>
-    <p id="detail_group">
-      <p class="title">Group</p><span>/</span>
-      <p class="short">
-        <% for(var i = 0; i < user.GroupID.length; i++){ %>
-          <a type="groups" id="<%= user.GroupID[i]._id %>"><%= user.GroupID[i].Name %></a><br>
-        <% } %>
-      </p>
+  </p>
+	<p id="detail_group">
+    <p class="title">Group</p>
+    <span>/</span>
+    <p class="short">
+      <% for(var i = 0; i < user.GroupID.length; i++){ %>
+        <a type="groups" id="<%= user.GroupID[i]._id %>"><%= user.GroupID[i].Name %></a><br>
+      <% } %>
     </p>
-    <p id="detail_location">
-      <p class="title">Location</p><span>/</span>
-      <p class="short"><%= user.Location %></p>
+  </p>
+	<p id="detail_location">
+    <p class="title">Location</p>
+    <span>/</span>
+    <p class="short"><%= user.Location %></p>
+  </p>
+	<p id="detail_intro">
+    <p class="title with_space">Introduction</p>
+    <span>/</span>
+    <p class="long">
+      <%= user.Introduction %>
+		</p>
+  </p>
+	<p id="detail_project">
+    <p class="title with_space">Project</p>
+    <span>/</span>
+    <p class="long">
+      <% for(var i = 0; i < user.ProjectID.length; i++){ %>
+        <a type="projects" id="<%= user.ProjectID[i]._id %>"><%= user.ProjectID[i].Name %></a>
+      <% } %>
     </p>
-    <p id="detail_intro">
-      <p class="title with_space">Introduction</p><span>/</span>
-      <p class="long">
-        <%= user.Introduction %>
-      </p>
+  </p>
+	<p id="detail_activity">
+    <p class="title with_space">Activity</p>
+    <span>/</span>
+    <p class="long">
+      <% for(var i = 0; i < user.ActivityID.length; i++){ %>
+        <a type="activities" id="<%= user.ActivityID[i]._id %>"><%= user.ActivityID[i].Name %></a>
+      <% } %>
     </p>
-      <p id="detail_project">
-        <p class="title with_space">Project</p><span>/</span>
-        <p class="long">
-          <% for(var i = 0; i < user.ProjectID.length; i++){ %>
-            <a type="projects" id="<%= user.ProjectID[i]._id %>"><%= user.ProjectID[i].Name %></a>
-          <% } %>
-        </p>
-      </p>
-      <p id="detail_activity">
-        <p class="title with_space">Activity</p><span>/</span>
-        <p class="long">
-          <% for(var i = 0; i < user.ActivityID.length; i++){ %>
-            <a type="activities" id="<%= user.ActivityID[i]._id %>"><%= user.ActivityID[i].Name %></a>
-          <% } %>
-        </p>
-      </p>
-      <p id="detail_portfolio">
-        <p class="title with_space">Portfolio</p><span>/</span>
-        <p class="short">
-          <% for(var i = 0 ; i <  user.portfolio.length ; i++){ %>
-            <a href="/uploads/user/<%= user._id %>/<%= user.portfolio[i] %>" target="_blank"><%= user.portfolio[i] %></a>
-          <% } %>
-        </p>
-      </p>
+  </p>
+	<p id="detail_portfolio">
+    <p class="title with_space">Portfolio</p>
+    <span>/</span>
+    <p class="short">
+      <% for(var i = 0 ; i <  user.portfolio.length ; i++){ %>
+        <a class="port_demo" href="/uploads/user/<%= user._id %>/<%= user.portfolio[i] %>" target="_blank"><%= user.portfolio[i] %></a>
+      <% } %>
+    </p>
+  </p>
 </div>
 <a href="#" class="close_icon" id="close_window"></a>
 
