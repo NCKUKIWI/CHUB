@@ -4,6 +4,11 @@ body {
     color: white;
 }
 
+a,a:hover{
+  color:white;
+  text-decoration: none;
+}
+
 h1 {
     line-height: 120px;
     font-size: 45px;

@@ -1,4 +1,8 @@
 <% layout('../public/layout') %>
+<script type="text/javascript" src="/assets/js/people.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/people_main.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/people_float.css">
+
 <div id="fullpage">
 	<div class="main_page">
     <div class="section" id="people_intro">
@@ -8,7 +12,7 @@
           Creativity, Human, Urban, and Building Environment.</p>
         <div class="space"></div>
         <img id="you_can" src="/assets/images/you_can.png">
-        <a href="#" id="search"></a>
+        <a href="#" id="search" class="searchbtn"></a>
       </div>
       <div id="intro_right">
         <img class="main_round_pic" src="/assets/images/people_round.png">
@@ -20,7 +24,7 @@
 					<div class="row" id="row_1">
 					<% for(var i =0 ; i<users.length ; i+=3){ %>
 						<div class="people_left">
-							<img class="people_pic" id="pic_<%= users[i].id %>" src="/assets/images/people_ex.png" user-id="<%= users[i].id %>">
+							<img class="people_pic" id="pic_<%= users[i].id %>" src="/uploads/user/<%= users[i].id %>/avatar.png" user-id="<%= users[i].id %>">
 							<img class="people_more" src="/assets/images/people_more.png">
 						</div>
 					<% } %>
@@ -28,7 +32,7 @@
 					<div class="row" id="row_2">
 					<% for(var i =1 ; i<users.length ; i+=3){ %>
 						<div class="people_left">
-							<img class="people_pic" id="pic_<%= users[i].id %>" src="/assets/images/people_ex.png" user-id="<%= users[i].id %>">
+							<img class="people_pic" id="pic_<%= users[i].id %>" src="/uploads/user/<%= users[i].id %>/avatar.png"  user-id="<%= users[i].id %>">
 							<img class="people_more" src="/assets/images/people_more.png">
 						</div>
 					<% } %>
@@ -36,7 +40,7 @@
 					<div class="row" id="row_3">
 					<% for(var i =2 ; i<users.length ; i+=3){ %>
 						<div class="people_left">
-							<img class="people_pic" id="pic_<%= users[i].id %>" src="/assets/images/people_ex.png" user-id="<%= users[i].id %>">
+							<img class="people_pic" id="pic_<%= users[i].id %>" src="/uploads/user/<%= users[i].id %>/avatar.png"  user-id="<%= users[i].id %>">
 							<img class="people_more" src="/assets/images/people_more.png">
 						</div>
 					<% } %>

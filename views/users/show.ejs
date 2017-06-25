@@ -4,10 +4,9 @@
     <img src="/assets/images/share_fb.png">
     <img src="/assets/images/share_twitter.png">
     <img src="/assets/images/share_ig.png">
-    <img src="/assets/images/share_wp.png">
   </div>
   <div id="detail_brief">
-      <img src="/assets/images/people_ex.png">
+      <img src="/uploads/user/<%= user.id %>/avatar.png">
       <p class="name"><%= user.Name %></p>
       <% if(me) { %>
         <% if(me._id.toString().indexOf(user._id.toString()) == -1){ %>
@@ -30,7 +29,7 @@
         <% for(var j = 0; j < user.Skill.length; j++){ %>
           <%= user.Skill[j] %>
           <% if(j != user.Skill.length - 1){ %>
-            ,&nbsp;&nbsp;
+            ,
           <% } %>
         <% } %>
       </p>
@@ -39,7 +38,7 @@
       <p class="title">Group</p><span>/</span>
       <p class="short">
         <% for(var i = 0; i < user.GroupID.length; i++){ %>
-          <a type="groups" id="<%= user.GroupID[i]._id %>"><%= user.GroupID[i].Name %></a>
+          <a type="groups" id="<%= user.GroupID[i]._id %>"><%= user.GroupID[i].Name %></a><br>
         <% } %>
       </p>
     </p>
@@ -71,31 +70,14 @@
       </p>
       <p id="detail_portfolio">
         <p class="title with_space">Portfolio</p><span>/</span>
-        <p class="short"><a class="port_demo">123123</a>｜<a class="port_demo">123123</a>｜<a class="port_demo">123123</a></p>
+        <p class="short">
+          <% for(var i = 0 ; i <  user.portfolio.length ; i++){ %>
+            <a href="/uploads/user/<%= user._id %>/<%= user.portfolio[i] %>" target="_blank"><%= user.portfolio[i] %></a>
+          <% } %>
+        </p>
       </p>
 </div>
 <a href="#" class="close_icon" id="close_window"></a>
-<div class="float_portfolio">
-    <div id="portfolio_upper_left">
-        <p class="upper_tag">portfolio</p>
-        <p class="upper_tag last">Affective Interaction</p>
-    </div>
-    <svg class="slideshow_btn" id="go_prev" width="20">
-				<line id="line_1" x1="20" y1="0" x2="0" y2="10" />
-				<line id="line_2" x1="20" y1="20" x2="0" y2="10" />
-			</svg>
-    <svg class="slideshow_btn" id="go_next" width="20">
-				<line id="line_1" x1="0" y1="0" x2="20" y2="10" />
-				<line id="line_2" x1="0" y1="20" x2="20" y2="10" />
-			</svg>
-    <div id="portfolio">
-        <!--<img class="portfolio_pic end" src="img/portfolio_end.png">-->
-    </div>
-    <div class="portfolio_pic_counter">
-        <span class="port_counter now">01</span><span class="port_counter total">/10</span>
-    </div>
-    <a href="#" class="close_icon" id="close_portfolio">　</a>
-</div>
 
 <script>
 $(document).ready(function() {

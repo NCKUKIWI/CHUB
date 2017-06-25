@@ -143,8 +143,8 @@
 }
 
 .float_window #detail_right a {
-    text-decoration: underline;
-    transition: opacity 0.2s;
+  /*text-decoration: underline;*/
+  transition: opacity 0.2s;
 }
 
 .float_window #detail_right a:hover {
