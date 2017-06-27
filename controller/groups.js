@@ -186,16 +186,36 @@ router.post("/join",helper.apiAuth(),function(req,res) {
 router.post("/quit",helper.apiAuth(),function(req,res) {
   Group.findById(req.body.group_id, function(err, group) {
     if(group){
-      group.ApplyID = helper.removeFromArray(group.ApplyID,req.params.uid);
-      group.MemberID = helper.removeFromArray(group.MemberID,req.params.uid);
-      group.save(function(err) {
-        if(err){
-          res.send({error:helper.handleError(err)});
-        }else{
-          cacheClear();
-          res.send("ok");
-        }
-      });
+      if(group.MemberID.length==1){
+        group.remove(function(err){
+          if(err){
+            console.log(err);
+            res.send({error:err});
+          }else{
+            rimraf(`${__dirname}/../uploads/group/${req.body.group_id}`,function () { });
+            User.update({"GroupID":req.body.group_id},{$pull:{"GroupID":req.body.group_id}},function(err){
+              if(err){
+                console.log(err);
+                res.send({error:err});
+              }else{
+                cacheClear();
+                res.send("ok");
+              }
+            });
+          }
+        });
+      }else{
+        group.ApplyID = helper.removeFromArray(group.ApplyID,req.params.uid);
+        group.MemberID = helper.removeFromArray(group.MemberID,req.params.uid);
+        group.save(function(err) {
+          if(err){
+            res.send({error:helper.handleError(err)});
+          }else{
+            cacheClear();
+            res.send("ok");
+          }
+        });
+      }
     }else{
       res.send({error:"notFound"});
     }

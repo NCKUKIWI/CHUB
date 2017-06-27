@@ -21,7 +21,6 @@ $(document).ready(function(){
     });
 
     // People 的顯示控制
-		// People 的顯示控制
 		function show_window(id) {
 			if(window_status == 'closed') {
 				$.ajax({

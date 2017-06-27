@@ -11,11 +11,11 @@
 				<p>C-Hub is a creative space came about from the interconnection among
 					Creativity, Human, Urban, and Building Environment.</p>
 				<div class="space"></div>
-				<img id="you_can" src="img/you_can.png">
+				<img id="you_can" src="/assets/images/you_can.png">
 				<a href="#" id="search">　</a>
 			</div>
 			<div id="intro_right">
-				<img class="main_round_pic" src="img/people_round.png">
+				<img class="main_round_pic" src="/assets/images/people_round.png">
 			</div>
 		</div>
 		<div class="section" id="people_view">
@@ -78,7 +78,7 @@
 <script>
 $(document).ready(function(){
 	<% if(id !== undefined){ %>
-	  $('.primary.info[user-id=<%= id %>]').trigger('click');
+	  $('.people_pic[user-id=<%= id %>]').trigger('click');
 	<% } %>
 });
 </script>

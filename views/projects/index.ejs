@@ -1,47 +1,56 @@
 <% layout('../public/layout') %>
-<div class="head">
-  <h1>Project</h1>
-  <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
-  <a class="ui button searchbtn">Search</a>
-</div>
-<div class="ui special cards">
-  <% for(var i in projects){ %>
-    <div class="card">
-      <div class="blurring dimmable image">
-        <div class="ui inverted dimmer">
-          <div class="content">
-            <div class="center">
-              <div class="ui primary button info" project-id="<%= projects[i]._id %>">Info</div>
-            </div>
-          </div>
-        </div>
-        <% if(projects[i].hasCover == 1){ %>
-          <img src="/uploads/project/<%= projects[i]._id %>/logo.png">
-        <% }else {%>
-          <img src="/assets/images/project.png">
-        <% } %>
-      </div>
-      <div class="content">
-        <a class="header" href="/projects/<%= projects[i]._id %>"><%= projects[i].Name %></a>
-        <div class="meta">
-          <span class="date">Type: <%= projects[i].Type %></span>
-        </div>
-      </div>
-      <div class="extra content">
-        <a><i class="users icon"></i>
-          <%= projects[i].MemberID.length %> members
-        </a>
-      </div>
+<script type="text/javascript" src="/assets/js/project.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/project_main.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/project_float.css">
+
+<div id="fullpage">
+	<div class="main_page">
+    <div class="section" id="project_intro">
+    	<div id="intro_left">
+    		<h1>Projects</h1>
+    		<p>C-Hub is a creative space came about from the interconnection among
+    			Creativity, Human, Urban, and Building Environment.</p>
+    		<div class="space"></div>
+    		<img id="you_can" src="/assets/images/you_can.png">
+    		<a href="#" class="searchbtn" id="search"></a>
+    	</div>
+    	<div id="intro_right">
+    		<img class="main_round_pic" src="/assets/images/project_round.png">
+    	</div>
     </div>
-  <% } %>
+    <div class="section" id="project_view">
+    	<div id="project_list">
+        <% for(var i in projects){ %>
+    		<div class="project_item"  project-id="<%= projects[i]._id %>">
+          <% if(projects[i].hasCover == 1){ %>
+            <img class="preview_pic" src="/uploads/project/<%= projects[i]._id %>/logo.png">
+          <% }else {%>
+            <img class="preview_pic" src="/assets/images/project.png">
+          <% } %>
+    			<div class="preview_more"></div>
+    			<p class="preview_title"><%= projects[i].Name %></p>
+    			<p class="preview_class"><%= projects[i].Type %></p>
+    			<div class="icon social"></div>
+    		</div>
+        <% } %>
+    	</div>
+    	<div id="preview_control">
+    		<a class="sort_way now" id="sort_hot">HOT</a>
+    		<a class="sort_way" id="sort_time">TIME</a>
+    		<div class="list_go" id="go_up"></div>
+    		<div class="list_go" id="go_down"></div>
+    	</div>
+    </div>
+  </div>
 </div>
-<div class="ui modal">
+
+<div class="float_window">
 </div>
 
 <script>
 $(document).ready(function(){
 <% if(id !== undefined){ %>
-  $('.primary.info[project-id=<%= id %>]').trigger('click');
+  $('.project_item[project-id=<%= id %>]').trigger('click');
 <% } %>
 });
 </script>

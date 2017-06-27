@@ -225,16 +225,35 @@ router.post("/join",helper.apiAuth(),function(req,res) {
 router.post("/quit",helper.apiAuth(),function(req,res) {
   Project.findById(req.body.project_id, function(err, project) {
     if(project){
-      project.MemberID = helper.removeFromArray(project.MemberID,req.user._id);
-      project.ApplyID = helper.removeFromArray(project.ApplyID,req.user._id);
-      project.save(function(err) {
-        if(err){
-          res.send({error:helper.handleError(err)});
-        }else{
-          cacheClear();
-          res.send("ok");
-        }
-      });
+      if(project.MemberID.length==1){
+        project.remove(function(err){
+          if(err){
+            console.log(err);
+            res.send({error:err});
+          }else{
+            rimraf(`${__dirname}/../uploads/project/${req.body.project_id}`,function () { });
+            User.update({"ProjectID":req.body.project_id},{$pull:{"ProjectID":req.body.project_id}},function(err){
+              if(err){
+                res.send({error:err});
+              }else{
+                cacheClear();
+                res.send("ok");
+              }
+            });
+          }
+        });
+      }else{
+        project.MemberID = helper.removeFromArray(project.MemberID,req.user._id);
+        project.ApplyID = helper.removeFromArray(project.ApplyID,req.user._id);
+        project.save(function(err) {
+          if(err){
+            res.send({error:helper.handleError(err)});
+          }else{
+            cacheClear();
+            res.send("ok");
+          }
+        });
+      }
     }else{
       res.send({error:"notFound"});
     }

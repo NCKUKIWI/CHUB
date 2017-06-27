@@ -1,55 +1,88 @@
-<i class="close icon"></i>
-<div class="header">
-  <%= project.Name %>
-</div>
-<div class="image content">
-  <div class="ui medium image">
-    <img src="/uploads/project/<%= project._id %>/logo.png">
-  </div>
-  <div class="description">
-    <p>Type: <%= project.Type %></p>
-    <p>duration </p>
-    <p>Need:
-      <% for(var i =0 ; i < project.Need.length  ;i ++){ %>
-        <label class="ui label"><%= project.Need[i] %></label>
-      <% } %>
+<div class="dark_mask"></div>
+	<div id="detail_left">
+		<div class="class_icons">
+			<div class="float_icon culture"></div>
+			<div class="float_icon digital"></div>
+			<div class="float_icon social"></div>
+		</div>
+		<div id="detail_brief">
+			<div class="brief_pic">
+        <img id="project_pic" src="/uploads/project/<%= project._id %>/logo.png">
+			</div>
+			<p class="project_name"><%= project.Name %></p>
+		</div>
+	</div>
+	<div class="with_scroll" id="detail_right">
+		<p id="detail_main_text"><%= project.Description %></p>
+		<p>　</p>
+		<p id="detail_type">
+      <p class="title">Type</p>
+      <span>/</span>
+      <p class="short orange"><%= project.Type %></p>
     </p>
-    <p>Description: <%= project.Description %></p>
-    <p>Goal: <%= project.Goal %></p>
-    <p>Contributor: </p>
-    <p>Sponsor: </p>
-    <p>Activities: </p>
-    <p>Teammate:
-      <% for(var i in members){ %>
-        <a class="ui label openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
-      <% } %>
+		<p id="detail_duration"><p class="title">duration</p><span>/</span><p class="short"></p></p>
+		<p id="detail_need">
+      <p class="title">Need</p>
+      <span>/</span>
+      <p class="short">
+        <% for(var i =0 ; i < project.Need.length  ;i ++){ %>
+          <%= project.Need[i] %>
+        <% } %>
+      </p>
     </p>
-  </div>
-</div>
-<div class="actions">
-  <% if(me && project.AdminID.indexOf(me._id)!=-1){ %>
-    <div class="ui red button delProject" project-id="<%= project._id %>">Delete</div>
-    <a class="ui green button" href="/projects/edit/<%= project._id %>">Edit</a>
-    <a class="ui green button" href="/projects/<%= project._id %>/apply">Apply</a>
-  <% } %>
-<!--   <div class="ui blue button">
-    Text Me
-  </div> -->
-  <div class="ui blue button">
-    Sharing
-  </div>
-  <% if(me){ %>
-    <% if(project.ApplyID.indexOf(me._id)==-1 && project.MemberID.indexOf(me._id)==-1){ %>
-      <div class="ui blue button joinProject" project-id="<%= project._id %>">
-        Join
-      </div>
-    <% }else if(project.ApplyID.indexOf(me._id)!=-1 || project.MemberID.indexOf(me._id)!=-1){ %>
-      <div class="ui red button quitProject" project-id="<%= project._id %>">
-        Quit
-      </div>
+		<p id="detail_intro">
+      <p class="title with_space">Introduction</p>
+      <span>/</span>
+      <p class="long">
+      </p>
+    </p>
+		<p id="detail_mission">
+      <p class="title with_space">Goal</p>
+      <span>/</span>
+      <p class="long">
+        <%= project.Goal %>
+			</p>
+    </p>
+ 		<p id="detail_contributer"><br/>
+      <p class="title">Contributer</p>
+      <span>/</span>
+      <p class="short"></p>
+    </p>
+		<p id="detail_sponsor">
+      <p class="title">Sponsor</p>
+      <span>/</span>
+      <p class="short"></p>
+    </p>
+		<p id="detail_activities">
+      <p class="title">Activities</p>
+      <span>/</span>
+      <p class="short"></p>
+    </p>
+		<p id="detail_teammate">
+      <p class="title">Teammate</p>
+      <span>/</span>
+      <p class="short">
+        <% for(var i in members){ %>
+          <a class="openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
+        <% } %>
+      </p>
+    </p>
+	</div>
+	<div class="bottom_icons">
+    <% if(me){ %>
+      <% if(project.ApplyID.indexOf(me._id)==-1 && project.MemberID.indexOf(me._id)==-1){ %>
+        <div class="round_icon join joinProject" project-id="<%= project._id %>"></div>
+      <% }else if(project.ApplyID.indexOf(me._id)!=-1 || project.MemberID.indexOf(me._id)!=-1){ %>
+        <div class="ui red button quitProject" project-id="<%= project._id %>">
+          Quit
+        </div>
+      <% } %>
     <% } %>
-  <% } %>
-</div>
+		<div class="round_icon share"></div>
+		<div class="round_icon text"></div>
+	</div>
+	<a href="#" class="close_icon" id="close_window">　</a>
+
 
 <script>
 $(document).ready(function(){
