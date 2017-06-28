@@ -68,8 +68,7 @@ messageSchema.statics.msgSorting = function(rawMsg, msgAll, isOther, kindOfId){
       msgAll[id].isRead = 0;
     }
     msgAll[id].context.push(rawMsg[i]);
-    // 暫時別計算未讀
-    // if(rawMsg[i].IsRead == false) msgAll[rawMsg[i].FromUID._id].isRead++;
+    if(rawMsg[i].IsRead == false && rawMsg[i].isOther) msgAll[id].isRead++; // 計算已讀數量
     if(findLatestTime(rawMsg[i].CreateAt, msgAll[id].latestTime)){
       msgAll[id].latestTime = rawMsg[i].CreateAt;
     }
@@ -87,6 +86,7 @@ messageSchema.statics.msgSorting = function(rawMsg, msgAll, isOther, kindOfId){
     msgArr.sort(function(a,b){
       return new Date(b.latestTime ) - new Date(a.latestTime);
     });
+    console.log(msgArr);
     return msgArr;
   }
 };

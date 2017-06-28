@@ -66,7 +66,14 @@ router.post("/delete/:id",helper.apiAuth(),function(req,res) {
   });
 });
 
-// To-do 把未讀改已讀
 
+// 把未讀改已讀
+router.get("/isread/:id", helper.apiAuth(), function(req,res){
+  var id = req.params.id;
+  Message.update({'FromUID':id, 'ToUID': req.user._id}, {'IsRead': true}, function(err){
+    if(err) console.log('error update isRead!');
+    res.send('isRead');
+  });
+})
 
 module.exports = router;

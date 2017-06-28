@@ -90,7 +90,15 @@ function sendMessage(){
 // 	$(".chatCont").append('<li class="chatEntry"><img class="avatar" src="//placekitten.com/g/50/50" /><p class="message">'+getMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
 // }
 
+// 開啟訊息欄
 function changeMessageBoard(){
+	// 如果是未讀訊息，就把未讀的效果取消，並回傳已讀訊息回去
+	$($(this).children("div")).remove();
+	$.ajax({
+		url: 'messages/isRead/' + $(this).attr("userid"),
+		method: "GET"
+	})
+	//
 	$('#userSidebar > .item').removeClass("active");
 	$(this).addClass("active");
 	// 如果是通知的那個區塊，就把send隱藏，沒有就顯示
