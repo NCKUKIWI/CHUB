@@ -160,6 +160,7 @@ body::-webkit-scrollbar-thumb {
     font-size: 18px;
     font-weight: 900;
     line-height: 20px;
+    white-space:nowrap;
 }
 
 #view_right .people_info .major {

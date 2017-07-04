@@ -22,27 +22,48 @@
 			<div class="hide_scrollbar">
 				<div id="view_left" class="syncscroll" name="view_people">
 					<div class="row" id="row_1">
-					<% for(var i =0 ; i<users.length ; i+=3){ %>
+					<% for(var i = 0; i < users.length; i += 3){ %>
+						<% if(users[i].hasCover == -1) { %>
 						<div class="people_left">
-							<img class="people_pic" id="pic_<%= users[i].id %>" src="/uploads/user/<%= users[i].id %>/avatar.png" user-id="<%= users[i].id %>">
+							<img class="people_pic" id="pic_<%= users[i].id %>" src="/uploads/user/<%= users[i].id %>/avatar.png"  user-id="<%= users[i].id %>">
 							<img class="people_more" src="/assets/images/people_more.png">
 						</div>
+						<% }else{ %>
+						<div class="people_left">
+							<img class="people_pic" id="pic_<%= users[i].id %>" src="/assets/images/people_ex.png"  user-id="<%= users[i].id %>">
+							<img class="people_more" src="/assets/images/people_more.png">
+						</div>
+						<% } %>
 					<% } %>
 					</div>
 					<div class="row" id="row_2">
-					<% for(var i =1 ; i<users.length ; i+=3){ %>
+					<% for(var i = 1; i < users.length; i += 3){ %>
+						<% if(users[i].hasCover == -1) { %>
 						<div class="people_left">
 							<img class="people_pic" id="pic_<%= users[i].id %>" src="/uploads/user/<%= users[i].id %>/avatar.png"  user-id="<%= users[i].id %>">
 							<img class="people_more" src="/assets/images/people_more.png">
 						</div>
+						<% }else{ %>
+						<div class="people_left">
+							<img class="people_pic" id="pic_<%= users[i].id %>" src="/assets/images/people_ex.png"  user-id="<%= users[i].id %>">
+							<img class="people_more" src="/assets/images/people_more.png">
+						</div>
+						<% } %>
 					<% } %>
 					</div>
 					<div class="row" id="row_3">
-					<% for(var i =2 ; i<users.length ; i+=3){ %>
+					<% for(var i = 2; i < users.length; i += 3){ %>
+						<% if(users[i].hasCover == -1) { %>
 						<div class="people_left">
 							<img class="people_pic" id="pic_<%= users[i].id %>" src="/uploads/user/<%= users[i].id %>/avatar.png"  user-id="<%= users[i].id %>">
 							<img class="people_more" src="/assets/images/people_more.png">
 						</div>
+						<% }else{ %>
+						<div class="people_left">
+							<img class="people_pic" id="pic_<%= users[i].id %>" src="/assets/images/people_ex.png"  user-id="<%= users[i].id %>">
+							<img class="people_more" src="/assets/images/people_more.png">
+						</div>
+						<% } %>
 					<% } %>
 					</div>
 				</div>
@@ -52,8 +73,9 @@
 				<p class="upper_tag last">Major</p>
 			</div>
 			<div id="view_right" class="syncscroll with_scroll" name="view_people">
+				<div class="ui grid">
 				<% for(var i =0 ; i<users.length;i++){ %>
-					<div class="people_info" id="info_<%= users[i].id %>" user-id="<%= users[i].id %>">
+					<div class="people_info four wide column" id="info_<%= users[i].id %>" user-id="<%= users[i].id %>">
 						<p class="name"><%= users[i].Name %></p>
 						<p class="major"><%= users[i].Major %></p>
 						<p class="skill">
@@ -64,6 +86,7 @@
 						<span class="after"></span>
 					</div>
 				<% } %>
+				</div>
 			</div>
 		</div>
     <div class="section" id="footer">
