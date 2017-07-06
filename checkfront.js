@@ -1,6 +1,7 @@
 var request = require("request");
-var username = '75f5ae397cf1c91810b9a0e1f8ef299528c5eef5';
-var password = '18f77c8b62e9a47a153d765616a429e4f656c619cad3dc1645e6b84ce6efec50';
+var config = require("./config");
+var username = config.checkfront.username;
+var password = config.checkfront.password;
 var auth = 'Basic ' + new Buffer(username + ':' + password).toString('base64');
 
 // 共有九種item
@@ -73,5 +74,3 @@ function Create(session){
   });
 }
 // 建立booking
-
-
