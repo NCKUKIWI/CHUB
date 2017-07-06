@@ -1,13 +1,12 @@
 $(document).ready(function(){
 
     // Initialize
-
     var people_chosen, insert_cntr = 0, window_status = "closed", people_hover,
         port_pic_chosen, port_pic_total, port_status = "closed",
         port_pic_display_now, port_pic_display_prev, port_pic_display_next,
         port_scroll_now = 0;
 
-    $( "#fullpage" ).fullpage();
+    $("#fullpage").fullpage();
     $( ".float_window" ).hide();
     $( ".float_portfolio" ).hide();
     $( "#left_people" ).addClass("item_now");
@@ -17,7 +16,7 @@ $(document).ready(function(){
 		});
 
     $( ".port_demo, #close_portfolio" ).click( function() {
-        float_portfolio();
+      float_portfolio();
     });
 
     // People 的顯示控制
@@ -27,18 +26,15 @@ $(document).ready(function(){
 					url: "/users/" + id,
 					type: "POST",
 					success: function(response) {
+            $.fn.fullpage.setAllowScrolling(false,"down,up");
 						$(".float_window").append(response);
-						$("#close_window, .dark_mask").click(function() {
+						$("#close_window, .dark_mask").click(function(){
 							close_window();
 						});
 						$(".float_window").show();
-						$("#fullpage, .cover").animate({
-							opacity: 0.1
-						}, 100, function() {
+						$("#fullpage, .cover").animate({opacity:0.1},100,function(){
 							window_status = 'open';
-							$('.float_window').animate({
-								opacity: 1
-							}, 500);
+							$('.float_window').animate({opacity:1},500);
 						});
 					}
 				});
@@ -48,25 +44,18 @@ $(document).ready(function(){
 		function close_window() {
 			console.log("close");
 			if(window_status == 'open') {
-				$("#fullpage, .cover").animate({
-					opacity: 1
-				}, 500);
-				$(".float_window").animate({
-					opacity: 0
-				}, 500, function() {
+				$("#fullpage, .cover").animate({opacity:1},500);
+				$(".float_window").animate({opacity:0},500,function(){
 					window_status = 'closed';
 					$(".float_window").hide();
 					$(".float_window").empty();
+          $.fn.fullpage.setAllowScrolling(true,"down,up");
 					if(port_status == 'open') {
 						port_status = 'closed';
-						$(".float_portfolio").animate({
-							opacity: 0
-						}, 500, function() {
+						$(".float_portfolio").animate({opacity:0},500,function(){
 							$(".float_portfolio").hide();
 							$("#detail_left, #detail_upper_right, #detail_right").show();
-							$("#detail_left, #detail_upper_right, #detail_right").animate({
-								opacity: 1
-							}, 500);
+							$("#detail_left, #detail_upper_right, #detail_right").animate({opacity:1},500);
 							$("#portfolio").empty();
 						});
 					}

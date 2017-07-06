@@ -92,43 +92,43 @@
 <a href="#" class="close_icon" id="close_window"></a>
 
 <script>
-$(document).ready(function() {
+$(document).ready(function(){
   $(".sendText").on("click", function(){
     // 封鎖未登入使用者
     <% if(!me){ %>
       NotLogin();
       return;
-    <% } %>
+    <% }else{ %>
+	    // 把之前沒有傳訊息的使用者刪掉
+	    findNotSendMessageUser();
 
-    // 把之前沒有傳訊息的使用者刪掉
-    findNotSendMessageUser();
+	    var Toid = $(this).attr("userid");
+	    var ToUserName = $(this).attr("userName");
 
-    var Toid = $(this).attr("userid");
-    var ToUserName = $(this).attr("userName");
+	    // 不能傳訊息給自己
+	    if(Toid == "<%= me._id %>"){
+	      return;
+	    }
 
-    // 不能傳訊息給自己
-    if(Toid == "<%= me._id %>"){
-      return;
-    }
+	    $(".ui.modal").modal("hide");
+	    $("#msgSidebar").sidebar("setting", "transition", "overlay").sidebar("toggle");
 
-    $(".ui.modal").modal("hide");
-    $("#msgSidebar").sidebar("setting", "transition", "overlay").sidebar("toggle");
+	    // 如果傳過訊息、就不用增加
+	    if ($("#userSidebar > .item[userid=\'" + Toid + "\']")[0] !== undefined){
+	      $("#userSidebar > .item[userid=\'" + Toid + "\']").trigger('click');
+	      return;
+	    }
 
-    // 如果傳過訊息、就不用增加
-    if ($("#userSidebar > .item[userid=\'" + Toid + "\']")[0] !== undefined){
-      $("#userSidebar > .item[userid=\'" + Toid + "\']").trigger('click');
-      return;
-    }
+	    // 加入訊息側邊user
+	    var messagePicture = "<a class='item' userid='" + Toid + "'><i class='user icon'></i> " + ToUserName + "</a>";
+	    $("#userSidebar > .item:first").after(messagePicture);
 
-    // 加入訊息側邊user
-    var messagePicture = "<a class='item' userid='" + Toid + "'><i class='user icon'></i> " + ToUserName + "</a>";
-    $("#userSidebar > .item:first").after(messagePicture);
+	    // 加入訊息中間框框
+	    $(".chatCont").append("<div messageUserID=\'" + Toid + "\' style='display: none;'></div>")
 
-    // 加入訊息中間框框
-    $(".chatCont").append("<div messageUserID=\'" + Toid + "\' style='display: none;'></div>")
-
-    $("#userSidebar > .item[userid=\'" + Toid + "\']").on("click", changeMessageBoard);
-    $("#userSidebar > .item[userid=\'" + Toid + "\']").trigger("click");
+	    $("#userSidebar > .item[userid=\'" + Toid + "\']").on("click", changeMessageBoard);
+	    $("#userSidebar > .item[userid=\'" + Toid + "\']").trigger("click");
+		<% } %>
   })
 });
 </script>
