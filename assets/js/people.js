@@ -1,9 +1,15 @@
 $(document).ready(function(){
 
     // Initialize
-    var people_chosen, insert_cntr = 0, window_status = "closed", people_hover,
-        port_pic_chosen, port_pic_total, port_status = "closed",
-        port_pic_display_now, port_pic_display_prev, port_pic_display_next,
+    var people_chosen, insert_cntr = 0, 
+        window_status = "closed", 
+        people_hover,
+        port_pic_chosen, 
+        port_pic_total, 
+        port_status = "closed",
+        port_pic_display_now, 
+        port_pic_display_prev, 
+        port_pic_display_next,
         port_scroll_now = 0;
 
     $("#fullpage").fullpage();
@@ -11,9 +17,9 @@ $(document).ready(function(){
     $( ".float_portfolio" ).hide();
     $( "#left_people" ).addClass("item_now");
 
-		$(".people_info, .people_pic").click(function() {
-			show_window(this.getAttribute('user-id'));
-		});
+  	$(".people_info, .people_pic").click(function() {
+  		show_window(this.getAttribute('user-id'));
+  	});
 
     $( ".port_demo, #close_portfolio" ).click( function() {
       float_portfolio();

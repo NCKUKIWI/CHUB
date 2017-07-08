@@ -1,5 +1,5 @@
 <% layout('../public/layout') %>
-<div class="head">
+<!-- <div class="head">
   <h1>Group</h1>
   <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
   <a class="ui button searchbtn">search</a>
@@ -36,6 +36,37 @@
   <% } %>
 </div>
 <div class="ui modal">
+</div> -->
+
+<script type="text/javascript" src="/assets/js/group.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/group_main.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/group_float.css">
+
+<div id="fullpage">
+  <div class="main_page">
+    <div class="section" id="group_intro">
+      <div id="intro_left">
+        <h1>Group</h1>
+        <p>C-Hub is a creative space came about from the interconnection among
+          Creativity, Human, Urban, and Building Environment.</p>
+        <div class="space"></div>
+        <img id="you_can" src="/assets/images/you_can.png">
+        <a href="#" id="search">　</a>
+      </div>
+      <div id="intro_right">
+        <img class="main_round_pic" src="/assets/images/group_round.png">
+      </div>
+    </div>
+    <div class="section" id="group_view">
+
+    </div>
+    <div class="section" id="footer">
+      <% include ../public/footer %>
+    </div>
+  </div>
+</div>
+
+<div class="float_window">
 </div>
 
 <script>

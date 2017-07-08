@@ -6,18 +6,24 @@ $(document).ready(function() {
 		window_status = "closed",
 		pic_window_status = "closed",
 		view_scroll_now = 0,
-		view_pic_total, view_display_now = 1,
-		view_display_prev, view_display_next;
+		view_pic_total, 
+		view_display_now = 1,
+		view_display_prev, 
+		view_display_next;
 
 
 	$("#fullpage").fullpage();
 	$(".float_window").hide();
+	$(".float_pic_window" ).hide();
 	$("#left_project").addClass("item_now");
 	view_pic_total = 5;
 
-	$(".project_item").click(function() {
+	$(".project_item, #close_window, .dark_mask").click(function() {
 		show_window(this.getAttribute('project-id'));
 	});
+
+
+
 
 	// Project 的顯示控制
 	$("#go_down").click(function() {
@@ -51,6 +57,15 @@ $(document).ready(function() {
 							opacity: 1
 						}, 500);
 					});
+
+					// 綁定顯示輪播照片功能
+				  $( ".brief_pic, #close_pic_view" ).click( function() {
+				      float_pic_window();
+				  });
+
+				  // 綁定輪播照片左右移動
+				  pic_window_control()
+
 				}
 			});
 		}
@@ -68,6 +83,7 @@ $(document).ready(function() {
 			}, 500, function() {
 				window_status = 'closed';
 				$(".float_window").hide();
+				$(".float_window").empty();
 				if(pic_window_status == 'open') {
 					pic_window_status = 'closed';
 					$(".float_pic_window").animate({
@@ -152,42 +168,47 @@ $(document).ready(function() {
 	}
 
 	// Pic Window 的動態控制
+	// 照片的輪播功能
 
-	$("#go_prev").click(function() {
-		if(view_scroll_now > $(".project_view_pic").width() / 2 + 120) {
-			view_display_now -= 1;
-			view_scroll_now -= $(".project_view_pic").width() + 60;
-			$("#view_all_pic").animate({
-				scrollLeft: view_scroll_now
-			}, '500');
-		}
-	});
+	function pic_window_control(){
+		$("#go_prev").click(function() {
+			if(view_scroll_now > $(".project_view_pic").width() / 2 + 120) {
+				view_display_now -= 1;
+				view_scroll_now -= $(".project_view_pic").width() + 60;
+				$("#view_all_pic").animate({
+					scrollLeft: view_scroll_now
+				}, '500');
+			}
+		});
 
-	$("#go_next").click(function() {
-		if(view_scroll_now < $(".project_view_pic").width() / 2 + (view_pic_total - 1) * ($(".project_view_pic").width())) {
-			view_display_now += 1;
-			view_scroll_now += $(".project_view_pic").width() + 60;
-			$("#view_all_pic").animate({
-				scrollLeft: view_scroll_now
-			}, '500');
-		}
-	});
+		$("#go_next").click(function() {
+			if(view_scroll_now < $(".project_view_pic").width() / 2 + (view_pic_total - 1) * ($(".project_view_pic").width())) {
+				view_display_now += 1;
+				view_scroll_now += $(".project_view_pic").width() + 60;
+				$("#view_all_pic").animate({
+					scrollLeft: view_scroll_now
+				}, '500');
+			}
+		});
 
-	$("#view_all_pic").scroll(function() {
-		view_display_prev = view_display_now - 1;
-		view_display_next = view_display_now + 1;
-		$("#view_all_pic").children("#pic_" + view_display_now).addClass("center");
-		$("#view_all_pic").children("#pic_" + view_display_prev + ", #pic_" + view_display_next).removeClass("center");
-		$(".pic_counter.now").text(paddingLeft(view_display_now));
-		if(view_scroll_now > $(".project_view_pic").width() / 2 + 120)
-			$("#go_prev").removeClass("disabled");
-		else
-			$("#go_prev").addClass("disabled");
-		if(view_scroll_now < $(".project_view_pic").width() / 2 + (view_pic_total - 1) * ($(".project_view_pic").width()))
-			$("#go_next").removeClass("disabled");
-		else
-			$("#go_next").addClass("disabled");
-	});
+		$("#view_all_pic").scroll(function() {
+			view_display_prev = view_display_now - 1;
+			view_display_next = view_display_now + 1;
+			$("#view_all_pic").children("#pic_" + view_display_now).addClass("center");
+			$("#view_all_pic").children("#pic_" + view_display_prev + ", #pic_" + view_display_next).removeClass("center");
+			$(".pic_counter.now").text(paddingLeft(view_display_now));
+			if(view_scroll_now > $(".project_view_pic").width() / 2 + 120)
+				$("#go_prev").removeClass("disabled");
+			else
+				$("#go_prev").addClass("disabled");
+			if(view_scroll_now < $(".project_view_pic").width() / 2 + (view_pic_total - 1) * ($(".project_view_pic").width()))
+				$("#go_next").removeClass("disabled");
+			else
+				$("#go_next").addClass("disabled");
+		});
+	}
+
+
 
 	// Menu 的顯示控制
 	$(".left_bar").hover(
