@@ -7,7 +7,12 @@
 		</div>
 		<div id="detail_brief">
 			<div class="brief_pic">
+        <% if(project.hasCover == 1){ %>
         <img id="project_pic" src="/uploads/project/<%= project._id %>/logo.png">
+        <% }else{ %>
+        <img class="preview_pic" src="/assets/images/project_ex2.png">
+        <% } %>
+        <img id="pic_more" src="/assets/images/pic_more.png">
 			</div>
 			<p class="project_name"><%= project.Name %></p>
 		</div>
@@ -81,8 +86,30 @@
 		<div class="round_icon share"></div>
 		<div class="round_icon text"></div>
 	</div>
-	<a href="#" class="close_icon" id="close_window">　</a>
-
+	<a href="#" class="close_icon" id="close_window"></a>
+  <div class="float_pic_window">
+    <svg class="slideshow_btn disabled" id="go_prev" width="20">
+      <line id="line_1" x1="20" y1="0" x2="0" y2="10" />
+      <line id="line_2" x1="20" y1="20" x2="0" y2="10" />
+    </svg>
+    <svg class="slideshow_btn" id="go_next" width="20">
+      <line id="line_1" x1="0" y1="0" x2="20" y2="10" />
+      <line id="line_2" x1="0" y1="20" x2="20" y2="10" />
+    </svg>
+    <div id="view_all_pic">
+      <img class="project_view_pic end" src="/assets/images/view_pic_end.png">
+      <img class="project_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
+      <img class="project_view_pic" id="pic_2" src="/assets/images/portfolio_ex.png">
+      <img class="project_view_pic" id="pic_3" src="/assets/images/portfolio_ex.png">
+      <img class="project_view_pic" id="pic_4" src="/assets/images/portfolio_ex.png">
+      <img class="project_view_pic" id="pic_5" src="/assets/images/portfolio_ex.png">
+      <img class="project_view_pic end" src="/assets/images//view_pic_end.png">
+    </div>
+    <div class="view_pic_counter">
+      <span class="pic_counter now">01</span><span class="pic_counter total">/10</span>
+    </div>
+    <a href="#" class="close_icon" id="close_pic_view">　</a>
+  </div>
 
 <script>
 $(document).ready(function(){
