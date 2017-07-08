@@ -84,12 +84,36 @@
     <span>/</span>
     <p class="short">
       <% for(var i = 0 ; i <  user.portfolio.length ; i++){ %>
-        <a class="port_demo" href="/uploads/user/<%= user._id %>/<%= user.portfolio[i] %>" target="_blank"><%= user.portfolio[i] %></a>
+        <a class="port_demo"><%= user.portfolio[i] %></a>
       <% } %>
     </p>
   </p>
 </div>
 <a href="#" class="close_icon" id="close_window"></a>
+<div class="float_portfolio">
+	<div id="portfolio_upper_left">
+		<p class="upper_tag">portfolio</p>
+	</div>
+	<svg class="slideshow_btn" id="go_prev" width="20">
+		<line id="line_1" x1="20" y1="0" x2="0" y2="10" />
+		<line id="line_2" x1="20" y1="20" x2="0" y2="10" />
+	</svg>
+	<svg class="slideshow_btn" id="go_next" width="20">
+		<line id="line_1" x1="0" y1="0" x2="20" y2="10" />
+		<line id="line_2" x1="0" y1="20" x2="20" y2="10" />
+	</svg>
+	<div id="portfolio">
+		<img class="portfolio_pic end" src="/assets/images/portfolio_end.png">
+		<% for(var i = 0 ; i <  user.portfolio.length ; i++){ %>
+			<img class="portfolio_pic" id="port_<%= i+1 %>" src="/uploads/user/<%= user._id %>/<%= user.portfolio[i] %>">
+		<% } %>
+		<img class="portfolio_pic end" src="/assets/images/portfolio_end.png">
+	</div>
+	<div class="portfolio_pic_counter">
+		<span class="port_counter now">01</span><span class="port_counter total">/<%= user.portfolio.length %></span>
+	</div>
+	<a href="#" class="close_icon" id="close_portfolio"></a>
+</div>
 
 <script>
 $(document).ready(function(){
@@ -129,6 +153,83 @@ $(document).ready(function(){
 	    $("#userSidebar > .item[userid=\'" + Toid + "\']").on("click", changeMessageBoard);
 	    $("#userSidebar > .item[userid=\'" + Toid + "\']").trigger("click");
 		<% } %>
-  })
+  });
+
+	var port_pic_total = <%= user.portfolio.length %>,
+			port_status = "closed",
+			port_pic_display_now = 1,
+			port_pic_display_prev,
+			port_pic_display_next,
+			port_scroll_now = $(".portfolio_pic").width()/2 + 280;
+
+	$("#port_1").addClass("center");
+	$(".port_demo,#close_portfolio,.dark_mask").click(function(){
+	  float_portfolio();
+	});
+
+	// Portfolio 的顯示控制
+	function float_portfolio(){
+		if(port_status == "closed") {
+			port_status = "open";
+			$("#detail_left, #detail_upper_right, #detail_right").animate({opacity:0},500);
+			$("#detail_left, #detail_upper_right, #detail_right").hide();
+			$(".float_portfolio").show();
+			$("#fullpage, .cover").animate({opacity:0},100,function(){
+				$(".float_portfolio").animate({opacity:1},500);
+				$("#portfolio").scrollLeft(port_scroll_now);
+			});
+		}
+		else if(port_status == "open") {
+			port_status = "closed";
+			$("#fullpage,.cover").animate({opacity:0.1},500);
+			$(".float_portfolio").animate({opacity:0},500,function() {
+				$(".float_portfolio").hide();
+				$("#detail_left, #detail_upper_right, #detail_right").show();
+				$("#detail_left, #detail_upper_right, #detail_right").animate({opacity:1}, 500);
+			});
+		}
+	}
+
+	// Portfolio 的動態控制
+	$("#go_prev").click(function() {
+	  if(port_pic_display_now > 1){
+	    port_pic_display_now -= 1;
+	    port_scroll_now -= $(".portfolio_pic").width() + 100;
+			checkscroll();
+	    $("#portfolio").animate({scrollLeft: port_scroll_now},"500");
+	  }
+	});
+
+	$("#go_next").click(function() {
+	  if(port_pic_display_now < port_pic_total){
+	    port_pic_display_now += 1;
+	    port_scroll_now += $(".portfolio_pic").width() + 100;
+			checkscroll();
+	    $("#portfolio").animate({scrollLeft:port_scroll_now},"500");
+	  }
+	});
+
+	function checkscroll(){
+	  port_pic_display_prev = port_pic_display_now - 1;
+	  port_pic_display_next = port_pic_display_now + 1;
+		$("#port_"+port_pic_display_now).addClass("center");
+	  $("#port_" + port_pic_display_prev + ", #port_" + port_pic_display_next).removeClass("center");
+	  $(".port_counter.now").text(paddingLeft(port_pic_display_now));
+	  if(port_pic_display_now > 1)
+	    $("#go_prev").removeClass("disabled");
+	  else
+	    $("#go_prev").addClass("disabled");
+	  if(port_pic_display_now < port_pic_total)
+	    $("#go_next").removeClass("disabled");
+	  else
+	    $("#go_next").addClass("disabled");
+	}
+
+	function paddingLeft(num){
+		if(num < 10)
+			return "0" + num;
+		else
+			return num;
+	}
 });
 </script>

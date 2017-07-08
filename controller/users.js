@@ -70,6 +70,7 @@ router.get("/", function(req,res) {
     Major:(req.query.major)?(new RegExp(req.query.major, "i")):undefined
   }
   var filter = {
+    "Role": { $lt:3 },
     $or:[]
   };
   for(var i in query){
@@ -418,7 +419,6 @@ router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
 router.post("/:id", function(req,res) {
   User.findById(req.params.id,userInfo).populate("GroupID","_id Name").populate("ProjectID","_id Name").populate("ActivityID","_id Name").exec(function(err,user){
     if(user){
-      console.log(user);
       res.render("users/show",{
         user:user
       });
