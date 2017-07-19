@@ -1,1 +1,608 @@
 <% layout('../public/adminlayout') %>
+
+<!-- 簡介管理 -->
+
+<!-- 人才資料庫管理 -->
+<div class="right_manageBoard" id="backstage_people">
+  <div class="fliter_button">
+    <div class="ui selection dropdown">
+      <input type="hidden" name="gender">
+      <i class="dropdown icon"></i>
+      <div class="default text">Gender</div>
+      <div class="menu">
+        <div class="item" data-value="0">Libreal Arts</div>
+        <div class="item" data-value="0">Science</div>
+        <div class="item" data-value="0">Management</div>
+        <div class="item" data-value="0">Engineering</div>
+        <div class="item" data-value="0">Computer Science</div>
+        <div class="item" data-value="0">Socail Science</div>
+        <div class="item" data-value="0">Planning And Design</div>
+        <div class="item" data-value="0">Bioscience</div>
+        <div class="item" data-value="0">Medicine</div>
+        <div class="item" data-value="0">Assistant</div>
+        <div class="item" data-value="0">volunteer</div>
+        <div class="item" data-value="0">Others</div>
+      </div>
+    </div>
+    <div class="ui input">
+      <input type="text" placeholder="Search...">
+    </div>
+    <button class="ui basic button">
+      Search
+    </button>
+  </div>
+  <table class="ui basic table">
+    <tbody>
+      <tr>
+        <td>
+          <div class="ui checkbox">
+            <input type="checkbox" name="example">
+            <label></label>
+          </div>
+        </td>
+        <td>Photo</td>
+        <td>Name</td>
+        <td>Major</td>
+        <td>Talent</td>
+        <td>Status</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ui checkbox">
+            <input type="checkbox" name="example">
+            <label></label>
+          </div>
+        </td>
+        <td style="width: 68px; height: 68px;"><img style="width:50px; height: 50px; border: solid 1px rgba(0, 0, 0, 0.3);" src="/assets/images/people_ex.png"></td>
+        <td>John Lilki</td>
+        <td>skill</td>
+        <td>skill</td>
+        <td>
+          <div class="ui selection dropdown" style="min-width: 30px">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">PM</div>
+            <div class="menu">
+              <div class="item" data-value="0">C-Hub</div>
+              <div class="item" data-value="1">Admin</div>
+              <div class="item" data-value="2">EDITOR</div>
+              <div class="item" data-value="3">USER</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button class="mini ui basic button">確認</button>
+          <button class="mini ui basic button">刪除</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ui checkbox">
+            <input type="checkbox" name="example">
+            <label></label>
+          </div>
+        </td>
+        <td>photo</td>
+        <td>John Lilki</td>
+        <td>skill</td>
+        <td>skill</td>
+        <td>
+          <div class="ui selection dropdown" style="min-width: 30px">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">PM</div>
+            <div class="menu">
+              <div class="item" data-value="0">C-Hub</div>
+              <div class="item" data-value="1">Admin</div>
+              <div class="item" data-value="2">EDITOR</div>
+              <div class="item" data-value="3">USER</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button class="mini ui basic button">確認</button>
+          <button class="mini ui basic button">刪除</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ui checkbox">
+            <input type="checkbox" name="example">
+            <label></label>
+          </div>
+        </td>
+        <td>photo</td>
+        <td>John Lilki</td>
+        <td>skill</td>
+        <td>skill</td>
+        <td>
+          <div class="ui selection dropdown" style="min-width: 30px">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">PM</div>
+            <div class="menu">
+              <div class="item" data-value="0">C-Hub</div>
+              <div class="item" data-value="1">Admin</div>
+              <div class="item" data-value="2">EDITOR</div>
+              <div class="item" data-value="3">USER</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button class="mini ui basic button">確認</button>
+          <button class="mini ui basic button">刪除</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 專案管理 -->
+<div class="right_manageBoard" id="backstage_project_manage">
+  <div class="fliter_button">
+    <div class="ui selection dropdown" style="float:left;">
+      <input type="hidden" name="gender">
+      <i class="dropdown icon"></i>
+      <div class="default text">All type</div>
+      <div class="menu">
+        <!-- <div class="item" data-value="0">已上架</div>
+        <div class="item" data-value="1">待審核</div>
+        <div class="item" data-value="2">已退回</div> -->
+        <div class="item" data-value="3">文化生活</div>
+        <div class="item" data-value="4">智慧科技與數位內容</div>
+        <div class="item" data-value="5">創新與社會服務</div>
+      </div>
+    </div>
+    <button class="ui basic button" style="float: right;">
+      Create
+    </button>
+  </div>
+  <table class="ui basic table">
+    <tbody>
+      <tr>
+        <td>
+          <div class="ui checkbox">
+            <input type="checkbox" name="example">
+            <label></label>
+          </div>
+        </td>
+        <td>Photo</td>
+        <td>Name</td>
+        <td>Date</td>
+        <td>number</td>
+        <td>Status</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ui checkbox">
+            <input type="checkbox" name="example">
+            <label></label>
+          </div>
+        </td>
+        <td>photo</td>
+        <td>John Lilki</td>
+        <td>skill</td>
+        <td>skill</td>
+        <td>
+          <div class="ui selection dropdown" style="min-width: 30px">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">PM</div>
+            <div class="menu">
+              <div class="item" data-value="1">Male</div>
+              <div class="item" data-value="0">Female</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button class="mini ui basic button">下架</button>
+          <button class="mini ui basic button">複製</button>
+          <button class="mini ui basic button openPage" openPage="backstage_project_edit">編輯</button>
+          <button class="mini ui basic button">刪除</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ui checkbox">
+             <input type="checkbox" name="example">
+             <label></label>
+          </div>
+        </td>
+        <td>photo</td>
+        <td>Jamie Harington</td>
+        <td>skill</td>
+        <td>skill</td>
+        <td>
+          <div class="ui selection dropdown" style="min-width: 30px">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">PM</div>
+            <div class="menu">
+              <div class="item" data-value="1">Male</div>
+              <div class="item" data-value="0">Female</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button class="mini ui basic button">下架</button>
+          <button class="mini ui basic button">複製</button>
+          <button class="mini ui basic button">編輯</button>
+          <button class="mini ui basic button">刪除</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ui checkbox">
+            <input type="checkbox" name="example">
+            <label></label>
+          </div>
+        </td>
+        <td>photo</td>
+        <td>Jill Lewis</td>
+        <td>skill</td>
+        <td>skill</td>
+        <td>
+          <div class="ui selection dropdown" style="min-width: 30px">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">PM</div>
+            <div class="menu">
+              <div class="item" data-value="1">Male</div>
+              <div class="item" data-value="0">Female</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button class="mini ui basic button">下架</button>
+          <button class="mini ui basic button">複製</button>
+          <button class="mini ui basic button">編輯</button>
+          <button class="mini ui basic button">刪除</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 專案編輯 -->
+<div class="right_tabBoard" id="backstage_project_edit">
+  <div class="ui top attached tabular menu" style="">
+    <a class="active item" data-tab="first" style="border-radius: 0px !important;">專案資訊</a>
+    <a class="item" data-tab="second"  style="border-radius: 0px !important;">專案影音</a>
+    <a class="item" data-tab="third"  style="border-radius: 0px !important;">成員導覽</a>
+    <a class="item" data-tab="fourth"  style="border-radius: 0px !important;">通知系統</a>
+    <div style="position: absolute; right: 0px; padding: 5px;">
+      <button class="mini ui basic button openPage" openPage="backstage_project_manage">儲存</button>
+      <button class="mini ui basic button openPage" openPage="backstage_project_manage">提交</button>
+    </div>
+  </div>
+  <div class="ui bottom attached active tab segment" data-tab="first">
+    <form class="ui form">
+      <div class="field">
+        <label>Project Name</label>
+        <input type="text" name="shipping[first-name]" placeholder="">
+      </div>
+      <div class="field">
+        <label>Time table</label>
+        <input type="text" name="shipping[first-name]" placeholder="">
+      </div>
+      <div class="two fields">
+        <div class="field">
+          <label>Location</label>
+          <input type="text" name="shipping[first-name]" placeholder="">
+        </div>
+        <div class="field">
+          <label>Type</label>
+          <input type="text" name="shipping[first-name]" placeholder="">
+        </div>
+      </div>
+      <div class="two fields">
+        <div class="field">
+          <label>Conditions</label>
+          <input type="text" name="shipping[first-name]" placeholder="">
+        </div>
+        <div class="field">
+          <label>Mission</label>
+          <input type="text" name="shipping[first-name]" placeholder="">
+        </div>
+      </div>
+      <div class="field">
+        <label>Introduction</label>
+        <textarea name="introduction" value=""></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="second">
+    <p>專案照片</p>
+    <div style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
+      <button class="mini ui basic button">+ 新增圖片/影片</button>
+    </div>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="third">
+    <div class="ui cards" >
+      <div class="card" style="display: flex; flex-direction: inherit; height: 130;">
+        <div style="display: flex; align-items: center;background-color: black;">
+          <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png">
+        </div>
+        <!-- <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png"> -->
+        <div class="content" style="position: relative;">
+          <div class="header">Elliot Fu</div>
+          <div class="meta">Friend</div>
+          <div class="description">
+            Photography<br>Photography<br>Photography
+          </div>
+          <div style="position: absolute; top: 5px; right: 5px;">
+            <button class="mini ui basic button" style="height: 20px; width: 40px; padding: 0px;">text</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="display: flex; flex-direction: inherit; height: 130;">
+        <div style="display: flex; align-items: center;background-color: black;">
+          <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png">
+        </div>
+        <!-- <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png"> -->
+        <div class="content" style="position: relative;">
+          <div class="header">Elliot Fu</div>
+          <div class="meta">Friend</div>
+          <div class="description">
+            Photography<br>Photography<br>Photography
+          </div>
+          <div style="position: absolute; top: 5px; right: 5px;">
+            <button class="mini ui basic button" style="height: 20px; width: 40px; padding: 0px;">text</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="display: flex; flex-direction: inherit; height: 130;">
+        <div style="display: flex; align-items: center;background-color: black;">
+          <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png">
+        </div>
+        <!-- <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png"> -->
+        <div class="content" style="position: relative;">
+          <div class="header">Elliot Fu</div>
+          <div class="meta">Friend</div>
+          <div class="description">
+            Photography<br>Photography<br>Photography
+          </div>
+          <div style="position: absolute; top: 5px; right: 5px;">
+            <button class="mini ui basic button" style="height: 20px; width: 40px; padding: 0px;">text</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="fourth" style="color: black;">
+    <p>TO: 專案成員</p>
+    <textarea name="" value="" style="border: solid 1px black; width: 100%; height: 100px;"></textarea>
+    <!-- <button class="mini ui basic button">送出</button> -->
+    <p>TO: 對專案有興趣之成員</p>
+    <textarea name="" value="" style="border: solid 1px black; width: 100%; height: 100px;"></textarea>
+    <!-- <button class="mini ui basic button">送出</button> -->
+  </div>
+</div>
+
+<!-- 新增專案 -->
+<div class="right_tabBoard" id="backstage_project_new">
+  <div class="ui top attached tabular menu" style="">
+    <a class="active item" data-tab="first" style="border-radius: 0px !important;">專案資訊</a>
+    <a class="item" data-tab="second"  style="border-radius: 0px !important;">專案影音</a>
+    <div style="position: absolute; right: 0px; padding: 5px;">
+      <button class="mini ui basic button">儲存</button>
+      <button class="mini ui basic button" id="projectSubmit">提交</button>
+    </div>
+  </div>
+  <div class="ui bottom attached active tab segment" data-tab="first">
+    <form class="ui form" id="projectForm">
+      <div class="field">
+        <label>Project Name</label>
+        <input type="text" name="Name" placeholder="Name">
+      </div>
+      <div class="field">
+        <label>Time table</label>
+        <input type="text" name="Time" placeholder="Time">
+      </div>
+      <div class="two fields">
+        <div class="field">
+          <label>Location</label>
+          <input type="text" name="Location" placeholder="">
+        </div>
+        <div class="field">
+          <label>Type</label>
+            <select class="ui fluid dropdown" name="Type">
+              <option value="文化生活">文化生活</option>
+              <option value="智慧科技與數位內容">智慧科技與數位內容</option>
+              <option value="創新與社會服務">創新與社會服務</option>
+            </select>
+        </div>
+      </div>
+      <div class="two fields">
+        <div class="field">
+          <label>Need</label>
+          <input type="text" name="Need" placeholder="">
+        </div>
+        <div class="field">
+          <label>Mission</label>
+          <input type="text" name="Mission" placeholder="">
+        </div>
+      </div>
+      <div class="field">
+        <label>Introduction</label>
+        <textarea name="introduction" value=""></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="second" style="color: black;">
+    <label>專案照片</label>
+    <br>
+    <div style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
+      <button class="mini ui basic button">+ 新增圖片/影片</button>
+    </div>
+    <form class="ui form" id="projectCoverForm">
+      <div class="field">
+        <div class="errormsg"></div>
+      </div>
+      <div class="field">
+        <label>Photo</label>
+        <input type="file" name="cover" id="cover">
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+.right_manageBoard{
+  background-color: white; 
+  border-radius: 15px; 
+  margin: 10px;
+  border: solid 0.1px rgba(0, 0, 0, 0.3);
+  min-height: 526px;
+  display: none;
+}
+
+.right_tabBoard{
+  background-color: white; 
+  margin: 10px;
+  border: solid 0.1px rgba(0, 0, 0, 0.3);
+  min-height: 526px;
+  display: none;
+}
+
+.right_tabBoard > .menu{
+  background-color: rgba(179, 179, 179, 1) !important;
+  border-radius: 0px !important;
+  position: relative;
+}
+
+.right_tabBoard > .segment, .item{
+  border-style: hidden !important;
+  border-width: 0px !important;
+}
+
+
+.fliter_button{
+  display: flex;
+  padding: 10px;
+}
+
+.fliter_button div{
+  margin-right: 10px;
+}
+
+#backstage_people .fliter_button{
+  justify-content: flex-end;
+}
+
+#backstage_project_manage .fliter_button{
+  justify-content: space-between;
+}
+
+.backstage_photo{
+  width: 200px;
+  height: 200px;
+  background-size: contain;
+  background-repeat:no-repeat;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.openPage').on('click', function(){
+    var page = this.getAttribute('openPage');
+    $('.twelve.wide.column > div').hide();
+    $('#' + page).show();
+  })
+});
+</script>
+
+<!-- project的js部分 -->
+<script>
+  $(document).ready(function(){
+    var create = 0;
+    var id;
+    $("#projectSubmit").on("click",function(){
+      if(create==0){
+        $.ajax({
+          url: "/projects/create",
+          type: "POST",
+          data: $("#projectForm").serialize(),
+          success: function(response) {
+            if (!response.error) {
+              id = response;
+              create = 1;
+              if($("#cover").val()!=""){
+                var cover = $("#cover")[0].files[0];
+                if(cover.type == "image/png" || cover.type == "image/jpeg"){
+                  var formData = new FormData($("#projectCoverForm")[0]);
+                  $.ajax({
+                    url: "/projects/upload/"+id,
+                    type: "POST",
+                    data:formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                      if (response == "ok") {
+                        toastr.success("創立成功");
+                        setTimeout(function(){
+                          window.location.href="/projects";
+                        },3000);
+                      }
+                      else {
+                        $("#projectCoverForm .errormsg").empty();
+                        for(var i in response["error"]){
+                          $("#projectCoverForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+                        }
+                      }
+                    }
+                  });
+                }else{
+                  alert("請上傳jpg或png檔案");
+                }
+              }else{
+                toastr.success("創立成功");
+                // setTimeout(function(){
+                //   window.location.href="/projects";
+                // },3000);
+              }
+            }
+            else {
+              $("#projectCoverForm .errormsg").empty();
+              for(var i in response["error"]){
+                $("#projectCoverForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+              }
+            }
+          }
+        });
+      }
+      else{
+        var cover = $("#cover")[0].files[0];
+        if(cover.type == "image/png" || cover.type == "image/jpeg"){
+          var formData = new FormData($("#projectCoverForm")[0]);
+          $.ajax({
+            url: "/projects/upload/"+id,
+            type: "POST",
+            data:formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+              if (response == "ok") {
+                toastr.success("創立成功");
+                // setTimeout(function(){
+                //   window.location.href="/projects";
+                // },3000);
+              }
+              else {
+                $("#projectCoverForm .errormsg").empty();
+                for(var i in response["error"]){
+                  $("#projectCoverForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+                }
+              }
+            }
+          });
+        }
+        else{
+          alert("請上傳jpg或png檔案");
+        }
+      }
+    });
+  });
+</script>

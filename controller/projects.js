@@ -65,12 +65,12 @@ router.post("/create",helper.apiAuth(),function(req,res) {
   if(req.body.group_id){
     Group.findById(req.body.group_id,function(err,group){
       newProject = new Project({
-        Name:req.body.name,
-        Type:req.body.type,
-        Time:(req.body.time)?(req.body.time.replace(/\s/g, "").split(",")):[],
-        Goal:req.body.goal,
-        Need:(req.body.need)?(req.body.need.replace(/\s/g, "").split(",")):[],
-        Description:req.body.description,
+        Name:req.body.Name,
+        Type:req.body.Type,
+        Time:(req.body.time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
+        Mission:req.body.Mission,
+        Need:(req.body.Need)?(req.body.need.replace(/\s/g, "").split(",")):[],
+        Introduction:req.body.Introduction,
         hasCover:0,
         MemberID:group.AdminID,
         AdminID:group.AdminID,
