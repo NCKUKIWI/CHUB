@@ -174,93 +174,65 @@
         <td>Status</td>
         <td></td>
       </tr>
-      <tr>
-        <td>
-          <div class="ui checkbox">
-            <input type="checkbox" name="example">
-            <label></label>
-          </div>
-        </td>
-        <td>photo</td>
-        <td>John Lilki</td>
-        <td>skill</td>
-        <td>skill</td>
-        <td>
-          <div class="ui selection dropdown" style="min-width: 30px">
-            <input type="hidden" name="gender">
-            <i class="dropdown icon"></i>
-            <div class="default text">PM</div>
-            <div class="menu">
-              <div class="item" data-value="1">Male</div>
-              <div class="item" data-value="0">Female</div>
+      <% if(projects.length > 0){ %>
+        <% for(var i in projects){ %>
+        <tr class="<%= projects[i]._id %>">
+          <td>
+            <div class="ui checkbox">
+              <input type="checkbox" name="example">
+              <label></label>
             </div>
-          </div>
-        </td>
-        <td>
-          <button class="mini ui basic button">下架</button>
-          <button class="mini ui basic button">複製</button>
-          <button class="mini ui basic button openPage" openPage="backstage_project_edit">編輯</button>
-          <button class="mini ui basic button">刪除</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="ui checkbox">
-             <input type="checkbox" name="example">
-             <label></label>
-          </div>
-        </td>
-        <td>photo</td>
-        <td>Jamie Harington</td>
-        <td>skill</td>
-        <td>skill</td>
-        <td>
-          <div class="ui selection dropdown" style="min-width: 30px">
-            <input type="hidden" name="gender">
-            <i class="dropdown icon"></i>
-            <div class="default text">PM</div>
-            <div class="menu">
-              <div class="item" data-value="1">Male</div>
-              <div class="item" data-value="0">Female</div>
+          </td>
+          <td>photo</td>
+          <td><%= projects[i].Name %></td>
+          <td><%= projects[i].Time %></td>
+          <td><%= projects[i].MemberID.length %></td>
+          <td>
+            <% if(projects[i].Status == 0){ %>已送審
+            <% }else if (projects[i].Status == 1){ %> 已上架
+            <% }else{ %> 已下架 %>
+            <% } %>
+          </td>
+          <td>
+            <!-- <button class="mini ui basic button">下架</button> -->
+            <!-- <button class="mini ui basic button">複製</button> -->
+            <button class="mini ui basic button openPage" openPage="backstage_project_edit">編輯</button>
+            <button class="mini ui basic button delproject" project-id="<%= projects[i]._id %>">刪除</button>
+          </td>
+        </tr>
+        <% } %>
+      <% }else{ %>
+        <!-- <tr>
+          <td>
+            <div class="ui checkbox">
+               <input type="checkbox" name="example">
+               <label></label>
             </div>
-          </div>
-        </td>
-        <td>
-          <button class="mini ui basic button">下架</button>
-          <button class="mini ui basic button">複製</button>
-          <button class="mini ui basic button">編輯</button>
-          <button class="mini ui basic button">刪除</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="ui checkbox">
-            <input type="checkbox" name="example">
-            <label></label>
-          </div>
-        </td>
-        <td>photo</td>
-        <td>Jill Lewis</td>
-        <td>skill</td>
-        <td>skill</td>
-        <td>
-          <div class="ui selection dropdown" style="min-width: 30px">
-            <input type="hidden" name="gender">
-            <i class="dropdown icon"></i>
-            <div class="default text">PM</div>
-            <div class="menu">
-              <div class="item" data-value="1">Male</div>
-              <div class="item" data-value="0">Female</div>
+          </td>
+          <td>photo</td>
+          <td>Jamie Harington</td>
+          <td>skill</td>
+          <td>skill</td>
+          <td>
+            <div class="ui selection dropdown" style="min-width: 30px">
+              <input type="hidden" name="gender">
+              <i class="dropdown icon"></i>
+              <div class="default text">PM</div>
+              <div class="menu">
+                <div class="item" data-value="1">Male</div>
+                <div class="item" data-value="0">Female</div>
+              </div>
             </div>
-          </div>
-        </td>
-        <td>
-          <button class="mini ui basic button">下架</button>
-          <button class="mini ui basic button">複製</button>
-          <button class="mini ui basic button">編輯</button>
-          <button class="mini ui basic button">刪除</button>
-        </td>
-      </tr>
+          </td>
+          <td>
+            <button class="mini ui basic button">下架</button>
+            <button class="mini ui basic button">複製</button>
+            <button class="mini ui basic button">編輯</button>
+            <button class="mini ui basic button">刪除</button>
+          </td>
+        </tr> -->
+        <td colspan="7"><p class="textcenter">沒有可管理的 Project</p></td>
+      <% } %>
     </tbody>
   </table>
 </div>
@@ -387,7 +359,7 @@
     <a class="active item" data-tab="first" style="border-radius: 0px !important;">專案資訊</a>
     <a class="item" data-tab="second"  style="border-radius: 0px !important;">專案影音</a>
     <div style="position: absolute; right: 0px; padding: 5px;">
-      <button class="mini ui basic button">儲存</button>
+      <!-- <button class="mini ui basic button">儲存</button> -->
       <button class="mini ui basic button" id="projectSubmit">提交</button>
     </div>
   </div>
@@ -427,23 +399,23 @@
       </div>
       <div class="field">
         <label>Introduction</label>
-        <textarea name="introduction" value=""></textarea>
+        <textarea name="Introduction" value=""></textarea>
       </div>
     </form>
   </div>
   <div class="ui bottom attached tab segment" data-tab="second" style="color: black;">
-    <label>專案照片</label>
+    <!-- <label>專案照片</label>
     <br>
     <div style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
       <button class="mini ui basic button">+ 新增圖片/影片</button>
-    </div>
+    </div> -->
     <form class="ui form" id="projectCoverForm">
       <div class="field">
         <div class="errormsg"></div>
       </div>
       <div class="field">
-        <label>Photo</label>
-        <input type="file" name="cover" id="cover">
+        <label>專案照片</label>
+        <input type="file" name="cover" id="cover" style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
       </div>
     </form>
   </div>
@@ -519,6 +491,8 @@ $(document).ready(function() {
   $(document).ready(function(){
     var create = 0;
     var id;
+
+    // 新增project
     $("#projectSubmit").on("click",function(){
       if(create==0){
         $.ajax({
@@ -526,6 +500,7 @@ $(document).ready(function() {
           type: "POST",
           data: $("#projectForm").serialize(),
           success: function(response) {
+            console.log("success");
             if (!response.error) {
               id = response;
               create = 1;
@@ -542,9 +517,9 @@ $(document).ready(function() {
                     success: function(response) {
                       if (response == "ok") {
                         toastr.success("創立成功");
-                        setTimeout(function(){
-                          window.location.href="/projects";
-                        },3000);
+                        // setTimeout(function(){
+                        //   window.location.href="/projects";
+                        // },3000);
                       }
                       else {
                         $("#projectCoverForm .errormsg").empty();
@@ -559,9 +534,8 @@ $(document).ready(function() {
                 }
               }else{
                 toastr.success("創立成功");
-                // setTimeout(function(){
-                //   window.location.href="/projects";
-                // },3000);
+                // $('.twelve.wide.column > div').hide();
+                // $('#backstage_project_manage').show();
               }
             }
             else {
@@ -603,6 +577,19 @@ $(document).ready(function() {
           alert("請上傳jpg或png檔案");
         }
       }
+    });
+    $('.delproject').on('click', function(){
+      var id = this.getAttribute('project-id');
+      $.ajax({
+        url: "/projects/delete/"+id,
+        type: "DELETE",
+        success: function(response) {
+          if(response=="ok"){
+            toastr.success("刪除成功");
+            $("."+id).remove();
+          }
+        }
+      });
     });
   });
 </script>

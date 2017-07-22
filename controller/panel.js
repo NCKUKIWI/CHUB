@@ -7,7 +7,10 @@ var Group = require("../model/Group");
 var Project = require("../model/Project");
 
 router.get("/",helper.checkLogin(),function(req,res) {
-  res.render("panel/index",{
+  Project.find({"AdminID":{"$in":[req.user._id]}},function(err,projects){
+    res.render("panel/index",{
+      projects:projects
+    });
   });
 });
 
@@ -62,5 +65,9 @@ router.get("/abouts",helper.checkLogin(),function(req,res) {
     });
   }
 });
+
+function find_project(){
+
+}
 
 module.exports = router;

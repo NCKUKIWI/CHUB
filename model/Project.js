@@ -27,11 +27,13 @@ var projectSchema = new Schema({
   Need:[String],
   Sponser:[String],
   hasCover:Number,
+  Status:Number,
   Introduction:{type:String,required:[true,"請輸入專案介紹"]},
   ApplyID:[{type:ObjectId,ref:"User"}],
   MemberID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
   GroupID:{type:ObjectId,ref:"Group"},
+  ActivityID:{type:ObjectId,ref:"Activity"},
   CreateAt: { type: Date, default: Date.now }
 });
 

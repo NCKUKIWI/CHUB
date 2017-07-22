@@ -62,19 +62,21 @@ router.get("/new",helper.checkLogin(),function(req,res) {
 
 router.post("/create",helper.apiAuth(),function(req,res) {
   var newProject;
+  console.log(req.body.group_id);
   if(req.body.group_id){
     Group.findById(req.body.group_id,function(err,group){
       newProject = new Project({
         Name:req.body.Name,
         Type:req.body.Type,
-        Time:(req.body.time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
+        Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
         Mission:req.body.Mission,
-        Need:(req.body.Need)?(req.body.need.replace(/\s/g, "").split(",")):[],
+        Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
         Introduction:req.body.Introduction,
         hasCover:0,
+        Status:0,
         MemberID:group.AdminID,
         AdminID:group.AdminID,
-        GroupID:req.body.group_id
+        GroupID:req.body.group_id // 這邊還要討論要怎麼選擇group_id在創立project的時候
       });
       Project.create(newProject,function(err,result){
         if(err){
@@ -94,13 +96,14 @@ router.post("/create",helper.apiAuth(),function(req,res) {
     });
   }else{
     newProject = new Project({
-      Name:req.body.name,
-      Type:req.body.type,
-      Time:(req.body.time)?(req.body.time.split(",")):[],
-      Goal:req.body.goal,
-      Need:(req.body.need)?(req.body.need.split(",")):[],
-      Description:req.body.description,
+      Name:req.body.Name,
+      Type:req.body.Type,
+      Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
+      Mission:req.body.Mission,
+      Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
+      Introduction:req.body.Introduction,
       hasCover:0,
+      Status:0,
       MemberID:[req.user._id],
       AdminID:[req.user._id],
     });
