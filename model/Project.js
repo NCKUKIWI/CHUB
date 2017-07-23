@@ -22,15 +22,18 @@ var projectSchema = new Schema({
   Name:{type:String,required:[true,"請輸入專案名稱"],unique:true},
   Type:{type:String,required:[true,"請選擇專案類型"]},
   Time:{type:[String],required:[true,"請選擇專案時間"]},
-  Goal:String,
+  Location:String,
+  Mission:String,
   Need:[String],
   Sponser:[String],
   hasCover:Number,
-  Description:{type:String,required:[true,"請輸入專案介紹"]},
+  Status:Number,
+  Introduction:{type:String,required:[true,"請輸入專案介紹"]},
   ApplyID:[{type:ObjectId,ref:"User"}],
   MemberID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
   GroupID:{type:ObjectId,ref:"Group"},
+  ActivityID:{type:ObjectId,ref:"Activity"},
   CreateAt: { type: Date, default: Date.now }
 });
 

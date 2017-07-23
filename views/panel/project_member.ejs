@@ -1,0 +1,89 @@
+<h3>Admin</h3>
+<div class="ui divider"></div>
+<div class="ui cards" >
+  <div class="card" style="display: flex; flex-direction: inherit; height: 130; width: 330px">
+    <div style="display: flex; align-items: center;background-color: rgba(117, 124, 133, 1);">
+      <img style="width:130px; height: 130px;" src="/assets/images/molly.png">
+    </div>
+    <div class="content" style="position: relative;">
+      <div class="header">Elliot Fu</div>
+      <div class="meta">Friend</div>
+      <div class="description">
+        Photography<br>Photography<br>Photography
+      </div>
+      <div style="position: absolute; top: 5px; right: 5px;">
+        <button class="mini ui basic button" style="height: 30px; width: 60px; padding: 0px;">info</button>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
+<br>
+<h3>Apply Members</h3>
+<div class="ui divider"></div>
+<div class="ui cards" >
+  <div class="card" style="display: flex; flex-direction: inherit; height: 130; width: 330px">
+    <div style="display: flex; align-items: center;background-color: rgba(117, 124, 133, 1);">
+      <img style="width:130px; height: 130px;" src="/assets/images/molly.png">
+    </div>
+    <div class="content" style="position: relative;">
+      <div class="header">Elliot Fu</div>
+      <div class="meta">Friend</div>
+      <div class="description">
+        Photography<br>Photography<br>Photography
+      </div>
+      <div style="position: absolute; top: 5px; right: 5px;">
+        <button class="mini ui basic button" style="height: 30px; width: 60px; padding: 0px;">info</button>
+      </div>
+      <br>
+      <div>
+        <button class="ui left attached button">Accept</button>
+        <button class="right attached ui button">Reject</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<h3>Members</h3>
+<div class="ui divider"></div>
+<div class="ui cards" >
+  <% for(var i in members){ %>
+    <div class="card" style="display: flex; flex-direction: inherit; height: 130; width: 330px">
+      <div style="display: flex; align-items: center;background-color: rgba(117, 124, 133, 1);">
+        <img style="width:130px; height: 130px;" src="/assets/images/molly.png">
+      </div>
+      <div class="content" style="position: relative;">
+        <div class="header"><%= members[i].Name %></div>
+        <div class="meta"><%= members[i].Major %></div>
+        <div class="description">
+          <% for(var j = 0; j < members[i].Skill.length; j++){ %>
+            <%= members[i].Skill[j] %><br> 
+          <% } %>
+        </div>
+        <div style="position: absolute; top: 5px; right: 5px;">
+          <button class="mini ui basic button" style="height: 30px; width: 60px; padding: 0px;">info</button>
+        </div>
+        <br>
+        <div>
+          <select class="ui fluid dropdown" style=" font-size: 10px !important;">
+            <option value="--職位--">--職位--</option>
+            <option value="人類學家observer">人類學家observer</option>
+            <option value="實驗家inventor<">實驗家inventor</option>
+            <option value="異花授粉者connector">異花授粉者connector</option>
+            <option value="跨欄運動員runner">跨欄運動員runner</option>
+            <option value="共同合作者coordinator">共同合作者coordinator</option>
+            <option value="導演director">導演director</option>
+            <option value="舞台建造師designer">舞台建造師designer</option>
+            <option value="看護人carer">看護人carer</option>
+            <option value="說書人teller">說書人teller</option>
+            <option value="體驗建築師builder">體驗建築師builder</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  <% } %>
+</div>
+
+<script type="text/javascript">
+  $('.ui.dropdown').dropdown();
+</script>

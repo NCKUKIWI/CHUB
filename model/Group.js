@@ -24,6 +24,8 @@ var groupSchema = new Schema({
   MemberID:[{type:ObjectId,ref:"User"}],
   ApplyID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
+  ActivityID:[{type:ObjectId,ref:"Activity"}],
+  ProjectID:[{type:ObjectId,ref:"Project"}],
   Website:String,
   hasCover:Number,
   Description:{type:String,required:[true,"請輸入組織介紹"]},

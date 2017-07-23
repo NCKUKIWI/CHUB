@@ -11,8 +11,19 @@ $(document).ready(function() {
 		view_display_prev, 
 		view_display_next;
 
-
-	$("#fullpage").fullpage();
+	$('#fullpage').fullpage({
+		// 如果滑到瀏覽project的地方，menu自動消失
+		onLeave (index, nextIndex, direction){
+			console.log('test');
+			console.log(nextIndex);
+			if(nextIndex == 2){
+				$('#menu').hide();
+			}
+			else{
+				$('#menu').show();
+			}
+		}
+	});
 	$(".float_window").hide();
 	$(".float_pic_window" ).hide();
 	$("#left_project").addClass("item_now");
@@ -219,6 +230,7 @@ $(document).ready(function() {
 			$("#left_project").addClass("item_now");
 		}
 	);
+
 
 
 });

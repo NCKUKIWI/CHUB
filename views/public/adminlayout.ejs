@@ -6,84 +6,150 @@
     <title>CHUB</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="/assets/js/semantic.min.js"></script>
-    <script src="/assets/js/toastr.min.js"></script>
+    <script src="/assets/js/framework_semantic.min.js"></script>
+    <script src="/assets/js/framework_toastr.min.js"></script>
     <script src="/assets/js/index.js"></script>
     <script src="/assets/js/sidebar.js"></script>
     <script src="/assets/js/login.js"></script>
     <script src="/assets/js/search.js"></script>
-    <link rel="stylesheet" type="text/css" href="/assets/css/toastr.min.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/framework_toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/framework_semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/common_style.css">
 </head>
 
 <body>
-    <div class="ui inverted segment" style="padding-bottom: 0px;padding-top: 0px;border-radius: 0px;">
-        <div class="ui secondary pointing menu">
+    <!-- <div class="ui segment" style="padding-bottom: 0px;padding-top: 0px;border-radius: 0px;"> -->
+        <div class="ui secondary pointing menu" style="margin: 0px;">
             <a href="/" class="item" id="logo">
-                <img style="width:30px;" src="/assets/images/logo-white.png">
+                <img style="width:100px; margin-left: 30px;" src="/assets/images/backstage_logo.png">
             </a>
-            <a class="item" style="color: white;"><h1>後台管理系統</h1></a>
         </div>
-    </div>
-    <div class="ui stackable grid" style="padding-top:50px;">
-      <div class="four wide column">
-        <div class="ui secondary vertical pointing menu styled accordion">
-          <a class="item" href="panel/abouts">
-            關於簡介管理
-          </a>
-          <div class="title">
-            <i class="dropdown icon"></i>
-            人才
+    <!-- </div> -->
+    <div class="ui stackable grid" style="background-color: rgba(230, 230, 230, 1); margin: 0px;">
+      <div class="four wide column" id="backstage_sidebar"" style="padding: 0px;">
+        <div class="ui styled accordion"  style="background-color:rgba(128, 128, 128, 1); border-radius: 0px;">
+          <div style="display: flex; flex-direction: row; justify-content: space-around; padding: 10px;">
+            <% if(me.hasCover){ %>
+              <img style="width:100px; height: 100px; margin-top: 20px; border-radius:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
+            <% }else{ %>
+              <img style="width:100px; height: 100px; margin-top: 20px" src="/assets/images/profile.png">
+            <% } %>
+            <h3 style="line-height: 80px;"><%= me.Name %></h3>
           </div>
-          <div class="content">
-            <a class="item" href="/panel/users">
-              人才資料庫管理
-            </a>
+          <div class="title openPage" openPage="backstage_about">
+            <img src="/assets/images/backstage_logo_about.png">
+            <p class="item">關於簡介管理</p>
           </div>
-          <div class="title">
-            <i class="dropdown icon"></i>
-            專案
+          <div class="content" style="padding: 0px;">
+
           </div>
-          <div class="content">
-            <a class="item" href="/projects/new">
+          <div class="title openPage" openPage="backstage_people">
+            <img src="/assets/images/backstage_logo_people.png">
+            <p class="item">人才資料庫管理</p>
+          </div>
+          <div class="content" style="padding: 0px;">
+
+          </div>
+          <div class="title openPage" openPage="backstage_project_manage">
+            <img src="/assets/images/backstage_logo_project.png">
+            <p class="item">專案管理<i class="chevron down icon"></i></p>
+          </div>
+          <div class="content openPage" openPage="backstage_project_new">
+            <!-- <p class="item">提案系統</p> -->
+            <!-- <div class="ui divider"></div>
+            <p class="item">專案管理</p> -->
+            <!--<a class="item" href="/projects/new">
               新增專案
             </a>
             <a class="item" href="/panel/projects">
               專案管理
-            </a>
+            </a> -->
           </div>
           <div class="title">
-            <i class="dropdown icon"></i>
-            團隊
+            <img src="/assets/images/backstage_logo_group.png">
+            <p class="item">團隊<i class="chevron down icon"></i></p>
           </div>
           <div class="content">
-            <a class="item" href="/groups/new">
+            <p class="item" openPage="">新增團隊</p>
+            <div class="ui divider"></div>
+            <p class="item" openPage="">團隊訊息</p>
+            <div class="ui divider"></div>
+            <p class="item" openPage="">團隊管理</p>
+            <!--<a class="item" href="/groups/new">
               新增團隊
-            </a>
-            <a class="item" href="/panel/groups">
-              團隊訊息
-            </a>
-            <a class="item" href="/panel/groups">
-              團隊管理
-            </a>
+            </a> -->
           </div>
           <div class="title">
-            <i class="dropdown icon"></i>
-            活動
+            <img src="/assets/images/backstage_logo_activity.png">
+            <p class="item">活動管理<i class="chevron down icon"></i></p>
           </div>
           <div class="content">
-            <a class="item" href="/activities/new">
+            <p class="item" openPage="">新增活動</p>
+            <div class="ui divider"></div>
+            <p class="item" openPage="">活動管理</p>
+            <!--<a class="item" href="/activities/new">
               新增活動
-            </a>
-            <a class="item">
-              活動管理
-            </a>
+            </a> -->
+          </div>
+          <div class="title">
+            <img src="/assets/images/backstage_logo_space.png">
+            <p class="item">空間管理<i class="chevron down icon"></i></p>
+          </div>
+          <div class="content">
+
+          </div>
+          <div class="title">
+            <img src="/assets/images/backstage_logo_message.png">
+            <p class="item">信件管理<i class="chevron down icon"></i></p>
+          </div>
+          <div class="content">
+
+          </div>
+          <div class="title">
+            <img src="/assets/images/backstage_logo_analtics.png">
+            <p class="item">網站數據分析<i class="chevron down icon"></i></p>
+          </div>
+          <div class="content">
+
           </div>
         </div>
       </div>
-      <div class="ten wide column">
+      <div class="twelve wide column" >
         <%- body %>
       </div>
     </div>
 </body>
+
+<style>
+#backstage_sidebar > div > .title, #backstage_sidebar p{
+  color: white;
+}
+
+#backstage_sidebar .chevron{
+  float: right;
+}
+
+#backstage_sidebar .title img{
+  float: left;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+#backstage_sidebar .content{
+  border: solid 0.1px rgba(0, 0, 0, 0.1);
+}
+
+#backstage_sidebar .content{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border: solid 0px;
+}
+
+#backstage_sidebar .divider{
+  margin: 0px;
+}
+
+#backstage_sidebar .content p{
+  margin: 10px;
+}
+</style>

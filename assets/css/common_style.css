@@ -33,9 +33,12 @@ p {
     background: #ed9027;
 }
 
+.section{
+    display: none;
+}
 
 /* old */
-
+/*
 a, a:hover {
     color: white;
     text-decoration: none;
@@ -52,4 +55,4 @@ a, a:hover {
 
 .textcenter {
     text-align: center;
-}
+}*/

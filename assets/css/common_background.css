@@ -25,3 +25,11 @@
   background-image: url("../images/project_cover.png");
   background-repeat: no-repeat;
   background-size: cover; }
+
+.sidebar_cover {
+  position: absolute;
+  z-index: 50;
+  width: 100vw;
+  height: 100vh;
+  opacity: 1;
+  color: transparent; }

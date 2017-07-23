@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div class="with_scroll" id="detail_right">
-		<p id="detail_main_text"><%= project.Description %></p>
+		<p id="detail_main_text"><%= project.Introduction %></p>
 		<p>　</p>
 		<p id="detail_type">
       <p class="title">Type</p>
@@ -73,19 +73,21 @@
       </p>
     </p>
 	</div>
-	<div class="bottom_icons">
-    <% if(me){ %>
-      <% if(project.ApplyID.indexOf(me._id)==-1 && project.MemberID.indexOf(me._id)==-1){ %>
-        <div class="round_icon join joinProject" project-id="<%= project._id %>"></div>
-      <% }else if(project.ApplyID.indexOf(me._id)!=-1 || project.MemberID.indexOf(me._id)!=-1){ %>
-        <div class="ui red button quitProject" project-id="<%= project._id %>">
-          Quit
-        </div>
+  <% if(me.Role == 1){ %> 
+  	<div class="bottom_icons">
+      <% if(me){ %>
+        <% if(project.ApplyID.indexOf(me._id)==-1 && project.MemberID.indexOf(me._id)==-1){ %>
+          <div class="round_icon join joinProject" project-id="<%= project._id %>"></div>
+        <% }else if(project.ApplyID.indexOf(me._id)!=-1 || project.MemberID.indexOf(me._id)!=-1){ %>
+          <div class="ui red button quitProject" project-id="<%= project._id %>">
+            Quit
+          </div>
+        <% } %>
       <% } %>
-    <% } %>
-		<div class="round_icon share"></div>
-		<div class="round_icon text"></div>
-	</div>
+  		<div class="round_icon share"></div>
+  		<div class="round_icon text"></div>
+  	</div>
+  <% } %>
 	<a href="#" class="close_icon" id="close_window"></a>
   <div class="float_pic_window">
     <svg class="slideshow_btn disabled" id="go_prev" width="20">

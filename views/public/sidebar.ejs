@@ -1,0 +1,72 @@
+<div class="right_sidebar">
+   <div class="side_icon" id="side_profile">
+      <img src="assets/images/side_profile.png">
+   </div>
+   <!-- 暫時不開放message、search -->
+   <!-- <div class="side_icon" id="side_message">
+      <img src="assets/images/side_message.png">
+   </div> -->
+   <!-- <div class="side_icon" id="side_search">
+      <img src="assets/images/side_search.png">
+   </div> -->
+</div>
+
+<div class="sidebar_cont" style="display: none;">
+   <div class="sidebar_upper">
+      <a href="#" id="sidebar_chub_logo">　</a>
+      <div class="side_menu_profile_before">
+         <div class="sidebar_half_btn profile_before_btn active" id="sidebar_login"><p>Log In</p></div>
+         <div class="sidebar_half_btn profile_before_btn" id="sidebar_signup"><p>Sign Up</p></div>
+         <div class="triangle"></div>
+      </div>
+      <div class="side_menu_search">
+         <div class="sidebar_full_btn search_btn" id="sidebar_search"><p>Search</p></div>
+      </div>
+   </div>
+   <div class="sidebar_upper_filled"></div>
+   <form class="side_cont_page" id="side_cont_login">
+      <input class="big_input" type="text" name="userid" placeholder="E-mail"></input>
+      <input class="big_input" type="password" name="password" placeholder="Password"></input>
+      <div class="side_goto_bottom">
+         <div class="side_btn" id="loginSubmit">Log In</div>
+         <div class="side_btn black" id="side_facebook" onclick="window.location='/users/fblogin';">Facebook</div>
+         <p id="dont_have_account">Don't have an an Account?</p>
+      </div>
+   </form>
+   <form class="side_cont_page" id="side_cont_signup">
+      <input class="big_input" type="text" name="email" placeholder="E-mail"></input>
+      <input class="big_input" type="text" name="userid" placeholder="Username"></input>
+      <input class="big_input" type="password" name="password" placeholder="Password"></input>
+      <input class="big_input" type="password" name="password2" placeholder="Confirm Password"></input>
+      <div class="side_goto_bottom">
+         <div class="side_btn" id="signupSubmit">Sign Up</div>
+         <div class="side_btn black" id="side_facebook" onclick="window.location='/users/fblogin';">Facebook</div>
+         <p>　</p>
+      </div>
+   </form>
+   <form class="side_cont_page" id="side_cont_search">
+      <input class="small_input" type="text" placeholder="在 C-Hub 上搜尋"></input>
+      <div class="dropdown">
+         <div class="dropdown-content" id="dropdown_layer1">
+            <a class="default">All</a>
+            <a class="selectable hidden">All</a>
+            <a class="selectable">Activity</a>
+            <a class="selectable">Group</a>
+            <a class="selectable">Project</a>
+            <a class="selectable">People</a>
+         </div>
+         <div class="dropdown-content" id="dropdown_layer2">
+            <a class="default">List2</a>
+            <a class="selectable hidden">List2</a>
+            <a class="selectable">Option1</a>
+            <a class="selectable">Option2</a>
+            <a class="selectable">Option3</a>
+            <a class="selectable">Option4</a>
+         </div>
+      </div>
+      <div class="side_btn black" id="side_search">Search</div>
+   </form>
+   <!-- <div class="side_cont_page" id="side_cont_myprofile">
+      
+   </div> -->
+</div>
