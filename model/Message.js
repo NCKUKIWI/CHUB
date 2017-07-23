@@ -41,7 +41,7 @@ messageSchema.pre("find", function(next) {
 
 messageSchema.post("find", function(result) {
   // console.log(JSON.stringify(result,null,4));
-  console.log(`Modal message took ${ Date.now() - this.start} millis`);
+  console.log(`Model message took ${ Date.now() - this.start} millis`);
 });
 
 messageSchema.plugin(uniqueValidator);

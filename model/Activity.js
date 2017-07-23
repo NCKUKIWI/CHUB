@@ -44,7 +44,7 @@ activitySchema.pre("find", function(next) {
 
 activitySchema.post("find", function(result) {
   //console.log(JSON.stringify(result,null,4));
-  console.log(`Modal activity took ${ Date.now() - this.start} millis`);
+  console.log(`Model activity took ${ Date.now() - this.start} millis`);
 });
 
 activitySchema.plugin(uniqueValidator,{ message: "Name 已經使用過" });

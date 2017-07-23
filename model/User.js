@@ -51,7 +51,7 @@ userSchema.pre("find", function(next) {
 
 userSchema.post("find", function(result) {
   //console.log(JSON.stringify(result,null,4));
-  console.log(`Modal user took ${ Date.now() - this.start} millis`);
+  console.log(`Model user took ${ Date.now() - this.start} millis`);
 });
 
 userSchema.plugin(uniqueValidator,{ message: "UserId 已經使用過" });

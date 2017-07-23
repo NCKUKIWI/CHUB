@@ -43,7 +43,7 @@ groupSchema.pre("find", function(next) {
 
 groupSchema.post("find", function(result) {
   //console.log(JSON.stringify(result,null,4));
-  console.log(`Modal group took ${ Date.now() - this.start} millis`);
+  console.log(`Model group took ${ Date.now() - this.start} millis`);
 });
 
 groupSchema.plugin(uniqueValidator,{ message: "Name 已經使用過" });

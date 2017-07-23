@@ -35,7 +35,7 @@ paymentSchema.pre("find", function(next) {
 
 paymentSchema.post("find", function(result) {
   //console.log(JSON.stringify(result,null,4));
-  console.log(`Modal payment took ${ Date.now() - this.start} millis`);
+  console.log(`Model payment took ${ Date.now() - this.start} millis`);
 });
 
 paymentSchema.plugin(uniqueValidator);

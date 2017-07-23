@@ -7,8 +7,6 @@ var engine = require("ejs-locals");     //讓express支援layout
 var helper = require("./helper");
 var User = require("./model/User");
 var logger = require("morgan");
-var cache = require("./cache").cache;
-
 var app = express();
 
 app.engine("ejs", engine);
@@ -17,10 +15,11 @@ app.set("view engine","ejs")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use("/assets",express.static(__dirname + "/assets"));
-app.use("/uploads",express.static(__dirname + "/uploads"));
+app.use("/assets",express.static("assets",{ maxAge: 30*60*1000 }));
+app.use("/uploads",express.static("uploads"));
 
 //Handle sessions and cookie
+app.use(cookieParser("secretString"));
 app.use(session({
   cookie: { maxAge: 1000 * 60 * 60 * 24 },
   secret:"secret",
@@ -29,7 +28,6 @@ app.use(session({
 }));
 
 var userInfo = ["_id", "Email", "Name", "Major", "Skill", "Introduction", "Location", "Role", "Link", "GroupID", "ProjectID", "ActivityID","portfolio","hasCover"];
-app.use(cookieParser("secretString"));
 app.use(function(req, res, next) {
   res.locals.query = req.query;
   if(req.cookies.isLogin){
@@ -45,15 +43,7 @@ app.use(function(req, res, next) {
   }
 });
 
-app.use(logger(function(tokens,req,res) {
-  return [
-    "---------\n",
-    tokens.method(req, res),
-    tokens.url(req, res),
-    tokens["response-time"](req, res),
-    "ms"
-  ].join(" ");
-}));
+app.use(logger("tiny"));
 
 //users routes
 var users = require("./controller/users");

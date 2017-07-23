@@ -47,7 +47,7 @@ projectSchema.pre("find", function(next) {
 
 projectSchema.post("find", function(result) {
   //console.log(JSON.stringify(result,null,4));
-  console.log(`Modal project took ${ Date.now() - this.start} millis`);
+  console.log(`Model project took ${ Date.now() - this.start} millis`);
 });
 
 projectSchema.plugin(uniqueValidator,{ message: "Name 已經使用過" });
