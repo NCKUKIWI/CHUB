@@ -74,7 +74,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
         Introduction:req.body.Introduction,
         hasCover:0,
         Status:0,
-        MemberID:group.AdminID,
+        // MemberID:group.AdminID,
         AdminID:group.AdminID,
         GroupID:req.body.group_id // 這邊還要討論要怎麼選擇group_id在創立project的時候
       });
@@ -104,7 +104,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       Introduction:req.body.Introduction,
       hasCover:0,
       Status:0,
-      MemberID:[req.user._id],
+      // MemberID:[req.user._id],
       AdminID:[req.user._id],
     });
     Project.create(newProject,function(err,result){
@@ -332,11 +332,12 @@ router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   });
 });
 
+// 撈出member, admin(未做）, project資訊
 router.post("/:id",function(req,res) {
   if(req.body.page != 'true'){
     Project.findById(req.params.id,function(err,project){
       if(project){
-        User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Talent","Description","Website","Role"],function(err,members){
+        User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Skill","Description","Role"],function(err,members){
           res.render("projects/show",{
             project:project,
             members:members

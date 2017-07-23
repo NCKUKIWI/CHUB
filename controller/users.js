@@ -102,13 +102,14 @@ router.post("/signup",function(req,res) {
       var newUser = {
         UserID:req.body.userid,
         Password:hash,
-        Name:req.body.username,
+        Name:req.body.userid, // 暫時真實姓名跟id一樣
         Email:req.body.email,
-        Role:0,
+        Role:0, 
         hasCover:0
       };
       User.create(newUser,function(err,result){
         if(err){
+          console.log({error:helper.handleError(err)});
           res.send({error:helper.handleError(err)});
         }else{
           helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);

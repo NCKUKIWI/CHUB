@@ -1,134 +1,187 @@
-$(document).ready(function() {
-	$("#signupPart").hide();
-	$("#forgetPw").hide();
+$(document).ready(function(){
 
-	//按下登入
-	$("#loginbtn").click(function() {
-		$("#signupPart").hide();
-		$("#forgetPw").hide();
-		$("#loginPart").show();
-	});
+    // Initialize
+    
+    var now_tab = "none", now_open = 0;
+    $( "#side_cont_login, #side_cont_signup, #side_cont_search, .profile_before_btn, .search_btn, .sidebar_cover" ).hide();
 
-	//按下註冊
-	$("#signupbtn").click(function() {
-		$("#loginPart").hide();
-		$("#forgetPw").hide();
-		$("#signupPart").show();
-	});
+    
+    // Tab Listener
 
-	//按下忘記密碼
-	$("#forgetbtn").click(function() {
-		$("#signupPart").hide();
-		$("#loginPart").hide();
-		$("#forgetPw").show();
-	});
+    $( "#side_profile" ).click(function() {
+        if ( now_tab == "profile" ) {
+            switchSidebar("close");
+        }
+        else {
+            button_logIn();
+            now_tab = "profile";
+            switchSidebar("open");
+            setTimeout(function(){
+                $( "#side_profile" ).addClass("active");
+            },200);
+        }
+    });
 
-	// 綁定右邊menu的按紐開啟側邊欄
-	$("#mainSidebar").sidebar("attach events", "#profilebtn", "push");
-	$("#searchSidebar").sidebar("attach events", ".searchbtn", "push");
-	$("#msgSidebar").sidebar("attach events", "#msgbtn", "push");
-	$("#msgSidebar").sidebar({
-		onHide: function () {
-			findNotSendMessageUser();
-		}
-	});
+    $( "#side_message" ).click(function() {
+        if ( now_tab == "message" ) {
+            switchSidebar("close");
+        }
+        else {
+            now_tab = "message";
+            switchSidebar("open");
+            setTimeout(function(){
+                $( "#side_message" ).addClass("active");
+            },200);
+        }
+    });
 
-	//顯示Setting
-	$('#goSetting').on('click', function(){
-		$('#profile').hide();
-		$('#setting').show();
-	})
-	// $('#finishProfile').on('click', function(){
-	// 	$('#setting').hide();
-	// 	$('#profile').show();
-	// })
-	$('#backProfile').on('click', function(){
-		$('#setting').hide();
-		$('#profile').show();
-	})
+    $( "#side_search" ).click(function() {
+        if ( now_tab == "search" ) {
+            switchSidebar("close");
+        }
+        else {
+            search();
+            now_tab = "search";
+            switchSidebar("open");
+            setTimeout(function(){
+                $( "#side_search" ).addClass("active");
+            },200);
+        }
+    });
 
-	// message js group
-	$('#msgSend').on('click', function(){
-		sendMessage();
-	})
-	$(document).keypress(function(e) {
-		if(e.which == 13 && $('#msgText').val() != "") {
-			sendMessage();
-		}
-		if(e.which == 13 && $('#loginPart').css('display') == "block"){
-			$('#loginSubmit').trigger('click');
-		}
-		if(e.which == 13 && $('#signupPart').css('display') == "block"){
-			$('#signupSubmit').trigger('click');
-		}
-	});
+    $( ".sidebar_cover" ).click(function() {
+        switchSidebar("close");
+    }); 
+
+
+    // Button Listener
+
+    $( "#sidebar_signup, #dont_have_account" ).click(function() {
+        button_signUp();
+    });
+
+    $( "#sidebar_login" ).click(function() {
+        button_logIn();
+    });
+
+    $( ".dropdown-content" ).click(function() {
+        if ($(this).hasClass("opened")) {
+            $(this).removeClass("opened");
+        }
+        else {
+            $(this).addClass("opened");
+            $(this).siblings().removeClass("opened");
+        }
+    });
+
+    $( ".selectable" ).click(function() {
+        selectItem($(this));
+    });
+    
+
+    // login按鈕按下送出
+    $("#loginSubmit").on("click", function() {
+      if($("#side_cont_login input[name=userid]").val() != "") {
+        $.ajax({
+          url: "/users/auth",
+          type: "POST",
+          data: $("#side_cont_login").serialize(),
+          success: function(response) {
+            if(response == "ok") {
+              window.location.href = "/";
+            } else {
+              toastr.error(response["error"]);
+            }
+          }
+        });
+      }
+    });
+
+    // signup 按鈕按下送出
+    $("#signupSubmit").on("click", function() {
+      $.ajax({
+        url: "/users/signup",
+        type: "POST",
+        data: $("#side_cont_signup").serialize(),
+        success: function(response) {
+          if(response == "ok") {
+            window.location.href = "/";
+          } else {
+            for(var i in response["error"]) {
+              toastr.error(`<p>${response["error"][i]}</p>`);
+              // $("#signupForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+            }
+          }
+        }
+      });
+    });
+
+    // 綁定按下enter = 送出資料
+    $(document).keypress(function(e) {
+        // if(e.which == 13 && $('#msgText').val() != "") {
+        //     sendMessage();
+        // }
+
+        if ($('.sidebar_cont').css('opacity') == 0) return; // 如果沒打開側邊欄，就不啟動功能
+
+        if(e.which == 13 && $('#side_cont_login').css('display') == "block"){
+            $('#loginSubmit').trigger('click');
+        }
+
+        if(e.which == 13 && $('#side_cont_signup').css('display') == "block"){
+            $('#signupSubmit').trigger('click');
+        }
+    });
+
+    // Functions
+
+    function switchSidebar( command ) {
+        $( ".side_icon" ).removeClass("active");
+        if ( command == "open" ) {
+            now_open = 1;
+            $( ".sidebar_cont, .sidebar_cover" ).show();
+            $( ".sidebar_cont" ).css({'right':'94px','opacity':'0.95'});
+        }
+        if ( command == "close" ) {
+            now_open = 0;
+            now_tab = "none";
+            $( ".sidebar_cont" ).css({'right':'60px','opacity':'0'});
+            setTimeout(function(){
+                $( ".sidebar_cont, .sidebar_cover" ).hide();
+            }, 700 );
+        };
+    }
+
+    function button_signUp() {
+        $( "#sidebar_signup" ).addClass("active");
+        $( "#sidebar_login" ).removeClass("active");
+        $( "#side_cont_login, #side_cont_search, .search_btn" ).fadeOut( 200, function(){
+             $( "#side_cont_signup, .profile_before_btn, .triangle" ).fadeIn();
+        });
+        $( ".triangle" ).css({'left':'70%'});
+    }
+
+    function button_logIn() {
+        $( "#sidebar_login" ).addClass("active");
+        $( "#sidebar_signup" ).removeClass("active");
+        $( "#side_cont_signup, #side_cont_search, .search_btn" ).fadeOut( 200, function(){
+             $( "#side_cont_login, .profile_before_btn, .triangle" ).fadeIn();
+        });
+        $( ".triangle" ).css({'left':'20%'});
+    }
+
+    function search() {
+        $( "#sidebar_login, #sidebar_signup" ).removeClass("active");
+        $( "#side_cont_login, #side_cont_signup, .profile_before_btn, .triangle" ).fadeOut( 200, function(){
+             $( "#side_cont_search, .search_btn" ).fadeIn();
+        });
+    }
+
+    function selectItem(item) {
+        var selected = item.text();
+        item.siblings(".default").text(selected);
+        item.siblings(".hidden").removeClass("hidden");
+        item.addClass("hidden");
+    }
+
 });
-
-// 送出訊息
-function sendMessage(){
-	var sendMsg = $('#msgText').val();
-
-	var toID = $("#userSidebar > .item.active").attr("userid");
-	$(".chatCont > div[messageuserid=\'" + toID + "\']").append('<li class="chatEntry chatSent"><img class="avatar" src="//placekitten.com/56/56" /><p class="message">'+sendMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
-	$('#msgText').val('');
-
-	var Data = "touid=" + toID + "&context=" + sendMsg;
-	console.log(Data);
-	$.ajax({
-		url: 'messages/send',
-		method: "POST",
-		data: Data,
-		headers: { "cache-control": "no-cache" },
-		success: function(response) {
-		}
-	})
-}
-
-// 收到訊息
-// function getMessage(receiveText){
-// 	var getMsg = receiveText;
-// 	$(".chatCont").append('<li class="chatEntry"><img class="avatar" src="//placekitten.com/g/50/50" /><p class="message">'+getMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
-// }
-
-// 開啟訊息欄
-function changeMessageBoard(){
-	// 如果是未讀訊息，就把未讀的效果取消，並回傳已讀訊息回去
-	$($(this).children("div")).remove();
-	$.ajax({
-		url: 'messages/isRead/' + $(this).attr("userid"),
-		method: "GET"
-	})
-	//
-	$('#userSidebar > .item').removeClass("active");
-	$(this).addClass("active");
-	// 如果是通知的那個區塊，就把send隱藏，沒有就顯示
-	if($('#userSidebar > .item.active > .mail').length == 1){
-		$('#inputMsg').hide();
-		$('.chatCont > div').hide();
-		return;
-	}
-	else $('#inputMsg').show();
-	var userID = $(this).attr("userid");
-	$('.chatCont > div').hide();
-	$(".chatCont > div[messageuserid=\'" + userID + "\']").show();
-}
-
-// 假設使用者沒有傳訊息的話～就把資料刪除
-function findNotSendMessageUser(){
-	var messageArr = $('.chatCont > div');
-	console.log(messageArr);
-	for(var i in messageArr){
-		if($(messageArr[i]).children().length == 0){
-			var id = $(messageArr[i]).attr('messageuserid');
-			$("#userSidebar > .item[userid=\'" + id + "\']").remove();
-			$(".chatCont > div[messageuserid=\'" + id + "\']").remove();
-			break;
-		}
-	}
-}
-
-// 假設使用者未登入
-function NotLogin(){
-	$(".ui.modal").modal("hide");
-	$('#mainSidebar').sidebar('toggle');
-}

@@ -1,5 +1,5 @@
 <% layout('../public/adminlayout') %>
-<h1 class="textcenter">Project 總覽</h1>
+<!-- <h1 class="textcenter">Project 總覽</h1>
 <table class="ui unstackable table">
   <thead>
     <tr>
@@ -33,19 +33,143 @@
 </div>
 
 <script>
-$(document).ready(function(){
-  $('.delproject').on('click', function(){
-    var id = this.getAttribute('project-id');
-    $.ajax({
-      url: "/projects/delete/"+id,
-      type: "DELETE",
-      success: function(response) {
-        if(response=="ok"){
-          toastr.success("刪除成功");
-          $("."+id).remove();
+  $(document).ready(function(){
+    $('.delproject').on('click', function(){
+      var id = this.getAttribute('project-id');
+      $.ajax({
+        url: "/projects/delete/"+id,
+        type: "DELETE",
+        success: function(response) {
+          if(response=="ok"){
+            toastr.success("刪除成功");
+            $("."+id).remove();
+          }
         }
-      }
+      });
     });
   });
-});
 </script>
+ -->
+
+<div class="right_tabBoard" id="<%= project_id %>">
+  <div class="ui top attached tabular menu" style="">
+    <a class="active item" data-tab="project_edit_info" style="border-radius: 0px !important;">專案資訊</a>
+    <!-- <a class="item" data-tab="project_edit_media"  style="border-radius: 0px !important;">專案影音</a> -->
+    <a class="item" data-tab="project_edit_member"  style="border-radius: 0px !important;">成員導覽</a>
+    <!-- <a class="item" data-tab="project_edit_message"  style="border-radius: 0px !important;">通知系統</a> -->
+    <div style="position: absolute; right: 0px; padding: 5px;">
+      <button class="mini ui basic button openPage" openPage="backstage_project_manage">儲存</button>
+      <!-- <button class="mini ui basic button openPage" openPage="backstage_project_manage">提交</button> -->
+    </div>
+  </div>
+  <div class="ui bottom attached active tab segment" data-tab="project_edit_info">
+    <form class="ui form">
+      <div class="field">
+        <label>Project Name</label>
+        <input type="text" name="Name" placeholder="<%= project.Name %>">
+      </div>
+      <div class="field">
+        <label>Time table</label>
+        <input type="text" name="Time" placeholder="" ="">
+      </div>
+      <div class="two fields">
+        <div class="field">
+          <label>Location</label>
+          <input type="text" name="Location" placeholder="<%= project.Location %>">
+        </div>
+        <div class="field">
+          <label>Type</label>
+          <select class="ui fluid dropdown" name="Type" placeholder="<%= project.Type %>">
+            <option value="文化生活">文化生活</option>
+            <option value="智慧科技與數位內容">智慧科技與數位內容</option>
+            <option value="創新與社會服務">創新與社會服務</option>
+          </select>
+        </div>
+      </div>
+      <div class="two fields">
+        <div class="field">
+          <label>Need</label>
+          <input type="text" name="Need" value="
+            <% for(var i =0 ; i < project.Need.length  ;i ++){ %>
+              <%= project.Need[i] %>
+            <% } %>
+          ">
+        </div>
+        <div class="field">
+          <label>Mission</label>
+          <input type="text" name="Mission" value="<%= project.Mission %>">
+        </div>
+      </div>
+      <div class="field">
+        <label>Introduction</label>
+        <textarea name="Introduction" value="<%= project.Introduction %>"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="project_edit_media">
+    <p>專案照片</p>
+    <div style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
+      <button class="mini ui basic button">+ 新增圖片/影片</button>
+    </div>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="project_edit_member">
+    <div class="ui cards" >
+      <div class="card" style="display: flex; flex-direction: inherit; height: 130;">
+        <div style="display: flex; align-items: center;background-color: black;">
+          <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png">
+        </div>
+        <!-- <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png"> -->
+        <div class="content" style="position: relative;">
+          <div class="header">Elliot Fu</div>
+          <div class="meta">Friend</div>
+          <div class="description">
+            Photography<br>Photography<br>Photography
+          </div>
+          <div style="position: absolute; top: 5px; right: 5px;">
+            <button class="mini ui basic button" style="height: 20px; width: 40px; padding: 0px;">text</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="display: flex; flex-direction: inherit; height: 130;">
+        <div style="display: flex; align-items: center;background-color: black;">
+          <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png">
+        </div>
+        <!-- <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png"> -->
+        <div class="content" style="position: relative;">
+          <div class="header">Elliot Fu</div>
+          <div class="meta">Friend</div>
+          <div class="description">
+            Photography<br>Photography<br>Photography
+          </div>
+          <div style="position: absolute; top: 5px; right: 5px;">
+            <button class="mini ui basic button" style="height: 20px; width: 40px; padding: 0px;">text</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="display: flex; flex-direction: inherit; height: 130;">
+        <div style="display: flex; align-items: center;background-color: black;">
+          <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png">
+        </div>
+        <!-- <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png"> -->
+        <div class="content" style="position: relative;">
+          <div class="header">Elliot Fu</div>
+          <div class="meta">Friend</div>
+          <div class="description">
+            Photography<br>Photography<br>Photography
+          </div>
+          <div style="position: absolute; top: 5px; right: 5px;">
+            <button class="mini ui basic button" style="height: 20px; width: 40px; padding: 0px;">text</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="project_edit_message" style="color: black;">
+    <p>TO: 專案成員</p>
+    <textarea name="" value="" style="border: solid 1px black; width: 100%; height: 100px;"></textarea>
+    <!-- <button class="mini ui basic button">送出</button> -->
+    <p>TO: 對專案有興趣之成員</p>
+    <textarea name="" value="" style="border: solid 1px black; width: 100%; height: 100px;"></textarea>
+    <!-- <button class="mini ui basic button">送出</button> -->
+  </div>
+</div>

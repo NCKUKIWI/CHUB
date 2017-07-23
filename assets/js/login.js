@@ -1,16 +1,17 @@
 $(document).ready(function() {
 	$("#loginSubmit").on("click", function() {
-		if($("#loginForm input[name=userid]").val() != "") {
+		if($("#side_cont_login input[name=userid]").val() != "") {
 			$.ajax({
 				url: "/users/auth",
 				type: "POST",
-				data: $("#loginForm").serialize(),
+				data: $("#side_cont_login").serialize(),
 				success: function(response) {
 					if(response == "ok") {
 						window.location.href = "/";
 					} else {
-						$("#loginForm .errormsg").empty();
-						$("#loginForm .errormsg").append(response["error"])
+						console.log(response["error"]);
+						// $("#loginForm .errormsg").empty();
+						// $("#loginForm .errormsg").append(response["error"])
 					}
 				}
 			});
@@ -20,7 +21,7 @@ $(document).ready(function() {
 		$.ajax({
 			url: "/users/signup",
 			type: "POST",
-			data: $("#signupForm").serialize(),
+			data: $("#side_cont_signup").serialize(),
 			success: function(response) {
 				if(response == "ok") {
 					window.location.href = "/";

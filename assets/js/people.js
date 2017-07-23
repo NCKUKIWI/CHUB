@@ -3,7 +3,6 @@ $(document).ready(function() {
 	// Initialize
 	var window_status = "closed",
 		people_hover;
-
 	$("#fullpage").fullpage();
 	$(".float_window").hide();
 	$("#left_people").addClass("item_now");

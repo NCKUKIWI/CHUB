@@ -58,7 +58,7 @@
     z-index: 10; }
     .sidebar_cont .sidebar_upper #sidebar_chub_logo {
       position: absolute;
-      background: url("../img/chub_logo.png") no-repeat;
+      background: url("../images/chub_logo.png") no-repeat;
       height: 70px;
       width: 50px;
       margin: auto;
@@ -287,7 +287,7 @@
       height: 35px;
       margin: 10px auto 0px auto;
       cursor: pointer;
-      background-image: url("../img/go_down_btn.png");
+      background-image: url("../images/go_down_btn.png");
       background-repeat: no-repeat;
       background-position-x: 95%;
       background-position-y: center; }
@@ -326,7 +326,7 @@
       background: #666666;
       transition: opacity 0.2s; }
     .dropdown .dropdown-content.opened .default {
-      background-image: url("../img/go_down_btn_on.png"); }
+      background-image: url("../images/go_down_btn_on.png"); }
     .dropdown .dropdown-content.opened a {
       color: white;
       height: 35px;
