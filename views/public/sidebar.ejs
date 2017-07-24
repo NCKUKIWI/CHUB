@@ -85,7 +85,11 @@
             <div class="side_btn tiny" id="side_btn_logout" onclick="window.location='/users/logout'">Log Out</div>
          </div>
          <div id="side_profile_left">
-            <img src="/assets/images/molly.png">
+            <% if(me.hasCover){ %>
+              <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
+            <% }else{ %>
+              <img class="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
+            <% } %>  
             <p class="side_name"><%= me.Name %></p>
             <p class="side_sub_name"></p>
             <div id="side_detail_text">
@@ -132,7 +136,11 @@
   <form class="side_halfscreen">
      <div id="halfscreen_left">
         <p id="personal_profile">【<%= me.Name %>s Profile】</p>
-        <img id="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
+        <% if(me.hasCover){ %>
+          <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
+        <% }else{ %>
+          <img class="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
+        <% } %>  
         <input class="mid_input" type="text" name="Name" placeholder="Username" value="<% if(me.Name !== undefined){ %><%= me.Name %><%}%>"></input>
         <input class="mid_input" type="text" name="Email" placeholder="E-mail" value="<% if(me.Email !== undefined){ %><%= me.Email %><%}%>"></input>
         <div class="side_btn" id="side_edit_uploadavatar">Upload avatar</div>
@@ -381,7 +389,8 @@ $(document).ready(function(){
    });
 
    $('#side_edit_uploadavatar').on('click', function(){
-    $("#newavatar").click();
+      console.log('in');
+      $("#newavatar").click();
    });
 
    $("#newavatar").on('change',function(){
@@ -392,7 +401,7 @@ $(document).ready(function(){
     if(input.files && input.files[0]){
       var reader = new FileReader();
       reader.onload = function (e) {
-        $('#edit_profile_photo').attr('src',e.target.result);
+        $('.edit_profile_photo').attr('src',e.target.result);
       }
       reader.readAsDataURL(input.files[0]);
     }

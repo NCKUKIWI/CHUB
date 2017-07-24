@@ -13,9 +13,9 @@
             <%= me.Skill[j] %><br> 
           <% } %>
         </div>
-        <div style="position: absolute; top: 5px; right: 5px;">
+        <!-- <div style="position: absolute; top: 5px; right: 5px;">
           <button class="mini ui basic button" style="height: 30px; width: 60px; padding: 0px;">info</button>
-        </div>
+        </div> -->
       </div>
     </div>
 </div>
@@ -36,9 +36,9 @@
             <%= applyer[i].Skill[j] %><br> 
           <% } %>
         </div>
-        <div style="position: absolute; top: 5px; right: 5px;">
+        <!-- <div style="position: absolute; top: 5px; right: 5px;">
           <button class="mini ui basic button" style="height: 30px; width: 60px; padding: 0px;">info</button>
-        </div>
+        </div> -->
         <br>
         <button class="ui left attached button acceptButton" users="<%= applyer[i]._id %>">Accept</button>
         <button class="right attached ui button rejectButton" users="<%= applyer[i]._id %>">Reject</button>
@@ -51,7 +51,7 @@
 <div class="ui divider"></div>
 <div class="ui cards" >
   <% for(var i in members){ %>
-    <div class="card" style="display: flex; flex-direction: inherit; height: 130; width: 330px">
+    <div class="card" style="display: flex; flex-direction: inherit; height: 130; width: 330px" users="<%= members[i]._id %>">
       <div style="display: flex; align-items: center;background-color: rgba(117, 124, 133, 1);">
         <img style="width:130px; height: 130px;" src="/assets/images/molly.png">
       </div>
@@ -63,11 +63,11 @@
             <%= members[i].Skill[j] %><br> 
           <% } %>
         </div>
-        <div style="position: absolute; top: 5px; right: 5px;">
+        <!-- <div style="position: absolute; top: 5px; right: 5px;">
           <button class="mini ui basic button" style="height: 30px; width: 60px; padding: 0px;">info</button>
-        </div>
+        </div> -->
         <br>
-        <select class="ui fluid dropdown" style=" font-size: 10px !important;">
+        <select class="ui fluid dropdown editPosition" style=" font-size: 10px !important;">
           <option value="--職位--">--職位--</option>
           <option value="人類學家observer">人類學家observer</option>
           <option value="實驗家inventor<">實驗家inventor</option>
@@ -86,10 +86,10 @@
 </div>
 
 <script type="text/javascript">
-  function memberLisener(){
-    $('.ui.dropdown').dropdown();
-  }
-  memberLisener();
+  // function memberLisener(){
+  //   $('.ui.dropdown').dropdown();
+  // }
+  // memberLisener();
   $(document).ready(function() {
     // 許可申請者
     $('.acceptButton').on('click', function(){
@@ -125,6 +125,26 @@
           }
         }
       });
+    })
+
+    // 更新member職位
+    $('.editPosition').dropdown({
+      onChange: function(value, text, obj){
+        var position = value;
+        var userID = $(obj).parents()[3].getAttribute('users');
+        var projectID = $(obj).parents()[6].getAttribute('id');
+        // $.ajax({
+        //   url: "/projects/" + projectID + "/editMember/" + userID + "/" + position,
+        //   type: "POST",
+        //   success: function(response) {
+        //     if(response=="ok"){
+        //       toastr.success("成功拒絕");
+        //       // $('.ui.modal.' + id).modal('hide');
+        //       $('div[users="' + id + '"]').remove();
+        //     }
+        //   }
+        // });
+      }
     })
   });
 </script>

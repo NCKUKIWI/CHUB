@@ -24,7 +24,7 @@
 				<div id="view_left" class="syncscroll" name="view_people">
 					<div class="row" id="row_1">
 					<% for(var i = 0; i < users.length; i += 3){ %>
-						<% if(users[i].hasCover == -1) { %>
+						<% if(users[i].hasCover == 1) { %>
 						<div class="people_left">
 							<img class="people_pic" id="pic_<%= users[i].id %>" src="/uploads/user/<%= users[i].id %>/avatar.png"  user-id="<%= users[i].id %>">
 							<img class="people_more" src="/assets/images/people_more.png">
@@ -39,7 +39,7 @@
 					</div>
 					<div class="row" id="row_2">
 					<% for(var i = 1; i < users.length; i += 3){ %>
-						<% if(users[i].hasCover == -1) { %>
+						<% if(users[i].hasCover == 1) { %>
 						<div class="people_left">
 							<img class="people_pic" id="pic_<%= users[i].id %>" src="/uploads/user/<%= users[i].id %>/avatar.png"  user-id="<%= users[i].id %>">
 							<img class="people_more" src="/assets/images/people_more.png">
@@ -54,7 +54,7 @@
 					</div>
 					<div class="row" id="row_3">
 					<% for(var i = 2; i < users.length; i += 3){ %>
-						<% if(users[i].hasCover == -1) { %>
+						<% if(users[i].hasCover == 1) { %>
 						<div class="people_left">
 							<img class="people_pic" id="pic_<%= users[i].id %>" src="/uploads/user/<%= users[i].id %>/avatar.png"  user-id="<%= users[i].id %>">
 							<img class="people_more" src="/assets/images/people_more.png">
