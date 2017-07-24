@@ -73,52 +73,55 @@
       </div>
       <div class="side_btn black" id="side_search">Search</div>
    </form>
-   <div class="side_cont_page" id="side_cont_myprofile">
-      <div class="tiny_bottons">
-         <!-- <div class="side_btn tiny" id="side_btn_group">My Group</div>  -->
-         <div class="side_btn tiny" id="side_btn_edit">Edit Profile</div>
-         <div class="side_btn tiny" id="side_btn_logout" onclick="window.location='/users/logout'">Log Out</div>
-      </div>
-      <div id="side_profile_left">
-         <img src="/assets/images/molly.png">
-         <p class="side_name"><%= me.Name %></p>
-         <!-- <p class="side_sub_name"><%= me.Major %></p> -->
-         <div id="side_detail_text">
-            <p class="left_title">School</p><span>/</span><p class="left_cont"><% if(me.School !== undefined){ %><%= me.School.Name %><%}%></p>
-            <p class="left_title">Student ID</p><span>/</span><p class="left_cont"><% if(me.School !== undefined){ %><%= me.School.StudentID %><%}%></p>
-            <p class="left_title">Major</p><span>/</span><p class="left_cont"><%= me.Major %></p>
-            <% if(me.Skill !== undefined){ %>
-               <p class="left_title">Skills</p><span>/</span><p class="left_cont">
-               <% for(var j = 0; j < me.Skill.length; j++){ %>
-                  <%= me.Skill[j] %><br> 
+   <% if(me) { %>
+      <div class="side_cont_page" id="side_cont_myprofile">
+         <div class="tiny_bottons">
+            <!-- <div class="side_btn tiny" id="side_btn_group">My Group</div>  -->
+            <div class="side_btn tiny" id="side_btn_edit">Edit Profile</div>
+            <div class="side_btn tiny" id="side_btn_logout" onclick="window.location='/users/logout'">Log Out</div>
+         </div>
+         <div id="side_profile_left">
+            <img src="/assets/images/molly.png">
+            <p class="side_name"></p>
+            <!-- <p class="side_sub_name"><%= me.Major %></p> -->
+            <div id="side_detail_text">
+               <p class="left_title">School</p><span>/</span><p class="left_cont"><% if(me.School !== ''){ %><%= me.School.Name %><%}%></p>
+               <p class="left_title">Student ID</p><span>/</span><p class="left_cont"><% if(me.School !== ''){ %><%= me.School.StudentID %><%}%></p>
+               <p class="left_title">Major</p><span>/</span><p class="left_cont"><%= me.Major %></p>
+               <% if(me.Skill !== undefined){ %>
+                  <p class="left_title">Skills</p><span>/</span><p class="left_cont">
+                  <% for(var j = 0; j < me.Skill.length; j++){ %>
+                     <%= me.Skill[j] %><br> 
+                  <% } %>
+               <%}%>
+               <!-- Technology、<br>Design、<br>Architecture</p> -->
+            </div>
+         </div>
+         <div class="with_scroll" id="side_profile_right">
+            <% if(me) {%>
+            <p class="right_title">Group</p><span>/</span>
+               <% for(var i = 0; i < me.GroupID.length; i++){ %>
+                  <a class="right_cont"><%= me.GroupID[i].Name %></a>
                <% } %>
-            <%}%>
-            <!-- Technology、<br>Design、<br>Architecture</p> -->
+            <br>
+            <p class="right_title">Project</p><span>/</span>
+               <% for(var i = 0; i < me.ProjectID.length; i++){ %>
+                  <a class="right_cont"><%= me.ProjectID[i].Name %></a>
+               <% } %>
+            <br>
+            <p class="right_title">Activity</p><span>/</span>
+               <% for(var i = 0; i < me.ActivityID.length; i++){ %>
+                  <a class="right_cont"><%= me.ActivityID[i].Name %></a>
+               <% } %>
+            <br>
+            <% } %>
          </div>
       </div>
-      <div class="with_scroll" id="side_profile_right">
-         <% if(me) {%>
-         <p class="right_title">Group</p><span>/</span>
-            <% for(var i = 0; i < me.GroupID.length; i++){ %>
-               <a class="right_cont"><%= me.GroupID[i].Name %></a>
-            <% } %>
-         <br>
-         <p class="right_title">Project</p><span>/</span>
-            <% for(var i = 0; i < me.ProjectID.length; i++){ %>
-               <a class="right_cont"><%= me.ProjectID[i].Name %></a>
-            <% } %>
-         <br>
-         <p class="right_title">Activity</p><span>/</span>
-            <% for(var i = 0; i < me.ActivityID.length; i++){ %>
-               <a class="right_cont"><%= me.ActivityID[i].Name %></a>
-            <% } %>
-         <br>
-         <% } %>
-      </div>
-   </div>
+   <% } %>
 </div>
 
 <!-- 編輯profile頁面 -->
+<% if(me) { %>
 <form class="side_halfscreen">
    <div id="halfscreen_left">
       <p id="personal_profile">【<%= me.Name %>'s Profile】</p>
@@ -129,8 +132,8 @@
       <div class="side_btn" id="side_edit_cancel">Cancel</div>
    </div>
    <div id="halfscreen_right">
-      <input class="mid_input" type="text" name="School" placeholder="[School]" value="<% if(me.School.Name !== ''){ %><%= me.School.Name %><%}%>"></input>
-      <input class="mid_input" type="text" name="StudentID" placeholder="[Student ID]" value="<% if(me.School.Name !== ''){ %><%= me.School.StudentID %><%}%>"></input>
+      <input class="mid_input" type="text" name="School" placeholder="[School]" value="<% if(me.School !== ''){ %><%= me.School.Name %><%}%>"></input>
+      <input class="mid_input" type="text" name="StudentID" placeholder="[Student ID]" value="<% if(me.School !== ''){ %><%= me.School.StudentID %><%}%>"></input>
       <input class="mid_input" type="text" name="Major" placeholder="[Major]" value="<% if(me.Major !== undefined){ %><%= me.Major %><%}%>"></input>
       <input class="mid_input" type="text" name="Skill" placeholder="[Skill]" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
       </input>
@@ -149,6 +152,7 @@
       </div> -->
    </div>
 </form> 
+<% } %>
 
 <script>
 $(document).ready(function(){
