@@ -115,7 +115,8 @@ router.post("/signup",function(req,res) {
           res.send({error:helper.handleError(err)});
         }else{
           helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
-          cacheClear();
+          res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
+          res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
           res.send("ok");
         }
       });
@@ -132,7 +133,6 @@ router.post("/auth", function(req, res) {
         if(result==true){
           res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
           res.cookie("id", user._id,{maxAge: 60 * 60 * 1000});
-          cacheClear();
           res.send("ok");
         }else{
           res.send({error:"Password Error"});
@@ -293,7 +293,6 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
       graph.get(`/me?fields=id,name,email,gender&access_token=${result.access_token}`,function(err,fb){
         User.findOne({UserID:fb.id},"_id",function(err,user){
           if(user){
-            cacheClear();
             res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
             res.cookie("id",user._id,{maxAge: 60 * 60 * 1000});
             res.redirect("/");
@@ -302,7 +301,6 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
             User.create({ Email:fb.email,UserID:fb.id,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:""}, function (err,result) {
               if (err) console.log(err);
               helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
-              cacheClear();
               res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
               res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
               res.redirect("/");
@@ -349,7 +347,6 @@ router.post("/resendemail",helper.checkLogin(),function(req, res){
       res.send("ok");
     }
   });
-
 });
 
 router.post("/update",helper.apiAuth(),function(req, res) {
@@ -376,14 +373,12 @@ router.post("/update",helper.apiAuth(),function(req, res) {
     if(err){
       res.send({error:helper.handleError(err)});
     }else{
-      cacheClear();
       res.send("ok");
     }
   });
 });
 
 router.get("/logout", function(req, res) {
-  cacheClear();
   res.clearCookie("isLogin");
   res.clearCookie("id");
   res.redirect("/");
@@ -409,7 +404,7 @@ router.post("/msg",helper.apiAuth(),function(req,res) {
 router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   User.findById(req.params.id,function(err,user){
     if(user){
-      if(user._id == req.user._id || req.user.Role == 3 ){
+      if(user._id == req.user._id || req.user.Role == 2 ){
         Message.remove({$or:[{"ToUID":user._id}, {"FromUID":user._id}]},function(err){
           if(err){
             console.log(err);
@@ -427,7 +422,6 @@ router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
                   }else{
                     rimraf(`${__dirname}/../uploads/user/${req.params.id}`,function () { });
                     user.remove(function(err){
-                      cacheClear();
                       res.send("ok");
                     });
                   }

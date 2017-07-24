@@ -84,8 +84,8 @@
          <p class="side_name"><%= me.Name %></p>
          <!-- <p class="side_sub_name"><%= me.Major %></p> -->
          <div id="side_detail_text">
-            <p class="left_title">School</p><span>/</span><p class="left_cont"><% if(me.School.Name !== ''){ %><%= me.School.Name %><%}%></p>
-            <p class="left_title">Student ID</p><span>/</span><p class="left_cont"><% if(me.School.Name !== ''){ %><%= me.School.StudentID %><%}%></p>
+            <p class="left_title">School</p><span>/</span><p class="left_cont"><% if(me.School !== undefined){ %><%= me.School.Name %><%}%></p>
+            <p class="left_title">Student ID</p><span>/</span><p class="left_cont"><% if(me.School !== undefined){ %><%= me.School.StudentID %><%}%></p>
             <p class="left_title">Major</p><span>/</span><p class="left_cont"><%= me.Major %></p>
             <% if(me.Skill !== undefined){ %>
                <p class="left_title">Skills</p><span>/</span><p class="left_cont">

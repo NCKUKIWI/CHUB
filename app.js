@@ -29,7 +29,6 @@ app.use(session({
 
 
 var userInfo = ["_id", "Email", "EmailConfirm", "Name","School", "RecoveryEmail", "Major", "Skill", "Introduction", "Location", "Role", "Link", "GroupID", "ProjectID", "ActivityID","portfolio","hasCover"];
-app.use(cookieParser("secretString"));
 
 app.use(function(req, res, next) {
   helper.noinjection(req);
