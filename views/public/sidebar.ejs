@@ -9,6 +9,11 @@
    <!-- <div class="side_icon" id="side_search">
       <img src="assets/images/side_search.png">
    </div> -->
+   <% if(me.Role == 2) { %>
+      <div class="side_icon">
+         <a href="/panel" target="_blank"><img src="assets/images/side_backstage.png"></a>
+      </div>
+   <% } %>
 </div>
 
 <div class="sidebar_cont" style="display: none;">
@@ -82,8 +87,8 @@
          </div>
          <div id="side_profile_left">
             <img src="/assets/images/molly.png">
-            <p class="side_name"></p>
-            <!-- <p class="side_sub_name"><%= me.Major %></p> -->
+            <p class="side_name"><%= me.Name %></p>
+            <p class="side_sub_name"></p>
             <div id="side_detail_text">
                <p class="left_title">School</p><span>/</span><p class="left_cont"><% if(me.School !== ''){ %><%= me.School.Name %><%}%></p>
                <p class="left_title">Student ID</p><span>/</span><p class="left_cont"><% if(me.School !== ''){ %><%= me.School.StudentID %><%}%></p>

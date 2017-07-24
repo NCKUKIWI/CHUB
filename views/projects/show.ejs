@@ -73,7 +73,7 @@
       </p>
     </p>
 	</div>
-  <% if(me.Role == 1){ %>
+  <% if(me.Role >= 1){ %>
   	<div class="bottom_icons">
       <% if(me){ %>
         <% if(project.ApplyID.indexOf(me._id)==-1 && project.MemberID.indexOf(me._id)==-1){ %>

@@ -91,7 +91,6 @@ router.get("/", function(req,res) {
 });
 
 router.post("/signup",function(req,res) {
-  console.log(req.body);
   if(req.body.password2==""){
     res.send({error:["請再輸入一次密碼"]});
   }
@@ -125,8 +124,10 @@ router.post("/signup",function(req,res) {
 });
 
 router.post("/auth", function(req, res) {
-  User.findOne({$or:[{"Email":req.body.userid},{"UserID":req.body.userid}]},["UserID","Password"],function(err,user){
+  console.log(req.body);
+  User.findOne({$or:[{"Email":req.body.email}]},["UserID","Password"],function(err,user){
     if(user){
+      console.log(user);
       bcrypt.compare(req.body.password,user.Password,function(err,result) {
         if(result==true){
           res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
