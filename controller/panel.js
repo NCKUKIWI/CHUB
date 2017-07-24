@@ -17,7 +17,7 @@ router.get("/",helper.checkLogin(),function(req,res) {
 });
 
 router.post("/projectMember/:id",helper.checkLogin(),function(req,res) {
-  // if(req.user.Role == 3){
+  // if(req.user.Role == 2){
   //   Project.find({},function(err,projects){
   //     res.render("panel/projects",{
   //       projects:projects
@@ -46,7 +46,7 @@ router.post("/projectMember/:id",helper.checkLogin(),function(req,res) {
 });
 
 router.get("/groups",helper.checkLogin(),function(req,res) {
-  if(req.user.Role==3){
+  if(req.user.Role==2){
     Group.find({},function(err,groups){
       res.render("panel/groups",{
         groups:groups
@@ -63,7 +63,7 @@ router.get("/groups",helper.checkLogin(),function(req,res) {
 
 
 router.get("/users",helper.checkLogin(),function(req,res) {
-  if(req.user.Role==3){
+  if(req.user.Role==2){
     User.find({},function(err,users){
       res.render("panel/users",{
         users:users
@@ -75,7 +75,7 @@ router.get("/users",helper.checkLogin(),function(req,res) {
 });
 
 router.get("/abouts",helper.checkLogin(),function(req,res) {
-  if(req.user.Role == 3){
+  if(req.user.Role == 2){
     res.render("panel/about",{
     });
   }
