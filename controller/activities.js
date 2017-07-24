@@ -44,9 +44,13 @@ router.get("/", function(req,res) {
   }
   if(filter["$or"].length == 0) filter["$or"].push({});
   Activity.find(filter,function(err,activity){
-    res.render("activities/index",{
-      activity:activity,
-      id: req.query.id
+    // res.render("activities/index",{
+    //   activity:activity,
+    //   id: req.query.id
+    // });
+    res.render("index",{
+      // activity:activity,
+      // id: req.query.id
     });
   });
 });

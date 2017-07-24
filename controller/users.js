@@ -122,6 +122,8 @@ router.post("/signup",function(req,res) {
   }
 });
 
+// post 重新寄信
+
 router.post("/auth", function(req, res) {
   User.findOne({$or:[{"Email":req.body.userid},{"UserID":req.body.userid}]},["UserID","Password"],function(err,user){
     if(user){
@@ -343,15 +345,25 @@ router.post("/resendemail",helper.checkLogin(),function(req, res){
 
 router.post("/update",helper.apiAuth(),function(req, res) {
   if(req.body.skill == null) req.body.skill = [];
-  var newData = {
-    Email: req.body.email,
-    Name: req.body.name,
-    Major: req.body.major,
-    Location: req.body.location,
-    Introduction: req.body.introduction,
-    Skill: req.body.skill
+  // 如果都有填資料, 則設1, 沒有則設0
+  var role = 1;
+  for(var i in req.body){
+    if(req.body[i].toString == "") role = 0;
   }
-  User.findOneAndUpdate({_id:req.user._id},newData,function(err,user){
+  // 須知道email使否被驗證過
+  if (req.user.EmailConfirm) role == 0;
+
+  var updateData = {
+    Email: req.body.Email,
+    Name: req.body.Name,
+    Major: req.body.Major,
+    Introduction: req.body.Introduction,
+    Skill: req.body.Skill,
+    School: {'Name': req.body.School, 'StudentID': req.body.StudentID},
+    RecoveryEmail: req.body.RecoveryEmail,
+    Role: role
+  }
+  User.findOneAndUpdate({_id:req.user._id},updateData,function(err,user){
     if(err){
       res.send({error:helper.handleError(err)});
     }else{

@@ -19,14 +19,17 @@ Mutiple option
 */
 
 var userSchema = new Schema({
-  UserID: { type:String,required:[true,"請輸入用戶名稱"] ,unique:true },
-  Email: { type:String,required:[true,"請輸入Email"] },
+  // UserID: { type:String,required:[true,"請輸入用戶名稱"] ,unique:true }, // 好像已經沒有了
+  Email: { type:String,required:[true,"請輸入Email"]},
+  EmailConfirm: { type: Boolean, default:false},
+  RecoveryEmail: String,
   Password: { type: String, minlength:[8,"密碼需大於8碼"],required:[true,"請輸入密碼"] },
   Name: { type: String,required: [true,"請輸入用戶姓名"] },
   Major: String,
   Skill: [String],
   Location: String,
   Introduction: { type: String, minlength:0, maxlength:100 },
+  School: {'Name': String, 'StudentID': String},
   Link: [String],
   Role: Number,
   hasCover:Number,
