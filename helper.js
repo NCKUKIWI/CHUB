@@ -50,6 +50,15 @@ exports.apiAuth = function apiAuth(){
   }
 }
 
+exports.noinjection = function noinjection(req){
+  for(var i in req.body){
+    req.body[i] = req.body[i].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,"");
+  }
+  for(var i in req.query){
+    req.query[i] = req.query[i].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,"");
+  }
+}
+
 exports.checkLogin = function checkLogin(v){
   if(v === undefined){
     return function(req, res, next) {

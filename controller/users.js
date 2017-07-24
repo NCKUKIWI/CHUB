@@ -104,7 +104,7 @@ router.post("/signup",function(req,res) {
         Password:hash,
         Name:req.body.userid, // 暫時真實姓名跟id一樣
         Email:req.body.email,
-        Role:0, 
+        Role:0,
         hasCover:0
       };
       User.create(newUser,function(err,result){
@@ -331,6 +331,15 @@ router.get("/emailauth",helper.checkLogin(0),function(req, res){
     });
   }else{
     res.redirect("/");
+  }
+});
+
+router.post("/resendemail",helper.checkLogin(),function(req, res){
+  if(req.user.Role == 3){
+    helper.sendEmail(req.body.email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${req.body.UserID}&id=${req.body.id}`);
+    res.send("ok");
+  }else{
+    res.send("notAdmin");
   }
 });
 

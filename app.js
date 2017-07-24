@@ -29,6 +29,7 @@ app.use(session({
 
 var userInfo = ["_id", "Email", "Name", "Major", "Skill", "Introduction", "Location", "Role", "Link", "GroupID", "ProjectID", "ActivityID","portfolio","hasCover"];
 app.use(function(req, res, next) {
+  helper.noinjection(req);
   res.locals.query = req.query;
   if(req.cookies.isLogin){
     User.findById(req.cookies.id,userInfo).populate("GroupID","_id Name").populate("ProjectID","_id Name").populate("ActivityID","_id Name").exec(function(err,user){
