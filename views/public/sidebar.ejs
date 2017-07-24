@@ -20,12 +20,12 @@
          <div class="triangle"></div>
       </div>
       <div class="side_menu" id="side_menu_profile_after">
-          <!-- <div class="sidebar_btn third profile_after_btn active" id="sidebar_interested"><p>Interested</p></div> 
-          <div class="sidebar_btn third profile_after_btn" id="sidebar_profile"><p>My Profile</p></div> 
+          <!-- <div class="sidebar_btn third profile_after_btn active" id="sidebar_interested"><p>Interested</p></div>
+          <div class="sidebar_btn third profile_after_btn" id="sidebar_profile"><p>My Profile</p></div>
           <div class="sidebar_btn third profile_after_btn" id="sidebar_headsup"><p>Heads-Up</p></div>  -->
-           <div class="sidebar_btn full profile_after_btn" id="sidebar_profile"><p>My Profile</p></div>  
+           <div class="sidebar_btn full profile_after_btn" id="sidebar_profile"><p>My Profile</p></div>
           <!-- <div class="triangle"></div> -->
-      </div> 
+      </div>
       <div class="side_menu_search">
          <div class="sidebar_btn full search_btn" id="sidebar_search"><p>Search</p></div>
       </div>
@@ -158,7 +158,7 @@
 $(document).ready(function(){
 
    // Initialize
-   
+
    var now_tab = "none", now_page = "none", sidebar_open = 0, halfscreen_open = 0;
    $( ".sidebar_cont, .side_cont_page, .side_menu, .sidebar_cover, .side_halfscreen, .halfscreen_cover" ).hide();
    // $("#fullpage").fullpage(); // 以防萬一沒有setAllowScrolling這個function
@@ -168,8 +168,8 @@ $(document).ready(function(){
       loginStatus();
    <% }else{ %>
       logoutStatus();
-   <% } %> 
-   
+   <% } %>
+
 
    // Tab Listener
 
@@ -204,7 +204,7 @@ $(document).ready(function(){
              //     myProfile();
              // <% }else{ %>
              //     logIn();
-             // <% } %> 
+             // <% } %>
          // }
          if(sidebar_open == 0)
             switchSidebar("open");
@@ -242,7 +242,7 @@ $(document).ready(function(){
 
    $( ".sidebar_cover" ).click(function() {
       switchSidebar("close");
-   }); 
+   });
 
 
    // Button Listener
@@ -301,14 +301,14 @@ $(document).ready(function(){
    });
 
    // Other Listeners
-   
+
    // $( ".sidebar_cont" ).hover(
    //    function() {
    //       $.fn.fullpage.setAllowScrolling(false);
    //    }, function() {
    //       $.fn.fullpage.setAllowScrolling(true);
    // });
-   
+
 
    // login按鈕按下送出
    $("#loginSubmit").on("click", function() {
