@@ -7,7 +7,7 @@
       </div>
       <div class="content" style="position: relative;">
         <div class="header"><%= me.Name %></div>
-        <div class="meta"><%= me.Major %></div>
+        <div class="meta"><% if(me.Major !== undefined){ %><%= me.Major %><%}%></div>
         <div class="description">
           <% for(var j = 0; j < me.Skill.length; j++){ %>
             <%= me.Skill[j] %><br> 
@@ -30,7 +30,7 @@
       </div>
       <div class="content" style="position: relative;">
         <div class="header"><%= applyer[i].Name %></div>
-        <div class="meta"><%= applyer[i].Major %></div>
+        <div class="meta"><% if(applyer[i].Major !== undefined){ %><%= applyer[i].Major %><%}%></div>
         <div class="description">
           <% for(var j = 0; j < applyer[i].Skill.length; j++){ %>
             <%= applyer[i].Skill[j] %><br> 
@@ -57,7 +57,7 @@
       </div>
       <div class="content" style="position: relative;">
         <div class="header"><%= members[i].Name %></div>
-        <div class="meta"><%= members[i].Major %></div>
+        <div class="meta"><% if(members[i].Major !== undefined){ %><%= members[i].Major %><%}%></div>
         <div class="description">
           <% for(var j = 0; j < members[i].Skill.length; j++){ %>
             <%= members[i].Skill[j] %><br> 
