@@ -101,9 +101,8 @@ router.post("/signup",function(req,res) {
   else{
     bcrypt.hash(req.body.password,5,function(err, hash) {
       var newUser = {
-        UserID:req.body.userid,
         Password:hash,
-        Name:req.body.userid, // 暫時真實姓名跟id一樣
+        Name:req.body.name, 
         Email:req.body.email,
         Role:0,
         hasCover:0,
@@ -114,7 +113,7 @@ router.post("/signup",function(req,res) {
           console.log({error:helper.handleError(err)});
           res.send({error:helper.handleError(err)});
         }else{
-          helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
+          helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.Name}&id=${result._id}`);
           res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
           res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
           res.send("ok");
@@ -125,7 +124,7 @@ router.post("/signup",function(req,res) {
 });
 
 router.post("/auth", function(req, res) {
-  User.findOne({$or:[{"Email":req.body.userid},{"UserID":req.body.userid}]},["UserID","Password"],function(err,user){
+  User.findOne({$or:[{"Email":req.body.email}]},["Password"],function(err,user){
     if(user){
       bcrypt.compare(req.body.password,user.Password,function(err,result) {
         if(result==true){
@@ -160,7 +159,7 @@ router.get("/forgetpw",helper.checkLogin(0),function(req, res) {
 });
 
 router.post("/forgetpw",function(req, res) {
-  User.findOne({$or:[{"Email":req.body.userid},{"UserID":req.body.userid}]},["_id","UserID","Email","CreateAt"],function(err,user){
+  User.findOne({$or:[{"Email":req.body.email}]},["_id","Email","CreateAt"],function(err,user){
     if(user){
       user.forgetPw = 1;
       user.save(function(err){
@@ -289,16 +288,16 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
       "code": req.query.code
     }, function (err,result) {
       graph.get(`/me?fields=id,name,email,gender&access_token=${result.access_token}`,function(err,fb){
-        User.findOne({UserID:fb.id},"_id",function(err,user){
+        User.findOne({Email:fb.email},"_id",function(err,user){
           if(user){
             res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
             res.cookie("id",user._id,{maxAge: 60 * 60 * 1000});
             res.redirect("/");
           }
           else{
-            User.create({ Email:fb.email,UserID:fb.id,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:""}, function (err,result) {
+            User.create({ Email:fb.email,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:""}, function (err,result) {
               if (err) console.log(err);
-              helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.UserID}&id=${result._id}`);
+              helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${result._id}`);
               res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
               res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
               res.redirect("/");
@@ -314,8 +313,8 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
 });
 
 router.get("/emailauth",helper.checkLogin(0),function(req, res){
-  if(req.query.user && req.query.id){
-    User.findOne({_id:req.query.id,UserID:req.query.user},["_id","Role"],function(err,user){
+  if(req.query.uid){
+    User.findOne({_id:req.query.uid},["_id","Role"],function(err,user){
       if(user){
         user.EmailConfirm = true;
         user.save(function(err){
@@ -341,7 +340,7 @@ router.post("/resendemail",helper.checkLogin(),function(req, res){
       res.send({error:helper.handleError(err)});
     }else{
       cacheClear();
-      helper.sendEmail(req.body.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${req.body.UserID}&id=${req.body.id}`);
+      helper.sendEmail(req.body.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${req.body.id}`);
       res.send("ok");
     }
   });
@@ -402,7 +401,7 @@ router.post("/msg",helper.apiAuth(),function(req,res) {
 router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   User.findById(req.params.id,function(err,user){
     if(user){
-      if(user._id == req.user._id || req.user.Role == 2 ){
+      if(user._id == req.user._id || req.user.Role == 3 ){
         Message.remove({$or:[{"ToUID":user._id}, {"FromUID":user._id}]},function(err){
           if(err){
             console.log(err);

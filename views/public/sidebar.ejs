@@ -42,7 +42,6 @@
    </form>
    <form class="side_cont_page" id="side_cont_signup">
       <input class="big_input" type="text" name="email" placeholder="E-mail"></input>
-      <input class="big_input" type="text" name="userid" placeholder="Username"></input>
       <input class="big_input" type="password" name="password" placeholder="Password"></input>
       <input class="big_input" type="password" name="password2" placeholder="Confirm Password"></input>
       <div class="side_goto_bottom">
@@ -91,7 +90,7 @@
                <% if(me.Skill !== undefined){ %>
                   <p class="left_title">Skills</p><span>/</span><p class="left_cont">
                   <% for(var j = 0; j < me.Skill.length; j++){ %>
-                     <%= me.Skill[j] %><br> 
+                     <%= me.Skill[j] %><br>
                   <% } %>
                <%}%>
                <!-- Technology、<br>Design、<br>Architecture</p> -->
@@ -145,13 +144,13 @@
       <textarea class="with_scroll" name="Introduction" id="description_input"><% if(me.Introduction !== undefined){ %><%= me.Introduction %><%}%></textarea>
       <!-- <div id="portfolio_upload">
          <p id="halfscreen_port_title">Portfolio</p>
-         <span>/</span> 
+         <span>/</span>
          <a class="halfscreen_port">Title1</a>
          <a class="halfscreen_port">Title2</a>
          <a class="halfscreen_port upload">Upload</a>
       </div> -->
    </div>
-</form> 
+</form>
 <% } %>
 
 <script>
@@ -312,7 +311,7 @@ $(document).ready(function(){
 
    // login按鈕按下送出
    $("#loginSubmit").on("click", function() {
-     if($("#side_cont_login input[name=userid]").val() != "") {
+     if($("#side_cont_login input[name=email]").val() != "") {
       $.ajax({
         url: "/users/auth",
         type: "POST",

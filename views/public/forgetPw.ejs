@@ -5,8 +5,8 @@
       <div class="errormsg"></div>
     </div>
     <div class="field">
-      <p>Email or ID</p>
-      <input type="text" name="userid" placeholder="Email or ID">
+      <p>Email</p>
+      <input type="text" name="email" placeholder="Email">
     </div>
     <div style="display: flex; justify-content: space-around;">
       <a class="ui button" id="forgetpwbtn" style="width: 100%; margin-top: 12px;">Submit</a>
@@ -16,7 +16,7 @@
 <script>
 $(document).ready(function() {
 	$("#forgetpwbtn").on("click", function() {
-		if($("#forgetPwForm input[name=userid]").val() != "") {
+		if($("#forgetPwForm input[name=email]").val() != "") {
 			$.ajax({
 				url: "/users/forgetpw",
 				type: "POST",
