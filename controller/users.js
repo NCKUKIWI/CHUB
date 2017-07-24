@@ -102,7 +102,7 @@ router.post("/signup",function(req,res) {
     bcrypt.hash(req.body.password,5,function(err, hash) {
       var newUser = {
         Password:hash,
-        Name:req.body.name, 
+        Name:req.body.email,
         Email:req.body.email,
         Role:0,
         hasCover:0,
@@ -207,7 +207,7 @@ router.post("/editpw",function(req, res) {
   }
 });
 
-router.post("/upload/",helper.apiAuth(),function(req,res) {
+router.post("/avatar/upload",helper.apiAuth(),function(req,res) {
   avatarUpload(req,res,function(err){
     if(err){
       console.log(err);

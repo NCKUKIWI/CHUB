@@ -57,7 +57,7 @@ router.get("/", function(req,res) {
 });
 
 router.get("/new",helper.checkLogin(),function(req,res) {
-  res.render("projects/create");
+  res.render("projects/new");
 });
 
 router.post("/create",helper.apiAuth(),function(req,res) {

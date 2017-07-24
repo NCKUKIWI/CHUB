@@ -50,7 +50,7 @@ router.get("/", function(req,res) {
 });
 
 router.get("/new",helper.checkLogin(),function(req,res) {
-  res.render("groups/create");
+  res.render("groups/new");
 });
 
 router.post("/create",helper.apiAuth(),function(req,res) {
