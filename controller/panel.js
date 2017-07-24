@@ -33,7 +33,37 @@ router.post("/projectMember/:id",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
       User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Skill","Description","Role"],function(err,members){
-        console.log(members);
+        User.find({ _id:{ $in:project.ApplyID } },["_id","Name","Email","Major","Skill","Description","Role"],function(err,applyer){
+          res.render("panel/project_member",{
+            project:project,
+            members:members,
+            applyer: applyer
+          });
+        });
+      });
+    }else{
+      res.send("notFound");
+    }
+  });
+});
+
+router.post("/projectApplying/:id",helper.checkLogin(),function(req,res) {
+  // if(req.user.Role == 3){
+  //   Project.find({},function(err,projects){
+  //     res.render("panel/projects",{
+  //       projects:projects
+  //     });
+  //   });
+  // }else{
+  //   Project.find({"AdminID":{"$in":[req.user._id]}},function(err,projects){
+  //     res.render("panel/projects",{
+  //       projects:projects
+  //     });
+  //   });
+  // }
+  Project.findById(req.params.id,function(err,project){
+    if(project){
+      User.find({ _id:{ $in:project.ApplyID } },["_id","Name","Email","Major","Skill","Description","Role"],function(err,members){
         res.render("panel/project_member",{
           project:project,
           members:members
