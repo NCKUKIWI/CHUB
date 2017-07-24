@@ -28,6 +28,7 @@ var userSchema = new Schema({
   Skill: [String],
   Location: String,
   Introduction: { type: String, minlength:0, maxlength:100 },
+  Position: [],
   School: {'Name': String, 'StudentID': String},
   Link: [String],
   Role: Number,

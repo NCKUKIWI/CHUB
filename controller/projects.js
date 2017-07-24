@@ -274,7 +274,16 @@ router.post("/:id/addMember/:uid",helper.apiAuth(),function(req,res) {
           res.send({error:helper.handleError(err)});
         }else{
           cacheClear();
-          res.send("ok");
+          // 更新user
+          User.findById(req.params.uid, function(err, user) {
+            if(user){
+              user.ProjectID.push(req.params.id);
+              user.save();
+              res.send('ok');
+            }else{
+              res.send({error:"notFound"});
+            }
+          });
         }
       });
     }else{
@@ -294,7 +303,16 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
           res.send({error:helper.handleError(err)});
         }else{
           cacheClear();
-          res.send("ok");
+          // 更新user
+          User.findById(req.params.uid, function(err, user) {
+            if(user){
+              user.ProjectID = helper.removeFromArray(user.ProjectID,req.params.id);
+              user.save();
+              res.send('ok');
+            }else{
+              res.send({error:"notFound"});
+            }
+          });
         }
       });
     }else{
@@ -303,28 +321,24 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
   });
 });
 
-//給組織管理者刪除會員或申請
-router.post("/:id/editMember/:uid/:position",helper.apiAuth(),function(req,res) {
-  Project.findById(req.params.id, function(err, project) {
-    if(project){
-      for(var i in project.MemberID){
-        if(project.MemberID[i]._id == req.params.uid){
-          project.MemberID[i].position = req.params.position;
-        }
-      }
-      project.save(function(err) {
-        if(err){
-          res.send({error:helper.handleError(err)});
-        }else{
-          cacheClear();
-          res.send("ok");
-        }
-      });
-    }else{
-      res.send({error:"notFound"});
-    }
-  });
-});
+// //給組織管理者管理會員職位
+// router.post("/:id/editMember/:uid/:position",helper.apiAuth(),function(req,res) {
+//   User.findById(req.params.uid, function(err, user) {
+//     if(user){
+//       user.Position.push({'projectid': req.params.id, 'name': req.params.position});
+//       user.save(function(err) {
+//         if(err){
+//           res.send({error:helper.handleError(err)});
+//         }else{
+//           cacheClear();
+//           res.send("ok");
+//         }
+//       });
+//     }else{
+//       res.send({error:"notFound"});
+//     }
+//   });
+// });
 
 router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
