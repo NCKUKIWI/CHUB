@@ -19,8 +19,7 @@ Mutiple option
 */
 
 var userSchema = new Schema({
-  // UserID: { type:String,required:[true,"請輸入用戶名稱"] ,unique:true }, // 好像已經沒有了
-  Email: { type:String,required:[true,"請輸入Email"]},
+  Email: { type:String,required:[true,"請輸入Email"],unique:true},
   EmailConfirm: { type: Boolean, default:false},
   RecoveryEmail: String,
   Password: { type: String, minlength:[8,"密碼需大於8碼"],required:[true,"請輸入密碼"] },
@@ -57,6 +56,6 @@ userSchema.post("find", function(result) {
   console.log(`Model user took ${ Date.now() - this.start} millis`);
 });
 
-userSchema.plugin(uniqueValidator,{ message: "UserId 已經使用過" });
+userSchema.plugin(uniqueValidator,{ message: "Email 已經使用過" });
 
 module.exports = mongoose.model("User", userSchema);

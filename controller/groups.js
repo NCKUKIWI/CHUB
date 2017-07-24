@@ -50,7 +50,7 @@ router.get("/", function(req,res) {
 });
 
 router.get("/new",helper.checkLogin(),function(req,res) {
-  res.render("groups/create");
+  res.render("groups/new");
 });
 
 router.post("/create",helper.apiAuth(),function(req,res) {
@@ -112,7 +112,7 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
 
 router.get("/edit/:id",helper.checkLogin(),function(req,res) {
   Group.findById(req.params.id,function(err,group){
-    if( group && (group.AdminID.indexOf(req.user._id)!=-1 || req.user.Role==2)){
+    if( group && (group.AdminID.indexOf(req.user._id)!=-1 || req.user.Role==3)){
       res.render("groups/edit",{
         group:group
       });
@@ -145,7 +145,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
 
 router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   Group.findById(req.params.id, function(err, group) {
-    if(group && (group.AdminID.indexOf(req.user._id)!==-1 || req.user.Role==2)){
+    if(group && (group.AdminID.indexOf(req.user._id)!==-1 || req.user.Role==3)){
       User.find({ _id:{ $in:group.ApplyID } },["_id","Name","Email","Major","Skill","Description","Website","Role"],function(err,apply){
         res.render("groups/apply",{
           apply:apply,
@@ -263,7 +263,7 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
 router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   Group.findById(req.params.id,function(err,group){
     if(group){
-      if(group.AdminID.indexOf(req.user._id)!=-1 || req.user.Role == 2 ){
+      if(group.AdminID.indexOf(req.user._id)!=-1 || req.user.Role == 3 ){
         group.remove(function(err){
           if(err){
             console.log(err);
@@ -318,7 +318,7 @@ router.get("/:id/msg",helper.checkLogin(),function(req,res) {
 router.get("/:id/projects/new",helper.checkLogin(),function(req,res) {
   Group.findById(req.params.id,function(err,group){
     if(group){
-      if(group.AdminID.indexOf(req.user._id)!==-1 || req.user.Role==2){
+      if(group.AdminID.indexOf(req.user._id)!==-1 || req.user.Role==3){
         res.render("projects/create",{
           group_id:req.params.id
         });
@@ -334,7 +334,7 @@ router.get("/:id/projects/new",helper.checkLogin(),function(req,res) {
 router.get("/:id/activities/new",helper.checkLogin(),function(req,res) {
   Group.findById(req.params.id,function(err,group){
     if(group){
-      if(group.AdminID.indexOf(req.user._id)!==-1 || req.user.Role==2){
+      if(group.AdminID.indexOf(req.user._id)!==-1 || req.user.Role==3){
         res.render("activities/create",{
           group_id:req.params.id
         });

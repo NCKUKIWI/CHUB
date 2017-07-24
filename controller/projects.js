@@ -57,7 +57,7 @@ router.get("/", function(req,res) {
 });
 
 router.get("/new",helper.checkLogin(),function(req,res) {
-  res.render("projects/create");
+  res.render("projects/new");
 });
 
 router.post("/create",helper.apiAuth(),function(req,res) {
@@ -157,7 +157,7 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
 
 router.get("/edit/:id",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
-    if( project && (project.AdminID.indexOf(req.user._id)!=-1 || req.user.Role==2 ) ){
+    if( project && (project.AdminID.indexOf(req.user._id)!=-1 || req.user.Role==3 ) ){
       res.render("projects/edit",{
         project:project
       });
@@ -306,7 +306,7 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
 router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
-      if(project.AdminID.indexOf(req.user._id)!==-1 || req.user.Role == 2 ){
+      if(project.AdminID.indexOf(req.user._id)!==-1 || req.user.Role == 3 ){
         project.remove(function(err){
           if(err){
             console.log(err);

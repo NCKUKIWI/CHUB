@@ -56,7 +56,7 @@ router.get("/", function(req,res) {
 });
 
 router.get("/new",helper.checkLogin(),function(req,res) {
-  res.render("activities/create");
+  res.render("activities/new");
 });
 
 router.post("/create",helper.apiAuth(),function(req,res) {
@@ -153,7 +153,7 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
 
 router.get("/edit/:id",helper.checkLogin(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
-    if( activity && (activity.AdminID.indexOf(req.user._id)!=-1 || req.user.Role==2)){
+    if( activity && (activity.AdminID.indexOf(req.user._id)!=-1 || req.user.Role==3)){
       res.render("activities/edit",{
         activity:activity
       });
@@ -188,7 +188,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
 router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){
-      if(activity.AdminID.indexOf(req.user._id)!==-1 || req.user.Role == 2 ){
+      if(activity.AdminID.indexOf(req.user._id)!==-1 || req.user.Role == 3 ){
         activity.remove(function(err){
           if(err){
             console.log(err);

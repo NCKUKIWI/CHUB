@@ -47,7 +47,6 @@
    </form>
    <form class="side_cont_page" id="side_cont_signup">
       <input class="big_input" type="text" name="email" placeholder="E-mail"></input>
-      <input class="big_input" type="text" name="userid" placeholder="Username"></input>
       <input class="big_input" type="password" name="password" placeholder="Password"></input>
       <input class="big_input" type="password" name="password2" placeholder="Confirm Password"></input>
       <div class="side_goto_bottom">
@@ -96,7 +95,7 @@
                <% if(me.Skill !== undefined){ %>
                   <p class="left_title">Skills</p><span>/</span><p class="left_cont">
                   <% for(var j = 0; j < me.Skill.length; j++){ %>
-                     <%= me.Skill[j] %><br> 
+                     <%= me.Skill[j] %><br>
                   <% } %>
                <%}%>
                <!-- Technology、<br>Design、<br>Architecture</p> -->
@@ -127,36 +126,40 @@
 
 <!-- 編輯profile頁面 -->
 <% if(me) { %>
-<form class="side_halfscreen">
-   <div id="halfscreen_left">
-      <p id="personal_profile">【<%= me.Name %>'s Profile】</p>
-      <img id="edit_profile photo" style="width:50%;" src="/assets/images/molly.png">
-      <input class="mid_input" type="text" name="Name" placeholder="Username" value="<% if(me.Name !== undefined){ %><%= me.Name %><%}%>"></input>
-      <input class="mid_input" type="text" name="Email" placeholder="E-mail" value="<% if(me.Email !== undefined){ %><%= me.Email %><%}%>"></input>
-      <div class="side_btn" id="side_edit_save">Save</div>
-      <div class="side_btn" id="side_edit_cancel">Cancel</div>
-   </div>
-   <div id="halfscreen_right">
-      <input class="mid_input" type="text" name="School" placeholder="[School]" value="<% if(me.School !== ''){ %><%= me.School.Name %><%}%>"></input>
-      <input class="mid_input" type="text" name="StudentID" placeholder="[Student ID]" value="<% if(me.School !== ''){ %><%= me.School.StudentID %><%}%>"></input>
-      <input class="mid_input" type="text" name="Major" placeholder="[Major]" value="<% if(me.Major !== undefined){ %><%= me.Major %><%}%>"></input>
-      <input class="mid_input" type="text" name="Skill" placeholder="[Skill]" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
-      </input>
-      <input class="mid_input" type="text" name="RecoveryEmail" placeholder="[Recovery Email]" value="<% if(me.RecoveryEmail !== undefined){ %><%= me.RecoveryEmail %><%}%>"></input>
-      <!-- <input class="mid_input" type="text" placeholder="Cellphone"></input> -->
-      <!-- <input class="mid_input" type="password" placeholder="Passsword"></input> -->
-      <!-- <input class="mid_input" type="password" placeholder="Confirm Password"></input> -->
-      <p id="description_text">Personal Content (200 words max)</p>
-      <textarea class="with_scroll" name="Introduction" id="description_input"><% if(me.Introduction !== undefined){ %><%= me.Introduction %><%}%></textarea>
-      <!-- <div id="portfolio_upload">
-         <p id="halfscreen_port_title">Portfolio</p>
-         <span>/</span> 
-         <a class="halfscreen_port">Title1</a>
-         <a class="halfscreen_port">Title2</a>
-         <a class="halfscreen_port upload">Upload</a>
-      </div> -->
-   </div>
-</form> 
+  <form id="updateavatar" style="display:none;">
+    <input type="file" id="newavatar" name="avatar"></input>
+  </form>
+  <form class="side_halfscreen">
+     <div id="halfscreen_left">
+        <p id="personal_profile">【<%= me.Name %>s Profile】</p>
+        <img id="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
+        <input class="mid_input" type="text" name="Name" placeholder="Username" value="<% if(me.Name !== undefined){ %><%= me.Name %><%}%>"></input>
+        <input class="mid_input" type="text" name="Email" placeholder="E-mail" value="<% if(me.Email !== undefined){ %><%= me.Email %><%}%>"></input>
+        <div class="side_btn" id="side_edit_uploadavatar">Upload avatar</div>
+        <div class="side_btn" id="side_edit_save">Save</div>
+        <div class="side_btn" id="side_edit_cancel">Cancel</div>
+     </div>
+     <div id="halfscreen_right">
+        <input class="mid_input" type="text" name="School" placeholder="[School]" value="<% if(me.School !== ''){ %><%= me.School.Name %><%}%>"></input>
+        <input class="mid_input" type="text" name="StudentID" placeholder="[Student ID]" value="<% if(me.School !== ''){ %><%= me.School.StudentID %><%}%>"></input>
+        <input class="mid_input" type="text" name="Major" placeholder="[Major]" value="<% if(me.Major !== undefined){ %><%= me.Major %><%}%>"></input>
+        <input class="mid_input" type="text" name="Skill" placeholder="[Skill]" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
+        </input>
+        <input class="mid_input" type="text" name="RecoveryEmail" placeholder="[Recovery Email]" value="<% if(me.RecoveryEmail !== undefined){ %><%= me.RecoveryEmail %><%}%>"></input>
+        <!-- <input class="mid_input" type="text" placeholder="Cellphone"></input> -->
+        <!-- <input class="mid_input" type="password" placeholder="Passsword"></input> -->
+        <!-- <input class="mid_input" type="password" placeholder="Confirm Password"></input> -->
+        <p id="description_text">Personal Content (200 words max)</p>
+        <textarea class="with_scroll" name="Introduction" id="description_input"><% if(me.Introduction !== undefined){ %><%= me.Introduction %><%}%></textarea>
+        <!-- <div id="portfolio_upload">
+           <p id="halfscreen_port_title">Portfolio</p>
+           <span>/</span>
+           <a class="halfscreen_port">Title1</a>
+           <a class="halfscreen_port">Title2</a>
+           <a class="halfscreen_port upload">Upload</a>
+        </div> -->
+     </div>
+  </form>
 <% } %>
 
 <script>
@@ -317,7 +320,7 @@ $(document).ready(function(){
 
    // login按鈕按下送出
    $("#loginSubmit").on("click", function() {
-     if($("#side_cont_login input[name=userid]").val() != "") {
+     if($("#side_cont_login input[name=email]").val() != "") {
       $.ajax({
         url: "/users/auth",
         type: "POST",
@@ -377,6 +380,25 @@ $(document).ready(function(){
       }
    });
 
+   $('#side_edit_uploadavatar').on('click', function(){
+    $("#newavatar").click();
+   });
+
+   $("#newavatar").on('change',function(){
+     previewimg(this);
+   });
+
+   function previewimg(input) {
+    if(input.files && input.files[0]){
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#edit_profile_photo').attr('src',e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+   }
+
+
    $('#side_edit_save').on('click', function(){
       var Data = $('.side_halfscreen').serialize();
       $.ajax({
@@ -384,8 +406,24 @@ $(document).ready(function(){
          method: "POST",
          data: Data,
          success: function(response) {
+           if($("#newavatar").val()!=""){
+             var avatar = new FormData($("#updateavatar")[0]);
+             $.ajax({
+               url: "/users/avatar/upload",
+               type: "POST",
+               data:avatar,
+               contentType: false,
+               processData: false,
+               success: function(response) {
+                toastr.success('更新完成');
+                window.location.href='/'
+               }
+             });
+           }
+           else{
             toastr.success('更新完成');
             window.location.href='/'
+           }
          }
       });
    });
