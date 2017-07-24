@@ -91,6 +91,7 @@ router.get("/", function(req,res) {
 });
 
 router.post("/signup",function(req,res) {
+  console.log(req.body);
   if(req.body.password2==""){
     res.send({error:["請再輸入一次密碼"]});
   }
@@ -105,7 +106,8 @@ router.post("/signup",function(req,res) {
         Name:req.body.userid, // 暫時真實姓名跟id一樣
         Email:req.body.email,
         Role:0,
-        hasCover:0
+        hasCover:0,
+        School: {'Name':"", 'StudentID': "notNCKU"}
       };
       User.create(newUser,function(err,result){
         if(err){
@@ -319,7 +321,7 @@ router.get("/emailauth",helper.checkLogin(0),function(req, res){
   if(req.query.user && req.query.id){
     User.findOne({_id:req.query.id,UserID:req.query.user},["_id","Role"],function(err,user){
       if(user){
-        user.Role = 1;
+        user.EmailConfirm = true;
         user.save(function(err){
           if(err){
             res.send({error:helper.handleError(err)});
@@ -337,12 +339,17 @@ router.get("/emailauth",helper.checkLogin(0),function(req, res){
 });
 
 router.post("/resendemail",helper.checkLogin(),function(req, res){
-  if(req.user.Role == 3){
-    helper.sendEmail(req.body.email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${req.body.UserID}&id=${req.body.id}`);
-    res.send("ok");
-  }else{
-    res.send("notAdmin");
-  }
+  // 先更新mail, 再寄信
+  User.findOneAndUpdate({_id:req.user._id},{"Email": req.body.Email},function(err,user){
+    if(err){
+      res.send({error:helper.handleError(err)});
+    }else{
+      cacheClear();
+      helper.sendEmail(req.body.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${req.body.UserID}&id=${req.body.id}`);
+      res.send("ok");
+    }
+  });
+
 });
 
 router.post("/update",helper.apiAuth(),function(req, res) {

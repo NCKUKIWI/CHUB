@@ -32,7 +32,7 @@
    </div>
    <div class="sidebar_upper_filled"></div>
    <form class="side_cont_page" id="side_cont_login">
-      <input class="big_input" type="text" name="userid" placeholder="E-mail"></input>
+      <input class="big_input" type="text" name="email" placeholder="E-mail"></input>
       <input class="big_input" type="password" name="password" placeholder="Password"></input>
       <div class="side_goto_bottom">
          <div class="side_btn" id="loginSubmit">Log In</div>
@@ -84,8 +84,8 @@
          <p class="side_name"><%= me.Name %></p>
          <!-- <p class="side_sub_name"><%= me.Major %></p> -->
          <div id="side_detail_text">
-            <p class="left_title">School</p><span>/</span><p class="left_cont"><% if(me.School !== undefined){ %><%= me.School.name %><%}%></p>
-            <p class="left_title">Student ID</p><span>/</span><p class="left_cont"><% if(me.School !== undefined){ %><%= me.School.StudentID %><%}%></p>
+            <p class="left_title">School</p><span>/</span><p class="left_cont"><% if(me.School.Name !== ''){ %><%= me.School.Name %><%}%></p>
+            <p class="left_title">Student ID</p><span>/</span><p class="left_cont"><% if(me.School.Name !== ''){ %><%= me.School.StudentID %><%}%></p>
             <p class="left_title">Major</p><span>/</span><p class="left_cont"><%= me.Major %></p>
             <% if(me.Skill !== undefined){ %>
                <p class="left_title">Skills</p><span>/</span><p class="left_cont">
@@ -102,14 +102,17 @@
             <% for(var i = 0; i < me.GroupID.length; i++){ %>
                <a class="right_cont"><%= me.GroupID[i].Name %></a>
             <% } %>
+         <br>
          <p class="right_title">Project</p><span>/</span>
             <% for(var i = 0; i < me.ProjectID.length; i++){ %>
                <a class="right_cont"><%= me.ProjectID[i].Name %></a>
             <% } %>
+         <br>
          <p class="right_title">Activity</p><span>/</span>
             <% for(var i = 0; i < me.ActivityID.length; i++){ %>
                <a class="right_cont"><%= me.ActivityID[i].Name %></a>
             <% } %>
+         <br>
          <% } %>
       </div>
    </div>
@@ -126,12 +129,12 @@
       <div class="side_btn" id="side_edit_cancel">Cancel</div>
    </div>
    <div id="halfscreen_right">
-      <input class="mid_input" type="text" name="School" placeholder="School" value="<% if(me.School !== undefined){ %><%= me.School.name %><%}%>"></input>
-      <input class="mid_input" type="text" name="StudentID" placeholder="Student ID" value="<% if(me.School !== undefined){ %><%= me.School.StudentID %><%}%>"></input>
-      <input class="mid_input" type="text" name="Major" placeholder="Major" value="<% if(me.Major !== undefined){ %><%= me.Major %><%}%>"></input>
-      <input class="mid_input" type="text" name="Skill" placeholder="Skill" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
+      <input class="mid_input" type="text" name="School" placeholder="[School]" value="<% if(me.School.Name !== ''){ %><%= me.School.Name %><%}%>"></input>
+      <input class="mid_input" type="text" name="StudentID" placeholder="[Student ID]" value="<% if(me.School.Name !== ''){ %><%= me.School.StudentID %><%}%>"></input>
+      <input class="mid_input" type="text" name="Major" placeholder="[Major]" value="<% if(me.Major !== undefined){ %><%= me.Major %><%}%>"></input>
+      <input class="mid_input" type="text" name="Skill" placeholder="[Skill]" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
       </input>
-      <input class="mid_input" type="text" name="RecoveryEmail" placeholder="Recovery Email" value="<% if(me.RecoveryEmail !== undefined){ %><%= me.RecoveryEmail %><%}%>"></input>
+      <input class="mid_input" type="text" name="RecoveryEmail" placeholder="[Recovery Email]" value="<% if(me.RecoveryEmail !== undefined){ %><%= me.RecoveryEmail %><%}%>"></input>
       <!-- <input class="mid_input" type="text" placeholder="Cellphone"></input> -->
       <!-- <input class="mid_input" type="password" placeholder="Passsword"></input> -->
       <!-- <input class="mid_input" type="password" placeholder="Confirm Password"></input> -->
