@@ -124,8 +124,6 @@ router.post("/signup",function(req,res) {
   }
 });
 
-// post 重新寄信
-
 router.post("/auth", function(req, res) {
   User.findOne({$or:[{"Email":req.body.userid},{"UserID":req.body.userid}]},["UserID","Password"],function(err,user){
     if(user){
