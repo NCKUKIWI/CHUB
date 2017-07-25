@@ -21,7 +21,11 @@
   <% if(me.Role >= 2){ %>
     <div class="ui secondary pointing menu" style="margin: 0px;">
         <a href="/" class="item" id="logo">
+          <% if(me.hasCover){ %>
+            <img style="width:100px; margin-left: 30px;" src="/uploads/user/<%= me._id %>/avatar.png">
+          <% }else{ %>
             <img style="width:100px; margin-left: 30px;" src="/assets/images/backstage_logo.png">
+          <% } %>  
         </a>
     </div>
     <div class="ui stackable grid" style="background-color: rgba(230, 230, 230, 1); margin: 0px;">
