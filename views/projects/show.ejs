@@ -8,7 +8,7 @@
 		<div id="detail_brief">
 			<div class="brief_pic">
         <% if(project.hasCover == 1){ %>
-        <img id="project_pic" src="/uploads/project/<%= project._id %>/logo.png">
+        <img id="project_pic" style="height: 50vh;"> src="/uploads/project/<%= project._id %>/logo.png">
         <% }else{ %>
         <img class="preview_pic" src="/assets/images/project_ex2.png">
         <% } %>
@@ -25,7 +25,7 @@
       <span>/</span>
       <p class="short orange"><%= project.Type %></p>
     </p>
-		<p id="detail_duration"><p class="title">duration</p><span>/</span><p class="short"><%= project.Time %></p></p>
+		<p id="detail_duration"><p class="title">duration</p><span>/</span><p class="short"></p></p>
 		<p id="detail_need">
       <p class="title">Need</p>
       <span>/</span>
@@ -38,7 +38,7 @@
 		<p id="detail_intro">
       <p class="title with_space">Introduction</p>
       <span>/</span>
-      <p class="long"><%= project.Introduction %>
+      <p class="long">
       </p>
     </p>
 		<p id="detail_mission">
@@ -89,8 +89,7 @@
   	</div>
   <% } %>
 	<a href="#" class="close_icon" id="close_window"></a>
-  <!-- 暫時先隱藏 -->
-  <!-- <div class="float_pic_window">
+  <div class="float_pic_window">
     <svg class="slideshow_btn disabled" id="go_prev" width="20">
       <line id="line_1" x1="20" y1="0" x2="0" y2="10" />
       <line id="line_2" x1="20" y1="20" x2="0" y2="10" />
@@ -101,18 +100,18 @@
     </svg>
     <div id="view_all_pic">
       <img class="project_view_pic end" src="/assets/images/view_pic_end.png">
-      <img class="project_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
+      <!-- <img class="project_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
       <img class="project_view_pic" id="pic_2" src="/assets/images/portfolio_ex.png">
       <img class="project_view_pic" id="pic_3" src="/assets/images/portfolio_ex.png">
       <img class="project_view_pic" id="pic_4" src="/assets/images/portfolio_ex.png">
-      <img class="project_view_pic" id="pic_5" src="/assets/images/portfolio_ex.png">
+      <img class="project_view_pic" id="pic_5" src="/assets/images/portfolio_ex.png"> -->
       <img class="project_view_pic end" src="/assets/images//view_pic_end.png">
     </div>
     <div class="view_pic_counter">
       <span class="pic_counter now">01</span><span class="pic_counter total">/10</span>
     </div>
     <a href="#" class="close_icon" id="close_pic_view">　</a>
-  </div> -->
+  </div>
 
 <script>
 $(document).ready(function(){
