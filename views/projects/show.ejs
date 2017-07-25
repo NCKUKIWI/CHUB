@@ -8,7 +8,7 @@
 		<div id="detail_brief">
 			<div class="brief_pic">
         <% if(project.hasCover == 1){ %>
-        <img id="project_pic" style="height: 50vh;" src="/uploads/project/<%= project._id %>/logo.png">
+        <img id="project_pic" src="/uploads/project/<%= project._id %>/logo.png">
         <% }else{ %>
         <img class="preview_pic" src="/assets/images/project_ex2.png">
         <% } %>
@@ -38,7 +38,7 @@
 		<p id="detail_intro">
       <p class="title with_space">Introduction</p>
       <span>/</span>
-      <p class="long">
+      <p class="long"><%= project.Introduction %>
       </p>
     </p>
 		<p id="detail_mission">
