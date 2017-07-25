@@ -92,7 +92,7 @@
               <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
             <% }else{ %>
               <img class="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
-            <% } %>  
+            <% } %>
             <p class="side_name"><%= me.Name %></p>
             <p class="side_sub_name"></p>
             <div id="side_detail_text">
@@ -143,7 +143,7 @@
           <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
         <% }else{ %>
           <img class="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
-        <% } %>  
+        <% } %>
         <input class="mid_input" type="text" name="Name" placeholder="Username" value="<% if(me.Name !== undefined){ %><%= me.Name %><%}%>"></input>
         <input class="mid_input" type="text" name="Email" placeholder="E-mail" value="<% if(me.Email !== undefined){ %><%= me.Email %><%}%>"></input>
         <div class="side_btn" id="side_edit_uploadavatar">Upload avatar</div>
