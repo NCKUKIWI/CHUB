@@ -105,7 +105,7 @@ router.post("/signup",function(req,res) {
         Email:req.body.email,
         Role:0,
         hasCover:0,
-        School: {'Name':"", 'StudentID': "notNCKU"}
+        School: {'Name':"[School]", 'StudentID': "[StudentID]"}
       };
       User.create(newUser,function(err,result){
         if(err){
@@ -294,7 +294,7 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
             res.redirect("/");
           }
           else{
-            User.create({ Email:fb.email,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:""}, function (err,result) {
+            User.create({ Email:fb.email,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:"", School: {'Name':"[School]", 'StudentID': "[StudentID]"}}, function (err,result) {
               if (err) console.log(err);
               helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${result._id}`);
               res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
