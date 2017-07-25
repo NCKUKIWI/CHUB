@@ -79,9 +79,9 @@
         <% if(project.ApplyID.indexOf(me._id)==-1 && project.MemberID.indexOf(me._id)==-1){ %>
           <div class="round_icon join joinProject" project-id="<%= project._id %>"></div>
         <% }else if(project.ApplyID.indexOf(me._id)!=-1 || project.MemberID.indexOf(me._id)!=-1){ %>
-          <div class="ui red button quitProject" project-id="<%= project._id %>">
+          <!-- <div class="ui red button quitProject" project-id="<%= project._id %>">
             Quit
-          </div>
+          </div> -->
         <% } %>
       <% } %>
   		<div class="round_icon share"></div>
@@ -100,11 +100,11 @@
     </svg>
     <div id="view_all_pic">
       <img class="project_view_pic end" src="/assets/images/view_pic_end.png">
-      <img class="project_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
+      <!-- <img class="project_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
       <img class="project_view_pic" id="pic_2" src="/assets/images/portfolio_ex.png">
       <img class="project_view_pic" id="pic_3" src="/assets/images/portfolio_ex.png">
       <img class="project_view_pic" id="pic_4" src="/assets/images/portfolio_ex.png">
-      <img class="project_view_pic" id="pic_5" src="/assets/images/portfolio_ex.png">
+      <img class="project_view_pic" id="pic_5" src="/assets/images/portfolio_ex.png"> -->
       <img class="project_view_pic end" src="/assets/images//view_pic_end.png">
     </div>
     <div class="view_pic_counter">

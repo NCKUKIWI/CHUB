@@ -68,17 +68,17 @@
         </div> -->
         <br>
         <select class="ui fluid dropdown editPosition" style=" font-size: 10px !important;">
-          <option value="--職位--">--職位--</option>
-          <option value="人類學家observer">人類學家observer</option>
-          <option value="實驗家inventor<">實驗家inventor</option>
-          <option value="異花授粉者connector">異花授粉者connector</option>
-          <option value="跨欄運動員runner">跨欄運動員runner</option>
-          <option value="共同合作者coordinator">共同合作者coordinator</option>
-          <option value="導演director">導演director</option>
-          <option value="舞台建造師designer">舞台建造師designer</option>
-          <option value="看護人carer">看護人carer</option>
-          <option value="說書人teller">說書人teller</option>
-          <option value="體驗建築師builder">體驗建築師builder</option>
+          <option value="--Position--">--Position--</option>
+          <option value="observer">observer</option>
+          <option value="inventor<">inventor</option>
+          <option value="connector">connector</option>
+          <option value="runner">runner</option>
+          <option value="coordinator">coordinator</option>
+          <option value="director">director</option>
+          <option value="designer">designer</option>
+          <option value="carer">carer</option>
+          <option value="teller">teller</option>
+          <option value="builder">builder</option>
         </select>
       </div>
     </div>
@@ -116,7 +116,7 @@
             toastr.success("成功批准");
             // $('.ui.modal.' + id).modal('hide');
             $('div[users="' + id + '"]' + ' button').remove();
-            var selector = '<select class="ui fluid dropdown editPosition" style=" font-size: 10px !important;"><option value="--職位--">--職位--</option><option value="人類學家observer">人類學家observer</option><option value="實驗家inventor<">實驗家inventor</option><option value="異花授粉者connector">異花授粉者connector</option><option value="跨欄運動員runner">跨欄運動員runner</option><option value="共同合作者coordinator">共同合作者coordinator</option><option value="導演director">導演director</option><option value="舞台建造師designer">舞台建造師designer</option><option value="看護人carer">看護人carer</option><option value="說書人teller">說書人teller</option><option value="體驗建築師builder">體驗建築師builder</option></select>';
+            var selector = '<select class="ui fluid dropdown editPosition" style=" font-size: 10px !important;"><option value="--Position--">--Position--</option><option value="observer">observer</option><option value="inventor<">inventor</option><option value="connector">connector</option><option value="runner">runner</option><option value="coordinator">coordinator</option><option value="director">director</option><option value="designer">designer</option><option value="carer">carer</option><option value="teller">teller</option><option value="builder">builder</option></select>';
             $('div[users="' + id + '"]' + ' .content').append(selector);
             $('div[users="' + id + '"]').appendTo('#<%= project._id %> .cards:eq(2)');
             memberLisener();
