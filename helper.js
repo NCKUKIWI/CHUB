@@ -26,7 +26,7 @@ exports.removeFromArray = function removeFromArray(arr,element) {
 
 exports.sendEmail = function sendEmail(toEmail,subject,text){
 	var options = {
-	  from: config.email.sender,
+	  from: `"CHUB" ${config.email.sender}`,
 	  to:toEmail,
 	  subject:subject,
 	  text:text
