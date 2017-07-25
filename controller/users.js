@@ -367,7 +367,7 @@ router.post("/update",helper.apiAuth(),function(req, res) {
     Name: req.body.Name,
     Major: req.body.Major,
     Introduction: req.body.Introduction,
-    Skill: req.body.Skill,
+    Skill: req.body.Skill.replace(/\s/g, "").split(","),
     School: {'Name': req.body.School, 'StudentID': req.body.StudentID},
     RecoveryEmail: req.body.RecoveryEmail,
     Role: role

@@ -152,7 +152,7 @@
         <input class="mid_input" type="text" name="School" placeholder="[School]" value="<% if(me.School.Name !== ''){ %><%= me.School.Name %><%}%>"></input>
         <input class="mid_input" type="text" name="StudentID" placeholder="[Student ID]" value="<% if(me.School.Name !== ''){ %><%= me.School.StudentID %><%}%>"></input>
         <input class="mid_input" type="text" name="Major" placeholder="[Major]" value="<% if(me.Major !== undefined){ %><%= me.Major %><%}%>"></input>
-        <input class="mid_input" type="text" name="Skill" placeholder="[Skill]" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
+        <input class="mid_input" type="text" name="Skill" placeholder="[Skill] ex: programming, marketing" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
         </input>
         <input class="mid_input" type="text" name="RecoveryEmail" placeholder="[Recovery Email]" value="<% if(me.RecoveryEmail !== undefined){ %><%= me.RecoveryEmail %><%}%>"></input>
         <!-- <input class="mid_input" type="text" placeholder="Cellphone"></input> -->
