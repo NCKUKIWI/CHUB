@@ -104,7 +104,7 @@ router.post("/signup",function(req,res) {
     bcrypt.hash(req.body.password,5,function(err, hash) {
       var newUser = {
         Password:hash,
-        Name:req.body.name,
+        Name:"UserName",
         Email:req.body.email,
         Role:0,
         hasCover:0,
@@ -118,7 +118,7 @@ router.post("/signup",function(req,res) {
           console.log({error:helper.handleError(err)});
           res.send({error:helper.handleError(err)});
         }else{
-          helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.Name}&id=${result._id}`);
+          helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${result._id}`);
           res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
           res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
           res.send("ok");
@@ -320,9 +320,12 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
 
 router.get("/emailauth",helper.checkLogin(0),function(req, res){
   if(req.query.uid){
-    User.findOne({_id:req.query.uid},["_id","Role"],function(err,user){
+    User.findOne({_id:req.query.uid},["_id","EmailConfirm"],function(err,user){
+      console.log(err);
       if(user){
+        console.log(user);
         user.EmailConfirm = true;
+        console.log(user);
         user.save(function(err){
           if(err){
             res.send({error:helper.handleError(err)});
