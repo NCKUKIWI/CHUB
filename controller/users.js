@@ -83,8 +83,11 @@ router.get("/", function(req,res) {
   if(filter["$or"].length == 0) filter["$or"].push({});
   User.find(filter, userInfo, function(err, users) {
     //之後可能要放入"跟哪些人互通訊息"的欄位進去
+    var userfilter = users.filter(function (el) {
+      return el.Role != 0
+    });
   	res.render("users/index", {
-  		users: users,
+  		users: userfilter,
       id: req.query.id
   	});
   });
@@ -101,18 +104,21 @@ router.post("/signup",function(req,res) {
     bcrypt.hash(req.body.password,5,function(err, hash) {
       var newUser = {
         Password:hash,
-        Name:req.body.email,
+        Name:"UserName",
         Email:req.body.email,
         Role:0,
         hasCover:0,
-        School: {'Name':"", 'StudentID': "notNCKU"}
+        School: {'Name':"[School]", 'StudentID': "[StudentID]"}
       };
       User.create(newUser,function(err,result){
+        console.log(result);
+        console.log(newUser);
+        console.log(err);
         if(err){
           console.log({error:helper.handleError(err)});
           res.send({error:helper.handleError(err)});
         }else{
-          helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?user=${result.Name}&id=${result._id}`);
+          helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${result._id}`);
           res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
           res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
           res.send("ok");
@@ -295,7 +301,7 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
             res.redirect("/");
           }
           else{
-            User.create({ Email:fb.email,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:""}, function (err,result) {
+            User.create({ Email:fb.email,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:"", School:{'Name':"[School]", 'StudentID': "[StudentID]"}}, function (err,result) {
               if (err) console.log(err);
               helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${result._id}`);
               res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
@@ -314,9 +320,12 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
 
 router.get("/emailauth",helper.checkLogin(0),function(req, res){
   if(req.query.uid){
-    User.findOne({_id:req.query.uid},["_id","Role"],function(err,user){
+    User.findOne({_id:req.query.uid},["_id","EmailConfirm"],function(err,user){
+      console.log(err);
       if(user){
+        console.log(user);
         user.EmailConfirm = true;
+        console.log(user);
         user.save(function(err){
           if(err){
             res.send({error:helper.handleError(err)});
@@ -354,14 +363,14 @@ router.post("/update",helper.apiAuth(),function(req, res) {
     if(req.body[i].toString == "") role = 0;
   }
   // 須知道email使否被驗證過
-  if (req.user.EmailConfirm) role == 0;
+  // if (!req.user.EmailConfirm) role = 0;
 
   var updateData = {
     Email: req.body.Email,
     Name: req.body.Name,
     Major: req.body.Major,
     Introduction: req.body.Introduction,
-    Skill: req.body.Skill,
+    Skill: req.body.Skill.replace(/\s/g, "").split(","),
     School: {'Name': req.body.School, 'StudentID': req.body.StudentID},
     RecoveryEmail: req.body.RecoveryEmail,
     Role: role

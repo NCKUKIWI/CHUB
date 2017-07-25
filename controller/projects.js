@@ -68,7 +68,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       newProject = new Project({
         Name:req.body.Name,
         Type:req.body.Type,
-        Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
+        Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
         Mission:req.body.Mission,
         Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
         Introduction:req.body.Introduction,
@@ -82,7 +82,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
-          User.update({_id:{ $in:group.AdminID } },{ $push: { "ProjectID":result._id } },function(err){
+          User.update({_id:{ $in:group.AdminID } },{ $push: { "ProjectID":result._id, "Role": 2} },function(err){
             if(err){
              console.log(err);
              res.send({error:err});
@@ -98,7 +98,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
     newProject = new Project({
       Name:req.body.Name,
       Type:req.body.Type,
-      Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
+      Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
       Mission:req.body.Mission,
       Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
       Introduction:req.body.Introduction,
@@ -169,13 +169,14 @@ router.get("/edit/:id",helper.checkLogin(),function(req,res) {
 
 router.post("/update/:id",helper.apiAuth(),function(req,res) {
   var updateData = {
-    Name:req.body.name,
-    Type:req.body.type,
-    Time:req.body.time.replace(/\s/g, "").split(","),
-    Goal:req.body.goal,
-    Need:req.body.need.replace(/\s/g, "").split(","),
-    Description:req.body.description
+    Name:req.body.Name,
+    Type:req.body.Type,
+    Time:req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(","),
+    Mission:req.body.Mission,
+    Need:req.body.Need.replace(/\s/g, "").split(","),
+    Introduction:req.body.Introduction
   }
+  console.log(updateData);
   Project.findOneAndUpdate({ _id:req.params.id },updateData,function(err,project){
     if(project){
       if(err){
@@ -274,7 +275,16 @@ router.post("/:id/addMember/:uid",helper.apiAuth(),function(req,res) {
           res.send({error:helper.handleError(err)});
         }else{
           cacheClear();
-          res.send("ok");
+          // 更新user
+          User.findById(req.params.uid, function(err, user) {
+            if(user){
+              user.ProjectID.push(req.params.id);
+              user.save();
+              res.send('ok');
+            }else{
+              res.send({error:"notFound"});
+            }
+          });
         }
       });
     }else{
@@ -294,7 +304,16 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
           res.send({error:helper.handleError(err)});
         }else{
           cacheClear();
-          res.send("ok");
+          // 更新user
+          User.findById(req.params.uid, function(err, user) {
+            if(user){
+              user.ProjectID = helper.removeFromArray(user.ProjectID,req.params.id);
+              user.save();
+              res.send('ok');
+            }else{
+              res.send({error:"notFound"});
+            }
+          });
         }
       });
     }else{
@@ -303,28 +322,24 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
   });
 });
 
-//給組織管理者刪除會員或申請
-router.post("/:id/editMember/:uid/:position",helper.apiAuth(),function(req,res) {
-  Project.findById(req.params.id, function(err, project) {
-    if(project){
-      for(var i in project.MemberID){
-        if(project.MemberID[i]._id == req.params.uid){
-          project.MemberID[i].position = req.params.position;
-        }
-      }
-      project.save(function(err) {
-        if(err){
-          res.send({error:helper.handleError(err)});
-        }else{
-          cacheClear();
-          res.send("ok");
-        }
-      });
-    }else{
-      res.send({error:"notFound"});
-    }
-  });
-});
+// //給組織管理者管理會員職位
+// router.post("/:id/editMember/:uid/:position",helper.apiAuth(),function(req,res) {
+//   User.findById(req.params.uid, function(err, user) {
+//     if(user){
+//       user.Position.push({'projectid': req.params.id, 'name': req.params.position});
+//       user.save(function(err) {
+//         if(err){
+//           res.send({error:helper.handleError(err)});
+//         }else{
+//           cacheClear();
+//           res.send("ok");
+//         }
+//       });
+//     }else{
+//       res.send({error:"notFound"});
+//     }
+//   });
+// });
 
 router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id,function(err,project){

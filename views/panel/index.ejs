@@ -167,7 +167,7 @@
             <label></label>
           </div>
         </td>
-        <td>Photo</td>
+        <!-- <td>Photo</td> -->
         <td>Name</td>
         <td>Date</td>
         <td>number</td>
@@ -183,7 +183,7 @@
               <label></label>
             </div>
           </td>
-          <td>photo</td>
+          <!-- <td>photo</td> -->
           <td><%= projects[i].Name %></td>
           <td><%= projects[i].Time %></td>
           <td><%= projects[i].MemberID.length %></td>
@@ -246,7 +246,7 @@
       <a class="item" data-tab="project_edit_member" projects="<%= projects[i]._id %>" style="border-radius: 0px !important;">成員導覽</a>
       <!-- <a class="item" data-tab="project_edit_message"  style="border-radius: 0px !important;">通知系統</a> -->
       <div style="position: absolute; right: 0px; padding: 5px;">
-        <button class="mini ui basic button openPage" openPage="backstage_project_manage">儲存</button>
+        <button class="mini ui basic button projectUpdate" projects="<%= projects[i]._id %>">儲存</button>
         <!-- <button class="mini ui basic button openPage" openPage="backstage_project_manage">提交</button> -->
       </div>
     </div>
@@ -327,12 +327,12 @@
       </div>
       <div class="field">
         <label>Time table</label>
-        <input type="text" name="Time" placeholder="Time">
+        <input type="text" name="Time" placeholder="ex: 8/3-8/5">
       </div>
       <div class="two fields">
         <div class="field">
           <label>Location</label>
-          <input type="text" name="Location" placeholder="">
+          <input type="text" name="Location" placeholder="Location">
         </div>
         <div class="field">
           <label>Type</label>
@@ -346,7 +346,7 @@
       <div class="two fields">
         <div class="field">
           <label>Need</label>
-          <input type="text" name="Need" placeholder="">
+          <input type="text" name="Need" placeholder="PM, Writer, Programmer...">
         </div>
         <div class="field">
           <label>Mission</label>
@@ -487,7 +487,7 @@ $(document).ready(function() {
         $.ajax({
           url: "/projects/create",
           type: "POST",
-          data: $("#projectForm").serialize(),
+          data: $("#projectForm").serialize().replace(/\%2F/g, "S"),
           success: function(response) {
             console.log("success");
             if (!response.error) {
@@ -569,6 +569,20 @@ $(document).ready(function() {
       }
     });
 
+    // 編輯project
+    $(".projectUpdate").on("click",function(){
+      $.ajax({
+        url: "/projects/update/" + this.getAttribute('projects'),
+        type: "POST",
+        data: $("#" + this.getAttribute('projects') + " .form").serialize().replace(/\%2F/g, "S"),
+        success: function(response) {
+          toastr.success("儲存成功");
+          setTimeout(function(){
+            window.location.href="/panel?openPage=backstage_project_manage";
+          },3000);
+        }
+      });
+    });
     // 刪除project
     $('.delproject').on('click', function(){
       var id = this.getAttribute('projects');

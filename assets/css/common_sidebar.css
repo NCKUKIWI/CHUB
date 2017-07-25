@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans");
 .right_sidebar {
   position: fixed;
-  z-index: 100;
+  z-index: 110; /*調整*/
   right: 0;
   width: 30px;
   top: 120px; }
@@ -38,7 +38,7 @@
 
 .sidebar_cont {
   position: absolute;
-  z-index: 90;
+  z-index: 100; /*調整*/
   width: 320px;
   height: 84vh;
   right: 60px;
