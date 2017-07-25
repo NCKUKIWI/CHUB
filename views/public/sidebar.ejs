@@ -9,11 +9,13 @@
    <!-- <div class="side_icon" id="side_search">
       <img src="assets/images/side_search.png">
    </div> -->
-   <% if(me.Role == 2) { %>
-      <div class="side_icon">
-         <a href="/panel" target="_blank"><img src="assets/images/side_backstage.png"></a>
-      </div>
-   <% } %>
+    <% if(me) { %>
+      <% if(me.Role == 2) { %>
+        <div class="side_icon">
+           <a href="/panel" target="_blank"><img src="assets/images/side_backstage.png"></a>
+        </div>
+      <% } %>
+    <% } %>
 </div>
 
 <div class="sidebar_cont" style="display: none;">
@@ -152,7 +154,7 @@
         <input class="mid_input" type="text" name="School" placeholder="[School]" value="<% if(me.School.Name !== ''){ %><%= me.School.Name %><%}%>"></input>
         <input class="mid_input" type="text" name="StudentID" placeholder="[Student ID]" value="<% if(me.School.Name !== ''){ %><%= me.School.StudentID %><%}%>"></input>
         <input class="mid_input" type="text" name="Major" placeholder="[Major]" value="<% if(me.Major !== undefined){ %><%= me.Major %><%}%>"></input>
-        <input class="mid_input" type="text" name="Skill" placeholder="[Skill] ex: programming, marketing" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
+        <input class="mid_input" type="text" name="Skill" placeholder="[Skill]" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
         </input>
         <input class="mid_input" type="text" name="RecoveryEmail" placeholder="[Recovery Email]" value="<% if(me.RecoveryEmail !== undefined){ %><%= me.RecoveryEmail %><%}%>"></input>
         <!-- <input class="mid_input" type="text" placeholder="Cellphone"></input> -->
@@ -551,14 +553,16 @@ $(document).ready(function(){
    function loginStatus() {
       $( ".sidebar_cont" ).addClass("widewidth");
       myProfile();
-      <% if(me.Role == 0) {%>
-         // toastr.warning('<br>將會鎖住部分功能','<h3>尚未填寫完資料</h3>',{"closeButton": true});
-         toastr.warning('<br>將會鎖住部分功能<br><br><button type="button" class="ui button mini clear" id="GoTOEdit">填資料</button>','<h3>尚未填寫完資料</h3>',{"closeButton": true, "timeOut": 5000});
-         $( "#GoTOEdit" ).click(function() {
-            switchHalfscreen("open");
-         });
-      <% }else if(!me.EmailConfirm) {%>
-         toastr.warning('<br>將會鎖住部分功能','<h3>信箱尚未驗證</h3>',{"closeButton": true, "timeOut": 5000});
+      <% if(me) { %>
+        <% if(me.Role == 0) {%>
+           // toastr.warning('<br>將會鎖住部分功能','<h3>尚未填寫完資料</h3>',{"closeButton": true});
+           toastr.warning('<br>將會鎖住部分功能<br><br><button type="button" class="ui button mini clear" id="GoTOEdit">填資料</button>','<h3>尚未填寫完資料</h3>',{"closeButton": true, "timeOut": 5000});
+           $( "#GoTOEdit" ).click(function() {
+              switchHalfscreen("open");
+           });
+        <% }else if(!me.EmailConfirm) {%>
+           toastr.warning('<br>將會鎖住部分功能','<h3>信箱尚未驗證</h3>',{"closeButton": true, "timeOut": 5000});
+        <% } %>
       <% } %>
       // switchHalfscreen("open");
    }
