@@ -6,7 +6,11 @@
 		<img src="/assets/images/share_ig.png">
 	</div>
 	<div id="detail_brief">
-		<img src="/uploads/user/<%= user.id %>/avatar.png">
+    <% if(me.hasCover == 1) { %>
+		  <img src="/uploads/user/<%= user.id %>/avatar.png">
+    <% }else{ %>
+      <img src="/assets/images/molly.png">
+    <% } %>
 		<p class="name"><%= user.Name %></p>
     <% if(me) { %>
       <% if(me._id.toString().indexOf(user._id.toString()) == -1){ %>
