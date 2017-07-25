@@ -8,7 +8,7 @@
 		<div id="detail_brief">
 			<div class="brief_pic">
         <% if(project.hasCover == 1){ %>
-        <img id="project_pic" style="height: 50vh;"> src="/uploads/project/<%= project._id %>/logo.png">
+        <img id="project_pic" style="height: 50vh;" src="/uploads/project/<%= project._id %>/logo.png">
         <% }else{ %>
         <img class="preview_pic" src="/assets/images/project_ex2.png">
         <% } %>
@@ -25,7 +25,7 @@
       <span>/</span>
       <p class="short orange"><%= project.Type %></p>
     </p>
-		<p id="detail_duration"><p class="title">duration</p><span>/</span><p class="short"></p></p>
+		<p id="detail_duration"><p class="title">duration</p><span>/</span><p class="short"><%= project.Time %></p></p>
 		<p id="detail_need">
       <p class="title">Need</p>
       <span>/</span>
