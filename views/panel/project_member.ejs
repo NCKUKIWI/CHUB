@@ -3,7 +3,12 @@
 <div class="ui cards" >
     <div class="card" style="display: flex; flex-direction: inherit; height: 130; width: 330px">
       <div style="display: flex; align-items: center;background-color: rgba(117, 124, 133, 1);">
-        <img style="width:130px; height: 130px;" src="/assets/images/molly.png">
+        <% if(me.hasCover){ %>
+          <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png">
+        <% }else{ %>
+          <img style="width:130px; height: 130px;" src="/assets/images/molly.png">
+        <% } %>  
+        <!-- <img style="width:130px; height: 130px;" src="/assets/images/molly.png"> -->
       </div>
       <div class="content" style="position: relative;">
         <div class="header"><%= me.Name %></div>
@@ -26,7 +31,11 @@
   <% for(var i in applyer){ %>
     <div class="card" style="display: flex; flex-direction: inherit; height: 130; width: 330px" users="<%= applyer[i]._id %>">
       <div style="display: flex; align-items: center;background-color: rgba(117, 124, 133, 1);">
-        <img style="width:130px; height: 130px;" src="/assets/images/molly.png">
+        <% if(applyer[i].hasCover){ %>
+          <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png">
+        <% }else{ %>
+          <img style="width:130px; height: 130px;" src="/assets/images/molly.png">
+        <% } %>  
       </div>
       <div class="content" style="position: relative;">
         <div class="header"><%= applyer[i].Name %></div>
@@ -53,7 +62,12 @@
   <% for(var i in members){ %>
     <div class="card" style="display: flex; flex-direction: inherit; height: 130; width: 330px" users="<%= members[i]._id %>">
       <div style="display: flex; align-items: center;background-color: rgba(117, 124, 133, 1);">
-        <img style="width:130px; height: 130px;" src="/assets/images/molly.png">
+        <% if(members[i].hasCover){ %>
+          <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png">
+        <% }else{ %>
+          <img style="width:130px; height: 130px;" src="/assets/images/molly.png">
+        <% } %>  
+        <!-- <img style="width:130px; height: 130px;" src="/assets/images/molly.png"> -->
       </div>
       <div class="content" style="position: relative;">
         <div class="header"><%= members[i].Name %></div>
