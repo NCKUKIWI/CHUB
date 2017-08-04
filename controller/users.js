@@ -286,15 +286,15 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
       "client_secret": config.fb_secret,
       "code": req.query.code
     }, function (err,result) {
-      graph.get(`/me?fields=id,name,email,gender&access_token=${result.access_token}`,function(err,fb){
-        User.findOne({Email:fb.email},"_id",function(err,user){
+      graph.get(`/me?fields=id,name,email&access_token=${result.access_token}`,function(err,fb){
+        User.findOne({FBID:fb.id},"_id",function(err,user){
           if(user){
             res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
             res.cookie("id",user._id,{maxAge: 60 * 60 * 1000});
             res.redirect("/");
           }
           else{
-            User.create({ Email:fb.email,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:"", School: {'Name':"[School]", 'StudentID': "[StudentID]"}}, function (err,result) {
+            User.create({FBID:fb.id,Email:fb.email,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:"", School: {'Name':"[School]", 'StudentID': "[StudentID]"}}, function (err,result) {
               if (err) console.log(err);
               helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${result._id}`);
               res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
