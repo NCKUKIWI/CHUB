@@ -109,6 +109,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
     });
     Project.create(newProject,function(err,result){
       if(err){
+        console.log(err);
         res.send({error:helper.handleError(err)});
       }else{
         User.update({_id:req.body.admin},{ $push: { "ProjectID":result._id } },function(err){
