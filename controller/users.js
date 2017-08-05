@@ -70,7 +70,8 @@ router.get("/", function(req,res) {
     Major:(req.query.major)?(new RegExp(req.query.major, "i")):undefined
   }
   var filter = {
-    "Role": { $lt:3 },
+    "Role": { $gt:0 }, // 如果role = 0, 不讓他顯示在people上面
+    "EmailConfirm": true, // email被認證後，才可以出現在上面
     $or:[]
   };
   for(var i in query){
@@ -83,6 +84,8 @@ router.get("/", function(req,res) {
   if(filter["$or"].length == 0) filter["$or"].push({});
   User.find(filter, userInfo, function(err, users) {
     //之後可能要放入"跟哪些人互通訊息"的欄位進去
+    // console.log(users.length);
+    // console.log(typeof(users));
   	res.render("users/index", {
   		users: users,
       id: req.query.id
