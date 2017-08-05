@@ -565,7 +565,8 @@ $(document).ready(function(){
            $( "#GoTOEdit" ).click(function() {
               switchHalfscreen("open");
            });
-        <% }else if(!me.EmailConfirm) {%>
+        <% } %>
+        <% if(!me.EmailConfirm) {%>
            toastr.warning('<br>將會鎖住部分功能','<h3>信箱尚未驗證</h3>',{"closeButton": true, "timeOut": 5000});
         <% } %>
       <% } %>

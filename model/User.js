@@ -24,7 +24,7 @@ var userSchema = new Schema({
   FBID:String,
   RecoveryEmail: String,
   Password: { type: String, minlength:[8,"密碼需大於8碼"],required:[true,"請輸入密碼"] },
-  Name: { type: String,required: [true,"請輸入用戶姓名"] },
+  Name: String,
   Major: String,
   Skill: [String],
   Location: String,

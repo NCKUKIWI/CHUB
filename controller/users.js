@@ -104,7 +104,6 @@ router.post("/signup",function(req,res) {
     bcrypt.hash(req.body.password,5,function(err, hash) {
       var newUser = {
         Password:hash,
-        Name:req.body.email,
         Email:req.body.email,
         Role:0,
         hasCover:0,
