@@ -93,12 +93,12 @@
             <% }else{ %>
               <img class="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
             <% } %>
-            <p class="side_name"><%= me.Name %></p>
+            <p class="side_name"><% if(me.Name !== undefined){ %><%= me.Name %><%}%></p>
             <p class="side_sub_name"></p>
             <div id="side_detail_text">
                <p class="left_title">School</p><span>/</span><p class="left_cont"><% if(me.School.Name !== ''){ %><%= me.School.Name %><%}%></p>
                <p class="left_title">Student ID</p><span>/</span><p class="left_cont"><% if(me.School.Name !== ''){ %><%= me.School.StudentID %><%}%></p>
-               <p class="left_title">Major</p><span>/</span><p class="left_cont"><%= me.Major %></p>
+               <p class="left_title">Major</p><span>/</span><p class="left_cont"><% if(me.Major !== undefined){ %><%= me.Major %><%}%></p>
                <% if(me.Skill !== undefined){ %>
                   <p class="left_title">Skills</p><span>/</span><p class="left_cont">
                   <% for(var j = 0; j < me.Skill.length; j++){ %>
