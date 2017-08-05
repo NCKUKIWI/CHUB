@@ -8,12 +8,22 @@ var Project = require("../model/Project");
 
 router.get("/",helper.checkLogin(),function(req,res) {
   var openPage = req.query.openPage;
-  Project.find({"AdminID":{"$in":[req.user._id]}},function(err,projects){
-    res.render("panel/index",{
-      projects:projects,
-      openPage:openPage
-    });
-  });
+  if(req.user.Role == 3){
+    Project.find({},function(err,projects){
+      res.render("panel/index",{
+        projects:projects,
+        openPage:openPage
+      });
+    });   
+  }
+  else if(req.user.Role == 2){
+    Project.find({"AdminID":{"$in":[req.user._id]}},function(err,projects){
+      res.render("panel/index",{
+        projects:projects,
+        openPage:openPage
+      });
+    });   
+  }
 });
 
 router.post("/projectMember/:id",helper.checkLogin(),function(req,res) {
@@ -34,10 +44,14 @@ router.post("/projectMember/:id",helper.checkLogin(),function(req,res) {
     if(project){
       User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Skill","Description","Role"],function(err,members){
         User.find({ _id:{ $in:project.ApplyID } },["_id","Name","Email","Major","Skill","Description","Role"],function(err,applyer){
-          res.render("panel/project_member",{
-            project:project,
-            members:members,
-            applyer: applyer
+          User.find({ _id:{ $in:project.AdminID } },["_id","Name","Email","Major","Skill","Description","Role"],function(err,admins){
+            console.log(admins);
+            res.render("panel/project_member",{
+              project:project,
+              members:members,
+              applyer: applyer,
+              admins: admins
+            });
           });
         });
       });
@@ -74,6 +88,17 @@ router.post("/projectApplying/:id",helper.checkLogin(),function(req,res) {
     }
   });
 });
+
+// 取得user資料，讓創立的專案可以選擇admin
+router.get("/getUsers", helper.checkLogin(), function(req, res){
+  User.find({Name: (new RegExp(req.query.name, "i")), "Role": { $gt:0 }},function(err,users){
+    var result = [];
+    for(var i in users){
+      result.push({"name": users[i].Name, "value": users[i]._id, "text": users[i].Name});
+    }
+    res.send(result);
+  });
+})
 
 router.get("/groups",helper.checkLogin(),function(req,res) {
   if(req.user.Role==3){

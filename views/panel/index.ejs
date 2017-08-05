@@ -154,9 +154,11 @@
         <div class="item" data-value="5">創新與社會服務</div>
       </div>
     </div>
-    <button class="ui basic button openPage" style="float: right;" openPage="backstage_project_new">
-      Create
-    </button>
+    <% if(me.Role == 3){ %>
+      <button class="ui basic button openPage" style="float: right;" openPage="backstage_project_new">
+        Create
+      </button>
+    <% } %>
   </div>
   <table class="ui basic table">
     <tbody>
@@ -329,7 +331,7 @@
         <label>Time table</label>
         <input type="text" name="Time" placeholder="ex: 8/3-8/5">
       </div>
-      <div class="two fields">
+      <div class="three fields">
         <div class="field">
           <label>Location</label>
           <input type="text" name="Location" placeholder="Location">
@@ -340,7 +342,21 @@
               <option value="文化生活">文化生活</option>
               <option value="智慧科技與數位內容">智慧科技與數位內容</option>
               <option value="創新與社會服務">創新與社會服務</option>
-            </select>
+            </select>            
+        </div>
+        <div class="field">
+          <label>Admin</label>
+            <!-- <select class="ui search dropdown" id="project_selectAdmin" name="admin">
+              <option value="文化生活">文化生活</option>
+              <option value="智慧科技與數位內容">智慧科技與數位內容</option>
+              <option value="創新與社會服務">創新與社會服務</option>
+            </select>  -->          
+            <div class="ui fluid search selection dropdown" id="project_selectAdmin">
+              <input type="hidden" name="admin" />
+              <i class="dropdown icon"></i>
+              <div class="default text">Select a Admin</div>
+              <div class="menu"></div>
+            </div> 
         </div>
       </div>
       <div class="two fields">
@@ -613,8 +629,77 @@ $(document).ready(function() {
           $('#' + id + ' > div[data-tab="project_edit_member"]').append(res);
         }
       });
-    })
+    });
 
+    $('#project_selectAdmin').dropdown({
+      apiSettings: {
+        url: '/panel/getUsers?name={query}',
+        onResponse: function(results){
+          console.log({"sucess":true, "results": results});
+          return {"sucess":true, "results": results};
+        }
+      },
+      // field:{
+      //   name: 'Name',
+      //   value: '_id',
+      //   text: 'Name'
+      // },
+      saveRemoteData: false,
+      // fullTextSearch: 'exact',
+      // direction: 'auto',
+      // debug: true
+    });
+// $("#project_selectAdmin").dropdown({
+//   apiSettings: {
+//         response: {
+//           "success": true,
+//           "results": [
+//             {
+//               // name displayed in dropdown
+//               "name"  : "Choice 1",
+//                // selected value
+//               "value" : "value1",
+//             },
+//             {
+//               "name"  : "Choice 2",
+//               "value" : "value2",
+//               "text"  : "Choice 2"
+//             },
+//             {
+//               "name"  : "Choice 3",
+//               "value" : "value3",
+//               "text"  : "Choice 3"
+//             },
+//             {
+//               "name"  : "Choice 4",
+//               "value" : "value4",
+//               "text"  : "Choice 4"
+//             },
+//             {
+//               "name"  : "Choice 5",
+//               "value" : "value5",
+//               "text"  : "Choice 5"
+//             }
+//           ]
+//         }
+//       },
+//       saveRemoteData: false,
+//       fullTextSearch: 'exact',
+//       direction: 'auto',
+//       debug: true
+// });
+    // $('.ui.search').search({
+    //   type: 'category',
+    //   minCharacters: 1,
+    //   maxResults: 1, // 一次顯示10筆
+    //   apiSettings: {
+    //     url: '/search?query={query}',
+    //     onResponse: function(results){
+    //       console.log(results);
+    //       return {results};
+    //     }
+    //   }
+    // });
 
   });
 </script>

@@ -1,9 +1,10 @@
 <h3>Admin</h3>
 <div class="ui divider"></div>
 <div class="ui cards" >
+  <% for(var i in admins){ %>
     <div class="card" style="display: flex; flex-direction: inherit; height: 130; width: 330px">
       <div style="display: flex; align-items: center;background-color: rgba(117, 124, 133, 1);">
-        <% if(me.hasCover){ %>
+        <% if(admins[i].hasCover){ %>
           <img style="width:130px; height: 130px;" src="/uploads/user/<%= me._id %>/avatar.png">
         <% }else{ %>
           <img style="width:130px; height: 130px;" src="/assets/images/molly.png">
@@ -11,11 +12,11 @@
         <!-- <img style="width:130px; height: 130px;" src="/assets/images/molly.png"> -->
       </div>
       <div class="content" style="position: relative;">
-        <div class="header"><%= me.Name %></div>
-        <div class="meta"><% if(me.Major !== undefined){ %><%= me.Major %><%}%></div>
+        <div class="header"><%= admins[i].Name %></div>
+        <div class="meta"><% if(admins[i].Major !== undefined){ %><%= admins[i].Major %><%}%></div>
         <div class="description">
-          <% for(var j = 0; j < me.Skill.length; j++){ %>
-            <%= me.Skill[j] %><br> 
+          <% for(var j = 0; j < admins[i].Skill.length; j++){ %>
+            <%= admins[i].Skill[j] %><br> 
           <% } %>
         </div>
         <!-- <div style="position: absolute; top: 5px; right: 5px;">
@@ -23,6 +24,7 @@
         </div> -->
       </div>
     </div>
+  <% } %>
 </div>
 <br>
 <h3>Apply Members</h3>
