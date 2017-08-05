@@ -138,14 +138,19 @@
   </form>
   <form class="side_halfscreen">
      <div id="halfscreen_left">
-        <p id="personal_profile">【<%= me.Name %>'s Profile】</p>
+        <p id="personal_profile">【Profile】</p>
         <% if(me.hasCover){ %>
           <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
         <% }else{ %>
           <img class="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
         <% } %>
         <input class="mid_input" type="text" name="Name" placeholder="Username" value="<% if(me.Name !== undefined){ %><%= me.Name %><%}%>"></input>
-        <input class="mid_input" type="text" name="Email" placeholder="E-mail" value="<% if(me.Email !== undefined){ %><%= me.Email %><%}%>"></input>
+        <input class="mid_input" type="text" readonly="readonly" name="Email" placeholder="E-mail" value="<% if(me.Email !== undefined){ %><%= me.Email %><%}%>" onclick="resendEmail(this.value)"></input>
+        <% if(me.EmailConfirm){ %>
+          <a class="ui basic label">已驗證</a>
+        <% }else{ %>
+          <a class="ui basic label">未驗證</a>
+        <% } %>
         <div class="side_btn" id="side_edit_uploadavatar">Upload avatar</div>
         <div class="side_btn" id="side_edit_save">Save</div>
         <div class="side_btn" id="side_edit_cancel">Cancel</div>
@@ -579,4 +584,18 @@ $(document).ready(function(){
       item.addClass("hidden");
    }
 });
+
+function resendEmail(oldMail){
+  var email = prompt('重送驗證信，請確認下方email是否正確?', oldMail);
+  if(email.length == 0) return;
+  $.ajax({
+    url: "/users/resendemail",
+    type: "POST",
+    data:"Email=" + email,
+    success: function(response) {
+      alert('已寄出驗證信，請查收');
+      window.location.href='/'
+    }
+  });
+}
 </script>

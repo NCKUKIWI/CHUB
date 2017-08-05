@@ -108,7 +108,7 @@ router.post("/signup",function(req,res) {
         Email:req.body.email,
         Role:0,
         hasCover:0,
-        School: {'Name':"[School]", 'StudentID': "[StudentID]"}
+        School: {'Name':"", 'StudentID': ""}
       };
       User.create(newUser,function(err,result){
         if(err){
@@ -297,7 +297,7 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
             res.redirect("/");
           }
           else{
-            User.create({FBID:fb.id,Email:fb.email,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:"", School: {'Name':"[School]", 'StudentID': "[StudentID]"}}, function (err,result) {
+            User.create({FBID:fb.id,Email:fb.email,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:"", School: {'Name':"", 'StudentID': ""}}, function (err,result) {
               if (err) console.log(err);
               helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${result._id}`);
               res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
@@ -336,13 +336,14 @@ router.get("/emailauth",function(req, res){
 });
 
 router.post("/resendemail",helper.checkLogin(),function(req, res){
-  // 先更新mail, 再寄信
+  // 先更新mail, 再寄信  
+  console.log(req.body);
   User.findOneAndUpdate({_id:req.user._id},{"Email": req.body.Email},function(err,user){
     if(err){
       res.send({error:helper.handleError(err)});
     }else{
       cacheClear();
-      helper.sendEmail(req.body.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${req.body.id}`);
+      helper.sendEmail(req.body.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${req.user._id}`);
       res.send("ok");
     }
   });
@@ -363,7 +364,7 @@ router.post("/update",helper.apiAuth(),function(req, res) {
     Name: req.body.Name,
     Major: req.body.Major,
     Introduction: req.body.Introduction,
-    Skill: req.body.Skill,
+    Skill: req.body.Skill.split(/\,|\、|\,\s|\s\,|\s\,\s/g),
     School: {'Name': req.body.School, 'StudentID': req.body.StudentID},
     RecoveryEmail: req.body.RecoveryEmail,
     Role: role

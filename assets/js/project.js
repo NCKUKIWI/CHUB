@@ -14,8 +14,6 @@ $(document).ready(function() {
 	$('#fullpage').fullpage({
 		// 如果滑到瀏覽project的地方，menu自動消失
 		onLeave (index, nextIndex, direction){
-			console.log('test');
-			console.log(nextIndex);
 			if(nextIndex == 2){
 				$('#menu').hide();
 			}
@@ -55,6 +53,7 @@ $(document).ready(function() {
 				url: "/projects/" + id,
 				type: "POST",
 				success: function(response) {
+					$.fn.fullpage.setAllowScrolling(false, "down,up"); // 停止第一層的fullpage滑動
 					$(".float_window").append(response);
 					$("#close_window, .dark_mask").click(function() {
 						close_window();
@@ -83,6 +82,7 @@ $(document).ready(function() {
 	}
 	function close_window() {
 		if(window_status == 'open') {
+			$.fn.fullpage.setAllowScrolling(true, "down,up"); // 啟動第一層的fullpage滑動
 			$("#fullpage").animate({
 				opacity: 1
 			}, 500);
@@ -111,14 +111,16 @@ $(document).ready(function() {
 		}
 	}
 
-	// Project 的動態控制
-	$("#project_list, .float_window").hover(
-		function() {
-			$.fn.fullpage.setAllowScrolling(false);
-		},
-		function() {
-			$.fn.fullpage.setAllowScrolling(true);
-		});
+	// Project 的fullpage動態控制
+	// $("#project_list .float_window").hover(
+	// 	function() {
+	// 		$.fn.fullpage.setAllowScrolling(false, "down,up");
+	// 		console.log('in');
+	// 	},
+	// 	function() {
+	// 		console.log('on');
+	// 		$.fn.fullpage.setAllowScrolling(true, "down,up");
+	// 	});
 
 	$("#sort_hot").click(function() {
 		now_sort = "hot";
