@@ -163,11 +163,7 @@
           <div class="side_btn tiny" id="side_btn_logout" onclick="window.location='/users/logout'">Log Out</div>
        </div>
        <div id="side_profile_left">
-          <% if(me.hasCover){ %>
-            <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png?<%= new Date().getTime() %>">
-          <% }else{ %>
-            <img class="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
-          <% } %>
+          <img class="edit_profile_photo" style="width:50%;" src="<%= me.Avatar %>">
           <p class="side_name"><% if(me.Name !== undefined){ %><%= me.Name %><%}%></p>
           <p class="side_sub_name"></p>
           <div id="side_detail_text">
@@ -267,11 +263,12 @@
   <form id="updateavatar" style="display:none;">
     <input type="file" id="newavatar" name="avatar"></input>
   </form>
+  <!-- 編輯資料 -->
   <% if(me) { %>
     <form id="halfscreen_edit">
       <div id="halfscreen_edit_left">
         <p id="personal_profile">【Profile】</p>
-        <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png?<%= new Date().getTime() %>">
+        <img class="edit_profile_photo" style="width:50%;" src="<%= me.Avatar %>">
         <p class="edit_name"><%= me.Name %></p>
         <div id="edit_detail_text">
           <p class="left_title">School</p><span>/</span><p class="left_cont"><%= me.School.Name %></p><br>
@@ -283,7 +280,6 @@
         <% }else{ %>
           <a class="ui basic label">未驗證</a>
         <% } %>
-        <div class="side_btn" id="side_edit_uploadavatar">Upload avatar</div>
         <div class="side_btn" id="side_edit_pw">Change Passsword</div>
         <div class="side_btn" id="side_edit_save">Save</div>
         <div class="side_btn" id="side_edit_cancel">Cancel</div>
@@ -297,19 +293,15 @@
           <p class="input_title">Skill<span>/</span></p>
           <input class="mid_input" type="text" name="Skill" value="<% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>、<% } %><% } %>"></input>
         </div>
-        <!-- <input class="mid_input" type="text" name="Skill" placeholder="[Skill]" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
-        </input> -->
         <div class="input_width_set">
-          <p class="input_title long">Recovery Email<span>/</span></p>
+          <p class="input_title long">Recovery<span>/</span></p>
           <input class="mid_input short" type="text"  name="RecoveryEmail" value="<%= me.RecoveryEmail %>"></input>
         </div>
         <div class="input_width_set">
           <p class="input_title mid">Cellphone<span>/</span></p>
           <input class="mid_input mid" type="text" value=""></input>
         </div>
-        <!-- <input class="mid_input" type="text" placeholder="Cellphone"></input> -->
-        <!-- <input class="mid_input" type="password" placeholder="Passsword"></input> -->
-        <!-- <input class="mid_input" type="password" placeholder="Confirm Password"></input> -->
+        <input class="mid_input" type="text" name="Cellphone" placeholder="Cellphone"></input>
         <div class="with_scroll" id="description_history_edit">
           <p class="right_title">Project</p><span>/</span>
           <% for(var i = 0; i < me.ProjectID.length; i++){ %>
@@ -336,10 +328,9 @@
     <form id="halfscreen_first_edit">
       <div id="halfscreen_first_edit_left">
         <p id="personal_profile">【Personal Profile】</p>
-        <img class="profile_photo big" src="/assets/images/molly.png">
+        <img class="profile_photo big edit_profile_photo" src="/assets/images/molly.png">
         <input class="mid_input" type="text" name="Name" placeholder="Username" value=""></input>
         <input class="mid_input" type="text" name="Email" placeholder="E-mail" value=""></input>
-        <div class="side_btn" id="side_edit_uploadavatar">Upload avatar</div>
         <div class="side_btn" id="signupSubmit">Sign Up</div>
         <!-- <div class="side_btn" id="side_edit_cancel">Cancel</div> -->
       </div>

@@ -232,29 +232,39 @@ $(document).ready(function(){
 
   // signup 按鈕按下送出
   $("#signupSubmit").on("click", function() {
-    $.ajax({
-       url: "/users/signup",
-       type: "POST",
-       data: $("#halfscreen_first_edit").serialize(),
-       success: function(response) {
-          if(response == "ok") {
-             toastr.success("<br>已寄信置信箱，請到信箱確認","註冊成功");
-             setTimeout(function(){
-               window.location.href="/";
-             },3000);
-          } else {
-             for(var i in response["error"]) {
+    if($("#newavatar").val()!=""){
+      $.ajax({
+          url: "/users/signup",
+          type: "POST",
+          data: $("#halfscreen_first_edit").serialize(),
+          success: function(response) {
+            if(!response["error"]) {
+              document.cookie.isLogin = 1;
+              document.cookie.id = response.id;
+              var avatar = new FormData($("#updateavatar")[0]);
+              $.ajax({
+                url: "/users/avatar/upload",
+                type: "POST",
+                data:avatar,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                  toastr.success("<br>已寄信置信箱，請到信箱確認","註冊成功");
+                  setTimeout(function(){
+                    window.location.href="/";
+                  },3000);
+                }
+              });
+            } else {
+              for(var i in response["error"]) {
                 toastr.error(`<p>${response["error"][i]}</p>`);
-                // $("#signupForm .errormsg").append(`<p>${response["error"][i]}</p>`);
-             }
-          }
-          // now_tab = "profile";
-          // switchSidebar("open");
-          // setTimeout(function(){
-          //    $( "#side_profile" ).addClass("active");
-          // },200);
-       }
-    });
+              }
+            }
+         }
+      });
+    }else{
+      toastr.error("請上傳大頭貼");
+    }
   });
 
   // 綁定按下enter = 送出資料
@@ -274,8 +284,7 @@ $(document).ready(function(){
     }
   });
 
-  $('#side_edit_uploadavatar').on('click', function(){
-    console.log('in');
+  $('.edit_profile_photo').on('click', function(){
     $("#newavatar").click();
   });
 

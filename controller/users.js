@@ -9,7 +9,6 @@ var config = require("../config");
 var helper = require("../helper");
 var bcrypt = require('bcrypt');
 var graph = require("fbgraph");
-var cacheClear = require("../cache").clear;
 var fs = require("fs");
 var rimraf = require("rimraf");
 var multer  = require('multer');
@@ -22,8 +21,8 @@ var avatarStorage = multer.diskStorage({
     cb(null,`${__dirname}/../uploads/user/${req.user._id}`);
   },
   filename: function (req, file, cb) {
-    //var fileFormat = (file.originalname).split(".");
-    cb(null,"avatar.png");
+    var filename = "avatar" +new Date().getTime() +".png"
+    cb(null,filename);
   }
 });
 
@@ -57,7 +56,6 @@ var userInfo = [
   "Location",
   "Role",
   "Link",
-  "hasCover",
   "GroupID",
   "ProjectID",
   "ActivityID",
@@ -113,7 +111,7 @@ router.post("/signup",function(req,res) {
         School: {'Name': req.body.School, 'StudentID': req.body.StudentID},
         RecoveryEmail: req.body.RecoveryEmail,
         Role: 0,
-        hasCover:0, // 之後會直接更新1
+        Avatar:"newuser"
         //Cellphone: req.body.Cellphone
       };
       User.create(newUser,function(err,result){
@@ -124,7 +122,7 @@ router.post("/signup",function(req,res) {
           helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${result._id}`);
           res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
           res.cookie("id",result._id,{maxAge: 60 * 60 * 1000});
-          res.send("ok");
+          res.send({"isLogin":1,"id":result._id});
         }
       });
     });
@@ -221,7 +219,8 @@ router.post("/avatar/upload",helper.apiAuth(),function(req,res) {
       console.log(err);
       res.send({error:err})
     }else{
-      User.update({_id:req.user._id},{"hasCover":1},function(err){
+      rimraf(`${__dirname}/..${req.user.Avatar}`,function(){});
+      User.update({_id:req.user._id},{"Avatar":`/uploads/user/${req.user._id}/${req.file.filename}`},function(err){
         if(err){
           console.log(err);
           res.send({error:err})
@@ -295,7 +294,7 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
       "client_secret": config.fb_secret,
       "code": req.query.code
     }, function (err,result) {
-      graph.get(`/me?fields=id,name,email&access_token=${result.access_token}`,function(err,fb){
+      graph.get(`/me?fields=id,name,email,picture.type(large)&access_token=${result.access_token}`,function(err,fb){
         User.findOne({FBID:fb.id},"_id",function(err,user){
           if(user){
             res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
@@ -303,7 +302,7 @@ router.get("/fbcheck",helper.checkLogin(0),function(req,res) {
             res.redirect("/");
           }
           else{
-            User.create({FBID:fb.id,Email:fb.email,Name:fb.name,Password:fb.id,Role:0,hasCover:0,Skill:[],Major:"", School: {'Name':"", 'StudentID': ""}}, function (err,result) {
+            User.create({FBID:fb.id,Email:fb.email,Name:fb.name,Password:fb.id,Role:0,Avatar:fb.picture.data.url,Skill:[],Major:"", School: {'Name':"", 'StudentID': ""}}, function (err,result) {
               if (err) console.log(err);
               helper.sendEmail(result.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${result._id}`);
               res.cookie("isLogin",1,{maxAge: 60 * 60 * 1000});
@@ -367,11 +366,10 @@ router.post("/update",helper.apiAuth(),function(req, res) {
 
   var updateData = {
     Email: req.body.Email,
-    Name: req.body.Name,
     Major: req.body.Major,
     Introduction: req.body.Introduction,
-    Skill: (req.body.Skill)?req.body.Skill.split(/\,|\、|\,\s|\s\,|\s\,\s|\，/g):"",
-    School: {'Name': req.body.School, 'StudentID': req.body.StudentID},
+    Skill: req.body.Skill.split(/\,|\、|\,\s|\s\,|\s\,\s|\，/g),
+    //School: {'Name': req.body.School, 'StudentID': req.body.StudentID},
     RecoveryEmail: req.body.RecoveryEmail,
     Role: role
   }
