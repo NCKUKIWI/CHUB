@@ -22,10 +22,10 @@
     <div class="ui secondary pointing menu" style="margin: 0px;">
         <a href="/" class="item" id="logo">
           <% if(me.hasCover){ %>
-            <img style="width:100px; margin-left: 30px;" src="/uploads/user/<%= me._id %>/avatar.png">
+            <img style="width:100px; margin-left: 30px;" src="/uploads/user/<%= me._id %>/avatar.png?<%= new Date().getTime() %>">
           <% }else{ %>
             <img style="width:100px; margin-left: 30px;" src="/assets/images/backstage_logo.png">
-          <% } %>  
+          <% } %>
         </a>
     </div>
     <div class="ui stackable grid" style="background-color: rgba(230, 230, 230, 1); margin: 0px;">
@@ -33,7 +33,7 @@
         <div class="ui styled accordion"  style="background-color:rgba(128, 128, 128, 1); border-radius: 0px;">
           <div style="display: flex; flex-direction: row; justify-content: space-around; padding: 10px;">
             <% if(me.hasCover){ %>
-              <img style="width:100px; height: 100px; margin-top: 20px; border-radius:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
+              <img style="width:100px; height: 100px; margin-top: 20px; border-radius:50%;" src="/uploads/user/<%= me._id %>/avatar.png?<%= new Date().getTime() %>">
             <% }else{ %>
               <img style="width:100px; height: 100px; margin-top: 20px" src="/assets/images/profile.png">
             <% } %>

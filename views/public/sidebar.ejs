@@ -29,8 +29,8 @@
        <div class="triangle"></div>
     </div>
     <div class="side_menu" id="side_menu_profile_after">
-      <div class="sidebar_btn third profile_after_btn active" id="sidebar_interested"><p>Interested</p></div> 
-      <div class="sidebar_btn third profile_after_btn" id="sidebar_profile"><p>My Profile</p></div> 
+      <div class="sidebar_btn third profile_after_btn active" id="sidebar_interested"><p>Interested</p></div>
+      <div class="sidebar_btn third profile_after_btn" id="sidebar_profile"><p>My Profile</p></div>
       <div class="sidebar_btn third profile_after_btn" id="sidebar_headsup"><p class="counter">3</p><p>Heads-Up</p></div>
       <div class="triangle"></div>
     </div>
@@ -38,10 +38,10 @@
       <div class="sidebar_btn half profile_before_btn active" id="sidebar_messenger"><p class="counter">3</p><p>Messenger</p></div>
       <div class="sidebar_btn half profile_before_btn" id="sidebar_dialogue"><p id="dialogue_name">Dialogue</p></div>
       <div class="triangle dialogue"></div>
-    </div> 
+    </div>
     <div class="side_menu" id="side_menu_search">
       <div class="sidebar_btn full search_btn" id="sidebar_search"><p>Search</p></div>
-    </div> 
+    </div>
   </div>
   <div class="sidebar_upper_filled"></div>
 
@@ -120,12 +120,12 @@
         </div>
       </div>
       <div class="dialogue_input">
-        <div class="horizontal_line"></div> 
+        <div class="horizontal_line"></div>
         <textarea id="messege_input" placeholder="Type a message ..."></textarea>
         這兩個功能不會用到？
         <a href="#" class="message_input_icon" id="icon_archive"></a>
         <a href="#" class="message_input_icon" id="icon_plus">　</a>
-        <a href="#" class="message_input_btn" id="send_msg">Send</a> 
+        <a href="#" class="message_input_btn" id="send_msg">Send</a>
       </div>
     </div> -->
   </div>
@@ -164,7 +164,7 @@
        </div>
        <div id="side_profile_left">
           <% if(me.hasCover){ %>
-            <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
+            <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png?<%= new Date().getTime() %>">
           <% }else{ %>
             <img class="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
           <% } %>
@@ -258,7 +258,7 @@
     <a class="right_cont">Activity5</a>
     <a class="right_cont">Activity6</a>
     <a class="view_more">more...</a>
-  </div> 
+  </div>
 </div>
 
 <!-- 編輯profile頁面、 -->
@@ -266,12 +266,12 @@
 <div class="side_halfscreen">
   <form id="updateavatar" style="display:none;">
     <input type="file" id="newavatar" name="avatar"></input>
-  </form>   
-  <% if(me) { %> 
+  </form>
+  <% if(me) { %>
     <form id="halfscreen_edit">
       <div id="halfscreen_edit_left">
         <p id="personal_profile">【Profile】</p>
-        <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
+        <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png?<%= new Date().getTime() %>">
         <p class="edit_name"><%= me.Name %></p>
         <div id="edit_detail_text">
           <p class="left_title">School</p><span>/</span><p class="left_cont"><%= me.School.Name %></p><br>
@@ -378,7 +378,7 @@
     <p>New password</p><input type="password"></input><br>
     <p>Verify your password</p><input type="password"></input>
   </div>
-  <p id="forgot_password">Forgot your password?</p> 
+  <p id="forgot_password">Forgot your password?</p>
   <div class="password_change_line"></div>
   <div class="side_btn" id="side_btn_save_pw">Save</div>
   <div class="dark_mask"></div>

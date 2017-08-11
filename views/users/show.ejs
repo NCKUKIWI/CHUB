@@ -7,7 +7,7 @@
 	</div>
 	<div id="detail_brief">
     <% if(user.hasCover == 1) { %>
-		  <img src="/uploads/user/<%= user._id %>/avatar.png">
+		  <img src="/uploads/user/<%= user._id %>/avatar.png?<%= new Date().getTime() %>">
     <% }else{ %>
       <img src="/assets/images/molly.png">
     <% } %>

@@ -22,7 +22,7 @@ var avatarStorage = multer.diskStorage({
     cb(null,`${__dirname}/../uploads/user/${req.user._id}`);
   },
   filename: function (req, file, cb) {
-    var fileFormat = (file.originalname).split(".");
+    //var fileFormat = (file.originalname).split(".");
     cb(null,"avatar.png");
   }
 });
@@ -342,7 +342,7 @@ router.get("/emailauth",function(req, res){
 });
 
 router.post("/resendemail",helper.checkLogin(),function(req, res){
-  // 先更新mail, 再寄信  
+  // 先更新mail, 再寄信
   console.log(req.body);
   User.findOneAndUpdate({_id:req.user._id},{"Email": req.body.Email},function(err,user){
     if(err){

@@ -6,7 +6,7 @@
   </div>
   <div style="display: flex; flex-direction: row; justify-content: space-around; margin-top: 10px;">
     <% if(me.hasCover){ %>
-      <img style="width:100px; height: 100px; margin-top: 20px; border-radius:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
+      <img style="width:100px; height: 100px; margin-top: 20px; border-radius:50%;" src="/uploads/user/<%= me._id %>/avatar.png?<%= new Date().getTime() %>">
     <% }else{ %>
       <img style="width:100px; height: 100px; margin-top: 20px" src="/assets/images/profile.png">
     <% } %>
