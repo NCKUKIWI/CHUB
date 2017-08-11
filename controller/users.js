@@ -94,20 +94,27 @@ router.get("/", function(req,res) {
 });
 
 router.post("/signup",function(req,res) {
-  if(req.body.password2==""){
+  if(req.body.Password2==""){
     res.send({error:["請再輸入一次密碼"]});
   }
-  else if(req.body.password!=req.body.password2){
+  else if(req.body.Password!=req.body.Password2){
     res.send({error:["兩次密碼不一致"]});
   }
   else{
-    bcrypt.hash(req.body.password,5,function(err, hash) {
+    bcrypt.hash(req.body.Password,5,function(err, hash) {
+      console.log(req.body);
       var newUser = {
         Password:hash,
-        Email:req.body.email,
-        Role:0,
-        hasCover:0,
-        School: {'Name':"", 'StudentID': ""}
+        Email: req.body.Email,
+        Name: req.body.Name,
+        Major: req.body.Major,
+        Introduction: req.body.Introduction,
+        Skill: req.body.Skill.split(/\,|\、|\,\s|\s\,|\s\,\s|\，/g),
+        School: {'Name': req.body.School, 'StudentID': req.body.StudentID},
+        RecoveryEmail: req.body.RecoveryEmail,
+        Role: 0,
+        hasCover:0, // 之後會直接更新1
+        //Cellphone: req.body.Cellphone
       };
       User.create(newUser,function(err,result){
         if(err){
@@ -385,10 +392,10 @@ router.get("/logout", function(req, res) {
 
 router.post("/msg",helper.apiAuth(),function(req,res) {
   var msgAll = {};
-  Message.find({ToUID:req.user._id}).populate("FromUID","_id Name Email Major Talent Description Website Role").populate("FromGID").exec(function(err,toMsg){
+  Message.find({ToUID:req.user._id}).populate("FromUID","_id Name Email Major Skill Introduction Website Role").populate("FromGID").exec(function(err,toMsg){
     // 整理對方的訊息(step 1)
     Message.msgSorting(toMsg, msgAll, 1, "FromUID");
-    Message.find({FromUID:req.user._id}).populate("ToUID","_id Name Email Major Talent Description Website Role").populate("ToGID").exec(function(err,fromMsg){
+    Message.find({FromUID:req.user._id}).populate("ToUID","_id Name Email Major Skill Introduction Website Role").populate("ToGID").exec(function(err,fromMsg){
       // 整理我方的訊息(step 2)
       var msgArr = Message.msgSorting(fromMsg, msgAll, 0, "ToUID");
 

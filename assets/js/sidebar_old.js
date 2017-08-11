@@ -64,25 +64,25 @@ $(document).ready(function() {
 	});
 });
 
-// 送出訊息
-function sendMessage(){
-	var sendMsg = $('#msgText').val();
+// 送出訊息(已使用)
+// function sendMessage(){
+// 	var sendMsg = $('#msgText').val();
 
-	var toID = $("#userSidebar > .item.active").attr("userid");
-	$(".chatCont > div[messageuserid=\'" + toID + "\']").append('<li class="chatEntry chatSent"><img class="avatar" src="//placekitten.com/56/56" /><p class="message">'+sendMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
-	$('#msgText').val('');
+// 	var toID = $("#userSidebar > .item.active").attr("userid");
+// 	$(".chatCont > div[messageuserid=\'" + toID + "\']").append('<li class="chatEntry chatSent"><img class="avatar" src="//placekitten.com/56/56" /><p class="message">'+sendMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
+// 	$('#msgText').val('');
 
-	var Data = "touid=" + toID + "&context=" + sendMsg;
-	console.log(Data);
-	$.ajax({
-		url: 'messages/send',
-		method: "POST",
-		data: Data,
-		headers: { "cache-control": "no-cache" },
-		success: function(response) {
-		}
-	})
-}
+// 	var Data = "touid=" + toID + "&context=" + sendMsg;
+// 	console.log(Data);
+// 	$.ajax({
+// 		url: 'messages/send',
+// 		method: "POST",
+// 		data: Data,
+// 		headers: { "cache-control": "no-cache" },
+// 		success: function(response) {
+// 		}
+// 	})
+// }
 
 // 收到訊息
 // function getMessage(receiveText){
@@ -90,28 +90,28 @@ function sendMessage(){
 // 	$(".chatCont").append('<li class="chatEntry"><img class="avatar" src="//placekitten.com/g/50/50" /><p class="message">'+getMsg+'<time class="timestamp">4 minutes ago</time></p></li>');
 // }
 
-// 開啟訊息欄
-function changeMessageBoard(){
-	// 如果是未讀訊息，就把未讀的效果取消，並回傳已讀訊息回去
-	$($(this).children("div")).remove();
-	$.ajax({
-		url: 'messages/isRead/' + $(this).attr("userid"),
-		method: "GET"
-	})
-	//
-	$('#userSidebar > .item').removeClass("active");
-	$(this).addClass("active");
-	// 如果是通知的那個區塊，就把send隱藏，沒有就顯示
-	if($('#userSidebar > .item.active > .mail').length == 1){
-		$('#inputMsg').hide();
-		$('.chatCont > div').hide();
-		return;
-	}
-	else $('#inputMsg').show();
-	var userID = $(this).attr("userid");
-	$('.chatCont > div').hide();
-	$(".chatCont > div[messageuserid=\'" + userID + "\']").show();
-}
+// 開啟訊息欄（已使用）
+// function changeMessageBoard(){
+// 	// 如果是未讀訊息，就把未讀的效果取消，並回傳已讀訊息回去
+// 	$($(this).children("div")).remove();
+// 	$.ajax({
+// 		url: 'messages/isRead/' + $(this).attr("userid"),
+// 		method: "GET"
+// 	})
+// 	//
+// 	$('#userSidebar > .item').removeClass("active");
+// 	$(this).addClass("active");
+// 	// 如果是通知的那個區塊，就把send隱藏，沒有就顯示
+// 	if($('#userSidebar > .item.active > .mail').length == 1){
+// 		$('#inputMsg').hide();
+// 		$('.chatCont > div').hide();
+// 		return;
+// 	}
+// 	else $('#inputMsg').show();
+// 	var userID = $(this).attr("userid");
+// 	$('.chatCont > div').hide();
+// 	$(".chatCont > div[messageuserid=\'" + userID + "\']").show();
+// }
 
 // 假設使用者沒有傳訊息的話～就把資料刪除
 function findNotSendMessageUser(){

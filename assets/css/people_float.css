@@ -81,7 +81,7 @@
 .float_window #detail_left #detail_brief #text_me {
     position: absolute;
     float: left;
-    background: url("../img/text_me.png");
+    background: url("../images/text_me.png");
     height: 18px;
     width: 85px;
     margin: 10vh 0px;

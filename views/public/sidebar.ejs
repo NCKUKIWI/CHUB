@@ -3,12 +3,14 @@
       <img src="assets/images/side_profile.png">
    </div>
    <!-- 暫時不開放message、search -->
-   <!-- <div class="side_icon" id="side_message">
-      <img src="assets/images/side_message.png">
-   </div> -->
-   <!-- <div class="side_icon" id="side_search">
+   <% if(me) { %>
+     <div class="side_icon" id="side_message">
+        <img src="assets/images/side_message.png">
+     </div>
+   <% } %>
+   <div class="side_icon" id="side_search">
       <img src="assets/images/side_search.png">
-   </div> -->
+   </div>
     <% if(me) { %>
       <% if(me.Role >= 2) { %>
         <div class="side_icon">
@@ -18,585 +20,369 @@
     <% } %>
 </div>
 
-<div class="sidebar_cont" style="display: none;">
-   <div class="sidebar_upper">
-      <a href="#" id="sidebar_chub_logo">　</a>
-      <div class="side_menu" id="side_menu_profile_before">
-         <div class="sidebar_btn half profile_before_btn active" id="sidebar_login"><p>Log In</p></div>
-         <div class="sidebar_btn half profile_before_btn" id="sidebar_signup"><p>Sign Up</p></div>
-         <div class="triangle"></div>
+<div class="sidebar_cont">
+  <div class="sidebar_upper">
+    <a href="#" id="sidebar_chub_logo">　</a>
+    <div class="side_menu" id="side_menu_profile_before">
+       <div class="sidebar_btn half profile_before_btn active" id="sidebar_login"><p>Log In</p></div>
+       <div class="sidebar_btn half profile_before_btn" id="sidebar_signup"><p>Sign Up</p></div>
+       <div class="triangle"></div>
+    </div>
+    <div class="side_menu" id="side_menu_profile_after">
+      <div class="sidebar_btn third profile_after_btn active" id="sidebar_interested"><p>Interested</p></div> 
+      <div class="sidebar_btn third profile_after_btn" id="sidebar_profile"><p>My Profile</p></div> 
+      <div class="sidebar_btn third profile_after_btn" id="sidebar_headsup"><p class="counter">3</p><p>Heads-Up</p></div>
+      <div class="triangle"></div>
+    </div>
+    <div class="side_menu" id="side_menu_message">
+      <div class="sidebar_btn half profile_before_btn active" id="sidebar_messenger"><p class="counter">3</p><p>Messenger</p></div>
+      <div class="sidebar_btn half profile_before_btn" id="sidebar_dialogue"><p id="dialogue_name">Dialogue</p></div>
+      <div class="triangle dialogue"></div>
+    </div> 
+    <div class="side_menu" id="side_menu_search">
+      <div class="sidebar_btn full search_btn" id="sidebar_search"><p>Search</p></div>
+    </div> 
+  </div>
+  <div class="sidebar_upper_filled"></div>
+
+   <!-- 側邊欄profile: 登入頁面 -->
+  <form class="side_cont_page" id="side_cont_login">
+    <input class="big_input" type="text" name="email" placeholder="E-mail"></input>
+    <input class="big_input" type="password" name="password" placeholder="Password"></input>
+    <div class="side_goto_bottom">
+      <div class="side_btn" id="loginSubmit">Log In</div>
+      <!-- <div class="side_btn black" id="side_facebook" onclick="window.location='/users/fblogin';">Facebook</div> -->
+      <p id="dont_have_account">Don't have an an Account?</p>
+    </div>
+  </form>
+
+  <!-- 側邊欄profile: 註冊頁面 -->
+  <form class="side_cont_page" id="side_cont_signup">
+    <!-- <input class="big_input" type="text" name="email" placeholder="E-mail"></input> -->
+    <!-- <input class="big_input" type="text" name="name" placeholder="Username"></input> -->
+    <!-- <input class="big_input" type="password" name="password" placeholder="Password"></input>
+    <input class="big_input" type="password" name="password2" placeholder="Confirm Password"></input> -->
+    <div class="side_goto_bottom">
+       <div class="side_btn" id="side_btn_signup">Sign Up</div>
+       <!-- <div class="side_btn black" id="side_facebook" onclick="window.location='/users/fblogin';">Facebook</div> -->
+       <p>　</p>
+    </div>
+  </form>
+
+  <!-- 側邊欄message：列表 -->
+  <div class="side_cont_page with_scroll" id="side_cont_messenger">
+    <!-- <div class="a_message unread">
+      <img class="profile_photo tiny" src="https://unsplash.it/80/80">
+      <p class="message_sender">Chia Hao Liao</p>
+      <p class="message_time">10 小時前</p>
+      <p class="message_preview">廖嘉豪 邀請你參加 2016 風格台南 創意時尚展。</p>
+      <a class="strange_icon">　</a>
+      <div class="horizontal_line"></div>
+    </div> -->
+    <!-- <div class="a_message unread">
+      <img class="profile_photo tiny" src="https://unsplash.it/80/80">
+      <p class="message_sender">Chia Hao Liao</p>
+      <p class="message_time">10 小時前</p>
+      <p class="message_preview">廖嘉豪 邀請你參加 2016 風格台南 創意時尚展。</p>
+      <a class="strange_icon">　</a>
+      <div class="horizontal_line"></div>
+    </div>
+    <div class="a_message unread">
+      <img class="profile_photo tiny" src="https://unsplash.it/80/80">
+      <p class="message_sender">Chia Hao Liao</p>
+      <p class="message_time">10 小時前</p>
+      <p class="message_preview">廖嘉豪 邀請你參加 2016 風格台南 創意時尚展。</p>
+      <a class="strange_icon">　</a>
+      <div class="horizontal_line"></div>
+    </div> -->
+    <!-- <a class="view_more">more...</a> -->
+  </div>
+
+  <!-- 側邊欄message：個別對話 -->
+  <div class="side_cont_page" id="side_cont_dialogue">
+<!--     <div class="dialogue_window">
+      <a href="#" class="close_icon" id="close_dialogue">　</a>
+      <div class="dialogue_content with_scroll">
+        <div class="message_received">
+          <img class="profile_photo tiny" src="https://unsplash.it/80/80">
+          <p class="message_content">廖嘉豪 邀請你參加 2016 風格台南 創意時尚展。</p>
+        </div>
+        <p class="message_updated_time">2017/05/15 20:51</p>
+        <div class="message_sent">
+          <p class="message_content">我會去唷！</p>
+        </div>
+        <div class="message_received">
+          <img class="profile_photo tiny" src="https://unsplash.it/80/80">
+          <p class="message_content">好的～謝謝你～</p>
+        </div>
+        <div class="message_received continue">
+          <p class="message_content">嘉豪注意！這裡有多一個 class 喔！</p>
+        </div>
       </div>
-      <div class="side_menu" id="side_menu_profile_after">
-          <!-- <div class="sidebar_btn third profile_after_btn active" id="sidebar_interested"><p>Interested</p></div>
-          <div class="sidebar_btn third profile_after_btn" id="sidebar_profile"><p>My Profile</p></div>
-          <div class="sidebar_btn third profile_after_btn" id="sidebar_headsup"><p>Heads-Up</p></div>  -->
-           <div class="sidebar_btn full profile_after_btn" id="sidebar_profile"><p>My Profile</p></div>
-          <!-- <div class="triangle"></div> -->
+      <div class="dialogue_input">
+        <div class="horizontal_line"></div> 
+        <textarea id="messege_input" placeholder="Type a message ..."></textarea>
+        這兩個功能不會用到？
+        <a href="#" class="message_input_icon" id="icon_archive"></a>
+        <a href="#" class="message_input_icon" id="icon_plus">　</a>
+        <a href="#" class="message_input_btn" id="send_msg">Send</a> 
       </div>
-      <div class="side_menu_search">
-         <div class="sidebar_btn full search_btn" id="sidebar_search"><p>Search</p></div>
+    </div> -->
+  </div>
+
+  <!-- 側邊欄search -->
+  <form class="side_cont_page" id="side_cont_search">
+    <input class="small_input" type="text" placeholder="在 C-Hub 上搜尋"></input>
+    <div class="dropdown">
+      <div class="dropdown-content" id="dropdown_layer1">
+        <a class="default">All</a>
+        <a class="selectable hidden">All</a>
+        <a class="selectable">Activity</a>
+        <a class="selectable">Group</a>
+        <a class="selectable">Project</a>
+        <a class="selectable">People</a>
       </div>
-   </div>
-   <div class="sidebar_upper_filled"></div>
-   <form class="side_cont_page" id="side_cont_login">
-      <input class="big_input" type="text" name="email" placeholder="E-mail"></input>
-      <input class="big_input" type="password" name="password" placeholder="Password"></input>
-      <div class="side_goto_bottom">
-         <div class="side_btn" id="loginSubmit">Log In</div>
-         <div class="side_btn black" id="side_facebook" onclick="window.location='/users/fblogin';">Facebook</div>
-         <p id="dont_have_account">Don't have an an Account?</p>
+      <div class="dropdown-content" id="dropdown_layer2">
+        <a class="default">List2</a>
+        <a class="selectable hidden">List2</a>
+        <a class="selectable">Option1</a>
+        <a class="selectable">Option2</a>
+        <a class="selectable">Option3</a>
+        <a class="selectable">Option4</a>
       </div>
-   </form>
-   <form class="side_cont_page" id="side_cont_signup">
-      <input class="big_input" type="text" name="email" placeholder="E-mail"></input>
-      <!-- <input class="big_input" type="text" name="name" placeholder="Username"></input> -->
-      <input class="big_input" type="password" name="password" placeholder="Password"></input>
-      <input class="big_input" type="password" name="password2" placeholder="Confirm Password"></input>
-      <div class="side_goto_bottom">
-         <div class="side_btn" id="signupSubmit">Sign Up</div>
-         <div class="side_btn black" id="side_facebook" onclick="window.location='/users/fblogin';">Facebook</div>
-         <p>　</p>
-      </div>
-   </form>
-   <form class="side_cont_page" id="side_cont_search">
-      <input class="small_input" type="text" placeholder="在 C-Hub 上搜尋"></input>
-      <div class="dropdown">
-         <div class="dropdown-content" id="dropdown_layer1">
-            <a class="default">All</a>
-            <a class="selectable hidden">All</a>
-            <a class="selectable">Activity</a>
-            <a class="selectable">Group</a>
-            <a class="selectable">Project</a>
-            <a class="selectable">People</a>
-         </div>
-         <div class="dropdown-content" id="dropdown_layer2">
-            <a class="default">List2</a>
-            <a class="selectable hidden">List2</a>
-            <a class="selectable">Option1</a>
-            <a class="selectable">Option2</a>
-            <a class="selectable">Option3</a>
-            <a class="selectable">Option4</a>
-         </div>
-      </div>
-      <div class="side_btn black" id="side_search">Search</div>
-   </form>
-   <% if(me) { %>
-      <div class="side_cont_page" id="side_cont_myprofile">
-         <div class="tiny_bottons">
-            <!-- <div class="side_btn tiny" id="side_btn_group">My Group</div>  -->
-            <div class="side_btn tiny" id="side_btn_edit">Edit Profile</div>
-            <div class="side_btn tiny" id="side_btn_logout" onclick="window.location='/users/logout'">Log Out</div>
-         </div>
-         <div id="side_profile_left">
-            <% if(me.hasCover){ %>
-              <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
-            <% }else{ %>
-              <img class="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
-            <% } %>
-            <p class="side_name"><% if(me.Name !== undefined){ %><%= me.Name %><%}%></p>
-            <p class="side_sub_name"></p>
-            <div id="side_detail_text">
-               <p class="left_title">School</p><span>/</span><p class="left_cont"><% if(me.School.Name !== ''){ %><%= me.School.Name %><%}%></p>
-               <p class="left_title">Student ID</p><span>/</span><p class="left_cont"><% if(me.School.Name !== ''){ %><%= me.School.StudentID %><%}%></p>
-               <p class="left_title">Major</p><span>/</span><p class="left_cont"><% if(me.Major !== undefined){ %><%= me.Major %><%}%></p>
-               <% if(me.Skill !== undefined){ %>
-                  <p class="left_title">Skills</p><span>/</span><p class="left_cont">
-                  <% for(var j = 0; j < me.Skill.length; j++){ %>
-                     <%= me.Skill[j] %><br>
-                  <% } %>
-               <%}%>
-               <!-- Technology、<br>Design、<br>Architecture</p> -->
-            </div>
-         </div>
-         <div class="with_scroll" id="side_profile_right">
-            <% if(me) {%>
-            <p class="right_title">Group</p><span>/</span>
-               <% for(var i = 0; i < me.GroupID.length; i++){ %>
-                  <a class="right_cont"><%= me.GroupID[i].Name %></a>
-               <% } %>
-            <br>
-            <p class="right_title">Project</p><span>/</span>
-               <% for(var i = 0; i < me.ProjectID.length; i++){ %>
-                  <a class="right_cont"><%= me.ProjectID[i].Name %></a>
-               <% } %>
-            <br>
-            <p class="right_title">Activity</p><span>/</span>
-               <% for(var i = 0; i < me.ActivityID.length; i++){ %>
-                  <a class="right_cont"><%= me.ActivityID[i].Name %></a>
-               <% } %>
-            <br>
-            <% } %>
-         </div>
-      </div>
-   <% } %>
+    </div>
+    <div class="side_btn black" id="side_search">Search</div>
+  </form>
+
+  <!-- 側邊欄profile: 個人資料-->
+  <% if(me) { %>
+    <div class="side_cont_page" id="side_cont_myprofile">
+       <div class="tiny_bottons">
+          <!-- <div class="side_btn tiny" id="side_btn_group">My Group</div>  -->
+          <div class="side_btn tiny" id="side_btn_edit">Edit Profile</div>
+          <div class="side_btn tiny" id="side_btn_logout" onclick="window.location='/users/logout'">Log Out</div>
+       </div>
+       <div id="side_profile_left">
+          <% if(me.hasCover){ %>
+            <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
+          <% }else{ %>
+            <img class="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
+          <% } %>
+          <p class="side_name"><% if(me.Name !== undefined){ %><%= me.Name %><%}%></p>
+          <p class="side_sub_name"></p>
+          <div id="side_detail_text">
+             <p class="left_title">School</p><span>/</span><p class="left_cont"><% if(me.School.Name !== ''){ %><%= me.School.Name %><%}%></p>
+             <p class="left_title">Student ID</p><span>/</span><p class="left_cont"><% if(me.School.Name !== ''){ %><%= me.School.StudentID %><%}%></p>
+             <p class="left_title">Major</p><span>/</span><p class="left_cont"><% if(me.Major !== undefined){ %><%= me.Major %><%}%></p>
+             <% if(me.Skill !== undefined){ %>
+                <p class="left_title">Skills</p><span>/</span><p class="left_cont">
+                <% for(var j = 0; j < me.Skill.length; j++){ %>
+                   <%= me.Skill[j] %><br>
+                <% } %>
+             <%}%>
+             <!-- Technology、<br>Design、<br>Architecture</p> -->
+          </div>
+       </div>
+       <div class="with_scroll" id="side_profile_right">
+          <% if(me) {%>
+          <p class="right_title">Group</p><span>/</span>
+             <% for(var i = 0; i < me.GroupID.length; i++){ %>
+                <a class="right_cont"><%= me.GroupID[i].Name %></a>
+             <% } %>
+          <br>
+          <p class="right_title">Project</p><span>/</span>
+             <% for(var i = 0; i < me.ProjectID.length; i++){ %>
+                <a class="right_cont"><%= me.ProjectID[i].Name %></a>
+             <% } %>
+          <br>
+          <p class="right_title">Activity</p><span>/</span>
+             <% for(var i = 0; i < me.ActivityID.length; i++){ %>
+                <a class="right_cont"><%= me.ActivityID[i].Name %></a>
+             <% } %>
+          <br>
+          <% } %>
+       </div>
+    </div>
+  <% } %>
+
+  <!-- 側邊欄profile: 系統通知 -->
+  <div class="side_cont_page with_scroll" id="side_cont_headsup">
+    <div class="a_notification unread">
+      <img class="profile_photo tiny" src="https://unsplash.it/80/80">
+      <p class="notification_main">廖嘉豪 邀請你參加 2016 風格台南 創意時尚展。</p>
+      <a class="strange_icon">　</a><p class="notification_time">10 小時前</p>
+      <div class="horizontal_line"></div>
+    </div>
+    <div class="a_notification unread">
+      <img class="profile_photo tiny" src="https://unsplash.it/80/80">
+      <p class="notification_main">廖嘉豪 邀請你參加 2016 風格台南 創意時尚展。</p>
+      <a class="strange_icon">　</a><p class="notification_time">10 小時前</p>
+      <div class="horizontal_line"></div>
+    </div>
+    <div class="a_notification unread">
+      <img class="profile_photo tiny" src="https://unsplash.it/80/80">
+      <p class="notification_main">廖嘉豪 邀請你參加 2016 風格台南 創意時尚展。</p>
+      <a class="strange_icon">　</a><p class="notification_time">10 小時前</p>
+      <div class="horizontal_line"></div>
+    </div>
+    <div class="a_notification">
+      <img class="profile_photo tiny" src="https://unsplash.it/80/80">
+      <p class="notification_main">廖嘉豪 邀請你參加 2016 風格台南 創意時尚展。</p>
+      <a class="strange_icon">　</a><p class="notification_time">10 小時前</p>
+      <div class="horizontal_line"></div>
+    </div>
+    <div class="a_notification">
+      <img class="profile_photo tiny" src="https://unsplash.it/80/80">
+      <p class="notification_main">廖嘉豪 邀請你參加 2016 風格台南 創意時尚展。</p>
+      <a class="strange_icon">　</a><p class="notification_time">10 小時前</p>
+      <div class="horizontal_line"></div>
+    </div>
+    <a class="view_more">more...</a>
+  </div>
+
+  <!-- 側邊欄profile: 感興趣列表 -->
+  <div class="side_cont_page with_scroll" id="side_cont_interested">
+    <p class="right_title">Project</p><span>/</span>
+    <a class="right_cont">Project1</a>
+    <a class="right_cont">Project2</a>
+    <a class="right_cont">Project3</a>
+    <a class="right_cont">Project4</a>
+    <a class="right_cont">Project5</a>
+    <a class="right_cont">Project6</a>
+    <div class="horizontal_line"></div>
+    <p class="right_title">Activity</p><span>/</span>
+    <a class="right_cont">Activity1</a>
+    <a class="right_cont">Activity2</a>
+    <a class="right_cont">Activity3</a>
+    <a class="right_cont">Activity4</a>
+    <a class="right_cont">Activity5</a>
+    <a class="right_cont">Activity6</a>
+    <a class="view_more">more...</a>
+  </div> 
 </div>
 
-<!-- 編輯profile頁面 -->
-<% if(me) { %>
+<!-- 編輯profile頁面、 -->
+
+<div class="side_halfscreen">
   <form id="updateavatar" style="display:none;">
     <input type="file" id="newavatar" name="avatar"></input>
-  </form>
-  <form class="side_halfscreen">
-     <div id="halfscreen_left">
+  </form>   
+  <% if(me) { %> 
+    <form id="halfscreen_edit">
+      <div id="halfscreen_edit_left">
         <p id="personal_profile">【Profile】</p>
-        <% if(me.hasCover){ %>
-          <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
-        <% }else{ %>
-          <img class="edit_profile_photo" style="width:50%;" src="/assets/images/molly.png">
-        <% } %>
-        <input class="mid_input" type="text" name="Name" placeholder="Username" value="<% if(me.Name !== undefined){ %><%= me.Name %><%}%>"></input>
-        <input class="mid_input" type="text" readonly="readonly" name="Email" placeholder="E-mail" value="<% if(me.Email !== undefined){ %><%= me.Email %><%}%>" onclick="resendEmail(this.value)"></input>
+        <img class="edit_profile_photo" style="width:50%;" src="/uploads/user/<%= me._id %>/avatar.png">
+        <p class="edit_name"><%= me.Name %></p>
+        <div id="edit_detail_text">
+          <p class="left_title">School</p><span>/</span><p class="left_cont"><%= me.School.Name %></p><br>
+          <p class="left_title">Student ID</p><span>/</span><p class="left_cont"><%= me.School.StudentID %></p>
+        </div>
+        <input class="mid_input" type="text" readonly="readonly" name="Email" placeholder="E-mail" value="<%= me.Email %>" onclick="resendEmail(this.value)"></input>
         <% if(me.EmailConfirm){ %>
           <a class="ui basic label">已驗證</a>
         <% }else{ %>
           <a class="ui basic label">未驗證</a>
         <% } %>
-        <div class="side_btn" id="side_edit_uploadavatar">Upload avatar</div>
+        <!-- <div class="side_btn" id="side_edit_uploadavatar">Upload avatar</div> -->
+        <div class="side_btn" id="side_edit_pw">Change Passsword</div>
         <div class="side_btn" id="side_edit_save">Save</div>
         <div class="side_btn" id="side_edit_cancel">Cancel</div>
-     </div>
-     <div id="halfscreen_right">
-        <input class="mid_input" type="text" name="School" placeholder="[School]" value="<% if(me.School.Name != ''){ %><%= me.School.Name %><%}%>"></input>
-        <input class="mid_input" type="text" name="StudentID" placeholder="[Student ID]" value="<% if(me.School.Name != ''){ %><%= me.School.StudentID %><%}%>"></input>
-        <input class="mid_input" type="text" name="Major" placeholder="[Major]" value="<% if(me.Major !== undefined){ %><%= me.Major %><%}%>"></input>
-        <input class="mid_input" type="text" name="Skill" placeholder="[Skill]" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
-        </input>
-        <input class="mid_input" type="text" name="RecoveryEmail" placeholder="[Recovery Email]" value="<% if(me.RecoveryEmail !== undefined){ %><%= me.RecoveryEmail %><%}%>"></input>
+      </div>
+      <div id="halfscreen_edit_right">
+        <div class="input_width_set">
+          <p class="input_title">Major<span>/</span></p>
+          <input class="mid_input" type="text" value="<%= me.Major %>"></input>
+        </div>
+        <div class="input_width_set">
+          <p class="input_title">Skill<span>/</span></p>
+          <input class="mid_input" type="text" value="<% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>、<% } %><% } %>"></input>
+        </div>
+        <!-- <input class="mid_input" type="text" name="Skill" placeholder="[Skill]" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
+        </input> -->
+        <div class="input_width_set">
+          <p class="input_title long">Recovery Email<span>/</span></p>
+          <input class="mid_input short" type="text"  value="<%= me.RecoveryEmail %>"></input>
+        </div>
+        <div class="input_width_set">
+          <p class="input_title mid">Cellphone<span>/</span></p>
+          <input class="mid_input mid" type="text" value=""></input>
+        </div>
         <!-- <input class="mid_input" type="text" placeholder="Cellphone"></input> -->
         <!-- <input class="mid_input" type="password" placeholder="Passsword"></input> -->
         <!-- <input class="mid_input" type="password" placeholder="Confirm Password"></input> -->
+        <div class="with_scroll" id="description_history_edit">
+          <p class="right_title">Project</p><span>/</span>
+          <% for(var i = 0; i < me.ProjectID.length; i++){ %>
+            <a class="right_cont"><%= me.ProjectID[i].Name %></a>
+          <% } %>
+          <br>
+          <p class="right_title">Activity</p><span>/</span>
+          <% for(var i = 0; i < me.ActivityID.length; i++){ %>
+            <a class="right_cont"><%= me.ActivityID[i].Name %></a>
+          <% } %>
+        </div>
         <p id="description_text">Personal Content (200 words max)</p>
-        <textarea class="with_scroll" name="Introduction" id="description_input"><% if(me.Introduction !== undefined){ %><%= me.Introduction %><%}%></textarea>
-        <!-- <div id="portfolio_upload">
+        <textarea class="with_scroll" name="Introduction" id="description_input"><%= me.Introduction %></textarea>
+        <div id="portfolio_upload">
            <p id="halfscreen_port_title">Portfolio</p>
            <span>/</span>
            <a class="halfscreen_port">Title1</a>
            <a class="halfscreen_port">Title2</a>
            <a class="halfscreen_port upload">Upload</a>
-        </div> -->
-     </div>
-  </form>
-<% } %>
-
-<script>
-$(document).ready(function(){
-
-   // Initialize
-
-   var now_tab = "none", now_page = "none", sidebar_open = 0, halfscreen_open = 0;
-   $( ".sidebar_cont, .side_cont_page, .side_menu, .sidebar_cover, .side_halfscreen, .halfscreen_cover" ).hide();
-   // $("#fullpage").fullpage(); // 以防萬一沒有setAllowScrolling這個function
-
-   // Login or not
-   <% if(me) {%>
-      loginStatus();
-   <% }else{ %>
-      logoutStatus();
-   <% } %>
-
-
-   // Tab Listener
-
-   $( "#side_profile" ).click(function() {
-      if ( now_tab == "profile" ) {
-         switchSidebar("close");
-      }
-      else {
-         if ( now_page == "login" ) {
-            logIn();
-         }
-         else if ( now_page == "sign_up" ) {
-            signUp();
-         }
-         else if ( now_page == "my_profile" ) {
-            myProfile();
-         }
-         // else if ( now_page == "interested" ) {
-         //     interested();
-         // }
-         // else if ( now_page == "heads_up" ) {
-         //     headsUp();
-         // }
-         // else {
-            // if ( login_status == 0 ) {
-            //    logIn();
-            // }
-            // else if ( login_status == 1 ) {
-            //    myProfile();
-            // }
-             // <% if(me) {%>
-             //     myProfile();
-             // <% }else{ %>
-             //     logIn();
-             // <% } %>
-         // }
-         if(sidebar_open == 0)
-            switchSidebar("open");
-         else switchSidebar("close");
-      }
-   });
-
-   $( "#side_message" ).click(function() {
-      if ( now_tab == "message" ) {
-         switchSidebar("close");
-      }
-      else {
-         now_tab = "message";
-         switchSidebar("open");
-         setTimeout(function(){
-            $( "#side_message" ).addClass("active");
-         },200);
-      }
-   });
-
-   $( "#side_search, #search" ).click(function() {
-      if ( now_tab == "search" ) {
-         switchSidebar("close");
-      }
-      else {
-         search();
-         now_tab = "search";
-         switchSidebar("open");
-         setTimeout(function(){
-            $( "#side_search" ).addClass("active");
-         },200);
-      }
-   });
+        </div>
+      </div>
+    </form>
+  <% }else {%>
+    <form id="halfscreen_first_edit">
+      <div id="halfscreen_first_edit_left">
+        <p id="personal_profile">【Personal Profile】</p>
+        <img class="profile_photo big" src="/assets/images/molly.png">
+        <input class="mid_input" type="text" name="Name" placeholder="Username" value=""></input>
+        <input class="mid_input" type="text" name="Email" placeholder="E-mail" value=""></input>
+        <div class="side_btn" id="side_edit_uploadavatar">Upload avatar</div>
+        <div class="side_btn" id="signupSubmit">Sign Up</div>
+        <!-- <div class="side_btn" id="side_edit_cancel">Cancel</div> -->
+      </div>
+      <div id="halfscreen_first_edit_right">
+        <input class="mid_input" type="text" name="School" placeholder="School" value=""></input>
+        <input class="mid_input" type="text" name="StudentID" placeholder="Student ID" value=""></input>
+        <input class="mid_input" type="text" name="Major" placeholder="Major" value=""></input>
+        <input class="mid_input" type="text" name="Skill" placeholder="Skill" value="">
+        </input>
+        <input class="mid_input" type="text" name="RecoveryEmail" placeholder="Recovery Email" value=""></input>
+        <input class="mid_input" type="text" placeholder="Cellphone"></input>
+        <input class="mid_input" type="password" name="Password" placeholder="Password"></input>
+        <input class="mid_input" type="password" name="Password2" placeholder="Confirm Password"></input>
+        <p id="description_text">Personal Content (200 words max)</p>
+        <textarea class="with_scroll" name="Introduction" id="description_input"></textarea>
+        <div id="portfolio_upload">
+           <p id="halfscreen_port_title">Portfolio</p>
+           <span>/</span>
+           <a class="halfscreen_port">Title1</a>
+           <a class="halfscreen_port">Title2</a>
+           <a class="halfscreen_port upload">Upload</a>
+        </div>
+      </div>
+    </form>
+  <% } %>
+</div>
 
 
-   $( ".sidebar_cover" ).click(function() {
-      switchSidebar("close");
-   });
+<!-- 換密碼浮動視窗 -->
+<div id="float_password_change">
+  <a href="#" class="close_icon" id="close_pw">　</a>
+  <p id="password_change_title">Change password</p>
+  <div class="password_change_line"></div>
+  <div id="pw_input">
+    <p>Current password</p><input type="password"></input><br>
+    <p>New password</p><input type="password"></input><br>
+    <p>Verify your password</p><input type="password"></input>
+  </div>
+  <p id="forgot_password">Forgot your password?</p> 
+  <div class="password_change_line"></div>
+  <div class="side_btn" id="side_btn_save_pw">Save</div>
+  <div class="dark_mask"></div>
+</div>
 
-
-   // Button Listener
-
-   $( "#sidebar_signup, #dont_have_account" ).click(function() {
-      signUp();
-   });
-
-   $( "#sidebar_login" ).click(function() {
-      logIn();
-   });
-
-   $( "#sidebar_interested" ).click(function() {
-      interested();
-   });
-
-   $( "#sidebar_profile" ).click(function() {
-      myProfile();
-   });
-
-   $( "#sidebar_headsup" ).click(function() {
-      headsUp();
-   });
-
-   $( ".dropdown-content" ).click(function() {
-      if ($(this).hasClass("opened")) {
-         $(this).removeClass("opened");
-      }
-      else {
-         $(this).addClass("opened");
-         $(this).siblings().removeClass("opened");
-      }
-   });
-
-   $( ".selectable" ).click(function() {
-      selectItem($(this));
-   });
-
-   // $( "#side_btn_login" ).click(function() {
-   //    loginSuccess();
-   // });
-
-   // $( "#side_btn_logout" ).click(function() {
-   //    logoutSuccess();
-   // });
-
-   // $( "#side_btn_signup" ).click(function() {
-   //    switchHalfscreen("open");
-   // });
-   $( "#side_btn_edit" ).click(function() {
-      switchHalfscreen("open");
-   });
-
-   $( "#side_edit_save, #side_edit_cancel" ).click(function() {
-      switchHalfscreen("close");
-   });
-
-   // Other Listeners
-
-   // $( ".sidebar_cont" ).hover(
-   //    function() {
-   //       $.fn.fullpage.setAllowScrolling(false);
-   //    }, function() {
-   //       $.fn.fullpage.setAllowScrolling(true);
-   // });
-
-
-   // login按鈕按下送出
-   $("#loginSubmit").on("click", function() {
-     if($("#side_cont_login input[name=email]").val() != "") {
-      $.ajax({
-        url: "/users/auth",
-        type: "POST",
-        data: $("#side_cont_login").serialize(),
-        success: function(response) {
-         if(response == "ok") {
-           window.location.href = "/";
-         } else {
-           toastr.error(response["error"]);
-         }
-        }
-      });
-     }
-   });
-
-   // signup 按鈕按下送出
-   $("#signupSubmit").on("click", function() {
-      $.ajax({
-         url: "/users/signup",
-         type: "POST",
-         data: $("#side_cont_signup").serialize(),
-         success: function(response) {
-            if(response == "ok") {
-               toastr.success("<br>已寄信置信箱，請到信箱確認","註冊成功");
-               setTimeout(function(){
-                 window.location.href="/";
-               },3000);
-            } else {
-               for(var i in response["error"]) {
-                  toastr.error(`<p>${response["error"][i]}</p>`);
-                  // $("#signupForm .errormsg").append(`<p>${response["error"][i]}</p>`);
-               }
-            }
-            // now_tab = "profile";
-            // switchSidebar("open");
-            // setTimeout(function(){
-            //    $( "#side_profile" ).addClass("active");
-            // },200);
-         }
-      });
-   });
-
-   // 綁定按下enter = 送出資料
-   $(document).keypress(function(e) {
-      // if(e.which == 13 && $('#msgText').val() != "") {
-      //     sendMessage();
-      // }
-
-      if ($('.sidebar_cont').css('opacity') == 0) return; // 如果沒打開側邊欄，就不啟動功能
-
-      if(e.which == 13 && $('#side_cont_login').css('display') == "block"){
-         $('#loginSubmit').trigger('click');
-      }
-
-      if(e.which == 13 && $('#side_cont_signup').css('display') == "block"){
-         $('#signupSubmit').trigger('click');
-      }
-   });
-
-   $('#side_edit_uploadavatar').on('click', function(){
-      console.log('in');
-      $("#newavatar").click();
-   });
-
-   $("#newavatar").on('change',function(){
-     previewimg(this);
-   });
-
-   function previewimg(input) {
-    if(input.files && input.files[0]){
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        $('.edit_profile_photo').attr('src',e.target.result);
-      }
-      reader.readAsDataURL(input.files[0]);
-    }
-   }
-
-
-   $('#side_edit_save').on('click', function(){
-      var Data = $('.side_halfscreen').serialize();
-      $.ajax({
-         url: '/users/update',
-         method: "POST",
-         data: Data,
-         success: function(response) {
-           if($("#newavatar").val()!=""){
-             var avatar = new FormData($("#updateavatar")[0]);
-             $.ajax({
-               url: "/users/avatar/upload",
-               type: "POST",
-               data:avatar,
-               contentType: false,
-               processData: false,
-               success: function(response) {
-                toastr.success('更新完成');
-                window.location.href='/'
-               }
-             });
-           }
-           else{
-            toastr.success('更新完成');
-            window.location.href='/'
-           }
-         }
-      });
-   });
-
-   // Functions
-
-   function switchSidebar( command ) {
-      $( ".side_icon" ).removeClass("active");
-      if ( command == "open" ) {
-         sidebar_open = 1;
-         // if ( halfscreen_open == 1 ) switchHalfscreen("close");
-         $( ".sidebar_cont, .sidebar_cover" ).show();
-         $( ".sidebar_cont" ).css({'right':'94px','opacity':'0.95'});
-         if($.fn.fullpage.setAllowScrolling !== undefined) $.fn.fullpage.setAllowScrolling(false); // 開啟側邊欄時底部fullpage滑動關閉
-      }
-      if ( command == "close" ) {
-         sidebar_open = 0;
-         // if ( halfscreen_open == 0 ) switchHalfscreen("open");
-         now_tab = "none";
-         $( ".sidebar_cont" ).css({'right':'60px','opacity':'0'});
-         setTimeout(function(){
-            $( ".sidebar_cont, .sidebar_cover" ).hide();
-         }, 700 );
-         if($.fn.fullpage.setAllowScrolling !== undefined) $.fn.fullpage.setAllowScrolling(true); // 關閉側邊欄時開啟fullpage功能
-      };
-   }
-
-   //// 顯示profile編輯資料頁面
-   function switchHalfscreen( command ) {
-      if ( command == "open" ) {
-         halfscreen_open = 1;
-         if ( sidebar_open == 1 )
-            switchSidebar("close");
-         $( ".side_halfscreen, .halfscreen_cover" ).show();
-         $( ".side_halfscreen" ).css({'right':'0'});
-         $("#menu").hide();
-      }
-      if ( command == "close" ) {
-         halfscreen_open = 0;
-         if ( sidebar_open == 0 )
-            switchSidebar("close");
-         $( ".side_halfscreen" ).css({'right':'-1000px'});
-         setTimeout(function(){
-            $( ".side_halfscreen, .halfscreen_cover" ).hide();
-         }, 700 );
-         $("#menu").show();
-      };
-   }
-
-   function signUp() {
-      $( "#sidebar_signup" ).addClass("active");
-      $( "#sidebar_login" ).removeClass("active");
-      $( ".side_menu" ).hide();
-      $( "#side_menu_profile_before" ).show();
-      $( ".side_cont_page" ).fadeOut(200);  // 把sidebar內容抽掉
-      $( "#side_cont_signup" ).fadeIn(800); // 換上signup內容
-      $( ".triangle" ).css({'left':'70%'});
-      now_page = "sign_up";
-   }
-
-   function logIn() {
-      $( "#sidebar_login" ).addClass("active");
-      $( "#sidebar_signup" ).removeClass("active");
-      $( ".side_menu" ).hide();
-      $( "#side_menu_profile_before" ).show();
-      $( ".side_cont_page" ).fadeOut(200); // 把sidebar內容抽掉
-      $( "#side_cont_login" ).fadeIn(800); // 換上login內容
-      $( ".triangle" ).css({'left':'20%'});
-      now_page = "log_in";
-   }
-   function interested() {
-      $( "#sidebar_interested" ).addClass("active");
-      $( "#sidebar_headsup" ).removeClass("active");
-      $( "#sidebar_profile" ).removeClass("active");
-      $( ".side_menu" ).hide();
-      // ...show
-      $( ".side_cont_page" ).fadeOut(200);
-      // ...fadeIn
-      $( ".triangle" ).css({'left':'13%'});
-      now_page = "interested";
-   }
-
-   function myProfile() {
-      $( "#sidebar_profile" ).addClass("active");
-      // $( "#sidebar_headsup" ).removeClass("active");
-      // $( "#sidebar_interested" ).removeClass("active");
-      $( ".side_menu" ).hide();
-      $( "#side_menu_profile_after" ).show();
-      $( ".side_cont_page" ).fadeOut(200);
-      $( "#side_cont_myprofile" ).fadeIn(800);
-      // $( ".triangle" ).css({'left':'46%'});
-      now_page = "my_profile";
-   }
-
-   function headsUp() {
-      $( "#sidebar_headsup" ).addClass("active");
-      $( "#sidebar_profile" ).removeClass("active");
-      $( "#sidebar_interested" ).removeClass("active");
-      $( ".side_menu" ).hide();
-      // ...show
-      $( ".side_cont_page" ).fadeOut(200);
-      // ...fadeIn
-      $( ".triangle" ).css({'left':'80%'});
-      now_page = "heads_up";
-   }
-
-   function search() {
-      $( ".side_menu" ).hide();
-      $( "#side_menu_search" ).show();
-      $( ".side_cont_page" ).fadeOut(200);
-      $( "#side_cont_search" ).fadeIn(800);
-      now_page = "search";
-   }
-
-   function loginStatus() {
-      $( ".sidebar_cont" ).addClass("widewidth");
-      myProfile();
-      <% if(me) { %>
-        <% if(me.Role == 0) {%>
-           // toastr.warning('<br>將會鎖住部分功能','<h3>尚未填寫完資料</h3>',{"closeButton": true});
-           toastr.warning('<br>將會鎖住部分功能<br><br><button type="button" class="ui button mini clear" id="GoTOEdit">填資料</button>','<h3>尚未填寫完資料</h3>',{"closeButton": true, "timeOut": 5000});
-           $( "#GoTOEdit" ).click(function() {
-              switchHalfscreen("open");
-           });
-        <% } %>
-        <% if(!me.EmailConfirm) {%>
-           toastr.warning('<br>將會鎖住部分功能','<h3>信箱尚未驗證</h3>',{"closeButton": true, "timeOut": 5000});
-        <% } %>
-      <% } %>
-      // switchHalfscreen("open");
-   }
-
-   function logoutStatus() {
-      $( ".sidebar_cont" ).removeClass("widewidth");
-      logIn();
-   }
-
-   function selectItem(item) {
-      var selected = item.text();
-      item.siblings(".default").text(selected);
-      item.siblings(".hidden").removeClass("hidden");
-      item.addClass("hidden");
-   }
-});
-
-function resendEmail(oldMail){
-  var email = prompt('重送驗證信，請確認下方email是否正確?', oldMail);
-  if(email.length == 0) return;
-  $.ajax({
-    url: "/users/resendemail",
-    type: "POST",
-    data:"Email=" + email,
-    success: function(response) {
-      alert('已寄出驗證信，請查收');
-      window.location.href='/'
-    }
-  });
-}
-</script>
+<!-- 引入js部分 -->
+<% include ./sidebar_script %>

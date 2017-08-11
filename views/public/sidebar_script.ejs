@@ -1,0 +1,595 @@
+<script>
+// Initialize
+var now_tab = "none", now_page = "none", sidebar_open = 0, halfscreen_open = 0, dialogue_name = null, halfscreen_finished = null;
+
+//=============================================================================
+// 變數定義:
+// now_tab: 側邊欄的種類(profile, message, search, panel)
+// now_page: profile裡面的分頁(login, sign_up, my_profile, interested, heads_up)
+// sidebar_open: 側邊欄是否打開(0, 1)
+// halfscreen_open: 第一次註冊的填寫視窗是否打開(0, 1)
+// dialogue_name
+// halfscreen_finished
+//=============================================================================
+
+$(document).ready(function(){
+  // $("#fullpage").fullpage(); // 以防萬一沒有setAllowScrolling這個function
+
+  // Login or not
+  <% if(me) {%>
+    loginStatus();
+
+    // 撈取訊息
+    $.ajax({
+      url: "/users/msg",
+      method: "POST",
+      success: function(req){
+        if(!req.error){
+          $('#side_cont_dialogue').append(req);
+        }
+      }
+    });
+  <% }else{ %>
+    logoutStatus();
+  <% } %>
+
+  // Tab Listener (側邊欄四種按紐listener)
+
+  $( "#side_profile" ).click(function() {
+    if ( now_tab == "profile" ) {
+      switchSidebar("close");
+    }
+    else {
+      if ( now_page == "sign_up" ) {
+        signUp();
+      }
+      else if ( now_page == "my_profile" ) {
+        myProfile();
+      }
+      else if ( now_page == "interested" ) {
+        interested();
+      }
+      else if ( now_page == "heads_up" ) {
+        headsUp();
+      }
+      else{
+        // Login or not
+        <% if(me) {%>
+          myProfile();
+        <% }else{ %>          
+          logIn();
+        <% } %>
+      }
+      now_tab = "profile";
+      switchSidebar("open");
+      setTimeout(function(){
+        $( "#side_profile" ).addClass("active");
+      },200);
+      }
+  });
+
+  $( "#side_message" ).click(function() {
+    if ( now_tab == "message" ) {
+      switchSidebar("close");
+    }
+    else {
+      messenger();
+      now_tab = "message";
+      switchSidebar("open");
+      setTimeout(function(){
+        $( "#side_message" ).addClass("active");
+      },200);
+    }
+  });
+
+  $( "#side_search, #search" ).click(function() {
+    if ( now_tab == "search" ) {
+      switchSidebar("close");
+    }
+    else {
+      search();
+      now_tab = "search";
+      switchSidebar("open");
+      setTimeout(function(){
+        $( "#side_search" ).addClass("active");
+      },200);
+    }
+  });
+
+  $( "#side_panel" ).click(function() {
+    if ( now_tab == "search" ) {
+      switchSidebar("close");
+    }
+    else {
+      // 開啟 Panel
+      now_tab = "panel";
+      switchSidebar("open");
+      setTimeout(function(){
+          $( "#side_panel" ).addClass("active");
+      },200);
+    }
+  });
+
+
+  // 開啟側邊欄後，點擊側邊欄外觸發關閉的listener
+  $( ".sidebar_cover" ).click(function() {
+    switchSidebar("close");
+  });
+
+
+  // Button Listener（側邊欄內部listener)
+
+  // =================== Profile內按紐
+  $( "#sidebar_signup, #dont_have_account" ).click(function() {
+    signUp();
+  });
+
+  $( "#sidebar_login" ).click(function() {
+    logIn();
+  });
+
+  $( "#sidebar_interested" ).click(function() {
+    interested();
+  });
+
+  $( "#sidebar_profile" ).click(function() {
+    myProfile();
+  });
+
+  $( "#sidebar_headsup" ).click(function() {
+    headsUp();
+  });
+
+  // =================== Message內按紐
+
+  $( "#sidebar_messenger" ).click(function() {
+    messenger();
+  });
+
+  $( "#sidebar_dialogue" ).on('click', dialogue);
+
+  // =================== Search內按紐
+
+  $( ".dropdown-content" ).click(function() {
+    if ($(this).hasClass("opened")) {
+       $(this).removeClass("opened");
+    }
+    else {
+       $(this).addClass("opened");
+       $(this).siblings().removeClass("opened");
+    }
+  });
+
+   $( ".selectable" ).click(function() {
+      selectItem($(this));
+   });
+
+  $( "#side_btn_signup" ).click(function() {
+    switchHalfscreen("open");
+  });
+
+  $( "#side_btn_edit" ).click(function() {
+    switchHalfscreen("open");
+  });
+
+  $( "#side_edit_save, #side_edit_cancel" ).click(function() {
+    switchHalfscreen("close");
+  });
+
+  $( "#side_edit_pw" ).click(function() {
+    $( "#float_password_change" ).fadeIn();
+    switchHalfscreen("close");
+  });
+
+  $( "#side_btn_save_pw, #close_pw" ).click(function() {
+    $( "#float_password_change" ).fadeOut();
+    switchHalfscreen("open");
+  });
+
+  // $( ".a_message" ).click(function() {
+  //   dialogue_name = $(this).getAttribute('userName');
+  //   $( "#dialogue_name" ).text("dialogue_name");
+  //   $( "#dialogue_name" ).css("cursor","pointer");
+  //   dialogue();
+  // });
+
+  $(".a_message").on('click', dialogue);
+
+  $( "#close_dialogue" ).click(function() {
+    $( "#dialogue_name" ).text("Dialogue");
+    $( "#dialogue_name" ).css("cursor","default");
+    dialogue_name = null;
+    messenger();
+  });
+
+  // Other Listeners
+
+  // $( ".sidebar_cont" ).hover(
+  //    function() {
+  //       $.fn.fullpage.setAllowScrolling(false);
+  //    }, function() {
+  //       $.fn.fullpage.setAllowScrolling(true);
+  // });
+
+
+  // login按鈕按下送出
+  $("#loginSubmit").on("click", function() {
+    if($("#side_cont_login input[name=email]").val() != "") {
+      $.ajax({
+        url: "/users/auth",
+        type: "POST",
+        data: $("#side_cont_login").serialize(),
+        success: function(response) {
+         if(response == "ok") {
+           window.location.href = "/";
+         } else {
+           toastr.error(response["error"]);
+         }
+        }
+      });
+    }
+  });
+
+  // signup 按鈕按下送出
+  $("#signupSubmit").on("click", function() {
+    $.ajax({
+       url: "/users/signup",
+       type: "POST",
+       data: $("#halfscreen_first_edit").serialize(),
+       success: function(response) {
+          if(response == "ok") {
+             toastr.success("<br>已寄信置信箱，請到信箱確認","註冊成功");
+             setTimeout(function(){
+               window.location.href="/";
+             },3000);
+          } else {
+             for(var i in response["error"]) {
+                toastr.error(`<p>${response["error"][i]}</p>`);
+                // $("#signupForm .errormsg").append(`<p>${response["error"][i]}</p>`);
+             }
+          }
+          // now_tab = "profile";
+          // switchSidebar("open");
+          // setTimeout(function(){
+          //    $( "#side_profile" ).addClass("active");
+          // },200);
+       }
+    });
+  });
+
+  // 綁定按下enter = 送出資料
+  $(document).keypress(function(e) {
+    // if(e.which == 13 && $('#msgText').val() != "") {
+    //     sendMessage();
+    // }
+
+    if ($('.sidebar_cont').css('opacity') == 0) return; // 如果沒打開側邊欄，就不啟動功能
+
+    if(e.which == 13 && $('#side_cont_login').css('display') == "block"){
+      $('#loginSubmit').trigger('click');
+    }
+
+    if(e.which == 13 && $('#side_cont_signup').css('display') == "block"){
+      $('#signupSubmit').trigger('click');
+    }
+  });
+
+  $('#side_edit_uploadavatar').on('click', function(){
+    console.log('in');
+    $("#newavatar").click();
+  });
+
+  $("#newavatar").on('change',function(){
+   previewimg(this);
+  });
+
+  $('#side_edit_save').on('click', function(){
+    var Data = $('.side_halfscreen').serialize();
+    $.ajax({
+      url: '/users/update',
+      method: "POST",
+      data: Data,
+      success: function(response) {
+        if($("#newavatar").val()!=""){
+          var avatar = new FormData($("#updateavatar")[0]);
+          $.ajax({
+            url: "/users/avatar/upload",
+            type: "POST",
+            data:avatar,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+            toastr.success('更新完成');
+            window.location.href='/'
+            }
+          });
+        }
+        else{
+          toastr.success('更新完成');
+          window.location.href='/'
+        }
+      }
+    });
+  });
+});
+
+// 切換側邊欄頁面
+function switchSidebar( command ) {
+  $( ".side_icon" ).removeClass("active");
+  if (command == "open") {
+    sidebar_open = 1;
+    // if ( halfscreen_open == 1 ) switchHalfscreen("close");
+    $( ".sidebar_cont, .sidebar_cover" ).show();
+    $( ".sidebar_cont" ).css({'right':'94px','opacity':'0.95'});
+    if($.fn.fullpage.setAllowScrolling !== undefined) $.fn.fullpage.setAllowScrolling(false); // 開啟側邊欄時底部fullpage滑動關閉
+  }
+  else if(command == "close"){
+    sidebar_open = 0;
+    // if ( halfscreen_open == 0 ) switchHalfscreen("open");
+    now_tab = "none";
+    $( ".sidebar_cont" ).css({'right':'60px','opacity':'0'});
+    setTimeout(function(){
+      $( ".sidebar_cont, .sidebar_cover" ).hide();
+    }, 700 );
+    if($.fn.fullpage.setAllowScrolling !== undefined) $.fn.fullpage.setAllowScrolling(true); // 關閉側邊欄時開啟fullpage功能
+  };
+}
+
+// 顯示編輯資料頁面
+function switchHalfscreen( command ) {
+  if ( command == "open" ) {
+     halfscreen_open = 1;
+     if ( sidebar_open == 1 )
+        switchSidebar("close");
+     $( ".side_halfscreen, .halfscreen_cover" ).show();
+     $( ".side_halfscreen" ).css({'right':'0'});
+     $("#menu").hide();
+  }
+  if ( command == "close" ) {
+     halfscreen_open = 0;
+     if ( sidebar_open == 0 )
+        switchSidebar("close");
+     $( ".side_halfscreen" ).css({'right':'-1000px'});
+     setTimeout(function(){
+        $( ".side_halfscreen, .halfscreen_cover" ).hide();
+     }, 700 );
+     $("#menu").show();
+  };
+}
+
+//============= profile
+
+// 1. signUp頁面切換
+function signUp() {
+  if (now_page != "sign_up") {
+    $( "#sidebar_signup" ).addClass("active");
+    $( "#sidebar_login" ).removeClass("active");
+    $( ".side_menu" ).hide();
+    $( "#side_menu_profile_before" ).show();
+    $( ".side_cont_page" ).fadeOut(200);
+    $( "#side_cont_signup" ).fadeIn(800);
+    $( ".triangle" ).css({'left':'70%'});
+    now_page = "sign_up";
+  }
+}
+
+// 2. logIn頁面切換
+function logIn() {
+  if (now_page != "log_in") {
+    $( "#sidebar_login" ).addClass("active");
+    $( "#sidebar_signup" ).removeClass("active");
+    $( ".side_menu" ).hide();
+    $( "#side_menu_profile_before" ).show();
+    $( ".side_cont_page" ).fadeOut(200);
+    $( "#side_cont_login" ).fadeIn(800);
+    $( ".triangle" ).css({'left':'20%'});
+    now_page = "log_in";
+  }
+}
+
+// 3. interested頁面切換
+function interested() {
+  if (now_page != "interested") {
+    $( "#sidebar_interested" ).addClass("active");
+    $( "#sidebar_headsup" ).removeClass("active");
+    $( "#sidebar_profile" ).removeClass("active");
+    $( ".side_menu" ).hide();
+    $( "#side_menu_profile_after" ).show();
+    $( ".side_cont_page" ).fadeOut(200);
+    $( "#side_cont_interested" ).fadeIn(800);
+    $( ".triangle" ).css({'left':'14%'});
+    now_page = "interested";
+  }
+}
+
+// 4. myProfile頁面切換
+function myProfile() {
+  if (now_page != "my_profile") {
+    $( "#sidebar_profile" ).addClass("active");
+    $( "#sidebar_headsup" ).removeClass("active");
+    $( "#sidebar_interested" ).removeClass("active");
+    $( ".side_menu" ).hide();
+    $( "#side_menu_profile_after" ).show();
+    $( ".side_cont_page" ).fadeOut(200);
+    $( "#side_cont_myprofile" ).fadeIn(800);
+    $( ".triangle" ).css({'left':'47.5%'});
+    now_page = "my_profile";
+  }
+}
+
+// 5. signUp頁面切換
+function headsUp() {
+  if (now_page != "heads_up") {
+    $( "#sidebar_headsup" ).addClass("active");
+    $( "#sidebar_profile" ).removeClass("active");
+    $( "#sidebar_interested" ).removeClass("active");
+    $( ".side_menu" ).hide();
+    $( "#side_menu_profile_after" ).show();
+    $( ".side_cont_page" ).fadeOut(200);
+    $( "#side_cont_headsup" ).fadeIn(800);
+    $( ".triangle" ).css({'left':'81%'});
+    now_page = "heads_up";
+  }
+} 
+
+// 6. 上傳大頭貼預覽功能
+function previewimg(input) {
+  if(input.files && input.files[0]){
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $('.edit_profile_photo').attr('src',e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+// 7. 重送驗證信
+function resendEmail(oldMail){
+  var email = prompt('重送驗證信，請確認下方email是否正確?', oldMail);
+  if(email.length == 0) return;
+  $.ajax({
+    url: "/users/resendemail",
+    type: "POST",
+    data:"Email=" + email,
+    success: function(response) {
+      alert('已寄出驗證信，請查收');
+      window.location.href='/'
+    }
+  });
+}
+
+//============= search
+function search() {
+  if (now_page != "search") {
+    $( ".side_menu" ).hide();
+    $( "#side_menu_search" ).show();
+    $( ".side_cont_page" ).fadeOut(200);
+    $( "#side_cont_search" ).fadeIn(800);
+    now_page = "search";
+  }
+}
+
+function selectItem(item) {
+  var selected = item.text();
+  item.siblings(".default").text(selected);
+  item.siblings(".hidden").removeClass("hidden");
+  item.addClass("hidden");
+}
+
+
+//============= message
+
+// 1. 進入對話列頁面
+function messenger() {
+  if (now_page != "messenger") {
+    $( "#sidebar_messenger" ).addClass("active");
+    $( "#sidebar_dialogue" ).removeClass("active");
+    $( ".side_menu" ).hide();
+    $( "#side_menu_message" ).show();
+    $( ".side_cont_page" ).fadeOut(200);
+    $( "#side_cont_messenger" ).fadeIn(800);
+    $( ".triangle" ).css({'left':'23%'});
+    now_page = "messenger";
+  }
+}
+
+// 2. 點擊使用者列表，開啟訊息欄
+// function changeMessageBoard(){
+  // 如果是未讀訊息，就把未讀的效果取消，並回傳已讀訊息回去
+  // $($(this).children("div")).remove();
+  // $.ajax({
+  //   url: 'messages/isRead/' + $(this).attr("userid"),
+  //   method: "GET"
+  // })
+
+  // 更改列表的觸發狀態
+  // $('#userSidebar > .item').removeClass("active");
+  // $(this).addClass("active");
+
+
+  // 如果是通知的那個區塊，就把send隱藏，沒有就顯示
+  // if($('#userSidebar > .item.active > .mail').length == 1){
+  //   $('#inputMsg').hide();
+  //   $('.chatCont > div').hide();
+  //   return;
+  // }
+  // else $('#inputMsg').show();
+
+  
+// }
+
+// 2. 個別對話內容頁面切換
+function dialogue() {
+  if(now_page == "dialogue") return; // 避免重複按
+  now_page = "dialogue";
+
+  if(this.id != 'sidebar_dialogue'){
+    console.log(this.id);
+    dialogue_name = $(this).attr('userName');
+    var userID = $(this).attr("userid");
+    $( "#dialogue_name" ).text(dialogue_name);
+    $( "#dialogue_name" ).css("cursor","pointer");
+    $('.dialogue_window').hide();
+    $(".dialogue_window[messageuserid=\'" + userID + "\']").show();
+  }
+
+  // 切換成要對話的對象
+
+
+  // 開啟對話頁面
+  $( "#sidebar_dialogue" ).addClass("active");
+  $( "#sidebar_messenger" ).removeClass("active");
+  $( ".side_menu" ).hide();
+  $( "#side_menu_message" ).show();
+  $( ".side_cont_page" ).fadeOut(200);
+  $( "#side_cont_dialogue" ).fadeIn(800);
+  $( ".triangle" ).css({'left':'72.5%'});
+  
+}
+
+// 3. 送出訊息
+function sendMessage(obj){
+
+  var sendMsg = $(obj).prev().val();
+  var toID = $(obj).parents()[1].getAttribute('messageuserid');
+  $(".dialogue_window[messageuserid=\'" + toID + "\'] > .dialogue_content").append('<div class="message_sent"><p class="message_content">' + sendMsg + '</p></div>');
+  $(obj).prev().val('');
+
+  var Data = "touid=" + toID + "&context=" + sendMsg;
+  console.log('text sending: ' + Data);
+  $.ajax({
+    url: 'messages/send',
+    method: "POST",
+    data: Data,
+    headers: { "cache-control": "no-cache" },
+    success: function(response) {
+    }
+  })
+}
+
+//============= 登入狀態
+function loginStatus() {
+  $( ".sidebar_cont" ).addClass("widewidth");
+  myProfile();
+  <% if(me) { %>
+    <% if(me.Role == 0) {%>
+       // toastr.warning('<br>將會鎖住部分功能','<h3>尚未填寫完資料</h3>',{"closeButton": true});
+       toastr.warning('<br>將會鎖住部分功能<br><br><button type="button" class="ui button mini clear" id="GoTOEdit">填資料</button>','<h3>尚未填寫完資料</h3>',{"closeButton": true, "timeOut": 5000});
+       $( "#GoTOEdit" ).click(function() {
+          switchHalfscreen("open");
+       });
+    <% } %>
+    <% if(!me.EmailConfirm) {%>
+       toastr.warning('<br>將會鎖住部分功能','<h3>信箱尚未驗證</h3>',{"closeButton": true, "timeOut": 5000});
+    <% } %>
+  <% } %>
+  // switchHalfscreen("open");
+}
+
+function logoutStatus() {
+  $( ".sidebar_cont" ).removeClass("widewidth");
+  logIn();
+}
+
+
+</script>

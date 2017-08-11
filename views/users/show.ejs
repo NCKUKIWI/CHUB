@@ -89,7 +89,7 @@
   </p> -->
 </div>
 <a href="#" class="close_icon" id="close_window"></a>
-<div class="float_portfolio">
+<!-- <div class="float_portfolio">
 	<div id="portfolio_upper_left">
 		<p class="upper_tag">portfolio</p>
 	</div>
@@ -112,47 +112,55 @@
 		<span class="port_counter now">01</span><span class="port_counter total">/<%= user.portfolio.length %></span>
 	</div>
 	<a href="#" class="close_icon" id="close_portfolio"></a>
-</div>
+</div> -->
 
 <script>
 $(document).ready(function(){
+  <% if(me){ %>
   $(".sendText").on("click", function(){
-    // 封鎖未登入使用者
-    <% if(!me){ %>
-      NotLogin();
-      return;
-    <% }else{ %>
 	    // 把之前沒有傳訊息的使用者刪掉
-	    findNotSendMessageUser();
+	    // findNotSendMessageUser();
 
 	    var Toid = $(this).attr("userid");
 	    var ToUserName = $(this).attr("userName");
 
-	    // 不能傳訊息給自己
-	    if(Toid == "<%= me._id %>"){
-	      return;
-	    }
+      $( "#side_message" ).trigger('click');
+      console.log("userid: " + Toid);
+      console.log("userName: " + ToUserName);
 
-	    $(".ui.modal").modal("hide");
-	    $("#msgSidebar").sidebar("setting", "transition", "overlay").sidebar("toggle");
+	    // $(".ui.modal").modal("hide");
+	    // $("#msgSidebar").sidebar("setting", "transition", "overlay").sidebar("toggle");
 
-	    // 如果傳過訊息、就不用增加
-	    if ($("#userSidebar > .item[userid=\'" + Toid + "\']")[0] !== undefined){
-	      $("#userSidebar > .item[userid=\'" + Toid + "\']").trigger('click');
-	      return;
-	    }
+	    // // 如果傳過訊息、就不用增加
+	    // if ($("#userSidebar > .item[userid=\'" + Toid + "\']")[0] !== undefined){
+	    //   $("#userSidebar > .item[userid=\'" + Toid + "\']").trigger('click');
+	    //   return;
+	    // }
 
-	    // 加入訊息側邊user
-	    var messagePicture = "<a class='item' userid='" + Toid + "'><i class='user icon'></i> " + ToUserName + "</a>";
-	    $("#userSidebar > .item:first").after(messagePicture);
+	    // // 加入訊息側邊user
 
-	    // 加入訊息中間框框
-	    $(".chatCont").append("<div messageUserID=\'" + Toid + "\' style='display: none;'></div>")
+      //// old
+	    // var messagePicture = "<a class='item' userid='" + Toid + "'><i class='user icon'></i> " + ToUserName + "</a>";
+	    // $("#userSidebar > .item:first").after(messagePicture);
 
-	    $("#userSidebar > .item[userid=\'" + Toid + "\']").on("click", changeMessageBoard);
-	    $("#userSidebar > .item[userid=\'" + Toid + "\']").trigger("click");
-		<% } %>
+      //// new
+      var messageList_unit = '<div class="a_message unread" userid=\"' + Toid +'\" userName=\"' + ToUserName + '\"><img class="profile_photo tiny" src="/uploads/user/' + Toid + '/avatar.png"><p class="message_sender">' + ToUserName + '</p><a class="strange_icon">　</a><div class="horizontal_line"></div></div>';
+      $('#side_cont_messenger').prepend(messageList_unit);
+
+	    // // 加入訊息中間框框
+      //// old
+	    // $(".chatCont").append("<div messageUserID=\'" + Toid + "\' style='display: none;'></div>")
+
+	    // $("#userSidebar > .item[userid=\'" + Toid + "\']").on("click", changeMessageBoard);
+	    // $("#userSidebar > .item[userid=\'" + Toid + "\']").trigger("click");
+
+      //// new
+      var message_window = '<div class="dialogue_window" messageUserID=\"' + Toid + '\" style="display: none;"><a href="#" class="close_icon" id="close_dialogue">　</a><div class="dialogue_content with_scroll"></div><div class="dialogue_input"><div class="horizontal_line"></div> <textarea id="messege_input" placeholder="Type a message ..."></textarea><a href="#" class="message_input_btn" onclick="sendMessage(this)">Send</a></div></div>"';
+      $('#side_cont_dialogue').append(message_window);
+      $(".a_message[userid=\'" + Toid + "\']").on("click", dialogue);
+      $(".a_message[userid=\'" + Toid + "\']").trigger("click");
   });
+  <% } %>
 
 	var port_pic_total = <%= user.portfolio.length %>,
 			port_status = "closed",

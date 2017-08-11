@@ -1,24 +1,38 @@
 <% for(var i in msgArr){ %>
-<div messageUserID="<%= msgArr[i].user._id %>" style="display: none;">
-<% for(var j in msgArr[i].context) {%>
-  <% if(msgArr[i].context[j].isOther == 1){ %>
-  <li class="chatEntry">
-    <img class="avatar" src="//placekitten.com/g/50/50" />
-    <p class="message">
-      <%= msgArr[i].context[j].Context %>
-      <time class="timestamp"><%= msgArr[i].context[j].CreateAt %></time>
-    </p>
-  </li>
-  <% }else{ %>
-  <li class="chatEntry chatSent">
-    <img class="avatar" src="//placekitten.com/56/56" />
-    <p class="message">
-      <%= msgArr[i].context[j].Context %>
-      <time class="timestamp"><%= msgArr[i].context[j].CreateAt %></time>
-    </p>
-  </li>
-  <% } %>
-<% } %>
+<div class="dialogue_window" messageUserID="<%= msgArr[i].user._id %>">
+  <a href="#" class="close_icon" id="close_dialogue">　</a>
+  <div class="dialogue_content with_scroll">
+    <% for(var j in msgArr[i].context) {%>
+      <% if(msgArr[i].context[j].isOther == 1 && (j == 0 || msgArr[i].context[j - 1].isOther == 0)){ %>
+        <p class="message_updated_time"><%= msgArr[i].context[j].CreateAt %></p>
+        <div class="message_received">
+          <img class="profile_photo tiny" src="https://unsplash.it/80/80">
+          <p class="message_content"><%= msgArr[i].context[j].Context %></p>
+        </div>
+      <% }else if(msgArr[i].context[j].isOther == 1){ %>
+        <div class="message_received continue">
+          <p class="message_content"><%= msgArr[i].context[j].Context %></p>
+        </div>
+      <% } else if (j == 0 || msgArr[i].context[j - 1].isOther == 1){%>
+        <p class="message_updated_time"><%= msgArr[i].context[j].CreateAt %></p>
+        <div class="message_sent">
+          <p class="message_content"><%= msgArr[i].context[j].Context %></p>
+        </div>
+      <% } else {%>
+        <div class="message_sent">
+          <p class="message_content"><%= msgArr[i].context[j].Context %></p>
+        </div>
+      <% } %>
+    <% } %>
+  </div>
+  <div class="dialogue_input">
+    <div class="horizontal_line"></div> 
+    <textarea id="messege_input" placeholder="Type a message ..."></textarea>
+    <!-- 這兩個功能不會用到？ -->
+    <!-- <a href="#" class="message_input_icon" id="icon_archive">　</a> -->
+    <!-- <a href="#" class="message_input_icon" id="icon_plus">　</a> -->
+    <a href="#" class="message_input_btn" onclick="sendMessage(this)">Send</a> 
+  </div>
 </div>
 <% } %>
 
@@ -27,20 +41,23 @@
 var msgUserArr = <%- JSON.stringify(msgArr) %>;
 
 for(var i in msgUserArr){
-  if(msgUserArr[i].isRead != 0){
-    var messagePicture = "<a class='item' userid='" + msgUserArr[i].user._id + "'><i class='user icon'></i> " + msgUserArr[i].user.Name + "<div class='floating ui red label'>" + msgUserArr[i].isRead + "</div></a>";
-  }
-  else var messagePicture = "<a class='item' userid='" + msgUserArr[i].user._id + "'><i class='user icon'></i> " + msgUserArr[i].user.Name + "</a>"
-
-  $("#userSidebar").append(messagePicture); 
+  // if(msgUserArr[i].isRead != 0){
+  //   var messagePicture = "<a class='item' userid='" + msgUserArr[i].user._id + "'><i class='user icon'></i> " + msgUserArr[i].user.Name + "<div class='floating ui red label'>" + msgUserArr[i].isRead + "</div></a>";
+  // }
+  // else var messagePicture = "<a class='item' userid='" + msgUserArr[i].user._id + "'><i class='user icon'></i> " + msgUserArr[i].user.Name + "</a>"
+  var messageList_unit = '<div class="a_message unread" userid=\"' + msgUserArr[i].user._id +'\" userName=\"' + msgUserArr[i].user.Name + '\"><img class="profile_photo tiny" src="/uploads/user/' + msgUserArr[i].user._id + '/avatar.png"><p class="message_sender">' + msgUserArr[i].user.Name + '</p><a class="strange_icon">　</a><div class="horizontal_line"></div></div>';
+  $("#side_cont_messenger").append(messageList_unit); 
 }
+$("#side_cont_messenger").append('<a class="view_more">more...</a>');
+
 
 // 顯示第一個訊息
 // $($("#userSidebar > .item")[0]).addClass('active');
 // var userID = $("#userSidebar > .active").attr("userid");
 // $(".chatCont > div[messageuserid=\'" + userID + "\']").show();
 
-$('#userSidebar > .item').on('click', changeMessageBoard);
-$($("#userSidebar > .item")[0]).trigger('click');
+$(".a_message").on('click', dialogue);
+// $('#userSidebar > .item').on('click', changeMessageBoard);
+// $($("#userSidebar > .item")[0]).trigger('click');
 
 </script>

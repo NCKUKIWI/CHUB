@@ -111,8 +111,10 @@ $(document).ready(function() {
 		});
 
 	$("#view_right, #view_left, .float_window").hover(function() {
+		console.log('false')
 		$.fn.fullpage.setAllowScrolling(false);
 	},function() {
+		console.log('true');
 		$.fn.fullpage.setAllowScrolling(true);
 	});
 

@@ -1,0 +1,46 @@
+<% for(var i in msgArr){ %>
+<div messageUserID="<%= msgArr[i].user._id %>" style="display: none;">
+<% for(var j in msgArr[i].context) {%>
+  <% if(msgArr[i].context[j].isOther == 1){ %>
+  <li class="chatEntry">
+    <img class="avatar" src="//placekitten.com/g/50/50" />
+    <p class="message">
+      <%= msgArr[i].context[j].Context %>
+      <time class="timestamp"><%= msgArr[i].context[j].CreateAt %></time>
+    </p>
+  </li>
+  <% }else{ %>
+  <li class="chatEntry chatSent">
+    <img class="avatar" src="//placekitten.com/56/56" />
+    <p class="message">
+      <%= msgArr[i].context[j].Context %>
+      <time class="timestamp"><%= msgArr[i].context[j].CreateAt %></time>
+    </p>
+  </li>
+  <% } %>
+<% } %>
+</div>
+<% } %>
+
+<script>
+//放入msgSibar的側邊欄
+var msgUserArr = <%- JSON.stringify(msgArr) %>;
+
+for(var i in msgUserArr){
+  if(msgUserArr[i].isRead != 0){
+    var messagePicture = "<a class='item' userid='" + msgUserArr[i].user._id + "'><i class='user icon'></i> " + msgUserArr[i].user.Name + "<div class='floating ui red label'>" + msgUserArr[i].isRead + "</div></a>";
+  }
+  else var messagePicture = "<a class='item' userid='" + msgUserArr[i].user._id + "'><i class='user icon'></i> " + msgUserArr[i].user.Name + "</a>"
+
+  $("#userSidebar").append(messagePicture); 
+}
+
+// 顯示第一個訊息
+// $($("#userSidebar > .item")[0]).addClass('active');
+// var userID = $("#userSidebar > .active").attr("userid");
+// $(".chatCont > div[messageuserid=\'" + userID + "\']").show();
+
+$('#userSidebar > .item').on('click', changeMessageBoard);
+$($("#userSidebar > .item")[0]).trigger('click');
+
+</script>
