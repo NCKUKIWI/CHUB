@@ -56,7 +56,7 @@ $(document).ready(function(){
         // Login or not
         <% if(me) {%>
           myProfile();
-        <% }else{ %>          
+        <% }else{ %>
           logIn();
         <% } %>
       }
@@ -284,7 +284,7 @@ $(document).ready(function(){
   });
 
   $('#side_edit_save').on('click', function(){
-    var Data = $('.side_halfscreen').serialize();
+    var Data = $('#halfscreen_edit').serialize();
     $.ajax({
       url: '/users/update',
       method: "POST",
@@ -430,7 +430,7 @@ function headsUp() {
     $( ".triangle" ).css({'left':'81%'});
     now_page = "heads_up";
   }
-} 
+}
 
 // 6. 上傳大頭貼預覽功能
 function previewimg(input) {
@@ -515,7 +515,7 @@ function messenger() {
   // }
   // else $('#inputMsg').show();
 
-  
+
 // }
 
 // 2. 個別對話內容頁面切換
@@ -544,7 +544,7 @@ function dialogue() {
   $( ".side_cont_page" ).fadeOut(200);
   $( "#side_cont_dialogue" ).fadeIn(800);
   $( ".triangle" ).css({'left':'72.5%'});
-  
+
 }
 
 // 3. 送出訊息

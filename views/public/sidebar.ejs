@@ -291,17 +291,17 @@
       <div id="halfscreen_edit_right">
         <div class="input_width_set">
           <p class="input_title">Major<span>/</span></p>
-          <input class="mid_input" type="text" value="<%= me.Major %>"></input>
+          <input class="mid_input" type="text" name="Major" value="<%= me.Major %>"></input>
         </div>
         <div class="input_width_set">
           <p class="input_title">Skill<span>/</span></p>
-          <input class="mid_input" type="text" value="<% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>、<% } %><% } %>"></input>
+          <input class="mid_input" type="text" name="Skill" value="<% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>、<% } %><% } %>"></input>
         </div>
         <!-- <input class="mid_input" type="text" name="Skill" placeholder="[Skill]" value="<% if(me.Skill !== undefined){ %><% for(var j = 0; j < me.Skill.length; j++){ %><%= me.Skill[j] %><% if( j != me.Skill.length - 1){ %>, <% } %><% } %><%}%>">
         </input> -->
         <div class="input_width_set">
           <p class="input_title long">Recovery Email<span>/</span></p>
-          <input class="mid_input short" type="text"  value="<%= me.RecoveryEmail %>"></input>
+          <input class="mid_input short" type="text"  name="RecoveryEmail" value="<%= me.RecoveryEmail %>"></input>
         </div>
         <div class="input_width_set">
           <p class="input_title mid">Cellphone<span>/</span></p>
