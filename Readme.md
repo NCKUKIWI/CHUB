@@ -57,3 +57,36 @@ Comment.findOne({PeopleID:"objid"}).populate('PeopleID').exec(function(err,comme
   //會透過 PeopleID 去 Join User collection 中 _id 與 PeopleID 一致的資料進來
 });
 ```
+
+## Async
+
+(1)Promise
+
+```js
+var result = [];
+Project.find({}).exec().then(function(projects){
+	result.push(projects)
+	return User.find({}).exec()
+}).then(function(users){
+	result.push(users)
+	return Message.find({}).exec()
+}).then(function(msgs){
+	result.push(msgs)
+	res.send(result)
+})
+```
+
+(2)Async / Await
+
+需要nodejs v7.6或 babel
+
+```js
+app.router("/",async function(req,res){
+  var users = await User.find({}).exec();
+  var projects = await Project.find({}).exec();
+  res.send({
+    users:users,
+    projects:projects
+  })
+});
+```
