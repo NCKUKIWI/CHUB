@@ -25,51 +25,6 @@
     left: 60px;
 }
 
-.float_window #detail_left .class_icons {
-    position: absolute;
-}
-
-.float_window #detail_left .class_icons .float_icon {
-    position: relative;
-    z-index: 20;
-    top: 12vh;
-    width: 40px;
-    height: 75px;
-    display: block;
-    background-size: 90%;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: grayscale(100%);
-    -webkit-filter: grayscale(100%);
-}
-
-.float_window #detail_left .class_icons .float_icon.culture {
-    background-image: url("../images/project_icon_culture.png");
-}
-
-.float_window #detail_left .class_icons .float_icon.digital {
-    background-image: url("../images/project_icon_digital.png");
-}
-
-.float_window #detail_left .class_icons .float_icon.social {
-    background-image: url("../images/project_icon_social.png");
-}
-
-.float_window #detail_left .class_icons .float_icon.now {
-    filter: grayscale(0%);
-    -webkit-filter: grayscale(0%);
-}
-
-.float_window #detail_left .class_icons .float_icon.now:after {
-    position: relative;
-    top: 68px;
-    content: "";
-    display: block;
-    height: 2px;
-    width: 85px;
-    background: #ed9027;
-}
-
 .float_window #detail_left #detail_brief {
     position: relative;
     margin: 0px 70px;

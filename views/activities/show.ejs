@@ -1,49 +1,122 @@
-<i class="close icon"></i>
-<div class="header">
-  <%= activity.Name %>
-</div>
-<div class="image content">
-  <div class="ui medium image">
-    <img src="/uploads/activity/<%= activity._id %>/logo.png">
-  </div>
-  <div class="description">
-    <p>Pics&Video: </p>
-    <p>Introduction: </p>
-    <p>Type: </p>
-    <p>Conditions</p>
-    <p>Map: </p>
-    <p>TimeTable: </p>
-    <p>Mission</p>
-    <p>Guest: </p>
-    <p>News</p>
-    <p>Group(sponsor)</p>
+
+
+<!-- style: people_float.scss -->
+
+<div class="dark_mask"></div>
+
+<div id="detail_left">
+  <div id="detail_brief">
+    <div class="brief_pic">
+      <img id="project_pic" src="/assets/images/project_ex2.png">
+      <img id="pic_more" src="/assets/images/pic_more_2.png">
+    </div>
+    <p class="project_name">E-Ink Research</p>
   </div>
 </div>
-<div class="actions">
-  <% if(me && activity.AdminID.indexOf(me._id)!=-1){ %>
-    <div class="ui red button delActivity" activity-id="<%= activity._id %>">Delete</div>
-    <a class="ui green button" href="/activities/edit/<%= activity._id %>">Edit</a>
-  <% } %>
-  <form name='Pay2go' method='post' action='https://ccore.spgateway.com/MPG/mpg_gateway'>
-    <input type="hidden" name="MerchantID" value="MS11571737">
-    <input type="hidden" name="Amt" value="<%= activity.Fee %>">
-    <input type="hidden" name="CheckValue" value="<%= check %>">
-    <input type="hidden" name="RespondType" value="JSON">
-    <input type="hidden" name="ItemDesc" value="<%= activity.Description %>">
-    <input type="hidden" name="MerchantOrderNo" value="<%= orderNo %>">
-    <input type="hidden" name="TimeStamp" value="<%= timestamp %>">
-    <input type="hidden" name="Version" value="1.2">
-    <input type="hidden" name="LoginType" value="0">
-    <input type="hidden" name="Email" value="test@gmail.com">
-    <input type="submit" class="ui red button" value="購票">
-  </form>
-  <div class="ui blue button">
-    Sharing
+<div class="with_scroll" id="detail_right">
+  <p id="detail_main_text"><%= activity.Name %></p>
+  <p>　</p>
+  <p id="detail_type">
+      <p class="title">Type</p><span>/</span>
+      <p class="short orange"><%= activity.Type %></p>
+  </p>
+  <p id="detail_conditions">
+    <p class="title with_space">Conditions</p><span>/</span>
+    <p class="long">
+      費用｜免費參加/NT$1000<br/>身份｜不限/校內<br/>學分｜無/0.25分 2hr</p>
+  </p>
+  <p id="detail_location">
+    <p class="title">Location</p><span>/</span>
+    <p class="short"><%= activity.Location %></p>
+    <div class="botton tiny">MAP</div>
+  </p>
+  <p id="detail_intro">
+    <p class="title with_space">Introduction</p><span>/</span>
+    <p class="long">
+      <%= activity.Introduction %>
+      <!-- 123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123</p> -->
+  </p>
+  <!-- <p id="detail_mission">
+    <p class="title with_space">Mission</p><span>/</span>
+    <p class="long">
+      123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123</p>
+  </p> -->
+  <p id="detail_contributer"><br/>
+    <p class="title">Contributer</p><span>/</span>
+    <p class="short"></p>
+  </p>
+  <p id="detail_activities">
+    <p class="title with_space">News</p><span>/</span>
+    <p class="long"></p>
+  </p>
+</div>
+<div class="bottom_icons" activity-id="<%= activity._id %>">
+  <div class="round_icon join"></div>
+  <div class="round_icon interest"></div>
+  <div class="round_icon share"></div>
+  <div class="round_icon text"></div>
+</div>
+<a href="#" class="close_icon" id="close_window">　</a>
+<div class="float_pic_window">
+  <svg class="slideshow_btn disabled" id="go_prev" width="20">
+    <line id="line_1" x1="20" y1="0" x2="0" y2="10" />
+    <line id="line_2" x1="20" y1="20" x2="0" y2="10" />
+  </svg>
+  <svg class="slideshow_btn" id="go_next" width="20">
+    <line id="line_1" x1="0" y1="0" x2="20" y2="10" />
+    <line id="line_2" x1="0" y1="20" x2="20" y2="10" />
+  </svg>
+  <div id="view_all_pic">
+    <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
+    <img class="gallery_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
+    <img class="gallery_view_pic" id="pic_2" src="/assets/images/portfolio_ex.png">
+    <img class="gallery_view_pic" id="pic_3" src="/assets/images/portfolio_ex.png">
+    <img class="gallery_view_pic" id="pic_4" src="/assets/images/portfolio_ex.png">
+    <img class="gallery_view_pic" id="pic_5" src="/assets/images/portfolio_ex.png">
+    <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
   </div>
+  <div class="view_pic_counter">
+    <span class="pic_counter now">01</span><span class="pic_counter total">/10</span>
+  </div>
+  <a href="#" class="close_icon" id="close_pic_view">　</a>
 </div>
 
 <script>
 $(document).ready(function(){
+  $('.joinActivity').on('click', function(){
+    var id = this.getAttribute('activity-id');
+    $.ajax({
+      url: "/activities/join/",
+      type: "POST",
+      data:{
+        activity_id:id
+      },
+      success: function(response) {
+        toastr.success("申請成功");
+        setTimeout(function(){
+          window.location.href = window.location.href;
+        },3000);
+      }
+    });
+  });
+
+  $('.quitActivity').on('click', function(){
+    var id = this.getAttribute('activity-id');
+    $.ajax({
+      url: "/activities/quit/",
+      type: "POST",
+      data:{
+        activity_id:id
+      },
+      success: function(response) {
+        toastr.success("退出成功");
+        setTimeout(function(){
+          window.location.href = window.location.href;
+        },3000);
+      }
+    });
+  });
+
   $('.delActivity').on('click', function(){
     var id = this.getAttribute('activity-id');
     $.ajax({

@@ -7,7 +7,7 @@
   <div class="main_page">
     <div class="section" id="project_intro">
     	<div id="intro_left">
-    		<h1>Projects</h1>
+    		<h1>Project</h1>
     		<p>C-Hub is a creative space came about from the interconnection among
     			Creativity, Human, Urban, and Building Environment.</p>
     		<div class="space"></div>
@@ -19,7 +19,7 @@
     		<img class="main_round_pic" src="/assets/images/project_round.png">
     	</div>
     </div>
-    <div class="section" id="project_view">
+    <div class="section no_menu" id="project_view">
     	<div id="project_list">
         <% for(var i in projects){ %>
     		<div class="project_item"  project-id="<%= projects[i]._id %>">
@@ -42,14 +42,13 @@
     		<div class="list_go" id="go_down"></div>
     	</div>
     </div>
-		<div class="section" id="footer">
+		<div class="section no_menu" id="footer">
 			<% include ../public/footer %>
 		</div>
   </div>
 </div>
 
-<div class="float_window">
-</div>
+
 
 <script>
 $(document).ready(function(){

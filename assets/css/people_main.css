@@ -53,15 +53,6 @@ body::-webkit-scrollbar-thumb {
     opacity: 0.4;
 }
 
-.main_round_pic {
-    position: absolute;
-    left: 48vw;
-    top: 20vh;
-    width: 40vw;
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-}
-
 .hide_scrollbar {
     position: relative;
     z-index: 100;

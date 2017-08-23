@@ -27,7 +27,7 @@ $(document).ready(function() {
 	$("#left_project").addClass("item_now");
 	view_pic_total = 5;
 
-	$(".project_item, #close_window, .dark_mask").click(function() {
+	$(".project_item").click(function() {
 		show_window(this.getAttribute('project-id'));
 	});
 
