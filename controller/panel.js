@@ -10,10 +10,13 @@ router.get("/",helper.checkLogin(),function(req,res) {
   var openPage = req.query.openPage;
   if(req.user.Role == 3){
     Project.find({},function(err,projects){
-      res.render("panel/index",{
-        projects:projects,
-        openPage:openPage
-      });
+      Activity.find({}, function(err, activities){
+        res.render("panel/index",{
+          activities: activities,
+          projects: projects,
+          openPage: openPage
+        });
+      })
     });   
   }
   else if(req.user.Role == 2){

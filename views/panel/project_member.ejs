@@ -83,19 +83,24 @@
           <button class="mini ui basic button" style="height: 30px; width: 60px; padding: 0px;">info</button>
         </div> -->
         <br>
-        <select class="ui fluid dropdown editPosition" style=" font-size: 10px !important;">
-          <option value="--Position--">--Position--</option>
-          <option value="observer">observer</option>
-          <option value="inventor<">inventor</option>
-          <option value="connector">connector</option>
-          <option value="runner">runner</option>
-          <option value="coordinator">coordinator</option>
-          <option value="director">director</option>
-          <option value="designer">designer</option>
-          <option value="carer">carer</option>
-          <option value="teller">teller</option>
-          <option value="builder">builder</option>
-        </select>
+        <div class="ui selection dropdown editPosition" style=" font-size: 10px !important;">
+          <input type="hidden" name="Type" value="--Position--">
+          <i class="dropdown icon"></i>
+          <div class="default text">--Position--</div>
+          <div class="menu">
+            <div class="item" data-value="observer">observer</div>
+            <div class="item" data-value="inventor">inventor</div>
+            <div class="item" data-value="connector">connector</div>
+            <div class="item" data-value="runner">runner</div>
+            <div class="item" data-value="coordinator">coordinator</div>
+            <div class="item" data-value="director">director</div>
+            <div class="item" data-value="designer">designer</div>
+            <div class="item" data-value="connector">connector</div>
+            <div class="item" data-value="carer">carer</div>
+            <div class="item" data-value="teller">teller</div>
+            <div class="item" data-value="builder">builder</div>
+          </div>
+        </div> 
       </div>
     </div>
   <% } %>

@@ -83,17 +83,19 @@
               新增團隊
             </a> -->
           </div>
-          <div class="title">
+          <div class="title openPage" openPage="backstage_activity_manage">
             <img src="/assets/images/backstage_logo_activity.png">
             <p class="item">活動管理<i class="chevron down icon"></i></p>
           </div>
           <div class="content">
-            <p class="item" openPage="">新增活動</p>
-            <div class="ui divider"></div>
-            <p class="item" openPage="">活動管理</p>
-            <!--<a class="item" href="/activities/new">
+            <% if(me.Role == 3){ %>
+              <p class="item openPage" openPage="backstage_activity_new">提案系統</p>
+            <% } %>
+            <!-- <div class="ui divider"></div> -->
+            <!-- <p class="item" openPage="">活動管理</p> -->
+            <!-- <a class="item" href="/activities/new">
               新增活動
-            </a> -->
+            </a>  -->
           </div>
           <div class="title">
             <img src="/assets/images/backstage_logo_space.png">
