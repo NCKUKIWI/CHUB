@@ -1,0 +1,63 @@
+<i class="close icon"></i>
+<div class="header">
+  <%= activity.Name %>
+</div>
+<div class="image content">
+  <div class="ui medium image">
+    <img src="/uploads/activity/<%= activity._id %>/logo.png">
+  </div>
+  <div class="description">
+    <p>Pics&Video: </p>
+    <p>Introduction: </p>
+    <p>Type: </p>
+    <p>Conditions</p>
+    <p>Map: </p>
+    <p>TimeTable: </p>
+    <p>Mission</p>
+    <p>Guest: </p>
+    <p>News</p>
+    <p>Group(sponsor)</p>
+  </div>
+</div>
+<div class="actions">
+  <% if(me && activity.AdminID.indexOf(me._id)!=-1){ %>
+    <div class="ui red button delActivity" activity-id="<%= activity._id %>">Delete</div>
+    <a class="ui green button" href="/activities/edit/<%= activity._id %>">Edit</a>
+  <% } %>
+  <form name='Pay2go' method='post' action='https://ccore.spgateway.com/MPG/mpg_gateway'>
+    <input type="hidden" name="MerchantID" value="MS11571737">
+    <input type="hidden" name="Amt" value="<%= activity.Fee %>">
+    <input type="hidden" name="CheckValue" value="<%= check %>">
+    <input type="hidden" name="RespondType" value="JSON">
+    <input type="hidden" name="ItemDesc" value="<%= activity.Description %>">
+    <input type="hidden" name="MerchantOrderNo" value="<%= orderNo %>">
+    <input type="hidden" name="TimeStamp" value="<%= timestamp %>">
+    <input type="hidden" name="Version" value="1.2">
+    <input type="hidden" name="LoginType" value="0">
+    <input type="hidden" name="Email" value="test@gmail.com">
+    <input type="submit" class="ui red button" value="購票">
+  </form>
+  <div class="ui blue button">
+    Sharing
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $('.delActivity').on('click', function(){
+    var id = this.getAttribute('activity-id');
+    $.ajax({
+      url: "/activities/delete/"+id,
+      type: "DELETE",
+      success: function(response) {
+        if(response=="ok"){
+          toastr.success("刪除成功");
+          setTimeout(function(){
+            window.location.href = window.location.href;
+          },3000);
+        }
+      }
+    });
+  });
+});
+</script>

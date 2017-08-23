@@ -33,6 +33,35 @@ p {
     background: #ed9027;
 }
 
+.main_round_pic {
+  position: absolute;
+  left: 48vw;
+  top: 20vh;
+  width: 60vh;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%); }
+
+.botton.tiny {
+  position: relative;
+  display: inline;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 12px;
+  font-weight: 100;
+  letter-spacing: 1px;
+  color: #ed9027;
+  top: -1px;
+  padding: 0px 5px;
+  margin: 0px 5px;
+  background: #4d4d4d;
+  transition: 0.2s; }
+  .botton.tiny:hover {
+    color: black;
+    background: #ed9027; }
+  .botton.tiny:active {
+    filter: brightness(60%);
+    -webkit-filter: brightness(60%); }
+    
 .section{
     display: none;
 }
