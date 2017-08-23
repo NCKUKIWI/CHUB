@@ -60,16 +60,16 @@ router.post("/create",helper.apiAuth(),function(req,res) {
   if(req.body.group_id){
     Group.findById(req.body.group_id,function(err,group){
       newActivity = new Activity({
-        Name:req.body.name,
-        Type:req.body.type,
-        Fee:[req.body.fee],
-        Description:req.body.description,
-        Time:req.body.time.split(","),
+        Name: req.body.Name,
+        Type: req.body.Type,
+        Fee: req.body.Fee,
+        Introduction: req.body.Introduction,
+        Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
         hasCover:0,
-        MemberID:group.AdminID,
-        AdminID:group.AdminID,
-        GroupID:req.body.group_id,
-        Context:req.body.context
+        MemberID: group.AdminID,
+        AdminID: group.AdminID,
+        GroupID: req.body.group_id,
+        Mission: req.body.Mission
       });
     });
     Activity.create(newActivity,function(err,result){
@@ -89,18 +89,25 @@ router.post("/create",helper.apiAuth(),function(req,res) {
     });
   }else{
     newActivity = new Activity({
-      Name:req.body.name,
-      Type:req.body.type,
-      Fee:[req.body.fee],
-      Description:req.body.description,
-      Time:req.body.time.split(","),
+      Name: req.body.Name,
+      Type: req.body.Type,
+      Introduction: req.body.Introduction,
+      Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
+      Fee: req.body.Fee,
+      Credit: req.body.Credit,
+      Role: req.body.Role,
       hasCover:0,
-      MemberID:[req.user._id],
-      AdminID:[req.user._id],
-      Context:req.body.context
+      Status: 1,
+      Location: req.body.Location,
+      Contributor: (req.body.Contributor)?(req.body.Contributor.replace(/\s/g, "").split(",")):[],
+      Mission: req.body.Mission,      
+      MemberID:[],
+      AdminID:[req.body.admin],
+      ProjectID: []
     });
     Activity.create(newActivity,function(err,result){
       if(err){
+        console.log(err);
         res.send({error:helper.handleError(err)});
       }else{
         User.update({_id:req.user._id},{ $push: { "ActivityID":result._id } },function(err){
@@ -161,11 +168,16 @@ router.get("/edit/:id",helper.checkLogin(),function(req,res) {
 
 router.post("/update/:id",helper.apiAuth(),function(req,res) {
   var updateData = {
-    Name:req.body.name,
-    Type:req.body.type,
-    Description:req.body.description,
-    Time:req.body.time.split(","),
-    Context:req.body.context
+    Name: req.body.Name,
+    Type: req.body.Type,
+    Introduction: req.body.Introduction,
+    Time: (req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
+    Fee: req.body.Fee,
+    Credit: req.body.Credit,
+    Role: req.body.Role,
+    Location: req.body.Location,
+    Contributor: (req.body.Contributor)?(req.body.Contributor.replace(/\s/g, "").split(",")):[],
+    Mission: req.body.Mission
   }
   Activity.findOneAndUpdate({ _id:req.params.id },updateData,function(err,activity){
     if(activity){

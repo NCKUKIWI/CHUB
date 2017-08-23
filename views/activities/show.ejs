@@ -10,7 +10,7 @@
       <img id="project_pic" src="/assets/images/project_ex2.png">
       <img id="pic_more" src="/assets/images/pic_more_2.png">
     </div>
-    <p class="project_name">E-Ink Research</p>
+    <p class="project_name"><%= activity.Name %></p>
   </div>
 </div>
 <div class="with_scroll" id="detail_right">
@@ -23,7 +23,7 @@
   <p id="detail_conditions">
     <p class="title with_space">Conditions</p><span>/</span>
     <p class="long">
-      費用｜免費參加/NT$1000<br/>身份｜不限/校內<br/>學分｜無/0.25分 2hr</p>
+      費用｜NT$ <%= activity.Fee %><br/>身份｜<%= activity.Role %><br/>學分｜<%= activity.Credit %> 分</p>
   </p>
   <p id="detail_location">
     <p class="title">Location</p><span>/</span>
@@ -43,7 +43,7 @@
   </p> -->
   <p id="detail_contributer"><br/>
     <p class="title">Contributer</p><span>/</span>
-    <p class="short"></p>
+    <p class="short"><%= activity.Contributor %></p>
   </p>
   <p id="detail_activities">
     <p class="title with_space">News</p><span>/</span>

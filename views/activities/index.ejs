@@ -36,7 +36,7 @@
             <div class="activity_item" activity-id="<%= activity[i]._id %>">
               <img class="preview_pic" src="/assets/images/project_ex2.png">
               <div class="preview_more"></div>
-              <p class="preview_title"><%= activity[i].Name %></p>
+              <p class="preview_title"><%= activity[i].Name %><br><%= activity[i].Time %></p>
               <p class="preview_class"><%= activity[i].Type %></p>
             </div>
           <% } %>
@@ -53,6 +53,7 @@
               <img class="preview_pic" src="/assets/images/project_ex2.png">
               <div class="preview_more"></div>
               <p class="preview_title"><%= activity[i].Name %></p>
+              <p><%= activity[i].Time %></p>
               <p class="preview_class"><%= activity[i].Type %></p>
             </div>
           <% } %>
@@ -69,6 +70,7 @@
               <img class="preview_pic" src="/assets/images/project_ex2.png">
               <div class="preview_more"></div>
               <p class="preview_title"><%= activity[i].Name %></p>
+              <p><%= activity[i].Time %></p>
               <p class="preview_class"><%= activity[i].Type %></p>
             </div>
           <% } %>
@@ -85,6 +87,7 @@
               <img class="preview_pic" src="/assets/images/project_ex2.png">
               <div class="preview_more"></div>
               <p class="preview_title"><%= activity[i].Name %></p>
+              <p><%= activity[i].Time %></p>
               <p class="preview_class"><%= activity[i].Type %></p>
             </div>
           <% } %>
