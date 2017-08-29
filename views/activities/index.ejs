@@ -34,7 +34,8 @@
           </div>
           <% for(var i = 0; i < activity.length; i += 4) { %>
             <div class="activity_item" activity-id="<%= activity[i]._id %>">
-              <img class="preview_pic" src="/assets/images/project_ex2.png">
+              <!-- <img class="preview_pic" src="/assets/images/project_ex2.png"> -->
+              <img class="preview_pic" src="/uploads/activity/<%= activity[i]._id %>/logo.png">
               <div class="preview_more"></div>
               <p class="preview_title"><%= activity[i].Name %><br><%= activity[i].Time %></p>
               <p class="preview_class"><%= activity[i].Type %></p>
@@ -50,7 +51,8 @@
           </div>
           <% for(var i = 1; i < activity.length; i += 4) { %>
             <div class="activity_item" activity-id="<%= activity[i]._id %>">
-              <img class="preview_pic" src="/assets/images/project_ex2.png">
+              <!-- <img class="preview_pic" src="/assets/images/project_ex2.png"> -->
+              <img class="preview_pic" src="/uploads/activity/<%= activity[i]._id %>/logo.png">
               <div class="preview_more"></div>
               <p class="preview_title"><%= activity[i].Name %></p>
               <p><%= activity[i].Time %></p>
@@ -67,7 +69,8 @@
           </div>
           <% for(var i = 2; i < activity.length; i += 4) { %>
             <div class="activity_item" activity-id="<%= activity[i]._id %>">
-              <img class="preview_pic" src="/assets/images/project_ex2.png">
+              <!-- <img class="preview_pic" src="/assets/images/project_ex2.png"> -->
+              <img class="preview_pic" src="/uploads/activity/<%= activity[i]._id %>/logo.png">
               <div class="preview_more"></div>
               <p class="preview_title"><%= activity[i].Name %></p>
               <p><%= activity[i].Time %></p>
@@ -84,7 +87,8 @@
           </div>
           <% for(var i = 3; i < activity.length; i += 4) { %>
             <div class="activity_item" activity-id="<%= activity[i]._id %>">
-              <img class="preview_pic" src="/assets/images/project_ex2.png">
+              <!-- <img class="preview_pic" src="/assets/images/project_ex2.png"> -->
+              <img class="preview_pic" src="/uploads/activity/<%= activity[i]._id %>/logo.png">
               <div class="preview_more"></div>
               <p class="preview_title"><%= activity[i].Name %></p>
               <p><%= activity[i].Time %></p>
