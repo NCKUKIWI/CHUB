@@ -1,0 +1,40 @@
+<% layout('../public/layout') %>
+<script type="text/javascript" src="/assets/js/project.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/project_main.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/project_float.css">
+
+<div id="fullpage">
+  <div class="main_page">
+    <div class="section" id="project_intro">
+    	<div id="intro_left">
+        <form id="updatephoto">
+          <input type="file" id="newphoto" name="photo"></input>
+        </form>
+        <div id="photoUpload">Upload</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#photoUpload").on("click",function() {
+    if($("#newphoto").val()!=""){
+      var photo = new FormData($("#updatephoto")[0]);
+      $.ajax({
+        url: "/projects/photoUpload/<%= project.id %>",
+        type: "POST",
+        data:photo,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          toastr.success("上傳成功");
+          setTimeout(function(){
+            window.location.href="/projects";
+          },3000);
+        }
+      });
+    }
+  });
+});
+</script>

@@ -48,6 +48,10 @@ app.use(function(req, res, next) {
 
 app.use(logger("tiny"));
 
+//mobile
+var mobile = require("./controller/mobile");
+app.use("/m",mobile);
+
 //users routes
 var users = require("./controller/users");
 app.use("/users",users);

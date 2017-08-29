@@ -4,12 +4,11 @@ var helper = require("../helper");
 var Project = require("../model/Project");
 var Group = require("../model/Group");
 var User = require("../model/User");
-var cacheClear = require("../cache").clear;
 var fs = require("fs");
 var rimraf = require("rimraf");
 var multer  = require('multer');
 
-var storage = multer.diskStorage({
+var coverStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     if (!fs.existsSync(`${__dirname}/../uploads/project/${req.params.id}`)){
       fs.mkdirSync(`${__dirname}/../uploads/project/${req.params.id}`);
@@ -17,15 +16,30 @@ var storage = multer.diskStorage({
     cb(null,`${__dirname}/../uploads/project/${req.params.id}`);
   },
   filename: function (req, file, cb) {
-    //var fileFormat = (file.originalname).split(".");
-    //"logo." + fileFormat[fileFormat.length - 1]
     cb(null,"logo.png");
   }
 });
 
-var upload = multer({
-  storage: storage
+var photoStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    if (!fs.existsSync(`${__dirname}/../uploads/project/${req.params.id}`)){
+      fs.mkdirSync(`${__dirname}/../uploads/project/${req.params.id}`);
+    }
+    cb(null,`${__dirname}/../uploads/project/${req.params.id}`);
+  },
+  filename: function (req, file, cb) {
+    var filename = "photo" +new Date().getTime() +".png"
+    cb(null,filename);
+  }
+});
+
+var coverUpload = multer({
+  storage: coverStorage
 }).single("cover");
+
+var photoUpload = multer({
+  storage: photoStorage
+}).single("photo");
 
 router.get("/", function(req,res) {
   var needArr;
@@ -62,16 +76,15 @@ router.get("/new",helper.checkLogin(),function(req,res) {
 
 router.post("/create",helper.apiAuth(),function(req,res) {
   var newProject;
-  console.log(req.body.group_id);
   if(req.body.group_id){
     Group.findById(req.body.group_id,function(err,group){
       newProject = new Project({
-        Name:req.body.Name,
-        Type:req.body.Type,
-        Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
-        Mission:req.body.Mission,
-        Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
-        Introduction:req.body.Introduction,
+        Name:req.body.name,
+        Type:req.body.type,
+        Time:(req.body.time)?(req.body.time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
+        Mission:req.body.mission,
+        Need:(req.body.need)?(req.body.need.replace(/\s/g, "").split(",")):[],
+        Introduction:req.body.introduction,
         hasCover:0,
         Status:0,
         // MemberID:group.AdminID,
@@ -87,7 +100,6 @@ router.post("/create",helper.apiAuth(),function(req,res) {
              console.log(err);
              res.send({error:err});
             }else{
-              cacheClear();
               res.send(result._id);
             }
           });
@@ -96,16 +108,16 @@ router.post("/create",helper.apiAuth(),function(req,res) {
     });
   }else{
     newProject = new Project({
-      Name:req.body.Name,
-      Type:req.body.Type,
-      Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
-      Mission:req.body.Mission,
-      Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
-      Introduction:req.body.Introduction,
+      Name:req.body.name,
+      Type:req.body.type,
+      Time:(req.body.time)?(req.body.time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
+      Mission:req.body.mission,
+      Need:(req.body.need)?(req.body.need.replace(/\s/g, "").split(",")):[],
+      Introduction:req.body.introduction,
       hasCover:0,
       Status:0,
       // MemberID:[req.user._id],
-      AdminID:[req.body.admin],
+      AdminID:[req.user._id],
     });
     Project.create(newProject,function(err,result){
       if(err){
@@ -117,7 +129,6 @@ router.post("/create",helper.apiAuth(),function(req,res) {
            console.log(err);
            res.send({error:err});
           }else{
-            cacheClear();
             res.send(result._id);
           }
         });
@@ -130,7 +141,7 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
       if(project.AdminID.indexOf(req.user._id)!=-1){
-        upload(req,res,function(err){
+        coverUpload(req,res,function(err){
           if(err){
             console.log(err);
             res.send({error:err})
@@ -145,6 +156,72 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
                 res.send("ok");
               }
             });
+          }
+        });
+      }else{
+        res.send("notAdmin");
+      }
+    }else{
+      res.send("notFound");
+    }
+  });
+});
+
+router.get("/photoUpload/:id",helper.checkLogin(),function(req,res) {
+  Project.findById(req.params.id,function(err,project){
+    if(project){
+      if(project.AdminID.indexOf(req.user._id)!=-1){
+        res.render("projects/photoUpload",{
+          project:project
+        });
+      }else{
+        res.redirect("back");
+      }
+    }else{
+      res.redirect("back");
+    }
+  });
+});
+
+router.post("/photoUpload/:id",helper.apiAuth(),function(req,res) {
+  Project.findById(req.params.id,function(err,project){
+    if(project){
+      if(project.AdminID.indexOf(req.user._id)!=-1){
+        photoUpload(req,res,function(err){
+          if(err){
+            console.log(err);
+            res.send({error:err})
+          }else{
+            project.Photo.push(`/uploads/project/${req.params.id}/${req.file.filename}`)
+            project.save(function(err) {
+              if(err){
+                res.send({error:helper.handleError(err)});
+              }else{
+                res.send("ok");
+              }
+            });
+          }
+        });
+      }else{
+        res.send("notAdmin");
+      }
+    }else{
+      res.send("notFound");
+    }
+  });
+});
+
+router.delete("/photoUpload/:id/:index",helper.apiAuth(),function(req,res) {
+  Project.findById(req.params.id,function(err,project){
+    if(project){
+      if(project.AdminID.indexOf(req.user._id)!=-1){
+        rimraf(`${__dirname}/..${ project.Photo[req.params.index] }`,function () { });
+        project.Photo = project.Photo.splice(req.params.index,1);
+        project.save(function(err) {
+          if(err){
+            res.send({error:helper.handleError(err)});
+          }else{
+            res.send("ok");
           }
         });
       }else{
@@ -182,7 +259,6 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
       if(err){
         res.send({error:helper.handleError(err)});
       }else{
-        cacheClear();
         res.send("ok");
       }
     }else{
@@ -215,7 +291,6 @@ router.post("/join",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
-          cacheClear();
           res.send("ok");
         }
       });
@@ -240,7 +315,6 @@ router.post("/quit",helper.apiAuth(),function(req,res) {
               if(err){
                 res.send({error:err});
               }else{
-                cacheClear();
                 res.send("ok");
               }
             });
@@ -253,7 +327,6 @@ router.post("/quit",helper.apiAuth(),function(req,res) {
           if(err){
             res.send({error:helper.handleError(err)});
           }else{
-            cacheClear();
             res.send("ok");
           }
         });
@@ -274,7 +347,6 @@ router.post("/:id/addMember/:uid",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
-          cacheClear();
           // 更新user
           User.findById(req.params.uid, function(err, user) {
             if(user){
@@ -303,7 +375,6 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
-          cacheClear();
           // 更新user
           User.findById(req.params.uid, function(err, user) {
             if(user){
@@ -331,7 +402,6 @@ router.post("/:id/delMember/:uid",helper.apiAuth(),function(req,res) {
 //         if(err){
 //           res.send({error:helper.handleError(err)});
 //         }else{
-//           cacheClear();
 //           res.send("ok");
 //         }
 //       });
@@ -355,7 +425,6 @@ router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
               if(err){
                 res.send({error:err});
               }else{
-                cacheClear();
                 res.send("ok");
               }
             });
