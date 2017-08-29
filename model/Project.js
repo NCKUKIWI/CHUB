@@ -22,6 +22,7 @@ var projectSchema = new Schema({
   Name:{type:String,required:[true,"請輸入專案名稱"],unique:true},
   Type:{type:String,required:[true,"請選擇專案類型"]},
   Time:{type:[String],required:[true,"請選擇專案時間"]},
+  Photo:[String],
   Location:String,
   Mission:String,
   Need:[String],
