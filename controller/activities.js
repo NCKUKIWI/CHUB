@@ -127,27 +127,23 @@ router.post("/create",helper.apiAuth(),function(req,res) {
 router.post("/upload/:id",helper.apiAuth(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){
-      if(activity.AdminID.indexOf(req.user._id)!=-1){
-        upload(req,res,function(err){
-          if(err){
-            console.log(err);
-            res.send({error:err})
-          }else{
-            activity.hasCover = 1;
-            activity.save(function(err){
-              if(err){
-                console.log(err);
-                res.send({error:err});
-              }
-              else{
-                res.send("ok");
-              }
-            });
-          }
-        });
-      }else{
-        res.send("notAdmin");
-      }
+      upload(req,res,function(err){
+        if(err){
+          console.log(err);
+          res.send({error:err})
+        }else{
+          activity.hasCover = 1;
+          activity.save(function(err){
+            if(err){
+              console.log(err);
+              res.send({error:err});
+            }
+            else{
+              res.send("ok");
+            }
+          });
+        }
+      });
     }else{
       res.send("notFound");
     }
