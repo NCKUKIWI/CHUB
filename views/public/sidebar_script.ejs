@@ -232,7 +232,7 @@ $(document).ready(function(){
 
   // signup 按鈕按下送出
   $("#signupSubmit").on("click", function() {
-    if($("#newavatar").val()!=""){
+    if(window.location.pathname == "/users/fbcheck" || $("#newavatar").val()!=""){ // 如果是fb登入的話，大頭照的val()就不會被抓到，因此要避免
       $.ajax({
           url: "/users/signup",
           type: "POST",
@@ -598,6 +598,9 @@ function loginStatus() {
 function logoutStatus() {
   $( ".sidebar_cont" ).removeClass("widewidth");
   logIn();
+  if(window.location.pathname == "/users/fbcheck"){
+    switchHalfscreen("open");                                                                          
+  }
 }
 
 

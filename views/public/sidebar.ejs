@@ -8,9 +8,9 @@
         <img src="assets/images/side_message.png">
      </div>
    <% } %>
-   <div class="side_icon" id="side_search">
+   <!-- <div class="side_icon" id="side_search">
       <img src="assets/images/side_search.png">
-   </div>
+   </div> -->
     <% if(me) { %>
       <% if(me.Role >= 2) { %>
         <div class="side_icon">
@@ -51,7 +51,7 @@
     <input class="big_input" type="password" name="password" placeholder="Password"></input>
     <div class="side_goto_bottom">
       <div class="side_btn" id="loginSubmit">Log In</div>
-      <!-- <div class="side_btn black" id="side_facebook" onclick="window.location='/users/fblogin';">Facebook</div> -->
+      <div class="side_btn black" id="side_facebook" onclick="window.location='/users/fblogin';">Facebook</div>
       <p id="dont_have_account">Don't have an an Account?</p>
     </div>
   </form>
@@ -64,7 +64,7 @@
     <input class="big_input" type="password" name="password2" placeholder="Confirm Password"></input> -->
     <div class="side_goto_bottom">
        <div class="side_btn" id="side_btn_signup">Sign Up</div>
-       <!-- <div class="side_btn black" id="side_facebook" onclick="window.location='/users/fblogin';">Facebook</div> -->
+       <div class="side_btn black" id="side_facebook" onclick="window.location='/users/fblogin';">Facebook</div>
        <p>　</p>
     </div>
   </form>
@@ -260,11 +260,11 @@
 <!-- 編輯profile頁面、 -->
 
 <div class="side_halfscreen">
-  <form id="updateavatar" style="display:none;">
-    <input type="file" id="newavatar" name="avatar"></input>
-  </form>
   <!-- 編輯資料 -->
   <% if(me) { %>
+    <form id="updateavatar" style="display:none;">
+      <input type="file" id="newavatar" name="avatar"></input>
+    </form>
     <form id="halfscreen_edit">
       <div id="halfscreen_edit_left">
         <p id="personal_profile">【Profile】</p>
@@ -297,12 +297,12 @@
           <p class="input_title long">Recovery<span>/</span></p>
           <input class="mid_input short" type="text"  name="RecoveryEmail" value="<%= me.RecoveryEmail %>"></input>
         </div>
-        <div class="input_width_set">
+        <!-- <div class="input_width_set">
           <p class="input_title mid">Cellphone<span>/</span></p>
-          <input class="mid_input mid" type="text" value=""></input>
-        </div>
-        <input class="mid_input" type="text" name="Cellphone" placeholder="Cellphone"></input>
-        <div class="with_scroll" id="description_history_edit">
+          <input class="mid_input mid" type="text" name="Cellphone" placeholder="Cellphone" value=""></input>
+        </div> -->
+        <!-- <input class="mid_input" type="text" name="Cellphone" placeholder="Cellphone"></input> -->
+        <!-- <div class="with_scroll" id="description_history_edit">
           <p class="right_title">Project</p><span>/</span>
           <% for(var i = 0; i < me.ProjectID.length; i++){ %>
             <a class="right_cont"><%= me.ProjectID[i].Name %></a>
@@ -312,7 +312,7 @@
           <% for(var i = 0; i < me.ActivityID.length; i++){ %>
             <a class="right_cont"><%= me.ActivityID[i].Name %></a>
           <% } %>
-        </div>
+        </div> -->
         <p id="description_text">Personal Content (200 words max)</p>
         <textarea class="with_scroll" name="Introduction" id="description_input"><%= me.Introduction %></textarea>
         <div id="portfolio_upload">
@@ -324,12 +324,15 @@
         </div>
       </div>
     </form>
-  <% }else {%>
+  <% }else if (typeof fb == 'undefined'){%>
+    <form id="updateavatar" style="display:none;">
+      <input type="file" id="newavatar" name="avatar"></input>
+    </form>
     <form id="halfscreen_first_edit">
       <div id="halfscreen_first_edit_left">
         <p id="personal_profile">【Personal Profile】</p>
         <img class="profile_photo big edit_profile_photo" src="/assets/images/molly.png">
-        <input class="mid_input" type="text" name="Name" placeholder="Username" value=""></input>
+        <input class="mid_input" type="text" name="Name" placeholder="Username"></input>
         <input class="mid_input" type="text" name="Email" placeholder="E-mail" value=""></input>
         <div class="side_btn" id="signupSubmit">Sign Up</div>
         <!-- <div class="side_btn" id="side_edit_cancel">Cancel</div> -->
@@ -341,9 +344,45 @@
         <input class="mid_input" type="text" name="Skill" placeholder="Skill" value="">
         </input>
         <input class="mid_input" type="text" name="RecoveryEmail" placeholder="Recovery Email" value=""></input>
-        <input class="mid_input" type="text" placeholder="Cellphone"></input>
+        <!-- <input class="mid_input" type="text" placeholder="Cellphone"></input> -->
         <input class="mid_input" type="password" name="Password" placeholder="Password"></input>
         <input class="mid_input" type="password" name="Password2" placeholder="Confirm Password"></input>
+        <p id="description_text">Personal Content (200 words max)</p>
+        <textarea class="with_scroll" name="Introduction" id="description_input"></textarea>
+        <div id="portfolio_upload">
+           <p id="halfscreen_port_title">Portfolio</p>
+           <span>/</span>
+           <a class="halfscreen_port">Title1</a>
+           <a class="halfscreen_port">Title2</a>
+           <a class="halfscreen_port upload">Upload</a>
+        </div>
+      </div>
+    </form>
+  <% } else {%>
+    <form id="updateavatar" style="display:none;">
+      <input type="file" id="newavatar" name="avatar" value="<% if(typeof fb.picture.data.url != 'undefined') {%> <%= fb.picture.data.url %> <% } %>"></input>
+      <input type="text" name="fb" value="<% if(typeof fb.picture.data.url  != 'undefined') {%> <%= fb.picture.data.url  %> <% } %>">
+    </form>
+    <form id="halfscreen_first_edit">
+      <div id="halfscreen_first_edit_left">
+        <p id="personal_profile">【Personal Profile】</p>
+        <img class="profile_photo big edit_profile_photo" src="<% if(typeof fb.picture.data.url  != 'undefined') {%> <%= fb.picture.data.url  %> <% } %>">
+        <input class="mid_input" type="text" name="Name" placeholder="Username" value="<% if(typeof fb.name != 'undefined') {%> <%= fb.name %> <% } %>"></input>
+        <input class="mid_input" type="text" name="Email" placeholder="E-mail" value="<% if(typeof fb.email != 'undefined') {%> <%= fb.email %> <% } %>"></input>
+        <div class="side_btn" id="signupSubmit">Sign Up</div>
+        <!-- <div class="side_btn" id="side_edit_cancel">Cancel</div> -->
+      </div>
+      <div id="halfscreen_first_edit_right">
+        <input class="mid_input" type="text" name="School" placeholder="School" value=""></input>
+        <input class="mid_input" type="text" name="StudentID" placeholder="Student ID" value=""></input>
+        <input class="mid_input" type="text" name="Major" placeholder="Major" value=""></input>
+        <input class="mid_input" type="text" name="Skill" placeholder="Skill" value="">
+        </input>
+        <input class="mid_input" type="text" name="RecoveryEmail" placeholder="Recovery Email" value=""></input>
+        <!-- <input class="mid_input" type="text" placeholder="Cellphone"></input> -->
+        <input class="mid_input" type="password" name="Password" placeholder="Password" style="display:none;" value="<%= fb.id %>"></input>
+        <input class="mid_input" type="password" name="Password2" placeholder="Confirm Password" style="display:none;" value="<%= fb.id %>"></input>
+        <input type="text" name="FBID" style="display: none;" value="<%= fb.id %>">
         <p id="description_text">Personal Content (200 words max)</p>
         <textarea class="with_scroll" name="Introduction" id="description_input"></textarea>
         <div id="portfolio_upload">
