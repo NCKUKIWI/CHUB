@@ -79,12 +79,13 @@ router.post("/create",helper.apiAuth(),function(req,res) {
   if(req.body.group_id){
     Group.findById(req.body.group_id,function(err,group){
       newProject = new Project({
-        Name:req.body.name,
-        Type:req.body.type,
-        Time:(req.body.time)?(req.body.time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
+        Name:req.body.Name,
+        Type:req.body.Type,
+        Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
         Mission:req.body.mission,
-        Need:(req.body.need)?(req.body.need.replace(/\s/g, "").split(",")):[],
-        Introduction:req.body.introduction,
+        Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
+        Introduction:req.body.Introduction,
+        Location: req.body.Location,
         hasCover:0,
         Status:0,
         // MemberID:group.AdminID,
@@ -108,16 +109,17 @@ router.post("/create",helper.apiAuth(),function(req,res) {
     });
   }else{
     newProject = new Project({
-      Name:req.body.name,
-      Type:req.body.type,
-      Time:(req.body.time)?(req.body.time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
-      Mission:req.body.mission,
-      Need:(req.body.need)?(req.body.need.replace(/\s/g, "").split(",")):[],
-      Introduction:req.body.introduction,
+      Name:req.body.Name,
+      Type:req.body.Type,
+      Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
+      Mission:req.body.Mission,
+      Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
+      Introduction:req.body.Introduction,
+      Location: req.body.Location,
       hasCover:0,
       Status:0,
       // MemberID:[req.user._id],
-      AdminID:[req.user._id],
+      AdminID:[req.body.Admin],
     });
     Project.create(newProject,function(err,result){
       if(err){

@@ -1,7 +1,31 @@
 <% layout('../public/adminlayout') %>
 
 <!-- 簡介管理 -->
+<div class="right_tabBoard" id="backstage_about">
+  <div class="ui top attached tabular menu" style="">
+    <a class="active item" data-tab="about_edit" style="border-radius: 0px !important;">About</a>
+    <a class="item" data-tab="news_edit" style="border-radius: 0px !important;">News</a>
+    <div style="position: absolute; right: 0px; padding: 5px;">
+      <button class="mini ui basic button">儲存</button>
+      <!-- <button class="mini ui basic button openPage" openPage="backstage_project_manage">提交</button> -->
+    </div>
+  </div>
+  <div class="ui bottom attached active tab segment" data-tab="about_edit">
+    <form class="ui form">
+      <div class="field">
+        <label>About</label>
+        <input type="text" name="Name" value="">
+      </div>
+      <div class="field">
+        <label>副標</label>
+        <input type="text" name="Time" value="">
+      </div>
+    </form>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="news_edit">
 
+  </div>
+</div>
 <!-- 人才資料庫管理 -->
 <div class="right_manageBoard" id="backstage_people">
   <div class="fliter_button">
@@ -357,7 +381,7 @@
               <option value="創新與社會服務">創新與社會服務</option>
             </select>  -->          
             <div class="ui fluid search selection dropdown selectAdmin">
-              <input type="hidden" name="admin" />
+              <input type="hidden" name="Admin" />
               <i class="dropdown icon"></i>
               <div class="default text">Select a Admin</div>
               <div class="menu"></div>
@@ -556,7 +580,7 @@
           <input type="text" name="Fee" placeholder="">
         </div>
         <div class="field">
-          <label>Role</label>
+          <label>Identity</label>
           <div class="ui selection dropdown">
             <input type="hidden" name="Role" value="anyone">
             <i class="dropdown icon"></i>

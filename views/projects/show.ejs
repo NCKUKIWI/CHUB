@@ -67,8 +67,10 @@
       <p class="title">Teammate</p>
       <span>/</span>
       <p class="short">
+        <br>
         <% for(var i in members){ %>
-          <br><a class="openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
+          <a class="openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
+          <% if(i != members.length - 1) {%> , <% } %>
         <% } %>
       </p>
     </p>

@@ -6,7 +6,17 @@ $(document).ready(function(){
         view_scroll_now = 0, view_pic_total, view_display_now = 1, view_display_prev, view_display_next;
         
 
-    $( "#fullpage" ).fullpage();
+    $('#fullpage').fullpage({
+        // 如果滑到瀏覽activity的地方，menu自動消失
+        onLeave (index, nextIndex, direction){
+            if(nextIndex == 2){
+                $('#menu').hide();
+            }
+            else{
+                $('#menu').show();
+            }
+        }
+    });
     $( ".float_window" ).hide();
     $( ".float_pic_window" ).hide();
     view_pic_total = 5;

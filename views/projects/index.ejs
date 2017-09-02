@@ -31,7 +31,9 @@
     			<div class="preview_more"></div>
     			<p class="preview_title"><%= projects[i].Name %></p>
     			<p class="preview_class"><%= projects[i].Type %></p>
-    			<div class="icon social"></div>
+    			<% if (projects[i].Type == '文化生活') {%> <div class="icon culture"></div>
+                <%} else if (projects[i].Type == '智慧科技與數位內容') {%> <div class="icon digital"></div>
+                <%} else if (projects[i].Type == '創新與社會服務') {%> <div class="icon social"></div> <% } %>
     		</div>
         <% } %>
     	</div>

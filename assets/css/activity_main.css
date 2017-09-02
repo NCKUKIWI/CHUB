@@ -106,7 +106,7 @@ body::-webkit-scrollbar-thumb {
       z-index: 30;
       left: 0;
       right: 0;
-      bottom: 15vh;
+      bottom: 16vh;
       margin: auto;
       color: #ed9027;
       font-size: 20px;
@@ -128,8 +128,18 @@ body::-webkit-scrollbar-thumb {
       z-index: 30;
       left: 0;
       right: 0;
-      bottom: 10vh;
+      bottom: 11vh;
       margin: auto;
+      letter-spacing: 2px;
+      transition: opacity 0.5s; }
+    #activity_list .activity_item .preview_date{
+      position: absolute;
+      z-index: 30;
+      left: 0;
+      right: 0;
+      bottom: 8.5vh;
+      margin: auto;
+      opacity: 0.7;
       letter-spacing: 2px;
       transition: opacity 0.5s; }
     #activity_list .activity_item .icon {
