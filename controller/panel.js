@@ -21,10 +21,13 @@ router.get("/",helper.checkLogin(),function(req,res) {
   }
   else if(req.user.Role == 2){
     Project.find({"AdminID":{"$in":[req.user._id]}},function(err,projects){
-      res.render("panel/index",{
-        projects:projects,
-        openPage:openPage
-      });
+      Activity.find({"AdminID":{"$in":[req.user._id]}}, function(err, activities){
+        res.render("panel/index",{
+          activities: activities,
+          projects: projects,
+          openPage: openPage
+        });
+      })
     });   
   }
 });
