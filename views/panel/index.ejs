@@ -268,7 +268,8 @@
   <div class="right_tabBoard" id="<%= projects[i]._id %>">
     <div class="ui top attached tabular menu" style="">
       <a class="active item" data-tab="projects_edit_info" style="border-radius: 0px !important;">專案資訊</a>
-      <a class="item" data-tab="projects_edit_media"  style="border-radius: 0px !important;">專案影音</a>
+      <a class="item" data-tab="projects_edit_logo"  style="border-radius: 0px !important;">專案封面</a>
+      <a class="item" data-tab="projects_edit_media"  style="border-radius: 0px !important;">專案照片</a>
       <a class="item" data-tab="projects_edit_member" projects="<%= projects[i]._id %>" style="border-radius: 0px !important;">成員導覽</a>
       <!-- <a class="item" data-tab="projects_edit_message"  style="border-radius: 0px !important;">通知系統</a> -->
       <div style="position: absolute; right: 0px; padding: 5px;">
@@ -321,16 +322,46 @@
         </div>
       </form>
     </div>
-    <div class="ui bottom attached tab segment" data-tab="projects_edit_media">
+    <div class="ui bottom attached tab segment" data-tab="projects_edit_logo">
       <form class="ui form editCoverForm">
         <div class="field">
           <div class="errormsg"></div>
         </div>
         <div class="field">
-          <label>專案照片</label>
+          <label>專案封面</label>
           <input type="file" name="cover" style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
         </div>
+        <img src="/uploads/project/<%= projects[i]._id %>/logo.png">
       </form>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="projects_edit_media">
+      <form class="ui form updatephoto">
+        <div class="field">
+          <div class="errormsg"></div>
+        </div>
+        <div class="field">
+          <label>專案照片集</label>
+          <input type="file" name="photo" style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
+        </div>
+        <div class="photoUpload" types="projects" projects="<%= projects[i]._id %>" style="color: black;">Upload</div>
+        <br>
+        <div class="ui small images">
+          <% for(var j = 0; j < projects[i].Photo.length; j++){ %>
+          <a href="<%= projects[i].Photo[j] %>" target="_blank"><img src="<%= projects[i].Photo[j] %>"></a>
+          <% } %>
+        </div>
+      </form>
+      
+      <!-- <form class="ui form editCoverForm">
+        <div class="field">
+          <div class="errormsg"></div>
+        </div>
+        <img src="/uploads/project/<%= projects[i]._id %>/logo.png">
+        <div class="field">
+          <label>專案照片集</label>
+          <input type="file" name="cover" style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
+        </div>
+      </form> -->
     </div>
     <div class="ui bottom attached tab segment" data-tab="projects_edit_member" style="color:black;">
     </div>
@@ -1036,6 +1067,30 @@ $(document).ready(function() {
           }
         }
       });
+    });
+
+    // 上傳照片
+    $(".photoUpload").on("click",function() {
+      var $CardBoard = $($(this).parents()[2]);
+      var type = this.getAttribute('types');
+      var id = this.getAttribute(type);
+      if($CardBoard.find('input[name="photo"]').val()!=""){
+        var photo = new FormData($CardBoard.find(".updatephoto")[0]);
+        $.ajax({
+          url: "/" + type + "/photoUpload/" + id,
+          type: "POST",
+          data:photo,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+            toastr.success("上傳成功");
+            $CardBoard.find('.images').append('<a href="' + response + '" target="_blank"><img src="' + response + '"></a>')
+            // setTimeout(function(){
+            //   window.location.href="/panel?openPage=backstage_" + type + "_manage";
+            // },3000);
+          }
+        });
+      }
     });
   });
 </script>

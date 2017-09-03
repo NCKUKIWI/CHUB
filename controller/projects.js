@@ -199,7 +199,7 @@ router.post("/photoUpload/:id",helper.apiAuth(),function(req,res) {
               if(err){
                 res.send({error:helper.handleError(err)});
               }else{
-                res.send("ok");
+                res.send(`/uploads/project/${req.params.id}/${req.file.filename}`);
               }
             });
           }
