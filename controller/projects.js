@@ -199,7 +199,10 @@ router.post("/photoUpload/:id",helper.apiAuth(),function(req,res) {
               if(err){
                 res.send({error:helper.handleError(err)});
               }else{
-                res.send(`/uploads/project/${req.params.id}/${req.file.filename}`);
+                res.send({
+                  index: project.Photo.length - 1,                
+                  id: `${req.params.id}`,
+                  url: `/uploads/project/${req.params.id}/${req.file.filename}`});
               }
             });
           }
@@ -218,7 +221,7 @@ router.delete("/photoUpload/:id/:index",helper.apiAuth(),function(req,res) {
     if(project){
       if(project.AdminID.indexOf(req.user._id)!=-1){
         rimraf(`${__dirname}/..${ project.Photo[req.params.index] }`,function () { });
-        project.Photo = project.Photo.splice(req.params.index,1);
+        project.Photo.splice(req.params.index,1);
         project.save(function(err) {
           if(err){
             res.send({error:helper.handleError(err)});

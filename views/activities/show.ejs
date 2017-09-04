@@ -69,15 +69,13 @@
   </svg>
   <div id="view_all_pic">
     <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
-    <img class="gallery_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
-    <img class="gallery_view_pic" id="pic_2" src="/assets/images/portfolio_ex.png">
-    <img class="gallery_view_pic" id="pic_3" src="/assets/images/portfolio_ex.png">
-    <img class="gallery_view_pic" id="pic_4" src="/assets/images/portfolio_ex.png">
-    <img class="gallery_view_pic" id="pic_5" src="/assets/images/portfolio_ex.png">
+    <% for(var i = 0; i < activity.Photo.length; i++) { %>
+      <img class="gallery_view_pic" id="pic_<%= i + 1 %>" src="<%= activity.Photo[i] %>">
+    <% } %>
     <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
   </div>
   <div class="view_pic_counter">
-    <span class="pic_counter now">01</span><span class="pic_counter total">/10</span>
+    <span class="pic_counter now">01</span><span class="pic_counter total"><%= activity.Photo.length %></span>
   </div>
   <a href="#" class="close_icon" id="close_pic_view">　</a>
 </div>

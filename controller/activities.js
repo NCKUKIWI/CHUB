@@ -6,12 +6,11 @@ var sha256 = require("sha256");
 var Activity = require("../model/Activity");
 var Group = require("../model/Group");
 var User = require("../model/User");
-var cacheClear = require("../cache").clear;
 var fs = require("fs");
 var rimraf = require("rimraf");
 var multer  = require('multer');
 
-var storage = multer.diskStorage({
+var coverStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     if (!fs.existsSync(`${__dirname}/../uploads/activity/${req.params.id}`)){
       fs.mkdirSync(`${__dirname}/../uploads/activity/${req.params.id}`);
@@ -19,14 +18,30 @@ var storage = multer.diskStorage({
     cb(null,`${__dirname}/../uploads/activity/${req.params.id}`);
   },
   filename: function (req, file, cb) {
-    //var fileFormat = (file.originalname).split(".");
     cb(null,"logo.png");
   }
 });
 
-var upload = multer({
-  storage: storage
+var photoStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    if (!fs.existsSync(`${__dirname}/../uploads/activity/${req.params.id}`)){
+      fs.mkdirSync(`${__dirname}/../uploads/activity/${req.params.id}`);
+    }
+    cb(null,`${__dirname}/../uploads/activity/${req.params.id}`);
+  },
+  filename: function (req, file, cb) {
+    var filename = "photo" +new Date().getTime() +".png"
+    cb(null,filename);
+  }
+});
+
+var coverUpload = multer({
+  storage: coverStorage
 }).single("cover");
+
+var photoUpload = multer({
+  storage: photoStorage
+}).single("photo");
 
 router.get("/", function(req,res) {
   var query = {
@@ -81,7 +96,6 @@ router.post("/create",helper.apiAuth(),function(req,res) {
             console.log(err);
             res.send({error:err});
           }else{
-            cacheClear();
             res.send(result._id);
           }
         });
@@ -115,7 +129,6 @@ router.post("/create",helper.apiAuth(),function(req,res) {
             console.log(err);
             res.send({error:err});
           }else{
-            cacheClear();
             res.send(result._id);
           }
         });
@@ -127,7 +140,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
 router.post("/upload/:id",helper.apiAuth(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){
-      upload(req,res,function(err){
+      coverUpload(req,res,function(err){
         if(err){
           console.log(err);
           res.send({error:err})
@@ -144,6 +157,77 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
           });
         }
       });
+    }else{
+      res.send("notFound");
+    }
+  });
+});
+
+router.get("/photoUpload/:id",helper.checkLogin(),function(req,res) {
+  Activity.findById(req.params.id,function(err,activity){
+    if(activity){
+      if(activity.AdminID.indexOf(req.user._id)!=-1){
+        res.render("activities/photoUpload",{
+          activity:activity
+        });
+      }else{
+        res.redirect("back");
+      }
+    }else{
+      res.redirect("back");
+    }
+  });
+});
+
+router.post("/photoUpload/:id",helper.apiAuth(),function(req,res) {
+  Activity.findById(req.params.id,function(err,activity){
+    if(activity){
+      if(activity.AdminID.indexOf(req.user._id)!=-1){
+        photoUpload(req,res,function(err){
+          if(err){
+            console.log(err);
+            res.send({error:err})
+          }else{
+            activity.Photo.push(`/uploads/activity/${req.params.id}/${req.file.filename}`)
+            activity.save(function(err) {
+              if(err){
+                res.send({error:helper.handleError(err)});
+              }else{
+                res.send({
+                  index: activity.Photo.length - 1,                
+                  id: `${req.params.id}`,
+                  url: `/uploads/activity/${req.params.id}/${req.file.filename}`});
+              }
+            });
+          }
+        });
+      }else{
+        res.send("notAdmin");
+      }
+    }else{
+      res.send("notFound");
+    }
+  });
+});
+
+router.delete("/photoUpload/:id/:index",helper.apiAuth(),function(req,res) {
+  Activity.findById(req.params.id,function(err,activity){
+    if(activity){
+      if(activity.AdminID.indexOf(req.user._id)!=-1){
+        rimraf(`${__dirname}/..${ activity.Photo[req.params.index] }`,function () { });
+        activity.Photo.splice(req.params.index,1);
+        activity.save(function(err) {
+          if(err){
+            console.log(err);
+            res.send({error:helper.handleError(err)});
+          }else{
+            console.log("success");
+            res.send("ok");
+          }
+        });
+      }else{
+        res.send("notAdmin");
+      }
     }else{
       res.send("notFound");
     }
@@ -180,7 +264,6 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
       if(err){
         res.send({error:helper.handleError(err)});
       }else{
-        cacheClear();
         res.send("ok");
       }
     }else{
@@ -203,7 +286,6 @@ router.delete("/delete/:id",helper.apiAuth(),function(req,res) {
               if(err){
                 res.send({error:err});
               }else{
-                cacheClear();
                 res.send("ok");
               }
             });
@@ -226,7 +308,6 @@ router.post("/join",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
-          cacheClear();
           res.send("ok");
         }
       });
@@ -244,7 +325,6 @@ router.post("/quit",helper.apiAuth(),function(req,res) {
         if(err){
           res.send({error:helper.handleError(err)});
         }else{
-          cacheClear();
           res.send("ok");
         }
       });

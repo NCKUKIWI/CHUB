@@ -28,6 +28,7 @@ var activitySchema = new Schema({
   Role: String, // 未來這邊可以用數字？
   hasCover:Number,
   Status: Number,
+  Photo:[String],
   Location:String,
   Contributor:[{type:String,required:[true,"請選擇活動時間"]}],
   Mission: String,

@@ -331,7 +331,18 @@
           <label>專案封面</label>
           <input type="file" name="cover" style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
         </div>
-        <img src="/uploads/project/<%= projects[i]._id %>/logo.png">
+        <div class="ui centered card" style="width: 300px; height: 300px">
+          <div class="blurring dimmable image" style="width: 300px; height: 300px">
+            <div class="ui dimmer">
+              <div class="content">
+                <div class="center">
+                  <a href="/uploads/project/<%= projects[i]._id %>/logo.png" target="_blank"><div class="ui inverted button">show</div></a>
+                </div>
+              </div>
+            </div>
+            <img style="width: 300px; height: 300px" src="/uploads/project/<%= projects[i]._id %>/logo.png">
+          </div>
+        </div>
       </form>
     </div>
     <div class="ui bottom attached tab segment" data-tab="projects_edit_media">
@@ -343,11 +354,24 @@
           <label>專案照片集</label>
           <input type="file" name="photo" style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
         </div>
-        <div class="photoUpload" types="projects" projects="<%= projects[i]._id %>" style="color: black;">Upload</div>
+        <div class="ui photoUpload button" types="projects" projects="<%= projects[i]._id %>" style="color: black;">Upload</div>
         <br>
-        <div class="ui small images">
+        <br>
+        <div class="ui special cards">
           <% for(var j = 0; j < projects[i].Photo.length; j++){ %>
-          <a href="<%= projects[i].Photo[j] %>" target="_blank"><img src="<%= projects[i].Photo[j] %>"></a>
+            <div class="card" style="width: 180px; height: 180px" photoIndex="<%= j %>">
+              <div class="blurring dimmable image" style="width: 180px; height: 180px">
+                <div class="ui dimmer">
+                  <div class="content">
+                    <div class="center">
+                      <a href="<%= projects[i].Photo[j] %>" target="_blank"><div class="ui inverted button">show</div></a>
+                      <div class="ui inverted button deletePhoto" types="projects" projects="<%= projects[i]._id %>" photoIndex="<%= j %>">delete</div>
+                    </div>
+                  </div>
+                </div>
+                <img style="width: 180px; height: 180px" src="<%= projects[i].Photo[j] %>">
+              </div>
+            </div>
           <% } %>
         </div>
       </form>
@@ -688,14 +712,15 @@
 <% for(var i in activities){ %>
   <div class="right_tabBoard" id="<%= activities[i]._id %>">
     <div class="ui top attached tabular menu" style="">
-      <a class="active item" data-tab="activities_create_info" style="border-radius: 0px !important;">活動資訊</a>
-      <a class="item" data-tab="activities_create_media"  style="border-radius: 0px !important;">活動照片</a>
+      <a class="active item" data-tab="activities_edit_info" style="border-radius: 0px !important;">活動資訊</a>
+      <a class="item" data-tab="activities_edit_logo"  style="border-radius: 0px !important;">活動封面</a>
+      <a class="item" data-tab="activities_edit_media"  style="border-radius: 0px !important;">活動照片</a>
       <div style="position: absolute; right: 0px; padding: 5px;">
         <!-- <button class="mini ui basic button">儲存</button> -->
         <button class="mini ui basic button updateObj" types="activities" activities="<%= activities[i]._id %>">儲存</button>
       </div>
     </div>
-    <div class="ui bottom attached active tab segment" data-tab="activities_create_info">
+    <div class="ui bottom attached active tab segment" data-tab="activities_edit_info">
       <form class="ui form editForm">
         <div class="field">
           <label>Activity Name</label>
@@ -768,7 +793,7 @@
         </div>
       </form>
     </div>
-    <div class="ui bottom attached tab segment" data-tab="activities_create_media" style="color: black;">
+    <div class="ui bottom attached tab segment" data-tab="activities_edit_logo" style="color: black;">
       <!-- <label>活動照片</label>
       <br>
       <div style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
@@ -779,10 +804,64 @@
           <div class="errormsg"></div>
         </div>
         <div class="field">
-          <label>活動照片</label>
+          <label>活動封面</label>
           <input type="file" name="cover" style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
         </div>
+        <div class="ui centered card" style="width: 300px; height: 300px">
+          <div class="blurring dimmable image" style="width: 300px; height: 300px">
+            <div class="ui dimmer">
+              <div class="content">
+                <div class="center">
+                  <a href="/uploads/activity/<%= activities[i]._id %>/logo.png" target="_blank"><div class="ui inverted button">show</div></a>
+                </div>
+              </div>
+            </div>
+            <img style="width: 300px; height: 300px" src="/uploads/activity/<%= activities[i]._id %>/logo.png">
+          </div>
+        </div>
       </form>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="activities_edit_media">
+      <form class="ui form updatephoto">
+        <div class="field">
+          <div class="errormsg"></div>
+        </div>
+        <div class="field">
+          <label>活動照片集</label>
+          <input type="file" name="photo" style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
+        </div>
+        <div class="ui photoUpload button" types="activities" activities="<%= activities[i]._id %>" style="color: black;">Upload</div>
+        <br>
+        <br>
+        <div class="ui special cards">
+          <% for(var j = 0; j < activities[i].Photo.length; j++){ %>
+            <div class="card" style="width: 180px; height: 180px" photoIndex="<%= j %>">
+              <div class="blurring dimmable image" style="width: 180px; height: 180px">
+                <div class="ui dimmer">
+                  <div class="content">
+                    <div class="center">
+                      <a href="<%= activities[i].Photo[j] %>" target="_blank"><div class="ui inverted button">show</div></a>
+                      <div class="ui inverted button deletePhoto" types="activities" activities="<%= activities[i]._id %>" photoIndex="<%= j %>">delete</div>
+                    </div>
+                  </div>
+                </div>
+                <img style="width: 180px; height: 180px" src="<%= activities[i].Photo[j] %>">
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </form>
+      
+      <!-- <form class="ui form editCoverForm">
+        <div class="field">
+          <div class="errormsg"></div>
+        </div>
+        <img src="/uploads/activity/<%= activities[i]._id %>/logo.png">
+        <div class="field">
+          <label>專案照片集</label>
+          <input type="file" name="cover" style="border: dashed 1px black; height: 150px; display: flex; justify-content: center;">
+        </div>
+      </form> -->
     </div>
   </div>
 <% } %>
@@ -843,258 +922,7 @@
   }
 </style>
 
-<script type="text/javascript">
-$(document).ready(function() {
-  $('.openPage').on('click', function(){
-    var page = this.getAttribute('openPage');
-    $('.twelve.wide.column > div').hide();
-    $('#' + page).show();
-  })
-
-  // 找出memeber當作admin
-  $('.selectAdmin').dropdown({
-    apiSettings: {
-      url: '/panel/getUsers?name={query}',
-      onResponse: function(results){
-        console.log({"sucess":true, "results": results});
-        return {"sucess":true, "results": results};
-      }
-    },
-    saveRemoteData: false,
-    // fullTextSearch: 'exact',
-    // direction: 'auto',
-    // debug: true
-  });
-
-  // 重新跳轉後自動開啟的頁面
-  if(<%= openPage %> !== undefined){
-    $('#<%= openPage %>').show();
-  }
-
-  var infos = ['projects'];
-
-  // 編輯
-  // $('.editInfo').on('click', function(){
-  //   var dom = this;
-  //   $.ajax({
-  //     url: findUrl(dom);
-  //     type: 'GET',
-  //     success: function(){
-
-  //     }
-  //   })
-  // })
-
-
-
-  function findUrl(dom){
-    for(var i in infos){
-      if(this.getAttribute(i) !== null){
-        var id = this.getAttribute(i);
-        var url = "\/" + Infos[i] + "\/" + id;
-        return url;
-      }
-    }
-  }
-});
-</script>
-
-<script>
-  $(document).ready(function() {
-    var create = 0;
-
-    // 新增
-    $(".newObj").on("click",function(){
-      var type = this.getAttribute('types');
-      var $CardBoard = $($(this).parents()[2]);
-      if(create==0){
-        $.ajax({
-          url: "/" + type + "/create",
-          type: "POST",
-          data: $CardBoard.find(".newForm").serialize().replace(/\%2F/g, "S"),
-          success: function(response) {
-            console.log(response);
-            if (!response.error) {
-              id = response;
-              create = 1;
-              var $hasCover = $CardBoard.find('input[name="cover"]');
-              console.log($hasCover.val());
-              if($hasCover.val() != ""){
-                var cover = $hasCover[0].files[0];
-                if(cover.type == "image/png" || cover.type == "image/jpeg"){
-                  var formData = new FormData($CardBoard.find('.newCoverForm')[0]);
-                  $.ajax({
-                    url: "/" + type + "/upload/"+id,
-                    type: "POST",
-                    data:formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                      if (response == "ok") {
-                        toastr.success("創立成功");
-                        setTimeout(function(){
-                          window.location.href="/panel?openPage=backstage_" + type + "_manage";
-                        },3000);
-                      }
-                      else {
-                        $CardBoard.find('.errormsg').empty();
-                        for(var i in response["error"]){
-                          $CardBoard.find('.errormsg').append(`<p>${response["error"][i]}</p>`);
-                        }
-                      }
-                    }
-                  });
-                }
-                else{
-                  alert("請上傳jpg或png");
-                }
-              }else{
-                toastr.success("創立成功");
-                setTimeout(function(){
-                  window.location.href="/panel?openPage=backstage_" + type +"_manage";
-                },3000);
-              }
-            }
-            else {
-              $CardBoard.find('.errormsg').empty();
-              for(var i in response["error"]){
-                $CardBoard.find('.errormsg').append(`<p>${response["error"][i]}</p>`);
-              }
-            }
-          }
-        });
-      }else{
-        var cover = $hasCover[0].files[0];
-        if(cover.type == "image/png" || cover.type == "image/jpeg"){
-          var formData = new FormData($CardBoard.find('.newCoverForm')[0]);
-          $.ajax({
-            url: "/activities/upload/"+id,
-            type: "POST",
-            data:formData,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-              if (response == "ok") {
-                toastr.success("創立成功");
-                setTimeout(function(){
-                  window.location.href="/panel?openPage=backstage_activity_manage";
-                },3000);
-              }
-              else {
-                $CardBoard.find('.errormsg').empty();
-                for(var i in response["error"]){
-                  $CardBoard.find('.errormsg').append(`<p>${response["error"][i]}</p>`);
-                }
-              }
-            }
-          });
-        }
-        else{
-          alert("請上傳jpg或png");
-        }
-      }
-    });
-
-    // 更新
-    $(".updateObj").on("click",function(){
-      var $CardBoard = $($(this).parents()[2]);
-      var type = this.getAttribute('types');
-      var ID = this.getAttribute(type);
-      // console.log($("#" + activityID + " .activityForm").serialize().replace(/\%2F/g, "S"));
-      $.ajax({
-        url: "/" + type + "/update/" + ID,
-        type: "POST",
-        data: $CardBoard.find(".editForm").serialize().replace(/\%2F/g, "S"),
-        success: function(response) {
-          if (response == "ok") {
-            var $hasCover = $CardBoard.find('input[name="cover"]')
-            if($hasCover.val()!=""){
-              var cover = $hasCover[0].files[0];
-              if(cover.type == "image/png" || cover.type == "image/jpeg"){
-                var formData = new FormData($CardBoard.find('.editCoverForm')[0]);
-                $.ajax({
-                  url: "/" + type + "/upload/" + ID,
-                  type: "POST",
-                  data:formData,
-                  contentType: false,
-                  processData: false,
-                  success: function(response) {
-                    if (response == "ok") {
-                      toastr.success("更新成功");
-                      setTimeout(function(){
-                        window.location.href="/panel?openPage=backstage_" + type + "_manage";
-                      },3000);
-                    }
-                    else {
-                      $CardBoard.find('.errormsg').empty();
-                      for(var i in response["error"]){
-                        $CardBoard.find('.errormsg').append(`<p>${response["error"][i]}</p>`);
-                      }
-                    }
-                  }
-                });
-              }else{
-                alert("請上傳jpg或png檔案");
-              }
-            }else{
-              toastr.success("更新成功");
-              setTimeout(function(){
-                window.location.href="/panel?openPage=backstage_" + type + "_manage";
-              },3000);
-            }
-          }
-          else {
-            $CardBoard.find('.errormsg').empty();
-            for(var i in response["error"]){
-              $CardBoard.find('.errormsg').append(`<p>${response["error"][i]}</p>`);
-            }
-          }
-        }
-      });
-    });
-
-    // 刪除
-    $('.deleteObj').on('click', function(){
-      var type = this.getAttribute('types');
-      var id = this.getAttribute(type);
-      $.ajax({
-        url: "/" + type + "/delete/"+ id,
-        type: "DELETE",
-        success: function(response) {
-          if(response=="ok"){
-            toastr.success("刪除成功");
-            $("tr[" + type + "=" + id + "]").remove();
-          }
-        }
-      });
-    });
-
-    // 上傳照片
-    $(".photoUpload").on("click",function() {
-      var $CardBoard = $($(this).parents()[2]);
-      var type = this.getAttribute('types');
-      var id = this.getAttribute(type);
-      if($CardBoard.find('input[name="photo"]').val()!=""){
-        var photo = new FormData($CardBoard.find(".updatephoto")[0]);
-        $.ajax({
-          url: "/" + type + "/photoUpload/" + id,
-          type: "POST",
-          data:photo,
-          contentType: false,
-          processData: false,
-          success: function(response) {
-            toastr.success("上傳成功");
-            $CardBoard.find('.images').append('<a href="' + response + '" target="_blank"><img src="' + response + '"></a>')
-            // setTimeout(function(){
-            //   window.location.href="/panel?openPage=backstage_" + type + "_manage";
-            // },3000);
-          }
-        });
-      }
-    });
-  });
-</script>
-
 <!-- 引入js部分 -->
+<% include ./panel_js_all %>
 <% include ./panel_js_projects %>
 <% include ./panel_js_activities %>

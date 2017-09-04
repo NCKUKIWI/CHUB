@@ -1,0 +1,284 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.openPage').on('click', function(){
+      var page = this.getAttribute('openPage');
+      $('.twelve.wide.column > div').hide();
+      $('#' + page).show();
+    })
+
+    // 找出memeber當作admin
+    $('.selectAdmin').dropdown({
+      apiSettings: {
+        url: '/panel/getUsers?name={query}',
+        onResponse: function(results){
+          console.log({"sucess":true, "results": results});
+          return {"sucess":true, "results": results};
+        }
+      },
+      saveRemoteData: false,
+      // fullTextSearch: 'exact',
+      // direction: 'auto',
+      // debug: true
+    });
+
+    // 重新跳轉後自動開啟的頁面
+    if(<%= openPage %> !== undefined){
+      $('#<%= openPage %>').show();
+    }
+
+    var infos = ['projects'];
+
+    // 編輯
+    // $('.editInfo').on('click', function(){
+    //   var dom = this;
+    //   $.ajax({
+    //     url: findUrl(dom);
+    //     type: 'GET',
+    //     success: function(){
+
+    //     }
+    //   })
+    // })
+
+    function findUrl(dom){
+      for(var i in infos){
+        if(this.getAttribute(i) !== null){
+          var id = this.getAttribute(i);
+          var url = "\/" + Infos[i] + "\/" + id;
+          return url;
+        }
+      }
+    }
+
+    $('.card .image').dimmer({
+      on: 'hover'
+    });
+
+  });
+</script>
+
+
+<!-- 各個動作的function -->
+<script>
+  $(document).ready(function() {
+    var create = 0;
+
+    // 新增
+    $(".newObj").on("click",function(){
+      var type = this.getAttribute('types');
+      var $CardBoard = $($(this).parents()[2]);
+      if(create==0){
+        $.ajax({
+          url: "/" + type + "/create",
+          type: "POST",
+          data: $CardBoard.find(".newForm").serialize().replace(/\%2F/g, "S"),
+          success: function(response) {
+            console.log(response);
+            if (!response.error) {
+              id = response;
+              create = 1;
+              var $hasCover = $CardBoard.find('input[name="cover"]');
+              console.log($hasCover.val());
+              if($hasCover.val() != ""){
+                var cover = $hasCover[0].files[0];
+                if(cover.type == "image/png" || cover.type == "image/jpeg"){
+                  var formData = new FormData($CardBoard.find('.newCoverForm')[0]);
+                  $.ajax({
+                    url: "/" + type + "/upload/"+id,
+                    type: "POST",
+                    data:formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                      if (response == "ok") {
+                        toastr.success("創立成功");
+                        setTimeout(function(){
+                          window.location.href="/panel?openPage=backstage_" + type + "_manage";
+                        },3000);
+                      }
+                      else {
+                        $CardBoard.find('.errormsg').empty();
+                        for(var i in response["error"]){
+                          $CardBoard.find('.errormsg').append(`<p>${response["error"][i]}</p>`);
+                        }
+                      }
+                    }
+                  });
+                }
+                else{
+                  alert("請上傳jpg或png");
+                }
+              }else{
+                toastr.success("創立成功");
+                setTimeout(function(){
+                  window.location.href="/panel?openPage=backstage_" + type +"_manage";
+                },3000);
+              }
+            }
+            else {
+              $CardBoard.find('.errormsg').empty();
+              for(var i in response["error"]){
+                $CardBoard.find('.errormsg').append(`<p>${response["error"][i]}</p>`);
+              }
+            }
+          }
+        });
+      }else{
+        var cover = $hasCover[0].files[0];
+        if(cover.type == "image/png" || cover.type == "image/jpeg"){
+          var formData = new FormData($CardBoard.find('.newCoverForm')[0]);
+          $.ajax({
+            url: "/activities/upload/"+id,
+            type: "POST",
+            data:formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+              if (response == "ok") {
+                toastr.success("創立成功");
+                setTimeout(function(){
+                  window.location.href="/panel?openPage=backstage_activity_manage";
+                },3000);
+              }
+              else {
+                $CardBoard.find('.errormsg').empty();
+                for(var i in response["error"]){
+                  $CardBoard.find('.errormsg').append(`<p>${response["error"][i]}</p>`);
+                }
+              }
+            }
+          });
+        }
+        else{
+          alert("請上傳jpg或png");
+        }
+      }
+    });
+
+    // 更新
+    $(".updateObj").on("click",function(){
+      var $CardBoard = $($(this).parents()[2]);
+      var type = this.getAttribute('types');
+      var ID = this.getAttribute(type);
+      // console.log($("#" + activityID + " .activityForm").serialize().replace(/\%2F/g, "S"));
+      $.ajax({
+        url: "/" + type + "/update/" + ID,
+        type: "POST",
+        data: $CardBoard.find(".editForm").serialize().replace(/\%2F/g, "S"),
+        success: function(response) {
+          if (response == "ok") {
+            var $hasCover = $CardBoard.find('input[name="cover"]')
+            if($hasCover.val()!=""){
+              var cover = $hasCover[0].files[0];
+              if(cover.type == "image/png" || cover.type == "image/jpeg"){
+                var formData = new FormData($CardBoard.find('.editCoverForm')[0]);
+                $.ajax({
+                  url: "/" + type + "/upload/" + ID,
+                  type: "POST",
+                  data:formData,
+                  contentType: false,
+                  processData: false,
+                  success: function(response) {
+                    if (response == "ok") {
+                      toastr.success("更新成功");
+                      setTimeout(function(){
+                        window.location.href="/panel?openPage=backstage_" + type + "_manage";
+                      },3000);
+                    }
+                    else {
+                      $CardBoard.find('.errormsg').empty();
+                      for(var i in response["error"]){
+                        $CardBoard.find('.errormsg').append(`<p>${response["error"][i]}</p>`);
+                      }
+                    }
+                  }
+                });
+              }else{
+                alert("請上傳jpg或png檔案");
+              }
+            }else{
+              toastr.success("更新成功");
+              setTimeout(function(){
+                window.location.href="/panel?openPage=backstage_" + type + "_manage";
+              },3000);
+            }
+          }
+          else {
+            $CardBoard.find('.errormsg').empty();
+            for(var i in response["error"]){
+              $CardBoard.find('.errormsg').append(`<p>${response["error"][i]}</p>`);
+            }
+          }
+        }
+      });
+    });
+
+    // 刪除
+    $('.deleteObj').on('click', function(){
+      var type = this.getAttribute('types');
+      var id = this.getAttribute(type);
+      $.ajax({
+        url: "/" + type + "/delete/"+ id,
+        type: "DELETE",
+        success: function(response) {
+          if(response=="ok"){
+            toastr.success("刪除成功");
+            $("tr[" + type + "=" + id + "]").remove();
+          }
+        }
+      });
+    });
+
+    // 上傳照片
+    $(".photoUpload").on("click",function() {
+      var $CardBoard = $($(this).parents()[2]);
+      var type = this.getAttribute('types');
+      var id = this.getAttribute(type);
+      if($CardBoard.find('input[name="photo"]').val()!=""){
+        var photo = new FormData($CardBoard.find(".updatephoto")[0]);
+        $CardBoard.find('input[name="photo"]').val(""); // 清空選項 , 避免重複按
+        $.ajax({
+          url: "/" + type + "/photoUpload/" + id,
+          type: "POST",
+          data:photo,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+            toastr.success("上傳成功");
+            $CardBoard.find('.cards').append('<div class="card" style="width: 180px; height: 180px" photoIndex="' + response.index + '"><div class="blurring dimmable image" style="width: 180px; height: 180px"><div class="ui dimmer"><div class="content"><div class="center"><a href="' + response.url + '" target="_blank"><div class="ui inverted button">show</div></a><div class="ui inverted button deletePhoto" types="activities" activities="' + response.id + '" photoIndex="' + response.index + '">delete</div></div></div></div><img style="width: 180px; height: 180px" src="' + response.url + '"></div></div>');
+            deletePhotoListener();
+            $('.card .image').dimmer({
+              on: 'hover'
+            });
+          }
+        });
+      }
+    });
+
+    // 刪除照片
+    deletePhotoListener();
+
+  });
+
+  // 刪除照片
+  function deletePhotoListener(){
+    $(".deletePhoto").unbind("click").on("click",function() {
+      var $Card = $($(this).parents()[4]);
+      var type = this.getAttribute('types');
+      var id = this.getAttribute(type);
+      var index = this.getAttribute('photoIndex');
+      $.ajax({
+        url: "/" + type + "/photoUpload/" + id + "/" + index,
+        type: "Delete",
+        success: function(response) {
+          toastr.success("刪除成功");
+          $Card.remove();
+          // setTimeout(function(){
+          //   window.location.href="/panel?openPage=backstage_" + type + "_manage";
+          // },3000);
+        }
+      });
+    });
+  }
+</script>
+

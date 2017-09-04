@@ -19,16 +19,16 @@ $(document).ready(function(){
     });
     $( ".float_window" ).hide();
     $( ".float_pic_window" ).hide();
-    view_pic_total = 5;
+    view_pic_total = 0;
     
     $( ".activity_item" ).click( function() {
         // float_window();
         show_window(this.getAttribute('activity-id'));
     });
 
-    $( ".brief_pic, #close_pic_view" ).click( function() {
-        float_pic_window();
-    });
+    // $( ".brief_pic, #close_pic_view" ).click( function() {
+    //     float_pic_window();
+    // });
 
     
     // Activity 的顯示控制
@@ -75,6 +75,13 @@ $(document).ready(function(){
                         window_status = 'open';
                         $( '.float_window' ).animate({opacity: 1}, 500);
                     });
+                    // 綁定顯示輪播照片功能
+                    $( ".brief_pic, #close_pic_view" ).click( function() {
+                      float_pic_window();
+                    });
+
+                    // 綁定輪播照片左右移動
+                    pic_window_control()
                 }
             });
 
@@ -133,7 +140,8 @@ $(document).ready(function(){
             $( ".float_pic_window" ).show();
             view_scroll_now = $(".gallery_view_pic").width()/2 + 120;
             $( "#view_all_pic" ).scrollLeft(view_scroll_now);
-            $( ".pic_counter.total" ).text( "/"+ paddingLeft(view_pic_total) );
+            view_pic_total = $(".pic_counter.total").text(); // 設定照片總數
+            $( ".pic_counter.total" ).text( "/"+ paddingLeft($(".pic_counter.total").text()) ); // 如果是個位數，前面放0然後改text值
             $( "#fullpage, .cover" ).animate({opacity: 0}, 100, function() {
                 $( "#view_all_pic" ).children( "#pic_"+view_display_now ).addClass("center");
                 $( ".float_pic_window" ).animate({opacity: 1}, 500);
@@ -159,37 +167,39 @@ $(document).ready(function(){
 
 
     // Pic Window 的動態控制
+    function pic_window_control(){
+        $( "#go_prev" ).click( function() {
+            if ( view_scroll_now > $(".gallery_view_pic").width()/2 + 120 ) {
+                view_display_now -= 1 ;
+                view_scroll_now -= $(".gallery_view_pic").width() + 60 ;
+                $("#view_all_pic").animate( {scrollLeft: view_scroll_now}, '500');
+            }
+        });
 
-    $( "#go_prev" ).click( function() {
-        if ( view_scroll_now > $(".gallery_view_pic").width()/2 + 120 ) {
-            view_display_now -= 1 ;
-            view_scroll_now -= $(".gallery_view_pic").width() + 60 ;
-            $("#view_all_pic").animate( {scrollLeft: view_scroll_now}, '500');
-        }
-    });
+        $( "#go_next" ).click( function() {
+            if ( view_scroll_now < $(".gallery_view_pic").width()/2 + (view_pic_total-1) * ($(".gallery_view_pic").width() )){
+                view_display_now += 1 ;
+                view_scroll_now += $(".gallery_view_pic").width() + 60 ;
+                $("#view_all_pic").animate( {scrollLeft: view_scroll_now}, '500');
+            }
+        });
+        
+        $( "#view_all_pic" ).scroll( function() {
+            view_display_prev = view_display_now - 1 ;
+            view_display_next = view_display_now + 1 ;
+            $( "#view_all_pic" ).children( "#pic_"+view_display_now ).addClass("center");
+            $( "#view_all_pic" ).children( "#pic_"+view_display_prev+", #pic_"+view_display_next ).removeClass("center");
+            $( ".pic_counter.now" ).text( paddingLeft(view_display_now) );
+            if ( view_scroll_now > $(".gallery_view_pic").width()/2 + 120 )
+                $( "#go_prev" ).removeClass("disabled");
+            else
+                $( "#go_prev" ).addClass("disabled");
+            if ( view_scroll_now < $(".gallery_view_pic").width()/2 + (view_pic_total-1) * ($(".gallery_view_pic").width() ))
+                $( "#go_next" ).removeClass("disabled");
+            else
+                $( "#go_next" ).addClass("disabled");
+        }); 
+    }
 
-    $( "#go_next" ).click( function() {
-        if ( view_scroll_now < $(".gallery_view_pic").width()/2 + (view_pic_total-1) * ($(".gallery_view_pic").width() )){
-            view_display_now += 1 ;
-            view_scroll_now += $(".gallery_view_pic").width() + 60 ;
-            $("#view_all_pic").animate( {scrollLeft: view_scroll_now}, '500');
-        }
-    });
-    
-    $( "#view_all_pic" ).scroll( function() {
-        view_display_prev = view_display_now - 1 ;
-        view_display_next = view_display_now + 1 ;
-        $( "#view_all_pic" ).children( "#pic_"+view_display_now ).addClass("center");
-        $( "#view_all_pic" ).children( "#pic_"+view_display_prev+", #pic_"+view_display_next ).removeClass("center");
-        $( ".pic_counter.now" ).text( paddingLeft(view_display_now) );
-        if ( view_scroll_now > $(".gallery_view_pic").width()/2 + 120 )
-            $( "#go_prev" ).removeClass("disabled");
-        else
-            $( "#go_prev" ).addClass("disabled");
-        if ( view_scroll_now < $(".gallery_view_pic").width()/2 + (view_pic_total-1) * ($(".gallery_view_pic").width() ))
-            $( "#go_next" ).removeClass("disabled");
-        else
-            $( "#go_next" ).addClass("disabled");
-    });
 
 });
