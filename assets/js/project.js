@@ -25,7 +25,7 @@ $(document).ready(function() {
 	$(".float_window").hide();
 	$(".float_pic_window" ).hide();
 	$("#left_project").addClass("item_now");
-	view_pic_total = 5;
+	view_pic_total = 0;
 
 	$(".project_item").click(function() {
 		show_window(this.getAttribute('project-id'));
@@ -147,7 +147,8 @@ $(document).ready(function() {
 			$(".float_pic_window").show();
 			view_scroll_now = $(".project_view_pic").width() / 2 + 120;
 			$("#view_all_pic").scrollLeft(view_scroll_now);
-			$(".pic_counter.total").text("/" + paddingLeft(view_pic_total));
+			view_pic_total = $(".pic_counter.total").text();
+			$(".pic_counter.total").text("/" + paddingLeft($(".pic_counter.total").text()));
 			$("#fullpage, .cover").animate({
 				opacity: 0
 			}, 100, function() {
