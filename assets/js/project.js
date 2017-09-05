@@ -26,6 +26,7 @@ $(document).ready(function() {
 	$(".float_pic_window" ).hide();
 	$("#left_project").addClass("item_now");
 	view_pic_total = 0;
+	autoAdjust( $(".auto_adjust") );
 
 	$(".project_item").click(function() {
 		show_window(this.getAttribute('project-id'));
@@ -230,6 +231,20 @@ $(document).ready(function() {
         }
         else {
             $("#project_pic").addClass("tall");
+        }
+	}
+	
+	function autoAdjust( outer_div ) {
+        var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
+        var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
+        if ( inner_pic_size > outer_div_size ) {
+            outer_div.addClass("fat");
+        }
+        else {
+            outer_div.addClass("tall");
+        }
+        if ( outer_div.next('.auto_adjust').length ) {
+            autoAdjust( outer_div.next('.auto_adjust') );
         }
     }
 

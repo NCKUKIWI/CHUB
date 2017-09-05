@@ -74,14 +74,24 @@ body::-webkit-scrollbar-thumb {
     text-align: center;
 }
 
-#project_list .project_item .preview_pic {
-    position: relative;
-    min-height: 50vh;
-    min-width: 20vw;
+#project_list .project_item .auto_adjust {
+    height: 50vh;
+    width: 20vw;
+    background: grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; }
+    #project_list .project_item .auto_adjust.fat img {
+      height: 100%;
+      width: auto; }
+    #project_list .project_item .auto_adjust.tall img {
+      width: 100%;
+      height: auto; }
+  #project_list .project_item .preview_pic {
     -webkit-filter: brightness(40%);
     filter: brightness(40%);
-    transition: brightness 0.5s;
-}
+    transition: brightness 0.5s; }
 
 #project_list .project_item .preview_more {
     position: absolute;
