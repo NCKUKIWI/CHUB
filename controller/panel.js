@@ -7,17 +7,20 @@ var Group = require("../model/Group");
 var Project = require("../model/Project");
 
 router.get("/",helper.checkLogin(),function(req,res) {
-  var openPage = req.query.openPage;
+  var result = {
+    openPage: req.query.openPage
+  };
   if(req.user.Role == 3){
-    Project.find({},function(err,projects){
-      Activity.find({}, function(err, activities){
-        res.render("panel/index",{
-          activities: activities,
-          projects: projects,
-          openPage: openPage
-        });
-      })
-    });   
+    Project.find({}).exec().then(function(projects){
+      result.projects = projects;
+      return User.find({}).exec()
+    }).then(function(users){
+      result.users = users;
+      return Activity.find({}).exec()
+    }).then(function(activities){
+      result.activities = activities;
+      res.render("panel/index", result);
+    })
   }
   else if(req.user.Role == 2){
     Project.find({"AdminID":{"$in":[req.user._id]}},function(err,projects){

@@ -1,5 +1,6 @@
 <% layout('../public/adminlayout') %>
 
+<% if(me.Role == 3){ %>
 <!-- 簡介管理 -->
 <div class="right_tabBoard" id="backstage_about">
   <div class="ui top attached tabular menu" style="">
@@ -23,7 +24,56 @@
     </form>
   </div>
   <div class="ui bottom attached tab segment" data-tab="news_edit">
-
+      <div class="fliter_button">
+        <div class="ui selection dropdown" style="float:left;">
+          <input type="hidden" name="gender">
+          <i class="dropdown icon"></i>
+          <div class="default text">All</div>
+          <div class="menu">
+            <!-- <div class="item" data-value="0">已上架</div>
+            <div class="item" data-value="1">待審核</div>
+            <div class="item" data-value="2">已退回</div> -->
+            <div class="item" data-value="3">文化生活</div>
+            <div class="item" data-value="4">智慧科技與數位內容</div>
+            <div class="item" data-value="5">創新與社會服務</div>
+          </div>
+        </div>
+        <button class="ui basic button openPage" style="float: right;" openPage="backstage_projects_new">
+          Create
+        </button>
+      </div>
+      <table class="ui basic table">
+        <tbody>
+          <tr>
+            <td>
+              <div class="ui checkbox">
+                <input type="checkbox" name="example">
+                <label></label>
+              </div>
+            </td>
+            <!-- <td>Photo</td> -->
+            <td>排序</td>
+            <td>活動名稱</td>
+            <td>活動舉辦日期</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="ui checkbox">
+                <input type="checkbox" name="example">
+                <label></label>
+              </div>
+            </td>
+            <td>01</td>
+            <td>[test1]</td>
+            <td>2017/09/01</td>
+            <td>
+              <button class="mini ui basic button openPage">管理</button>
+              <button class="mini ui basic button">刪除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
   </div>
 </div>
 <!-- 人才資料庫管理 -->
@@ -67,100 +117,45 @@
         <td>Photo</td>
         <td>Name</td>
         <td>Major</td>
-        <td>Talent</td>
+        <td>Skill</td>
         <td>Status</td>
         <td></td>
       </tr>
-      <tr>
-        <td>
-          <div class="ui checkbox">
-            <input type="checkbox" name="example">
-            <label></label>
-          </div>
-        </td>
-        <td style="width: 68px; height: 68px;"><img style="width:50px; height: 50px; border: solid 1px rgba(0, 0, 0, 0.3);" src="/assets/images/people_ex.png"></td>
-        <td>John Lilki</td>
-        <td>skill</td>
-        <td>skill</td>
-        <td>
-          <div class="ui selection dropdown" style="min-width: 30px">
-            <input type="hidden" name="gender">
-            <i class="dropdown icon"></i>
-            <div class="default text">PM</div>
-            <div class="menu">
-              <div class="item" data-value="0">C-Hub</div>
-              <div class="item" data-value="1">Admin</div>
-              <div class="item" data-value="2">EDITOR</div>
-              <div class="item" data-value="3">USER</div>
+      <% for(var i = 0; i < users.length; i++){ %>
+        <tr>
+          <td>
+            <div class="ui checkbox">
+              <input type="checkbox" name="example">
+              <label></label>
             </div>
-          </div>
-        </td>
-        <td>
-          <button class="mini ui basic button">確認</button>
-          <button class="mini ui basic button">刪除</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="ui checkbox">
-            <input type="checkbox" name="example">
-            <label></label>
-          </div>
-        </td>
-        <td>photo</td>
-        <td>John Lilki</td>
-        <td>skill</td>
-        <td>skill</td>
-        <td>
-          <div class="ui selection dropdown" style="min-width: 30px">
-            <input type="hidden" name="gender">
-            <i class="dropdown icon"></i>
-            <div class="default text">PM</div>
-            <div class="menu">
-              <div class="item" data-value="0">C-Hub</div>
-              <div class="item" data-value="1">Admin</div>
-              <div class="item" data-value="2">EDITOR</div>
-              <div class="item" data-value="3">USER</div>
+          </td>
+          <td style="width: 68px; height: 68px;"><img style="width:50px; height: 50px; border: solid 1px rgba(0, 0, 0, 0.3);" src="/assets/images/people_ex.png"></td>
+          <td><%= users[i].Name %></td>
+          <td><%= users[i].Major %></td>
+          <td><%= users[i].Major %></td>
+          <td>
+            <div class="ui selection dropdown" style="min-width: 30px">
+              <input type="hidden" name="gender">
+              <i class="dropdown icon"></i>
+              <div class="default text">PM</div>
+              <div class="menu">
+                <div class="item" data-value="0">C-Hub</div>
+                <div class="item" data-value="1">Admin</div>
+                <div class="item" data-value="2">EDITOR</div>
+                <div class="item" data-value="3">USER</div>
+              </div>
             </div>
-          </div>
-        </td>
-        <td>
-          <button class="mini ui basic button">確認</button>
-          <button class="mini ui basic button">刪除</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="ui checkbox">
-            <input type="checkbox" name="example">
-            <label></label>
-          </div>
-        </td>
-        <td>photo</td>
-        <td>John Lilki</td>
-        <td>skill</td>
-        <td>skill</td>
-        <td>
-          <div class="ui selection dropdown" style="min-width: 30px">
-            <input type="hidden" name="gender">
-            <i class="dropdown icon"></i>
-            <div class="default text">PM</div>
-            <div class="menu">
-              <div class="item" data-value="0">C-Hub</div>
-              <div class="item" data-value="1">Admin</div>
-              <div class="item" data-value="2">EDITOR</div>
-              <div class="item" data-value="3">USER</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <button class="mini ui basic button">確認</button>
-          <button class="mini ui basic button">刪除</button>
-        </td>
-      </tr>
+          </td>
+          <td>
+            <button class="mini ui basic button">確認</button>
+            <button class="mini ui basic button">刪除</button>
+          </td>
+        </tr>
+      <% } %>
     </tbody>
   </table>
 </div>
+<% } %>
 
 <!-- 專案管理 -->
 <div class="right_manageBoard" id="backstage_projects_manage">
