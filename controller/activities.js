@@ -166,7 +166,7 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
 router.get("/photoUpload/:id",helper.checkLogin(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){
-      if(activity.AdminID.indexOf(req.user._id)!=-1){
+      if(activity.AdminID.indexOf(req.user._id)!=-1 || req.user.Role == 3){
         res.render("activities/photoUpload",{
           activity:activity
         });
@@ -182,7 +182,7 @@ router.get("/photoUpload/:id",helper.checkLogin(),function(req,res) {
 router.post("/photoUpload/:id",helper.apiAuth(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){
-      if(activity.AdminID.indexOf(req.user._id)!=-1){
+      if(activity.AdminID.indexOf(req.user._id)!=-1 || req.user.Role == 3){
         photoUpload(req,res,function(err){
           if(err){
             console.log(err);
@@ -213,7 +213,7 @@ router.post("/photoUpload/:id",helper.apiAuth(),function(req,res) {
 router.delete("/photoUpload/:id/:index",helper.apiAuth(),function(req,res) {
   Activity.findById(req.params.id,function(err,activity){
     if(activity){
-      if(activity.AdminID.indexOf(req.user._id)!=-1){
+      if(activity.AdminID.indexOf(req.user._id)!=-1 || req.user.Role == 3){
         rimraf(`${__dirname}/..${ activity.Photo[req.params.index] }`,function () { });
         activity.Photo.splice(req.params.index,1);
         activity.save(function(err) {

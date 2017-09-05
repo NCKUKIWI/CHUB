@@ -23,7 +23,7 @@
     	<div id="project_list">
         <% for(var i in projects){ %>
     		<div class="project_item"  project-id="<%= projects[i]._id %>">
-          <% if(projects[i].hasCover == -1){ %>
+          <% if(projects[i].hasCover == 1){ %>
             <img class="preview_pic" src="/uploads/project/<%= projects[i]._id %>/logo.png">
           <% }else {%>
             <img class="preview_pic" src="/assets/images/project_ex2.png">

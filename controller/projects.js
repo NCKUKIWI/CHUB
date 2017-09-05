@@ -142,7 +142,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
 router.post("/upload/:id",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
-      if(project.AdminID.indexOf(req.user._id)!=-1){
+      if(project.AdminID.indexOf(req.user._id)!=-1 || req.user.Role == 3){
         coverUpload(req,res,function(err){
           if(err){
             console.log(err);
@@ -172,7 +172,7 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
 router.get("/photoUpload/:id",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
-      if(project.AdminID.indexOf(req.user._id)!=-1){
+      if(project.AdminID.indexOf(req.user._id)!=-1 || req.user.Role == 3){
         res.render("projects/photoUpload",{
           project:project
         });
@@ -188,7 +188,7 @@ router.get("/photoUpload/:id",helper.checkLogin(),function(req,res) {
 router.post("/photoUpload/:id",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
-      if(project.AdminID.indexOf(req.user._id)!=-1){
+      if(project.AdminID.indexOf(req.user._id)!=-1 || req.user.Role == 3){
         photoUpload(req,res,function(err){
           if(err){
             console.log(err);
@@ -219,7 +219,7 @@ router.post("/photoUpload/:id",helper.apiAuth(),function(req,res) {
 router.delete("/photoUpload/:id/:index",helper.apiAuth(),function(req,res) {
   Project.findById(req.params.id,function(err,project){
     if(project){
-      if(project.AdminID.indexOf(req.user._id)!=-1){
+      if(project.AdminID.indexOf(req.user._id)!=-1 || req.user.Role == 3){
         rimraf(`${__dirname}/..${ project.Photo[req.params.index] }`,function () { });
         project.Photo.splice(req.params.index,1);
         project.save(function(err) {
@@ -274,7 +274,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
 
 router.get("/:id/apply",helper.checkLogin(),function(req,res) {
   Project.findById(req.params.id, function(err, project) {
-    if(project && project.AdminID.indexOf(req.user._id)!==-1){
+    if(project && project.AdminID.indexOf(req.user._id)!==-1 || req.user.Role == 3){
       User.find({ _id:{ $in:project.ApplyID } },["_id","Name","Email","Major","Skill","Description","Website","Role"],function(err,apply){
         res.render("projects/apply",{
           apply:apply,
