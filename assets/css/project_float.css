@@ -255,6 +255,11 @@
     background-image: url("../images/round_icon_join.png");
 }
 
+.bottom_icons .round_icon.interest {
+    background-image: url("../images/round_icon_interest.png");
+}
+
+
 .bottom_icons .round_icon.share {
     background-image: url("../images/round_icon_share.png");
 }
