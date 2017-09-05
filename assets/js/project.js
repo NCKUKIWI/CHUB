@@ -31,9 +31,6 @@ $(document).ready(function() {
 		show_window(this.getAttribute('project-id'));
 	});
 
-
-
-
 	// Project 的顯示控制
 	$("#go_down").click(function() {
 		$("#project_list").animate({
@@ -63,6 +60,7 @@ $(document).ready(function() {
 						opacity: 0.1
 					}, 100, function() {
 						window_status = 'open';
+						autoAdjustProjectInner();
 						$('.float_window').animate({
 							opacity: 1
 						}, 500);
@@ -222,7 +220,18 @@ $(document).ready(function() {
 		});
 	}
 
-
+	// 自動調整圖片大小
+    
+    function autoAdjustProjectInner () {
+        var inner_pic_size = $("#project_pic").css("width").replace("px","") / $( "#project_pic" ).css("height").replace("px","") ;
+        var outer_div_size = 25/35 ;
+        if ( inner_pic_size > outer_div_size ) {
+            $("#project_pic").addClass("fat");
+        }
+        else {
+            $("#project_pic").addClass("tall");
+        }
+    }
 
 	// Menu 的顯示控制
 	$(".left_bar").hover(

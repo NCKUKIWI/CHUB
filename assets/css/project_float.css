@@ -34,9 +34,13 @@
 .float_window #detail_left #detail_brief .brief_pic {
     position: relative;
     top: 30px;
-    width: 25vh;
-    overflow: hidden;
     cursor: pointer;
+    width: 25vh;
+    height: 35vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .float_window #detail_left #detail_brief .brief_pic:hover #pic_more {
@@ -50,8 +54,17 @@
 
 .float_window #detail_left #detail_brief #project_pic {
     position: relative;
-    width: 100%;
     transition: brightness 0.5s;
+}
+
+.float_window #detail_left #detail_brief #project_pic.fat {
+      height: 100%;
+      width: auto; 
+}
+
+.float_window #detail_left #detail_brief #project_pic.tall {
+      width: 100%;
+      height: auto; 
 }
 
 .float_window #detail_left #detail_brief #pic_more {
