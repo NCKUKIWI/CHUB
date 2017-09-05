@@ -3,7 +3,17 @@ $(document).ready(function() {
 	// Initialize
 	var window_status = "closed",
 		people_hover;
-	$("#fullpage").fullpage();
+	$('#fullpage').fullpage({
+		// 如果滑到瀏覽people的地方，menu自動消失
+		onLeave (index, nextIndex, direction){
+			if(nextIndex == 2){
+				$('#menu').hide();
+			}
+			else{
+				$('#menu').show();
+			}
+		}
+	});
 	$(".float_window").hide();
 	$("#left_people").addClass("item_now");
 
