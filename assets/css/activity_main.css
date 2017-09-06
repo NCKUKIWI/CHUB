@@ -75,14 +75,24 @@ body::-webkit-scrollbar-thumb {
     text-align: center;
     margin: 0vh 0vh 6vh 0vh;
     transition: 0.5s; }
-    #activity_list .activity_item .preview_pic {
-      position: relative;
-      vertical-align: middle;
-      min-height: 100%;
-      min-width: 100%;
-      -webkit-filter: brightness(40%);
-      filter: brightness(40%);
-      transition: brightness 0.5s; }
+    #activity_list .activity_item .auto_adjust {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: grey; }
+      #activity_list .activity_item .auto_adjust.fat img {
+        height: 100%;
+        width: auto; }
+      #activity_list .activity_item .auto_adjust.tall img {
+        width: 100%;
+        height: auto; }
+      #activity_list .activity_item .auto_adjust .preview_pic {
+        -webkit-filter: brightness(40%);
+        filter: brightness(40%);
+        transition: brightness 0.5s; }
     #activity_list .activity_item .preview_more {
       position: absolute;
       z-index: 20;
