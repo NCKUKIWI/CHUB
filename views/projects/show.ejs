@@ -14,11 +14,21 @@
         <% } %>
         <img id="pic_more" src="/assets/images/pic_more.png">
 			</div>
-			<p class="project_name"><%= project.Name %></p>
+			<p class="project_name">
+        <% for(var i = 0; i < project.BigTitle.length; i++){ %>
+          <%= project.BigTitle[i] %>
+          <br>
+        <% } %>   
+      </p>
 		</div>
 	</div>
 	<div class="with_scroll" id="detail_right">
-		<p id="detail_main_text"><%= project.Introduction %></p>
+		<p id="detail_main_text">
+      <% for(var i = 0; i < project.SmallTitle.length; i++){ %>
+        <%= project.SmallTitle[i] %>
+        <br>
+      <% } %>     
+    </p>
 		<p>　</p>
 		<p id="detail_type">
       <p class="title">Type</p>
