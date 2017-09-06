@@ -35,8 +35,8 @@
     position: relative;
     top: 30px;
     cursor: pointer;
-    width: 25vh;
-    height: 35vh;
+    width: 30vh;
+    height: 45vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -78,12 +78,12 @@
 
 .float_window #detail_left #detail_brief .project_name {
     position: relative;
-    width: 25vh;
-    font-size: 36px;
+    width: 30vh;
+    font-size: 28px;
     letter-spacing: 2px;
     color: #ed9027;
-    margin-top: 65px;
-    line-height: 46px;
+    margin-top: 55px;
+    line-height: 38px;
 }
 
 .float_window #detail_right {
@@ -100,13 +100,13 @@
     font-size: 18px;
     letter-spacing: 2px;
     color: #ed9027;
-    line-height: 30px;
+    line-height: 25px;
     font-weight: 600;
 }
 
 .float_window #detail_right #detail_main_text:after {
     position: relative;
-    top: 26px;
+    top: 16px;
     content: "";
     display: block;
     height: 2px;
