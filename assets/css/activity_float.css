@@ -71,9 +71,9 @@
       .float_window #detail_left #detail_brief #pic_more {
         position: absolute;
         display: inline-block;
-        right: -1%;
+        right: -2%;
         top: -1%;
-        height: 101%;
+        height: 102%;
         opacity: 0.7;
         transition: opacity 0.5s, brightness 0.5s; }
       .float_window #detail_left #detail_brief .project_name {
