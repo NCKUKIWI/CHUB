@@ -33,6 +33,8 @@ var activitySchema = new Schema({
   Contributor:[{type:String,required:[true,"請選擇活動時間"]}],
   Mission: String,
   New: [{'Name': String, 'URL': String}],
+  BigTitle: [],
+  SmallTitle: [],
   MemberID:[{type:ObjectId,ref:"User"}],
   AdminID:[{type:ObjectId,ref:"User"}],
   GroupID:[{type:ObjectId,ref:"Group"}],

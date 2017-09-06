@@ -29,6 +29,8 @@ var projectSchema = new Schema({
   Sponser:[String],
   hasCover:Number,
   Status:Number,
+  BigTitle: [],
+  SmallTitle: [],
   Introduction:{type:String,required:[true,"請輸入專案介紹"]},
   ApplyID:[{type:ObjectId,ref:"User"}],
   MemberID:[{type:ObjectId,ref:"User"}],

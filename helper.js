@@ -52,10 +52,25 @@ exports.apiAuth = function apiAuth(){
 
 exports.noinjection = function noinjection(req){
   for(var i in req.body){
-    req.body[i] = req.body[i].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,"");
+    if(typeof(req.body[i] == 'object')){ // 避免有array的情形
+      for(var j in req.body[i]){
+        req.body[i][j] = req.body[i][j].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,"");
+      }
+    }
+    else {
+      req.body[i] = req.body[i].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,""); 
+    }
+    
   }
   for(var i in req.query){
-    req.query[i] = req.query[i].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,"");
+    if(typeof(req.query[i] == 'object')){ // 避免有array的情形
+      for(var j in req.query[i]){
+        req.query[i][j] = req.query[i][j].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,"");
+      }
+    }
+    else {
+      req.query[i] = req.query[i].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,""); 
+    }
   }
 }
 

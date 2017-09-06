@@ -6,11 +6,11 @@ $(document).ready(function() {
 	$('#fullpage').fullpage({
 		// 如果滑到瀏覽people的地方，menu自動消失
 		onLeave (index, nextIndex, direction){
-			if(nextIndex == 2){
-				$('#menu').hide();
+			if(nextIndex == 1){
+				$('#menu').fadeIn();
 			}
 			else{
-				$('#menu').show();
+				$('#menu').fadeOut();
 			}
 		}
 	});

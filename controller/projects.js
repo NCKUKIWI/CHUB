@@ -84,6 +84,8 @@ router.post("/create",helper.apiAuth(),function(req,res) {
         Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
         Mission:req.body.mission,
         Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
+        BigTitle: req.body.BigTitle,
+        SmallTitle: req.body.SmallTitle,
         Introduction:req.body.Introduction,
         Location: req.body.Location,
         hasCover:0,
@@ -115,6 +117,8 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       Mission:req.body.Mission,
       Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
       Introduction:req.body.Introduction,
+      BigTitle: req.body.BigTitle,
+      SmallTitle: req.body.SmallTitle,
       Location: req.body.Location,
       hasCover:0,
       Status:0,
@@ -257,6 +261,9 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
     Time:req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(","),
     Mission:req.body.Mission,
     Need:req.body.Need.replace(/\s/g, "").split(","),
+    Location: req.body.Location,
+    BigTitle: req.body.BigTitle,
+    SmallTitle: req.body.SmallTitle,
     Introduction:req.body.Introduction
   }
   Project.findOneAndUpdate({ _id:req.params.id },updateData,function(err,project){

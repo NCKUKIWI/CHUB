@@ -81,6 +81,8 @@ router.post("/create",helper.apiAuth(),function(req,res) {
         Introduction: req.body.Introduction,
         Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
         hasCover:0,
+        BigTitle: req.body.BigTitle,
+        SmallTitle: req.body.SmallTitle,
         MemberID: group.AdminID,
         AdminID: group.AdminID,
         GroupID: req.body.group_id,
@@ -114,7 +116,9 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       Status: 1,
       Location: req.body.Location,
       Contributor: (req.body.Contributor)?(req.body.Contributor.replace(/\s/g, "").split(",")):[],
-      Mission: req.body.Mission,      
+      Mission: req.body.Mission,
+      BigTitle: req.body.BigTitle,
+      SmallTitle: req.body.SmallTitle,      
       MemberID:[],
       AdminID:[req.body.admin],
       ProjectID: []
@@ -257,7 +261,9 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
     Role: req.body.Role,
     Location: req.body.Location,
     Contributor: (req.body.Contributor)?(req.body.Contributor.replace(/\s/g, "").split(",")):[],
-    Mission: req.body.Mission
+    Mission: req.body.Mission,
+    BigTitle: req.body.BigTitle,
+    SmallTitle: req.body.SmallTitle,
   }
   Activity.findOneAndUpdate({ _id:req.params.id },updateData,function(err,activity){
     if(activity){
