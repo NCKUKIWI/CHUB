@@ -68,7 +68,7 @@ $(document).ready(function(){
                 url: "/activities/" + id,
                 type: "POST",
                 success: function(response) {
-                    $.fn.fullpage.setAllowScrolling(false, "down,up"); // 停止第一層的fullpage滑動
+                    // $.fn.fullpage.setAllowScrolling(false, "down,up"); // 停止第一層的fullpage滑動
                     $(".float_window").append(response);
                     $("#close_window, .dark_mask").click(function() {
                         close_window();
