@@ -1,29 +1,81 @@
-<% layout('../public/adminlayout') %>
-<h1 class="textcenter">User 總覽</h1>
-<table class="ui unstackable table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Setting</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% if(users.length>0){ %>
-    <% for(var i in users){ %>
-      <tr class="<%= users[i]._id %>">
-        <td><%= users[i].Name %></td>
+<!-- 人才資料庫管理 -->
+<div class="right_manageBoard" id="backstage_people">
+  <div class="fliter_button">
+    <div class="ui selection dropdown">
+      <input type="hidden" name="gender">
+      <i class="dropdown icon"></i>
+      <div class="default text">Gender</div>
+      <div class="menu">
+        <div class="item" data-value="0">Libreal Arts</div>
+        <div class="item" data-value="0">Science</div>
+        <div class="item" data-value="0">Management</div>
+        <div class="item" data-value="0">Engineering</div>
+        <div class="item" data-value="0">Computer Science</div>
+        <div class="item" data-value="0">Socail Science</div>
+        <div class="item" data-value="0">Planning And Design</div>
+        <div class="item" data-value="0">Bioscience</div>
+        <div class="item" data-value="0">Medicine</div>
+        <div class="item" data-value="0">Assistant</div>
+        <div class="item" data-value="0">volunteer</div>
+        <div class="item" data-value="0">Others</div>
+      </div>
+    </div>
+    <div class="ui input">
+      <input type="text" placeholder="Search...">
+    </div>
+    <button class="ui basic button">
+      Search
+    </button>
+  </div>
+  <table class="ui basic table">
+    <tbody>
+      <tr>
         <td>
-          <div class="ui primary button info" user-id="<%= users[i]._id %>">Info</div>
-          <div class="ui red button delUser" user-id="<%= users[i]._id %>">Delete</div>
+          <div class="ui checkbox">
+            <input type="checkbox" name="example">
+            <label></label>
+          </div>
         </td>
+        <td>Photo</td>
+        <td>Name</td>
+        <td>Major</td>
+        <td>Skill</td>
+        <td>Status</td>
+        <td></td>
       </tr>
-    <% } %>
-  <% }else{ %>
-    <tr><td colspan="2"><p class="textcenter">沒有可管理的 user</p></td></tr>
-  <% } %>
-  </tbody>
-</table>
-<div class="ui modal">
+      <% for(var i = 0; i < users.length; i++){ %>
+        <tr>
+          <td>
+            <div class="ui checkbox">
+              <input type="checkbox" name="example">
+              <label></label>
+            </div>
+          </td>
+          <td style="width: 68px; height: 68px;"><img style="width:50px; height: 50px; border: solid 1px rgba(0, 0, 0, 0.3);" src="/assets/images/people_ex.png"></td>
+          <td><%= users[i].Name %></td>
+          <td><%= users[i].Major %></td>
+          <td><%= users[i].Major %></td>
+          <td>
+            <div class="ui selection dropdown" style="min-width: 30px">
+              <input type="hidden" name="gender">
+              <i class="dropdown icon"></i>
+              <div class="default text">PM</div>
+              <div class="menu">
+                <div class="item" data-value="0">C-Hub</div>
+                <div class="item" data-value="1">Admin</div>
+                <div class="item" data-value="2">EDITOR</div>
+                <div class="item" data-value="3">USER</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <button class="mini ui basic button">確認</button>
+            <button class="mini ui basic button">刪除</button>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
 </div>
 
 <script>

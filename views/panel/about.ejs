@@ -1,0 +1,75 @@
+<!-- 簡介管理 -->
+<div class="right_tabBoard" id="backstage_about">
+  <div class="ui top attached tabular menu" style="">
+    <a class="active item" data-tab="about_edit" style="border-radius: 0px !important;">About</a>
+    <a class="item" data-tab="news_edit" style="border-radius: 0px !important;">News</a>
+    <div style="position: absolute; right: 0px; padding: 5px;">
+      <button class="mini ui basic button">儲存</button>
+      <!-- <button class="mini ui basic button openPage" openPage="backstage_projects_manage">提交</button> -->
+    </div>
+  </div>
+  <div class="ui bottom attached active tab segment" data-tab="about_edit">
+    <form class="ui form">
+      <div class="field">
+        <label>About</label>
+        <input type="text" name="Name" value="">
+      </div>
+      <div class="field">
+        <label>副標</label>
+        <input type="text" name="Time" value="">
+      </div>
+    </form>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="news_edit">
+      <div class="fliter_button">
+        <div class="ui selection dropdown" style="float:left;">
+          <input type="hidden" name="gender">
+          <i class="dropdown icon"></i>
+          <div class="default text">All</div>
+          <div class="menu">
+            <!-- <div class="item" data-value="0">已上架</div>
+            <div class="item" data-value="1">待審核</div>
+            <div class="item" data-value="2">已退回</div> -->
+            <div class="item" data-value="3">文化生活</div>
+            <div class="item" data-value="4">智慧科技與數位內容</div>
+            <div class="item" data-value="5">創新與社會服務</div>
+          </div>
+        </div>
+        <button class="ui basic button openPage" style="float: right;" openPage="backstage_projects_new">
+          Create
+        </button>
+      </div>
+      <table class="ui basic table">
+        <tbody>
+          <tr>
+            <td>
+              <div class="ui checkbox">
+                <input type="checkbox" name="example">
+                <label></label>
+              </div>
+            </td>
+            <!-- <td>Photo</td> -->
+            <td>排序</td>
+            <td>活動名稱</td>
+            <td>活動舉辦日期</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="ui checkbox">
+                <input type="checkbox" name="example">
+                <label></label>
+              </div>
+            </td>
+            <td>01</td>
+            <td>[test1]</td>
+            <td>2017/09/01</td>
+            <td>
+              <button class="mini ui basic button openPage">管理</button>
+              <button class="mini ui basic button">刪除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
