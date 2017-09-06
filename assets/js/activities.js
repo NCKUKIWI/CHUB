@@ -210,7 +210,6 @@ $(document).ready(function(){
     function autoAdjust( outer_div ) {
         var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
         var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
-        alert("inner: "+inner_pic_size+"outer: "+outer_div_size);
         if ( inner_pic_size > outer_div_size ) {
             outer_div.addClass("fat");
         }
