@@ -20,7 +20,7 @@ $(document).ready(function(){
     $( ".float_window" ).hide();
     $( ".float_pic_window" ).hide();
     view_pic_total = 0;
-    $(".auto_adjust").each (function() {
+    $(".not_yet").each (function() {
         autoAdjust($(this));
     });
     
@@ -81,6 +81,10 @@ $(document).ready(function(){
                     // 綁定顯示輪播照片功能
                     $( ".brief_pic, #close_pic_view" ).click( function() {
                       float_pic_window();
+                    });
+                    // 自動調整圖片大小
+                    $(".not_yet").each (function() {
+                        autoAdjust($(this));
                     });
 
                     // 綁定輪播照片左右移動
@@ -212,9 +216,11 @@ $(document).ready(function(){
         var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
         if ( inner_pic_size > outer_div_size ) {
             outer_div.addClass("fat");
+            outer_div.removeClass("not_yet");
         }
         else {
             outer_div.addClass("tall");
+            outer_div.removeClass("not_yet");
         }
     }
 

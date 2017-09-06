@@ -8,13 +8,9 @@
 		<div id="detail_brief">
 			<div class="brief_pic">
         <% if(project.hasCover == 1){ %>
-          <div class="auto_adjust">
         <img id="project_pic" src="/uploads/project/<%= project._id %>/logo.png">
-          </div>
         <% }else{ %>
-          <div class="auto_adjust">
-        <img class="preview_pic" src="/assets/images/project_ex2.png">
-      </div>
+        <img id="project_pic" src="/assets/images/project_ex2.png">
         <% } %>
         <img id="pic_more" src="/assets/images/pic_more.png">
 			</div>

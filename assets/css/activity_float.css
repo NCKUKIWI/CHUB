@@ -67,7 +67,6 @@
           -webkit-filter: brightness(60%); }
       .float_window #detail_left #detail_brief #project_pic {
         position: relative;
-        width: 100%;
         transition: brightness 0.5s; }
       .float_window #detail_left #detail_brief #pic_more {
         position: absolute;
@@ -234,3 +233,19 @@
     background: url("../images/close_on.png"); }
   .close_icon:active {
     opacity: 0.4; }
+
+    .auto_adjust_activity_inner {
+      height: 35vh;
+      width: 25vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: grey; }
+      .auto_adjust_activity_inner.fat img {
+        height: 100%;
+        width: auto; }
+      .auto_adjust_activity_inner.tall img {
+        width: 100%;
+        height: auto; }
+    

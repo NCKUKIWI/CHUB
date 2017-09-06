@@ -8,7 +8,9 @@
   <div id="detail_brief">
     <div class="brief_pic">
       <!-- <img id="project_pic" src="/assets/images/project_ex2.png"> -->
-      <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo.png">
+      <div class="auto_adjust_activity_inner not_yet">
+        <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo.png">
+      </div>
       <img id="pic_more" src="/assets/images/pic_more_2.png">
     </div>
     <p class="project_name"><%= activity.Name %></p>

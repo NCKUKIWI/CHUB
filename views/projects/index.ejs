@@ -24,11 +24,11 @@
         <% for(var i in projects){ %>
     		<div class="project_item"  project-id="<%= projects[i]._id %>">
 					<% if(projects[i].hasCover == 1){ %>
-						<div class="auto_adjust">
+						<div class="auto_adjust not_yet">
 						<img class="preview_pic" src="/uploads/project/<%= projects[i]._id %>/logo.png">
 						</div>
 					<% }else {%>
-						<div class="auto_adjust">
+						<div class="auto_adjust not_yet">
 						<img class="preview_pic" src="/assets/images/project_ex2.png">
 						</div>
           <% } %>
