@@ -20,6 +20,7 @@ $(document).ready(function(){
     $( ".float_window" ).hide();
     $( ".float_pic_window" ).hide();
     view_pic_total = 0;
+    autoAdjust( $(".auto_adjust") );
     
     $( ".activity_item" ).click( function() {
         // float_window();
@@ -199,6 +200,23 @@ $(document).ready(function(){
             else
                 $( "#go_next" ).addClass("disabled");
         }); 
+    }
+
+    
+    // 自動調整圖片大小
+    
+    function autoAdjust( outer_div ) {
+        var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
+        var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
+        if ( inner_pic_size > outer_div_size ) {
+            outer_div.addClass("fat");
+        }
+        else {
+            outer_div.addClass("tall");
+        }
+        if ( outer_div.next('.auto_adjust').length ) {
+            autoAdjust( outer_div.next('.auto_adjust') );
+        }
     }
 
 
