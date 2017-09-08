@@ -86,10 +86,10 @@
         line-height: 46px; }
   .float_window #detail_right {
     position: absolute;
-    top: 6%;
+    top: 10%;
     left: 460px;
     height: 82%;
-    width: 670px;
+    width: 600px;
     overflow-x: hidden;
     overflow-y: scroll; }
     .float_window #detail_right #detail_main_text {
