@@ -34,7 +34,21 @@
               <div class="preview_more"></div>
               <p class="preview_title"><%= activity[i].Name %>
               <p class="preview_class"><%= activity[i].Type %></p>
-              <p class="preview_date"><%= activity[i].Duration %></p>
+              <p class="preview_date">
+                <% if(activity[i].Duration.length == 1){ %>
+                  <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
+                  /
+                  <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                <% }else{ %> 
+                    <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
+                    /
+                    <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                    -
+                    <%= new Date(Number(activity[i].Duration[1])).getMonth() + 1 %>
+                    /
+                    <%= new Date(Number(activity[i].Duration[1])).getDate() %>
+                <% } %>
+              </p>
             </div>
           <% } %>
         </div>
@@ -48,7 +62,21 @@
               <div class="preview_more"></div>
               <p class="preview_title"><%= activity[i].Name %></p>
               <p class="preview_class"><%= activity[i].Type %></p>
-              <p class="preview_date"><%= activity[i].Duration %></p>
+              <p class="preview_date">
+                <% if(activity[i].Duration.length == 1){ %>
+                  <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
+                  /
+                  <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                <% }else{ %> 
+                    <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
+                    /
+                    <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                    -
+                    <%= new Date(Number(activity[i].Duration[1])).getMonth() + 1 %>
+                    /
+                    <%= new Date(Number(activity[i].Duration[1])).getDate() %>
+                <% } %>
+              </p>
             </div>
           <% } %>
         </div>
@@ -62,7 +90,21 @@
               <div class="preview_more"></div>
               <p class="preview_title"><%= activity[i].Name %></p>
               <p class="preview_class"><%= activity[i].Type %></p>
-              <p class="preview_date"><%= activity[i].Duration %></p>
+              <p class="preview_date">
+                <% if(activity[i].Duration.length == 1){ %>
+                  <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
+                  /
+                  <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                <% }else{ %> 
+                    <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
+                    /
+                    <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                    -
+                    <%= new Date(Number(activity[i].Duration[1])).getMonth() + 1 %>
+                    /
+                    <%= new Date(Number(activity[i].Duration[1])).getDate() %>
+                <% } %>
+              </p>
             </div>
           <% } %>
         </div>
@@ -76,7 +118,21 @@
               <div class="preview_more"></div>
               <p class="preview_title"><%= activity[i].Name %></p>
               <p class="preview_class"><%= activity[i].Type %></p>
-              <p class="preview_date"><%= activity[i].Duration %></p>
+              <p class="preview_date">
+                <% if(activity[i].Duration.length == 1){ %>
+                  <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
+                  /
+                  <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                <% }else{ %> 
+                    <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
+                    /
+                    <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                    -
+                    <%= new Date(Number(activity[i].Duration[1])).getMonth() + 1 %>
+                    /
+                    <%= new Date(Number(activity[i].Duration[1])).getDate() %>
+                <% } %>
+              </p>
             </div>
           <% } %>
         </div>

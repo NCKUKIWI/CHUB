@@ -48,9 +48,9 @@
     // 綁定datepicker效果
     dateListener();
 
-    // 增加date欄位
+    // // 增加date欄位
     $('.addDate').on('click', function(){
-      var addHtml = '<div class="field"><div class="three fields" style="padding: 0 0 0 10vw;"><div class="field"><div class="input-group date datetimepicker1"><input type="text" name="Time" class="form-control"/><span class="input-group-addon">Start</span></div></div><div class="field"><div class="input-group date datetimepicker1"><input type="text" name="Time" class="form-control"/><span class="input-group-addon">End</span></div></div><div class="field"><label></label><div class="ui button delDate">delete</div></div></div></div>';
+      var addHtml = '<div class="field"><div class="three fields" style="padding: 0 0 0 10vw;"><div class="field"><input type="text" style="display: none;" name="Time" value=""><div class="ui calendar"><div class="ui input left icon"><i class="calendar icon"></i><input type="text" placeholder="Start" value=""></div></div></div><div class="field"><input type="text" style="display: none;" name="Time" value=""><div class="ui calendar"><div class="ui input left icon"><i class="calendar icon"></i><input type="text" placeholder="End" value=""></div></div></div><div class="field"><div class="ui button delDate">delete</div></div></div></div>';
       $($(this).parent()).before(addHtml);
       dateListener();
     })
@@ -69,10 +69,11 @@ function findUrl(dom){
 }
 
 function dateListener(){
-  $('.datetimepicker1').datetimepicker({
-      defaultDate: new Date(),
-      format: 'YYYY-MM-DD hh:mm:ss A',
-      sideBySide: true
+  $('.ui.calendar').calendar({
+    constantHeight: true,
+    onChange: function(date, text, mode){
+      $(this).parent().find('input[name="Time"]').val(date.getTime());
+    }
   });
 
   // 刪除date

@@ -23,7 +23,7 @@ var activitySchema = new Schema({
   Type:{type:String,required:[true,"請選擇活動類型"]},
   Introduction:{type:String,required:[true,"請輸入活動說明"]},
   Time:[{type:String,required:[true,"請選擇活動時間"]}],
-  Duration: String,
+  Duration: [String],
   Fee:[{type:String,required:[true,"請輸入活動費用"]}],
   Credit:[{type:String,required:[true,"請輸入活動學分數"]}],
   Role: String, // 未來這邊可以用數字？

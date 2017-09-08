@@ -1,10 +1,14 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-<script type="text/javascript" href="assets/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<!-- <script type="text/javascript" href="assets/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
 <link rel="stylesheet"
   href="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
-<script src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script> -->
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.js"></script>
 
 <!-- 活動管理 -->
 <div class="right_manageBoard" id="backstage_activities_manage">
@@ -56,7 +60,21 @@
           </td>
           <!-- <td>photo</td> -->
           <td><%= activities[i].Name %></td>
-          <td><%= activities[i].Duration %></td>
+          <td>
+          <% if(activities[i].Duration.length == 1){ %>
+            <%= new Date(Number(activities[i].Duration[0])).getMonth() + 1 %>
+            /
+            <%= new Date(Number(activities[i].Duration[0])).getDate() %>
+          <% }else{ %> 
+              <%= new Date(Number(activities[i].Duration[0])).getMonth() + 1 %>
+              /
+              <%= new Date(Number(activities[i].Duration[0])).getDate() %>
+              -
+              <%= new Date(Number(activities[i].Duration[1])).getMonth() + 1 %>
+              /
+              <%= new Date(Number(activities[i].Duration[1])).getDate() %>
+          <% } %>
+          </td>
           <td><%= activities[i].MemberID.length %></td>
           <td>
             <% if(activities[i].Status == 0){ %>已送審
@@ -151,28 +169,29 @@
           <label>SmallTitle3</label>
           <input type="text" name="SmallTitle" value="">
         </div>
-      </div>
+      </div>      
       <div class="field">
         <label>Time table</label>
         <div class="three fields" style="padding: 0 0 0 10vw;">
           <div class="field">
-            <div class='input-group date datetimepicker1'>
-              <input type='text' name="Time" class="form-control"/>
-              <span class="input-group-addon">
-                  Start
-              </span>
-            </div>
+            <input type="text" style="display: none;" name="Time" value="">
+            <div class="ui calendar" name="Start">
+              <div class="ui input left icon">
+                <i class="calendar icon"></i>
+                <input type="text" placeholder="Start" value="">
+              </div>
+            </div>          
           </div>
           <div class="field">
-            <div class='input-group date datetimepicker1'>
-              <input type='text' name="Time" class="form-control"/>
-              <span class="input-group-addon">
-                End
-              </span>
-            </div>
+            <input type="text" style="display: none;" name="Time" value="">
+            <div class="ui calendar" name="End">
+              <div class="ui input left icon">
+                <i class="calendar icon"></i>
+                <input type="text" placeholder="End" value="">
+              </div>
+            </div>          
           </div>
           <div class="field">
-            <label></label>
             <div class="ui button delDate">delete</div>
           </div>
         </div>
@@ -330,31 +349,34 @@
             <input type="text" name="SmallTitle" value="<%= activities[i].SmallTitle[2] %>">
           </div>
         </div>
-        <div class="field">
-          <label>Time table</label>
-          <div class="three fields" style="padding: 0 0 0 10vw;">
-            <div class="field">
-              <div class='input-group date datetimepicker1'>
-                <input type='text' name="Time" class="form-control"/>
-                <span class="input-group-addon">
-                    Start
-                </span>
+        <% for(var j = 0; j < activities[i].Time.length; j += 2) { %>
+          <div class="field">
+            <% if ( j == 0 ) { %> <label>Time table</label> <% } %>
+            <div class="three fields" style="padding: 0 0 0 10vw;">
+              <div class="field">
+                <input type="text" style="display: none;" name="Time" value="<%= activities[i].Time[j] %>">
+                <div class="ui calendar">
+                  <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input type="text" placeholder="Start" value="<%= new Date(Number(activities[i].Time[j])) %>">
+                  </div>
+                </div>          
               </div>
-            </div>
-            <div class="field">
-              <div class='input-group date datetimepicker1'>
-                <input type='text' name="Time" class="form-control"/>
-                <span class="input-group-addon">
-                  End
-                </span>
+              <div class="field">
+                <input type="text" style="display: none;" name="Time" value="<%= activities[i].Time[j + 1] %>">
+                <div class="ui calendar">
+                  <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input type="text" placeholder="End" value="<%= new Date(Number(activities[i].Time[j + 1])) %>">
+                  </div>
+                </div>          
               </div>
-            </div>
-            <div class="field">
-              <label></label>
-              <div class="ui button delDate">delete</div>
+              <div class="field">
+                <div class="ui button delDate">delete</div>
+              </div>
             </div>
           </div>
-        </div>
+        <% } %>
         <div class="field" style="display: flex; justify-content: center;">
           <div class="ui button addDate"><i class="plus icon"></i></div>
         </div>

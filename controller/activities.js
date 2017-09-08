@@ -73,6 +73,9 @@ router.get("/new",helper.checkLogin(),function(req,res) {
 
 router.post("/create",helper.apiAuth(),function(req,res) {
   var newActivity;
+  var duration = req.body.Time.concat().sort();
+
+  console.log(req.body.Time);
   if(req.body.group_id){
     Group.findById(req.body.group_id,function(err,group){
       newActivity = new Activity({
@@ -80,7 +83,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
         Type: req.body.Type,
         Fee: req.body.Fee,
         Introduction: req.body.Introduction,
-        Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
+        Time:req.body.Time,
         hasCover:0,
         BigTitle: req.body.BigTitle,
         SmallTitle: req.body.SmallTitle,
@@ -110,6 +113,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       Type: req.body.Type,
       Introduction: req.body.Introduction,
       Time:req.body.Time,
+      Duration: [duration[0], duration[duration.length - 1]],
       Fee: req.body.Fee,
       Credit: req.body.Credit,
       Role: req.body.Role,
@@ -252,11 +256,14 @@ router.get("/edit/:id",helper.checkLogin(),function(req,res) {
 });
 
 router.post("/update/:id",helper.apiAuth(),function(req,res) {
+  var duration = req.body.Time.concat().sort();
+
   var updateData = {
     Name: req.body.Name,
     Type: req.body.Type,
     Introduction: req.body.Introduction,
-    Time: (req.body.Time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
+    Time: req.body.Time,
+    Duration: [duration[0], duration[duration.length - 1]],
     Fee: req.body.Fee,
     Credit: req.body.Credit,
     Role: req.body.Role,
