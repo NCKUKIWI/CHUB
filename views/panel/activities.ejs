@@ -1,3 +1,11 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<script type="text/javascript" href="assets/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<link rel="stylesheet"
+  href="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css">
+<script src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+
 <!-- 活動管理 -->
 <div class="right_manageBoard" id="backstage_activities_manage">
   <div class="fliter_button">
@@ -48,7 +56,7 @@
           </td>
           <!-- <td>photo</td> -->
           <td><%= activities[i].Name %></td>
-          <td><%= activities[i].Time %></td>
+          <td><%= activities[i].Duration %></td>
           <td><%= activities[i].MemberID.length %></td>
           <td>
             <% if(activities[i].Status == 0){ %>已送審
@@ -104,7 +112,7 @@
 <div class="right_tabBoard" id="backstage_activities_new">
   <div class="ui top attached tabular menu" style="">
     <a class="active item" data-tab="activities_create_info" style="border-radius: 0px !important;">活動資訊</a>
-    <a class="item" data-tab="activities_create_media"  style="border-radius: 0px !important;">專案影音</a>
+    <a class="item" data-tab="activities_create_media"  style="border-radius: 0px !important;">活動影音</a>
     <div style="position: absolute; right: 0px; padding: 5px;">
       <!-- <button class="mini ui basic button">儲存</button> -->
       <button class="mini ui basic button newObj" types="activities">提交</button>
@@ -146,7 +154,31 @@
       </div>
       <div class="field">
         <label>Time table</label>
-        <input type="text" name="Time" placeholder="ex: 8/3-8/5">
+        <div class="three fields" style="padding: 0 0 0 10vw;">
+          <div class="field">
+            <div class='input-group date datetimepicker1'>
+              <input type='text' name="Time" class="form-control"/>
+              <span class="input-group-addon">
+                  Start
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <div class='input-group date datetimepicker1'>
+              <input type='text' name="Time" class="form-control"/>
+              <span class="input-group-addon">
+                End
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <label></label>
+            <div class="ui button delDate">delete</div>
+          </div>
+        </div>
+      </div>
+      <div class="field" style="display: flex; justify-content: center;">
+        <div class="ui button addDate"><i class="plus icon"></i></div>
       </div>
       <div class="three fields">
         <div class="field">
@@ -300,7 +332,31 @@
         </div>
         <div class="field">
           <label>Time table</label>
-          <input type="text" name="Time" value="<%= activities[i].Time %>">
+          <div class="three fields" style="padding: 0 0 0 10vw;">
+            <div class="field">
+              <div class='input-group date datetimepicker1'>
+                <input type='text' name="Time" class="form-control"/>
+                <span class="input-group-addon">
+                    Start
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <div class='input-group date datetimepicker1'>
+                <input type='text' name="Time" class="form-control"/>
+                <span class="input-group-addon">
+                  End
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <label></label>
+              <div class="ui button delDate">delete</div>
+            </div>
+          </div>
+        </div>
+        <div class="field" style="display: flex; justify-content: center;">
+          <div class="ui button addDate"><i class="plus icon"></i></div>
         </div>
         <div class="two fields">
           <div class="field">
@@ -339,12 +395,6 @@
                 <div class="item" data-value="only NCKU student">only NCKU student</div>
               </div>
             </div>
-            
-              <!-- <select class="ui fluid dropdown" name="Role" value="<%= activities[i].Role %>">
-                <option value=""><%= activities[i].Role %></option>
-                <option value="none">none</option>
-                <option value="NCKU">only NCKU student</option>
-              </select>     -->    
           </div>
           <div class="field">
             <label>Credit</label>

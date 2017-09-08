@@ -81,7 +81,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       newProject = new Project({
         Name:req.body.Name,
         Type:req.body.Type,
-        Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
+        Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
         Mission:req.body.mission,
         Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
         BigTitle: req.body.BigTitle,
@@ -113,7 +113,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
     newProject = new Project({
       Name:req.body.Name,
       Type:req.body.Type,
-      Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
+      Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
       Mission:req.body.Mission,
       Need:(req.body.Need)?(req.body.Need.replace(/\s/g, "").split(",")):[],
       Introduction:req.body.Introduction,
@@ -258,7 +258,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
   var updateData = {
     Name:req.body.Name,
     Type:req.body.Type,
-    Time:req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(","),
+    Time:req.body.Time.replace(/\s/g, "").split(","),
     Mission:req.body.Mission,
     Need:req.body.Need.replace(/\s/g, "").split(","),
     Location: req.body.Location,

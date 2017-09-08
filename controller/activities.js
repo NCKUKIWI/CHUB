@@ -59,6 +59,7 @@ router.get("/", function(req,res) {
   }
   if(filter["$or"].length == 0) filter["$or"].push({});
   Activity.find(filter,function(err,activity){
+    console.log(activity);
     res.render("activities/index",{
       activity:activity,
       id: req.query.id
@@ -79,7 +80,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
         Type: req.body.Type,
         Fee: req.body.Fee,
         Introduction: req.body.Introduction,
-        Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
+        Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
         hasCover:0,
         BigTitle: req.body.BigTitle,
         SmallTitle: req.body.SmallTitle,
@@ -108,7 +109,7 @@ router.post("/create",helper.apiAuth(),function(req,res) {
       Name: req.body.Name,
       Type: req.body.Type,
       Introduction: req.body.Introduction,
-      Time:(req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
+      Time:req.body.Time,
       Fee: req.body.Fee,
       Credit: req.body.Credit,
       Role: req.body.Role,
@@ -255,7 +256,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
     Name: req.body.Name,
     Type: req.body.Type,
     Introduction: req.body.Introduction,
-    Time: (req.body.Time)?(req.body.Time.replace(/\s/g, "").replace(/S/g, "/").split(",")):[],
+    Time: (req.body.Time)?(req.body.Time.replace(/\s/g, "").split(",")):[],
     Fee: req.body.Fee,
     Credit: req.body.Credit,
     Role: req.body.Role,

@@ -40,21 +40,47 @@
     //   })
     // })
 
-    function findUrl(dom){
-      for(var i in infos){
-        if(this.getAttribute(i) !== null){
-          var id = this.getAttribute(i);
-          var url = "\/" + Infos[i] + "\/" + id;
-          return url;
-        }
-      }
-    }
-
+    // 照片hover效果
     $('.card .image').dimmer({
       on: 'hover'
     });
 
+    // 綁定datepicker效果
+    dateListener();
+
+    // 增加date欄位
+    $('.addDate').on('click', function(){
+      var addHtml = '<div class="field"><div class="three fields" style="padding: 0 0 0 10vw;"><div class="field"><div class="input-group date datetimepicker1"><input type="text" name="Time" class="form-control"/><span class="input-group-addon">Start</span></div></div><div class="field"><div class="input-group date datetimepicker1"><input type="text" name="Time" class="form-control"/><span class="input-group-addon">End</span></div></div><div class="field"><label></label><div class="ui button delDate">delete</div></div></div></div>';
+      $($(this).parent()).before(addHtml);
+      dateListener();
+    })
+
+
   });
+
+function findUrl(dom){
+  for(var i in infos){
+    if(this.getAttribute(i) !== null){
+      var id = this.getAttribute(i);
+      var url = "\/" + Infos[i] + "\/" + id;
+      return url;
+    }
+  }
+}
+
+function dateListener(){
+  $('.datetimepicker1').datetimepicker({
+      defaultDate: new Date(),
+      format: 'YYYY-MM-DD hh:mm:ss A',
+      sideBySide: true
+  });
+
+  // 刪除date
+  $('.delDate').unbind('click').on('click', function(){
+    if($($(this).parents()[3]).find("input[name='Time']").length == 2) return;
+    $($(this).parents()[1]).remove();
+  })
+}
 </script>
 
 
@@ -71,7 +97,7 @@
         $.ajax({
           url: "/" + type + "/create",
           type: "POST",
-          data: $CardBoard.find(".newForm").serialize().replace(/\%2F/g, "S"),
+          data: $CardBoard.find(".newForm").serialize(),
           success: function(response) {
             console.log(response);
             if (!response.error) {
@@ -160,11 +186,10 @@
       var $CardBoard = $($(this).parents()[2]);
       var type = this.getAttribute('types');
       var ID = this.getAttribute(type);
-      // console.log($("#" + activityID + " .activityForm").serialize().replace(/\%2F/g, "S"));
       $.ajax({
         url: "/" + type + "/update/" + ID,
         type: "POST",
-        data: $CardBoard.find(".editForm").serialize().replace(/\%2F/g, "S"),
+        data: $CardBoard.find(".editForm").serialize(),
         success: function(response) {
           if (response == "ok") {
             var $hasCover = $CardBoard.find('input[name="cover"]')
