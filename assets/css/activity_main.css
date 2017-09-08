@@ -82,7 +82,7 @@ body::-webkit-scrollbar-thumb {
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      background: grey; }
+ }
       #activity_list .activity_item .auto_adjust.fat img {
         height: 100%;
         width: auto; }

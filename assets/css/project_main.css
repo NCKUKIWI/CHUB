@@ -78,7 +78,6 @@ body::-webkit-scrollbar-thumb {
 #project_list .project_item .auto_adjust {
     height: 50vh;
     width: 20vw;
-    background: grey;
     display: flex;
     align-items: center;
     justify-content: center;
