@@ -57,7 +57,8 @@
       .float_window #detail_left #detail_brief .brief_pic {
         position: relative;
         top: 30px;
-        width: 25vh;
+        width: 30vh;
+        height: 45vh;
         overflow: hidden;
         cursor: pointer; }
         .float_window #detail_left #detail_brief .brief_pic:hover #pic_more {
@@ -79,19 +80,21 @@
       .float_window #detail_left #detail_brief .project_name {
         position: relative;
         width: 25vh;
-        font-size: 36px;
+        font-size: 28px;
         letter-spacing: 2px;
         color: #ed9027;
         margin-top: 65px;
-        line-height: 46px; }
+        line-height: 38px; }
   .float_window #detail_right {
     position: absolute;
     top: 10%;
     left: 460px;
-    height: 82%;
-    width: 600px;
+    height: 80%;
+    width: 570px;
     overflow-x: hidden;
-    overflow-y: scroll; }
+    overflow-y: scroll;
+    padding-right: 100px;
+   }
     .float_window #detail_right #detail_main_text {
       font-size: 18px;
       letter-spacing: 2px;
@@ -100,7 +103,7 @@
       font-weight: 600; }
       .float_window #detail_right #detail_main_text:after {
         position: relative;
-        top: 26px;
+        top: 16px;
         content: "";
         display: block;
         height: 2px;
@@ -196,7 +199,7 @@
 
 .bottom_icons {
   position: absolute;
-  bottom: 15px;
+  bottom: -5px;
   right: 25px;
   cursor: pointer;
   z-index: 120; }
@@ -235,8 +238,8 @@
     opacity: 0.4; }
 
     .auto_adjust_activity_inner {
-      height: 35vh;
-      width: 25vh;
+      height: 100%;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;

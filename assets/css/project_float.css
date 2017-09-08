@@ -90,10 +90,11 @@
     position: absolute;
     top: 10%;
     left: 460px;
-    height: 82%;
-    width: 600px;
+    height: 80%;
+    width: 570px;
     overflow-x: hidden;
     overflow-y: scroll;
+    padding-right: 100px;
 }
 
 .float_window #detail_right #detail_main_text {
@@ -248,7 +249,7 @@
 
 .bottom_icons {
     position: absolute;
-    bottom: 15px;
+    bottom: -5px;
     right: 25px;
     cursor: pointer;
     z-index: 120;
