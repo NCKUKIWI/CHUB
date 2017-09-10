@@ -47,7 +47,21 @@
           </td>
           <!-- <td>photo</td> -->
           <td><%= projects[i].Name %></td>
-          <td><%= projects[i].Time %></td>
+          <td>
+          <% if(projects[i].Time[1] == 'undefined' ){ %>
+            <%= new Date(Number(projects[i].Time[0])).getMonth() + 1 %>
+            /
+            <%= new Date(Number(projects[i].Time[0])).getDate() %>
+          <% }else{ %> 
+              <%= new Date(Number(projects[i].Time[0])).getMonth() + 1 %>
+              /
+              <%= new Date(Number(projects[i].Time[0])).getDate() %>
+              -
+              <%= new Date(Number(projects[i].Time[1])).getMonth() + 1 %>
+              /
+              <%= new Date(Number(projects[i].Time[1])).getDate() %>
+          <% } %>
+          </td>
           <td><%= projects[i].MemberID.length %></td>
           <td>
             <% if(projects[i].Status == 0){ %>已送審
@@ -149,7 +163,26 @@
         </div>
         <div class="field">
           <label>Time table</label>
-          <input type="text" name="Time" value="<% for(var j = 0 ; j < projects[i].Time.length; j++){ %><%= projects[i].Time[j] %><% if( j != projects[i].Time.length - 1){ %>, <% } %><% } %>">
+          <div class="three fields" style="padding: 0 0 0 10vw;">
+            <div class="field">
+              <input type="text" style="display: none;" name="Time" value="<%= projects[i].Time[0] %>">
+              <div class="ui ProjectCalendar">
+                <div class="ui input left icon">
+                  <i class="calendar icon"></i>
+                  <input type="text" placeholder="Start" value="<%= new Date(Number(projects[i].Time[0])) %>">
+                </div>
+              </div>          
+            </div>
+            <div class="field">
+              <input type="text" style="display: none;" name="Time" value="<%= projects[i].Time[1] %>">
+              <div class="ui ProjectCalendar">
+                <div class="ui input left icon">
+                  <i class="calendar icon"></i>
+                  <input type="text" placeholder="End" value="<%= new Date(Number(projects[i].Time[1])) %>">
+                </div>
+              </div>          
+            </div>
+          </div>
         </div>
         <div class="two fields">
           <div class="field">
@@ -268,7 +301,7 @@
 <div class="right_tabBoard" id="backstage_projects_new">
   <div class="ui top attached tabular menu" style="">
     <a class="active item" data-tab="projects_create_info" style="border-radius: 0px !important;">專案資訊</a>
-    <a class="item" data-tab="projects_create_media"  style="border-radius: 0px !important;">專案影音</a>
+    <a class="item" data-tab="projects_create_media"  style="border-radius: 0px !important;">專案封面</a>
     <div style="position: absolute; right: 0px; padding: 5px;">
       <!-- <button class="mini ui basic button">儲存</button> -->
       <button class="mini ui basic button newObj" types="projects">提交</button>

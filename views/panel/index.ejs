@@ -1,5 +1,7 @@
 <% layout('../public/adminlayout') %>
-
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.js"></script>
 <style>
   .right_manageBoard{
     background-color: white; 
@@ -60,11 +62,13 @@
   <% include ./users %>
 <% } %>
 
+<!-- 引入js部分 -->
+<% include ./index_js %>
+
 <!-- 專案 -->
 <% include ./projects %>
 
 <!-- 活動 -->
 <% include ./activities %>
 
-<!-- 引入js部分 -->
-<% include ./index_js %>
+

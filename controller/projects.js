@@ -296,7 +296,7 @@ router.post("/update/:id",helper.apiAuth(),function(req,res) {
   var updateData = {
     Name:req.body.Name,
     Type:req.body.Type,
-    Time:req.body.Time.replace(/\s/g, "").split(","),
+    Time:req.body.Time,
     Mission:req.body.Mission,
     Need:req.body.Need.replace(/\s/g, "").split(","),
     Location: req.body.Location,

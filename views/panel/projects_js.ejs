@@ -18,6 +18,13 @@
       });
     });
 
+    $('.ui.ProjectCalendar').calendar({
+      constantHeight: true,
+      type: 'date',
+      onChange: function(date, text, mode){
+        $(this).parent().find('input[name="Time"]').val(date.getTime());
+      }
+    });
 
 // $("#project_selectAdmin").dropdown({
 //   apiSettings: {
