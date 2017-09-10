@@ -1,0 +1,49 @@
+<% layout('../public/layout') %>
+<script type="text/javascript" src="/assets/js/project.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/project_main_mobile.css">
+
+<div id="project_intro">
+  <img class="main_round_pic" src="/assets/images/project_round.png">
+  <p>Projects</p>
+  <hr>
+  <p>Whichever chessboard you are in, just enjoy and play your role. </p>
+  <div id="intro_search">
+    <img id="you_can" src="/assets/images/you_can.png">
+    <a href="#" class="searchbtn" id="search"></a>    
+  </div>
+</div>
+
+<div id="project_view">
+  <div id="preview_control" style="background-color: rgba(70, 67, 66, 1);">
+    <a class="sort_way now" id="sort_hot">HOT</a>
+    <a class="sort_way" id="sort_time">TIME</a>
+  </div>
+  <div id="project_list">
+    <% for(var i in projects){ %>
+      <div class="project_item" project-id="<%= projects[i]._id %>">
+        <div class="auto_adjust not_yet">
+          <img class="preview_pic" src="/uploads/project/<%= projects[i]._id %>/logo.png">
+        </div>
+        <div class="preview_more"></div>
+        <p class="preview_title"><%= projects[i].Name %></p>
+        <p class="preview_class"><%= projects[i].Type %></p>
+        <% if (projects[i].Type == '文化生活') {%> <div class="icon culture"></div>
+              <%} else if (projects[i].Type == '智慧科技與數位內容') {%> <div class="icon digital"></div>
+              <%} else if (projects[i].Type == '創新與社會服務') {%> <div class="icon social"></div> <% } %>
+      </div>
+    <% } %>
+  </div>
+  <div id="preview_control" style="background-color: rgba(70, 67, 66, 0.1);">
+    <div class="list_go" id="go_up"></div>
+    <div class="list_go" id="go_down"></div>
+  </div>
+  <% include ../public/footer %>
+</div>
+
+<script>
+$(document).ready(function(){
+<% if(id !== undefined){ %>
+  $('.project_item[project-id=<%= id %>]').trigger('click');
+<% } %>
+});
+</script>

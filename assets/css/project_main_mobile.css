@@ -1,0 +1,309 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
+body::-webkit-scrollbar {
+    width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+#project_intro {
+    position: relative;
+    height: 100vh;
+}
+
+#project_intro hr{
+    width: 70px;
+    border: solid 1px;
+    color: rgba(96, 167, 146, 1);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#project_intro p:first-of-type{
+    font-size: 20px;
+    letter-spacing: 6px;
+    text-align: center;
+}
+
+#project_intro p:nth-of-type(2){
+    line-height: 20px;
+    text-align: center;
+    margin: 0 25vw 0 25vw;
+    letter-spacing: 0.8px;
+}
+
+#project_intro #you_can {
+    float: left;
+    margin-right: 15px;
+    height: 15px;
+}
+
+#intro_search{
+    display: flex;
+    justify-content: center;
+    margin-top: 5vh;
+    width: 100vw;
+}
+
+#intro_search a{
+    position: relative;
+    z-index: 20;
+    float: left;
+    background: url("../images/search.png");
+    height: 15px;
+    width: 82px;
+    text-decoration: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#intro_search a:hover {
+    background: url("../images/search_on.png");
+}
+
+#intro_search a:active {
+    opacity: 0.4;
+}
+
+#project_view{
+    position: relative;
+    height: 100vh;
+}
+
+#preview_control {
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center
+}
+
+#preview_control .sort_way {
+    position: relative;
+    color: #ed9027;
+    display: block;
+    height: 60px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: opacity 0.5s;
+    line-height: 10vh;
+    margin: 0 7vw 0 7vw;
+}
+
+#preview_control .sort_way:after {
+    position: absolute;
+    top: 7.5vh;
+    left: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    width: 0px;
+    background: #ed9027;
+    transition: width 0.2s;
+}
+
+#preview_control .sort_way:hover {
+    opacity: 0.7;
+}
+
+#preview_control .sort_way.now:after {
+    position: absolute;
+    top: 7.5vh;
+    left: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    width: 32px;
+    background: #ed9027;
+}
+
+#preview_control .sort_way:active {
+    opacity: 0.4;
+}
+
+#project_list {
+    height: 80vh;
+    overflow: hidden;
+}
+
+#project_list .project_item {
+    position: relative;
+    height: 40vh;
+    width: 50vw;
+    margin: -1px -2px;
+    display: inline-block;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+}
+
+#project_list .project_item .auto_adjust {
+    height: 40vh;
+    width: 50vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; }
+    #project_list .project_item .auto_adjust.fat img {
+      height: 100%;
+      width: 100%; }
+    #project_list .project_item .auto_adjust.tall img {
+      width: 100%;
+      height: 100%; }
+  #project_list .project_item .preview_pic {
+    -webkit-filter: brightness(40%);
+    filter: brightness(40%);
+    transition: brightness 0.5s; }
+
+#project_list .project_item .preview_more {
+    position: absolute;
+    z-index: 20;
+    left: 0;
+    right: 0;
+    bottom: 24vh;
+    margin: auto;
+    width: 8vh;
+    height: 8vh;
+    opacity: 0;
+    display: block;
+    background: #ed9027;
+    background-image: url("../images/project_more.png");
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 100vh;
+    transition: bottom 0.5s, width 0.5s, height 0.5s, opacity 1s, brightness 0.5s;
+}
+
+#project_list .project_item .preview_title {
+    position: absolute;
+    z-index: 30;
+    left: 0;
+    right: 0;
+    top: 18vh;
+    margin: auto;
+    color: #ed9027;
+    font-size: 20px;
+    letter-spacing: 2px;
+    transition: opacity 0.5s;
+    font-size: 12px;
+}
+
+#project_list .project_item .preview_title:after {
+    position: relative;
+    top: 6px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    content: "";
+    display: block;
+    height: 2px;
+    width: 30px;
+    background: #ed9027;
+}
+
+#project_list .project_item .preview_class {
+    position: absolute;
+    z-index: 30;
+    left: 0;
+    right: 0;
+    top: 25vh;
+    margin: auto;
+    letter-spacing: 2px;
+    transition: opacity 0.5s;
+    font-size: 10px;
+}
+
+#project_list .project_item .icon {
+    position: absolute;
+    z-index: 20;
+    left: 0;
+    right: 0;
+    top: 30vh;
+    margin: auto;
+    width: 6vh;
+    height: 6vh;
+    display: block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 0.5s;
+}
+
+#project_list .project_item .icon.culture {
+    background-image: url("../images/project_icon_culture.png");
+}
+
+#project_list .project_item .icon.digital {
+    background-image: url("../images/project_icon_digital.png");
+}
+
+#project_list .project_item .icon.social {
+    background-image: url("../images/project_icon_social.png");
+}
+
+#project_list .project_item:hover .preview_pic {
+    -webkit-filter: brightness(100%);
+    filter: brightness(100%);
+}
+
+#project_list .project_item:hover .preview_more {
+    bottom: 22vh;
+    height: 10vh;
+    width: 10vh;
+    opacity: 0.7;
+}
+
+#project_list .project_item:hover .preview_title, #project_list .project_item:hover .preview_class, #project_list .project_item:hover .icon {
+    opacity: 0;
+}
+
+#project_list .project_item:active .preview_pic {
+    -webkit-filter: brightness(30%);
+    filter: brightness(30%);
+}
+
+#project_list .project_item:active .preview_more {
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%);
+}
+
+
+
+#preview_control .list_go {
+    position: relative;
+    z-index: 20;
+    height: 30px;
+    width: 70px;
+    display: block;
+    background-size: 95%;
+    background-repeat: no-repeat;
+    transition: opacity 0.5s;
+    cursor: pointer;
+    margin: 3vh 7vw 3vh 7vw;
+}
+
+#preview_control .list_go:active {
+    opacity: 0.4;
+}
+
+#preview_control #go_up {
+    background-image: url("../images/go_up.png");
+}
+
+#preview_control #go_up:hover {
+    background-image: url("../images/go_up_active.png");
+}
+
+#preview_control #go_down {
+    background-image: url("../images/go_down.png");
+}
+
+#preview_control #go_down:hover {
+    background-image: url("../images/go_down_active.png");
+}

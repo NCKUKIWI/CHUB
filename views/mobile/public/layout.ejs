@@ -13,7 +13,7 @@
   <script type="text/javascript" src="/assets/js/framework_syncscroll.js"></script>
   <!-- Customize js -->
   <script type="text/javascript">
-    var Mobile = false;
+    var Mobile = true;
   </script>
   <script src="/assets/js/index.js"></script>
   <script src="/assets/js/background.js"></script>
@@ -28,8 +28,8 @@
   <link rel="stylesheet" type="text/css" href="/assets/css/common_menu.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/common_sidebar.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/common_background.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/common_footer.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/common_style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/common_footer_mobile.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/common_style_mobile.css">
 
 </head>
 <body>
@@ -40,32 +40,10 @@
     <div class="sidebar_cover"></div>
     <div class="halfscreen_cover"></div>
   </div>
-  <div id="menu">
-    <% include ./menu %>
-    <!-- < include ./mainSidebar >
-    < include ./msgSidebar >
-    < include ./searchSidebar > -->
-  </div>
-  <div class="sidebar"><% include ./sidebar %></div>
   <div id="main">
     <%- body %>
   </div>
   <!-- 第二層浮動視窗 -->
-  <div class="float_window no_menu"></div> 
-  
-  <script>
-  </script>
-  <!-- 偵測行動裝置 -->
-  <script type="text/javascript">
-  // $(document).ready(function() {
-  //   if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-  //       alert("目前手機版建置中.....");
-  //       window.location = 'https://google.com.tw';
-  //   }
-  //   else {
-  //       console.log("使用桌上型裝置!");
-  //   }
-  // });
-  </script>
+  <!-- <div class="float_window no_menu"></div>  -->
 </body>
 </html>

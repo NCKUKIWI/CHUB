@@ -1,0 +1,169 @@
+<% layout('../public/layout') %>
+<link rel="stylesheet" type="text/css" href="/assets/css/project_float_mobile.css">
+
+<div class="float_window">
+  <div id="detail_left">
+    <div class="class_icons">
+      <div class="float_icon culture"></div>
+      <div class="float_icon digital"></div>
+      <div class="float_icon social"></div>
+    </div>
+    <div id="detail_brief" >
+      <div class="brief_pic">
+        <img id="project_pic" src="/uploads/project/<%= project._id %>/logo.png">
+        <img id="pic_more" src="/assets/images/pic_more.png">
+      </div>
+      <p class="project_name">
+        <% for(var i = 0; i < project.BigTitle.length; i++){ %>
+          <%= project.BigTitle[i] %>
+          <% if( i != project.BigTitle.length - 1) { %> <br> <% } %>
+        <% } %>   
+      </p>
+      <hr>
+      <p id="detail_main_text">
+        <% for(var i = 0; i < project.SmallTitle.length; i++){ %>
+          <%= project.SmallTitle[i] %>
+          <br>
+        <% } %>     
+      </p>
+    </div>
+  </div>
+  <div id="detail_right">
+    <div id="detail_type">
+      <p class="title">Type</p>
+      <span>/</span>
+      <br>
+      <p class="short orange"><%= project.Type %></p>
+    </div>
+    <div id="detail_location">
+      <p class="title">Location</p><span>/</span>
+      <br>
+      <p class="short orange"><%= project.Location %></p>
+      <div class="botton tiny">MAP</div>
+    </div>
+    <div id="detail_duration">
+      <p class="title">duration</p>
+      <span>/</span>
+      <br>
+      <p class="short orange"><%= project.Time %></p>
+    </div>
+    <div id="detail_need">
+      <p class="title">Need</p>
+      <span>/</span>
+      <br>
+      <p class="short orange">
+        <% for(var i =0 ; i < project.Need.length  ;i ++){ %>
+          <%= project.Need[i] %>
+        <% } %>
+      </p>
+    </div>
+    <div id="detail_intro">
+      <p class="title with_space">Introduction</p>
+      <span>/</span>
+      <br>
+      <p class="long"><%= project.Introduction %>
+      </p>
+    </div>
+    <div id="detail_mission">
+      <p class="title with_space">Goal</p>
+      <span>/</span>
+      <br>
+      <p class="long">
+        <%= project.Mission %>
+      </p>
+    </div>
+    <div id="detail_contributer"><br/>
+      <p class="title">Contributer</p>
+      <span>/</span>
+      <br>
+      <p class="short"></p>
+    </div>
+    <div id="detail_sponsor">
+      <p class="title">Sponsor</p>
+      <span>/</span>
+      <br>
+      <p class="short"></p>
+    </div>
+    <div id="detail_activities">
+      <p class="title">Activities</p>
+      <span>/</span>
+      <br>
+      <p class="short"></p>
+    </div>
+    <div id="detail_teammate">
+      <p class="title">Teammate</p>
+      <span>/</span>
+      <br>
+      <p class="long">
+        <% for(var i in members){ %>
+          <a class="openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
+          <% if(i != members.length - 1) {%> , <% } %>
+        <% } %>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+$(document).ready(function(){
+  $('.joinProject').on('click', function(){
+    var id = this.getAttribute('project-id');
+    $.ajax({
+      url: "/projects/join/",
+      type: "POST",
+      data:{
+        project_id:id
+      },
+      success: function(response) {
+        toastr.success("申請成功");
+        setTimeout(function(){
+          window.location.href = window.location.href;
+        },3000);
+      }
+    });
+  });
+
+  $('.quitProject').on('click', function(){
+    var id = this.getAttribute('project-id');
+    $.ajax({
+      url: "/projects/quit/",
+      type: "POST",
+      data:{
+        project_id:id
+      },
+      success: function(response) {
+        toastr.success("退出成功");
+        setTimeout(function(){
+          window.location.href = window.location.href;
+        },3000);
+      }
+    });
+  });
+
+  $('.delProject').on('click', function(){
+    var id = this.getAttribute('project-id');
+    $.ajax({
+      url: "/projects/delete/"+id,
+      type: "DELETE",
+      success: function(response) {
+        if(response=="ok"){
+          toastr.success("刪除成功");
+          setTimeout(function(){
+            window.location.href = window.location.href;
+          },3000);
+        }
+      }
+    });
+  });
+  var inner_pic_size = $("#project_pic").css("width").replace("px","") / $( "#project_pic" ).css("height").replace("px","") ;
+  var outer_div_size = 25/35 ;
+  if ( inner_pic_size > outer_div_size ) {
+      $("#project_pic").addClass("fat");
+  }
+  else {
+      $("#project_pic").addClass("tall");
+  }
+});
+</script>

@@ -48,6 +48,10 @@ $(window).load(function() {
 	});
 
 	function show_window(id){
+		if(Mobile){
+			window.location.href = window.location.href + "/id/" + id;
+			return;
+		}
 		if(window_status == 'closed') {
 			$.ajax({
 				url: "/projects/" + id,
