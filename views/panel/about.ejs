@@ -1,3 +1,5 @@
+<script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=2znd0kipl40lwt5zamtwvhfzgzp1i05kl7oqjyxs345s4gmm'></script>
+
 <!-- 簡介管理 -->
 <div class="right_tabBoard" id="backstage_about">
   <div class="ui top attached tabular menu" style="">
@@ -65,7 +67,7 @@
             <td>[test1]</td>
             <td>2017/09/01</td>
             <td>
-              <button class="mini ui basic button openPage">管理</button>
+              <button class="mini ui basic button openPage" openPage="backstage_about_new">管理</button>
               <button class="mini ui basic button">刪除</button>
             </td>
           </tr>
@@ -73,3 +75,75 @@
       </table>
   </div>
 </div>
+
+<!-- 新增新聞 -->
+<div class="right_tabBoard" id="backstage_about_new">
+  <div class="ui top attached tabular menu" style="">
+    <a class="item" data-tab="about_new" style="border-radius: 0px !important;">About</a>
+    <a class="active item" data-tab="news_new" style="border-radius: 0px !important;">News</a>
+    <a class="item" data-tab="project_new" style="border-radius: 0px !important;">Project</a>
+    <a class="item" data-tab="activity_new" style="border-radius: 0px !important;">Activity</a>
+    <div style="position: absolute; right: 0px; padding: 5px;">
+      <button class="mini ui basic button">儲存</button>
+      <!-- <button class="mini ui basic button openPage" openPage="backstage_projects_manage">提交</button> -->
+    </div>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="about_new">
+    <form class="ui form">
+      <div class="field">
+        <label>About</label>
+        <input type="text" name="Name" value="">
+      </div>
+      <div class="field">
+        <label>副標</label>
+        <input type="text" name="Time" value="">
+      </div>
+    </form>
+  </div>
+  <div class="ui bottom attached active tab segment" data-tab="news_new">
+    <form method="post">
+      <textarea id="mytextarea">Hello, World!</textarea>
+    </form>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="project_new">
+    <form class="ui form">
+      <div class="field">
+        <label>About</label>
+        <input type="text" name="Name" value="">
+      </div>
+      <div class="field">
+        <label>副標</label>
+        <input type="text" name="Time" value="">
+      </div>
+    </form>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="activity_new">
+    <form class="ui form">
+      <div class="field">
+        <label>About</label>
+        <input type="text" name="Name" value="">
+      </div>
+      <div class="field">
+        <label>副標</label>
+        <input type="text" name="Time" value="">
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  tinymce.init({
+    selector: '#mytextarea',
+    height: 500,
+    menubar: false,
+    plugins: [
+      'advlist autolink lists link image charmap print preview anchor textcolor',
+      'searchreplace visualblocks code fullscreen',
+      'insertdatetime media table contextmenu paste code help'
+    ],
+    toolbar: 'insert | undo redo |  styleselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+  });
+});
+
+</script>
