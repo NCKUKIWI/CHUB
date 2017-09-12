@@ -16,7 +16,7 @@
     <p class="project_name">
       <% for(var i = 0; i < activity.BigTitle.length; i++){ %>
         <%= activity.BigTitle[i] %>
-        <br>
+        <% if(activity.BigTitle[i] != "" && i != activity.BigTitle.length - 1) { %><br><% } %>
       <% } %>   
     </p>
   </div>
@@ -25,17 +25,16 @@
   <p id="detail_main_text">
     <% for(var i = 0; i < activity.SmallTitle.length; i++){ %>
       <%= activity.SmallTitle[i] %>
-      <br>
+      <% if(activity.SmallTitle[i] != "" && i != activity.SmallTitle.length - 1) { %><br><% } %>
     <% } %>    
   </p>
-  <p>　</p>
   <p id="detail_type">
       <p class="title">Type</p><span>/</span>
       <p class="short orange"><%= activity.Type %></p>
   </p>
   <p id="detail_conditions">
     <p class="title with_space">Conditions</p><span>/</span>
-    <p class="long">
+    <p class="orange long">
       費用｜NT$ <%= activity.Fee %><br/>身份｜<%= activity.Role %><br/>學分｜<%= activity.Credit %> 分</p>
   </p>
   <p id="detail_location">
