@@ -147,6 +147,7 @@ $(document).ready(function(){
         var now_scrollTop = $(this).scrollTop();
         console.log(now_scrollTop);
         console.log(up_detect);
+        console.log(down_detect)
         console.log('--------');
 
         if(last_scrollTop < now_scrollTop){
@@ -156,7 +157,9 @@ $(document).ready(function(){
             }
         }else{
             down = false;
-            down_detect = 1;
+            if($('#activity_list')[0].scrollHeight - $(window).height() < $(this).scrollTop()){
+                down_detect = 1; 
+            }
         }
         // up
         if(now_scrollTop == 0){
@@ -170,6 +173,7 @@ $(document).ready(function(){
         if($('#activity_list')[0].scrollHeight - $(window).height() < $(this).scrollTop()){
             if(down_detect == 1 && down){
                 $.fn.fullpage.moveSectionDown();
+                down_detect = 0;
             }
         }
 

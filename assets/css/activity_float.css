@@ -77,7 +77,7 @@
       .float_window #detail_left #detail_brief .project_name {
         position: relative;
         width: 38vh;
-        font-size: 28px;
+        font-size: 20px;
         letter-spacing: 4px;
         color: #ed9027;
         margin-top: 2vh;
