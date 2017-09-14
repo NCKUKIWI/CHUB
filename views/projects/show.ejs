@@ -8,7 +8,7 @@
 		<div id="detail_brief">
 			<div class="brief_pic">
         <% if(project.hasCover == 1){ %>
-        <img id="project_pic" src="/uploads/project/<%= project._id %>/logo.png">
+        <img id="project_pic" src="/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>">
         <% }else{ %>
         <img id="project_pic" src="/assets/images/project_ex2.png">
         <% } %>
@@ -121,7 +121,7 @@
     <div id="view_all_pic">
       <img class="project_view_pic end" src="/assets/images/view_pic_end.png">
       <% for(var i = 0; i < project.Photo.length; i++) { %>
-          <img class="project_view_pic" id="pic_<%= i + 1 %>" src="<%= project.Photo[i] %>">
+          <img class="project_view_pic" id="pic_<%= i + 1 %>" src="<%= project.Photo[i] %>?<%= new Date().getTime() %>">
       <% } %>
       <!-- <img class="project_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
       <img class="project_view_pic" id="pic_2" src="/assets/images/portfolio_ex.png">

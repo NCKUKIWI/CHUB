@@ -9,7 +9,7 @@
     <div class="brief_pic">
       <!-- <img id="project_pic" src="/assets/images/project_ex2.png"> -->
       <div class="auto_adjust_activity_inner not_yet">
-        <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo.png">
+        <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>">
       </div>
       <img id="pic_more" src="/assets/images/pic_more_2.png">
     </div>
@@ -81,7 +81,7 @@
   <div id="view_all_pic">
     <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
     <% for(var i = 0; i < activity.Photo.length; i++) { %>
-      <img class="gallery_view_pic" id="pic_<%= i + 1 %>" src="<%= activity.Photo[i] %>">
+      <img class="gallery_view_pic" id="pic_<%= i + 1 %>" src="<%= activity.Photo[i] %>?<%= new Date().getTime() %>">
     <% } %>
     <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
   </div>
