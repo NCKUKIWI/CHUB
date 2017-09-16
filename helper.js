@@ -54,22 +54,22 @@ exports.noinjection = function noinjection(req){
   for(var i in req.body){
     if(typeof(req.body[i] == 'object')){ // 避免有array的情形
       for(var j in req.body[i]){
-        req.body[i][j] = req.body[i][j].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,"");
+        req.body[i][j] = req.body[i][j].replace(/\'|\#|\/|\*|\{|\}|\:/g,"");
       }
     }
     else {
-      req.body[i] = req.body[i].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,""); 
+      req.body[i] = req.body[i].replace(/\'|\#|\/|\*|\{|\}|\:/g,""); 
     }
     
   }
   for(var i in req.query){
     if(typeof(req.query[i] == 'object')){ // 避免有array的情形
       for(var j in req.query[i]){
-        req.query[i][j] = req.query[i][j].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,"");
+        req.query[i][j] = req.query[i][j].replace(/\'|\#|\/|\*|\{|\}|\:/g,"");
       }
     }
     else {
-      req.query[i] = req.query[i].replace(/\'|\#|\/|\*|\{|\}|\:|\s/g,""); 
+      req.query[i] = req.query[i].replace(/\'|\#|\/|\*|\{|\}|\:/g,""); 
     }
   }
 }
