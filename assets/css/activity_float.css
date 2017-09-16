@@ -55,7 +55,7 @@
       .float_window #detail_left #detail_brief .brief_pic {
         position: relative;
         width: 38vh;
-        height: 60vh;
+        max-height: 55vh;
         overflow: hidden;
         cursor: pointer; }
         .float_window #detail_left #detail_brief .brief_pic:hover #pic_more {
