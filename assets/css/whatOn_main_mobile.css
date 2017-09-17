@@ -582,6 +582,7 @@ p, a {
         position: relative;
         top: -40vw;
         color: white;
+        font-weight: bolder;
         text-align: center; }
       #whats_on .block .round_display .icon_more_1 {
         position: relative;
