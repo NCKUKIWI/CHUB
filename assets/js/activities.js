@@ -25,9 +25,6 @@ $(document).ready(function(){
     $( ".float_window" ).hide();
     $( ".float_pic_window" ).hide();
     view_pic_total = 0;
-    $(".not_yet").each (function() {
-        autoAdjust($(this));
-    });
     
     $( ".activity_item" ).click( function() {
         // float_window();
@@ -264,7 +261,20 @@ $(document).ready(function(){
         }); 
     }
 
+
+});
+
+$(window).on( "load", function () {
+	
+		// Initialize
+		$(".not_yet").each(function() {
+			autoAdjust($(this));
+		});
+	
+    });
     
+
+
     // 自動調整圖片大小
     
     function autoAdjust( outer_div ) {
@@ -279,4 +289,3 @@ $(document).ready(function(){
             outer_div.removeClass("not_yet");
         }
     }
-});
