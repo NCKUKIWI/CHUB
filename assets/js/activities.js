@@ -25,9 +25,6 @@ $(document).ready(function(){
     $( ".float_window" ).hide();
     $( ".float_pic_window" ).hide();
     view_pic_total = 0;
-    $(".not_yet").each (function() {
-        autoAdjust($(this));
-    });
     
     $( ".activity_item" ).click( function() {
         // float_window();
@@ -265,19 +262,31 @@ $(document).ready(function(){
         }); 
     }
 
-    
-    // 自動調整圖片大小
-    
-    function autoAdjust( outer_div ) {
-        var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
-        var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
-        if ( inner_pic_size > outer_div_size ) {
-            outer_div.addClass("fat");
-            outer_div.removeClass("not_yet");
-        }
-        else {
-            outer_div.addClass("tall");
-            outer_div.removeClass("not_yet");
-        }
-    }
+
 });
+
+$(window).on( "load", function () {
+	
+		// Initialize
+		$(".not_yet").each(function() {
+			autoAdjust($(this));
+		});
+	
+});
+    
+
+
+// 自動調整圖片大小
+
+function autoAdjust( outer_div ) {
+    var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
+    var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
+    if ( inner_pic_size > outer_div_size ) {
+        outer_div.addClass("fat");
+        outer_div.removeClass("not_yet");
+    }
+    else {
+        outer_div.addClass("tall");
+        outer_div.removeClass("not_yet");
+    }
+}

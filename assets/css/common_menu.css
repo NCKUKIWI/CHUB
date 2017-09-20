@@ -98,6 +98,13 @@
     cursor: pointer;
 }
 
+#menu_only_icon {
+        position: relative;
+        width: 25px;
+        left: 10px;
+        margin-right: 40px;
+    }
+
 .bottom_left_bar:hover #burger_icon #menuline_1, .bottom_left_bar:hover #burger_icon #menuline_2 {
     stroke-dasharray: 32;
 }
