@@ -145,6 +145,7 @@
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.1);
+  display: none;
   opacity: 0; }
   .float_pic_window .slideshow_btn {
     position: absolute;
