@@ -79,6 +79,7 @@ $(document).ready(function(){
                         close_window();
                     });
                     $( ".float_window" ).show();
+                    $( ".float_pic_window" ).hide();
                     $( "#fullpage, .cover" ).animate({opacity: 0.1}, 100, function() {
                         window_status = 'open';
                         $( '.float_window' ).animate({opacity: 1}, 500);

@@ -313,6 +313,7 @@ p, a {
     letter-spacing: 2px;
     display: block;
     margin: 30px;
+    color: white;
     transition: 0.5s; }
     #menu_content .menu_title:before {
       position: absolute;
@@ -487,6 +488,7 @@ p, a {
           padding-top: 4.5vh; }
         #whats_on #preview_gallery .control .info .class_name {
           left: 10vw;
+          font-weight: bolder;
           padding-top: 1vh; }
         #whats_on #preview_gallery .control .info .class_icon {
           position: absolute;

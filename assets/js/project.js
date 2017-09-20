@@ -23,7 +23,6 @@ $(window).load(function() {
 		}
 	});
 	$(".float_window").hide();
-	$(".float_pic_window" ).hide();
 	$("#left_project").addClass("item_now");
 	view_pic_total = 0;
 	$(".not_yet").each (function() {
@@ -63,6 +62,7 @@ $(window).load(function() {
 						close_window();
 					});
 					$(".float_window").show();
+					$( ".float_pic_window" ).hide();
 					$("#fullpage, .cover").animate({
 						opacity: 0.1
 					}, 100, function() {

@@ -87,6 +87,13 @@
     width: 100vw;
 }
 
+.bottom_left_bar #menu_only_icon {
+	position: relative;
+	width: 25px;
+	left: 10px;
+	margin-right: 40px;
+}
+
 .bottom_left_bar:hover .menu_icon {
     cursor: pointer;
 }
@@ -165,4 +172,8 @@
 
 .bottom_left_bar .menu_content:active {
     opacity: 0.4;
+}
+
+#chub_logo{
+	width: 4vw;
 }

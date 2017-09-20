@@ -63,6 +63,7 @@
     .sidebar_cont .sidebar_upper #sidebar_chub_logo {
       position: absolute;
       background: url("../images/chub_logo.png") no-repeat;
+      background-size: contain;
       height: 70px;
       width: 50px;
       margin: auto;
