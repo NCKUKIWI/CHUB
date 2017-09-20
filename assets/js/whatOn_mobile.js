@@ -9,8 +9,8 @@ $(document).ready(function(){
     $(".round_display").each(function() {
         lilGalleryInit($(this));
     });
-    gotoPage("whats_on");
-    switchBackground("whats_on");
+    // gotoPage("whats_on");
+    // switchBackground("whats_on");
     galleryInit();
     
 
@@ -144,6 +144,7 @@ $(document).ready(function(){
     // 跳轉不同頁面
     function gotoPage ( page_name ) {
         $(".page").hide();
+        $("#main").hide();
         $("#"+page_name).show();
     }
 
