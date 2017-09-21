@@ -24,7 +24,7 @@ $(document).ready(function(){
     });
     $( ".float_window" ).hide();
     $( ".float_pic_window" ).hide();
-    view_pic_total = 0;
+    view_pic_total = 1;
     
     $( ".activity_item" ).click( function() {
         // float_window();
@@ -202,6 +202,7 @@ $(document).ready(function(){
             view_scroll_now = $(".gallery_view_pic").width()/2 + 120;
             $( "#view_all_pic" ).scrollLeft(view_scroll_now);
             view_pic_total = $(".pic_counter.total").text(); // 設定照片總數
+            view_display_now = 1; // 每次從1開始算
             $( ".pic_counter.total" ).text( "/"+ paddingLeft($(".pic_counter.total").text()) ); // 如果是個位數，前面放0然後改text值
             $( "#fullpage, .cover" ).animate({opacity: 0}, 100, function() {
                 $( "#view_all_pic" ).children( "#pic_"+view_display_now ).addClass("center");

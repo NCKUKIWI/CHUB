@@ -120,8 +120,9 @@
     </svg>
     <div id="view_all_pic">
       <img class="project_view_pic end" src="/assets/images/view_pic_end.png">
+      <img class="project_view_pic" id="pic_1" onclick="window.open('/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>">
       <% for(var i = 0; i < project.Photo.length; i++) { %>
-          <img class="project_view_pic" id="pic_<%= i + 1 %>" src="<%= project.Photo[i] %>?<%= new Date().getTime() %>">
+          <img class="project_view_pic" id="pic_<%= i + 2 %>" onclick="window.open('<%= project.Photo[i] %>?<%= new Date().getTime() %>')" src="<%= project.Photo[i] %>?<%= new Date().getTime() %>">
       <% } %>
       <!-- <img class="project_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
       <img class="project_view_pic" id="pic_2" src="/assets/images/portfolio_ex.png">
@@ -131,7 +132,7 @@
       <img class="project_view_pic end" src="/assets/images//view_pic_end.png">
     </div>
     <div class="view_pic_counter">
-      <span class="pic_counter now">01</span><span class="pic_counter total"><%= project.Photo.length %></span>
+      <span class="pic_counter now">01</span><span class="pic_counter total"><%= project.Photo.length + 1%></span>
     </div>
     <a href="#" class="close_icon" id="close_pic_view">　</a>
   </div>

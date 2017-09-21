@@ -81,13 +81,14 @@
   </svg>
   <div id="view_all_pic">
     <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
+    <img class="gallery_view_pic" id="pic_1" onclick="window.open('/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>">
     <% for(var i = 0; i < activity.Photo.length; i++) { %>
-      <img class="gallery_view_pic" id="pic_<%= i + 1 %>" src="<%= activity.Photo[i] %>?<%= new Date().getTime() %>">
+      <img class="gallery_view_pic" id="pic_<%= i + 2 %>" onclick="window.open('<%= activity.Photo[i] %>?<%= new Date().getTime() %>')" src="<%= activity.Photo[i] %>?<%= new Date().getTime() %>">
     <% } %>
     <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
   </div>
   <div class="view_pic_counter">
-    <span class="pic_counter now">01</span><span class="pic_counter total"><%= activity.Photo.length %></span>
+    <span class="pic_counter now">01</span><span class="pic_counter total"><%= activity.Photo.length + 1%></span>
   </div>
   <a href="#" class="close_icon" id="close_pic_view">　</a>
 </div>

@@ -151,6 +151,7 @@ $(window).load(function() {
 			view_scroll_now = $(".project_view_pic").width() / 2 + 120;
 			$("#view_all_pic").scrollLeft(view_scroll_now);
 			view_pic_total = $(".pic_counter.total").text();
+			view_display_now = 1 // 每次從1開始算
 			$(".pic_counter.total").text("/" + paddingLeft($(".pic_counter.total").text()));
 			$("#fullpage, .cover").animate({
 				opacity: 0
