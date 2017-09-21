@@ -62,8 +62,7 @@ function preGalleryGoto( command ) {
     if ( command == 'next' && $("#preview_gallery").find(".on").next(".dot").length ) {
         var full_width = $(window).width();
         $(".display").css("left","-="+full_width);
-        console.log($("#preview_gallery").find(".on")[0]);
-        $('.text.giga.orange').text($("#preview_gallery").find(".on > img")[0].getAttribute("name"))
+        $(".info").text = $("#preview_gallery").find(".on")[0].getAttribute("name");
         $("#preview_gallery").find(".on").removeClass("on").next(".dot").addClass("on");
     }
     else if ( command == 'prev' && $("#preview_gallery").find(".on").prev(".dot").length ) {
