@@ -9,20 +9,22 @@ $(document).ready(function(){
     $('#fullpage').fullpage({
         // 如果滑到瀏覽activity的地方，menu自動消失
         onLeave (index, nextIndex, direction){
-            if(nextIndex == 1){
+            if(nextIndex != 2){
                 $('#menu').fadeIn();
+                $.fn.fullpage.setAllowScrolling(true);
             }
             else{
                 $('#menu').fadeOut();
+                $.fn.fullpage.setAllowScrolling(false);
+                up_detect = 0;
+                down_detect = 0;
+                last_scrollTop = -1;
             }
         }
     });
     $( ".float_window" ).hide();
     $( ".float_pic_window" ).hide();
     view_pic_total = 0;
-    $(".not_yet").each (function() {
-        autoAdjust($(this));
-    });
     
     $( ".activity_item" ).click( function() {
         // float_window();
@@ -74,6 +76,7 @@ $(document).ready(function(){
                         close_window();
                     });
                     $( ".float_window" ).show();
+                    // $( ".float_pic_window" ).hide();
                     $( "#fullpage, .cover" ).animate({opacity: 0.1}, 100, function() {
                         window_status = 'open';
                         $( '.float_window' ).animate({opacity: 1}, 500);
@@ -117,12 +120,63 @@ $(document).ready(function(){
 
     // Activity 的動態控制
 
-    $( "#activity_list, .float_window" ).hover(
-        function() {
-            $.fn.fullpage.setAllowScrolling(false);
-        }, function() {
-            $.fn.fullpage.setAllowScrolling(true);
-    });
+    // $( "#activity_list, .float_window" ).hover(
+    //     function() {
+    //         $.fn.fullpage.setAllowScrolling(false);
+    //     }, function() {
+    //         $.fn.fullpage.setAllowScrolling(true);
+    // });
+
+    var up_detect = 0;
+    var down_detect = 0;
+    var down = false;
+    
+    var last_scrollTop = -1;
+
+    $( "#activity_list").on('scroll', function(){
+        // console.log("now:" + $(this).scrollTop());
+        // console.log("test: " + ($('#activity_list')[0].scrollHeight - $(window).height()))
+        // console.log("test1: " + $(this).scrollTop());
+        // // console.log(this.scroll)
+        // if($(this).scrollTop() == 0 || $('#activity_list')[0].scrollHeight - $(window).height() < $(this).scrollTop()){
+        //     console.log('true');
+        //     $.fn.fullpage.setAllowScrolling(true);
+        // }
+        var now_scrollTop = $(this).scrollTop();
+        console.log(now_scrollTop);
+        console.log(up_detect);
+        console.log(down_detect)
+        console.log('--------');
+
+        if(last_scrollTop < now_scrollTop){
+            down = true;
+            if(last_scrollTop == 0) {
+                up_detect = 1;
+            }
+        }else{
+            down = false;
+            if($('#activity_list')[0].scrollHeight - $(window).height() < $(this).scrollTop()){
+                down_detect = 1; 
+            }
+        }
+        // up
+        if(now_scrollTop == 0){
+            if(up_detect == 1){
+                $.fn.fullpage.moveSectionUp();
+                up_detect = 0;
+            }
+        }
+        last_scrollTop = now_scrollTop;
+
+        if($('#activity_list')[0].scrollHeight - $(window).height() < $(this).scrollTop()){
+            if(down_detect == 1 && down){
+                $.fn.fullpage.moveSectionDown();
+                down_detect = 0;
+            }
+        }
+
+    })
+    console.log("")
 
     $( "#sort_hot" ).click( function() {
         now_sort = "hot";
@@ -208,21 +262,31 @@ $(document).ready(function(){
         }); 
     }
 
-    
-    // 自動調整圖片大小
-    
-    function autoAdjust( outer_div ) {
-        var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
-        var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
-        if ( inner_pic_size > outer_div_size ) {
-            outer_div.addClass("fat");
-            outer_div.removeClass("not_yet");
-        }
-        else {
-            outer_div.addClass("tall");
-            outer_div.removeClass("not_yet");
-        }
-    }
-
 
 });
+
+$(window).on( "load", function () {
+	
+		// Initialize
+		$(".not_yet").each(function() {
+			autoAdjust($(this));
+		});
+	
+});
+    
+
+
+// 自動調整圖片大小
+
+function autoAdjust( outer_div ) {
+    var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
+    var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
+    if ( inner_pic_size > outer_div_size ) {
+        outer_div.addClass("fat");
+        outer_div.removeClass("not_yet");
+    }
+    else {
+        outer_div.addClass("tall");
+        outer_div.removeClass("not_yet");
+    }
+}

@@ -17,8 +17,10 @@
   </script>
   <script src="/assets/js/index.js"></script>
   <script src="/assets/js/background.js"></script>
-  <script src="/assets/js/sidebar.js"></script>
+	<script type="text/javascript" src="/assets/js/sidebar_mobile.js"></script>
   <script src="/assets/js/search.js"></script>
+
+
   <!-- Framework's css -->
   <link rel="stylesheet" type="text/css" href="/assets/css/framework_toastr.min.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/framework_semantic.min.css">
@@ -26,10 +28,13 @@
   <!-- Customize css -->
   <link rel="stylesheet" type="text/css" href="/assets/css/common_reset.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/common_menu.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/common_sidebar.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/common_sidebar_monile.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/common_background.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/common_footer_mobile.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/common_style_mobile.css">
+<!--   <link rel="stylesheet" type="text/css" href="/assets/css/whatOn_main_mobile.css">
+ -->
+  
 
 </head>
 <body>
@@ -40,7 +45,9 @@
     <div class="sidebar_cover"></div>
     <div class="halfscreen_cover"></div>
   </div>
+  <% include ./sidebar %>
   <div id="main">
+  	
     <%- body %>
   </div>
   <!-- 第二層浮動視窗 -->

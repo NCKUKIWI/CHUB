@@ -9,13 +9,14 @@
     <div class="brief_pic">
       <!-- <img id="project_pic" src="/assets/images/project_ex2.png"> -->
       <div class="auto_adjust_activity_inner not_yet">
-        <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo.png">
+        <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>">
       </div>
       <img id="pic_more" src="/assets/images/pic_more_2.png">
     </div>
     <p class="project_name">
       <% for(var i = 0; i < activity.BigTitle.length; i++){ %>
         <%= activity.BigTitle[i] %>
+        <!-- <% if(activity.BigTitle[i] != "" && i != activity.BigTitle.length - 1) { %><br><% } %> -->
         <br>
       <% } %>   
     </p>
@@ -25,17 +26,16 @@
   <p id="detail_main_text">
     <% for(var i = 0; i < activity.SmallTitle.length; i++){ %>
       <%= activity.SmallTitle[i] %>
-      <br>
+      <% if(activity.SmallTitle[i] != "" && i != activity.SmallTitle.length - 1) { %><br><% } %>
     <% } %>    
   </p>
-  <p>　</p>
   <p id="detail_type">
       <p class="title">Type</p><span>/</span>
       <p class="short orange"><%= activity.Type %></p>
   </p>
   <p id="detail_conditions">
     <p class="title with_space">Conditions</p><span>/</span>
-    <p class="long">
+    <p class="orange long">
       費用｜NT$ <%= activity.Fee %><br/>身份｜<%= activity.Role %><br/>學分｜<%= activity.Credit %> 分</p>
   </p>
   <p id="detail_location">
@@ -46,7 +46,7 @@
   <p id="detail_intro">
     <p class="title with_space">Introduction</p><span>/</span>
     <p class="long">
-      <%= activity.Introduction %>
+      <%- activity.Introduction.replace(/\r\n/g, '<br/>') %>
       <!-- 123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123</p> -->
   </p>
   <!-- <p id="detail_mission">
@@ -82,7 +82,7 @@
   <div id="view_all_pic">
     <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
     <% for(var i = 0; i < activity.Photo.length; i++) { %>
-      <img class="gallery_view_pic" id="pic_<%= i + 1 %>" src="<%= activity.Photo[i] %>">
+      <img class="gallery_view_pic" id="pic_<%= i + 1 %>" src="<%= activity.Photo[i] %>?<%= new Date().getTime() %>">
     <% } %>
     <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
   </div>

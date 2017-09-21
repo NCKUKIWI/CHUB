@@ -84,6 +84,10 @@ app.use("/payment",payment);
 var search = require("./controller/search");
 app.use("/search",search);
 
+//home routes (what's on)
+var whatOn = require("./controller/whatOn");
+app.use("/*",whatOn);
+
 //insert
 
 app.get("/about",function(req,res){
@@ -98,9 +102,9 @@ app.get("/whaton",function(req,res){
   res.render("what_on");
 });
 
-app.get("/*",function(req,res){
-  res.render("index");
-});
+// app.get("/*",function(req,res){
+//   res.render("index");
+// });
 
 app.listen( process.env.PORT || 5000);
 console.log("running on port 5000");

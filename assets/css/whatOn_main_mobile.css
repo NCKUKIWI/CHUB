@@ -1,0 +1,215 @@
+
+html{
+	overflow-x: hidden;
+}
+
+#whats_on {
+  position: relative;
+  width: 80vw;
+  top: 14vh;
+  margin-bottom: 14vh;
+  left: 10vw;
+  width: 100vw;
+  left: 0vw; }
+  #whats_on .footer {
+    left: 0vw; }
+  #whats_on #preview_gallery {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    top: -10vh;
+    padding-top: 17vh;
+    margin-bottom: -14vh; }
+    #whats_on #preview_gallery .control {
+      position: absolute;
+      display: block;
+      z-index: 10;
+      top: 3vh;
+      left: -10vw;
+      height: 85vh;
+      width: 110vw;}
+      #whats_on #preview_gallery .control .move {
+        position: absolute;
+        margin-top: calc(42.5vh - 31px);
+        height: 40px;
+        width: auto;
+        cursor: pointer;
+        transition: 0.2s; }
+        #whats_on #preview_gallery .control .move.left {
+          left: calc(10vw - 1px); }
+        #whats_on #preview_gallery .control .move.right {
+          right: -1px; }
+        #whats_on #preview_gallery .control .move.disabled {
+          opacity: 0;
+          cursor: default; }
+      #whats_on #preview_gallery .control .counter {
+        position: relative;
+        width: 50vw;
+        height: 20px;
+        margin: auto;
+        left: 5vw;
+        top: 60vh;
+        text-align: center;
+        overflow: hidden; }
+        #whats_on #preview_gallery .control .counter .dot {
+          display: inline-block;
+          bottom: 0;
+          width: 6px;
+          height: 6px;
+          margin: 8px;
+          border-radius: 100%;
+          background: #323232; }
+          #whats_on #preview_gallery .control .counter .dot.on {
+            background: white; }
+      #whats_on #preview_gallery .control .info {
+        position: relative;
+        height: calc(20vh - 4px);
+        width: calc(100vw - 2px);
+        left: 10vw;
+        top: 63vh;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid #ed9027; }
+        #whats_on #preview_gallery .control .info .giga {
+        	font-size: 18px;
+          left: 10vw;
+          width: 30vw;
+          line-height: 20px;
+          padding-top: 4.5vh; }
+        #whats_on #preview_gallery .control .info .class_name {
+          left: 10vw;
+          font-weight: bolder;
+          padding-top: 1vh; }
+        #whats_on #preview_gallery .control .info .class_icon {
+          position: absolute;
+          top: 0;
+          right: 0;
+          height: calc(10vh - 2px);
+          top: 5vh;
+          width: 23vw;
+          background: url("../images/project_icon_culture.png") no-repeat;
+          background-size: 28px;
+          background-position: 35% 60%; }
+    #whats_on #preview_gallery .display {
+      position: relative;
+      display: flex;
+      width: 10vw;
+      height: 85vh;
+      top: -14vh;
+      left: -10vw;
+      overflow: hidden;
+      transition: 0.5s; }
+      #whats_on #preview_gallery .display .pic_full {
+        position: relative;
+        width: 100vw;
+        height: 100%;
+        right: -10vw;
+        margin-bottom: -14vh; }
+    #whats_on #preview_gallery .start_explore {
+      position: relative;
+      top: 0;
+      height: 8vh;
+      margin-top: -14vh;
+      width: 100vw;
+      background-color: black; }
+      #whats_on #preview_gallery .start_explore img {
+        position: relative;
+        display: block;
+        top: 10%;
+        height: 80%;
+        margin: auto; }
+  #whats_on .block {
+    position: relative;
+    left: 5vw;
+    height: 65vh;
+    width: 90vw; }
+    #whats_on .block .page_title {
+      position: absolute;
+      margin-top: 5vh;
+      line-height: 8vh; }
+    #whats_on .block .sort_box {
+      position: absolute;
+      margin-top: 5vh;
+      right: 5vw; }
+      #whats_on .block .sort_box .sort_way {
+        position: relative;
+        line-height: 8vh;
+        color: #ed9027;
+        display: inline-block;
+        letter-spacing: 2px;
+        cursor: pointer;
+        margin-left: 5vw; }
+        #whats_on .block .sort_box .sort_way:after {
+          position: absolute;
+          top: 4vh;
+          margin-top: 14px;
+          left: 0;
+          content: "";
+          display: block;
+          height: 1px;
+          width: 16px;
+          background: #ed9027;
+          transition: width 0.2s; }
+        #whats_on .block .sort_box .sort_way.now:after {
+          width: 30px; }
+    #whats_on .block .round_display {
+      position: relative;
+      top: 15vh;
+      left: 12.5vw;
+      width: 25vw;
+      display: flex;
+      /*align-items: center;*/
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.5s; }
+      #whats_on .block .round_display .pic_round {
+        position: relative;
+        height: 55vw;
+        width: 55vw;
+        margin: 2vh 5vw;
+        border-radius: 100%;
+        -webkit-filter: brightness(40%);
+        filter: brightness(40%); }
+      #whats_on .block .round_display .text {
+        position: relative;
+        top: -50vw;
+        color: white;
+        font-weight: bolder;
+        max-width: 55vw;
+        padding: 0 31px;
+        margin: auto;
+        text-align: center; }
+      #whats_on .block .round_display .icon_more_1 {
+        position: relative;
+        display: block;
+        top: -48vw;
+        height: 9vw;
+        width: auto;
+        margin: auto; }
+    #whats_on .block .go_box {
+      position: absolute;
+      height: 3vw;
+      width: 40vw;
+      display: block;
+      left: 25vw;
+      bottom: 9vh; }
+      #whats_on .block .go_box .go_to {
+        position: relative;
+        display: inline-block;
+        height: 3vw;
+        width: 15vw;
+        display: block;
+        background-size: 95%;
+        background-repeat: no-repeat;
+        cursor: pointer; }
+        #whats_on .block .go_box .go_to.prev {
+          position: absolute;
+          left: 0;
+          background-image: url("../images/go_up.png"); }
+          #whats_on .block .go_box .go_to.prev:hover {
+            background-image: url("../images/go_up_active.png"); }
+        #whats_on .block .go_box .go_to.next {
+          position: absolute;
+          right: 0;
+          background-image: url("../images/go_down.png"); }
+          #whats_on .block .go_box .go_to.next:hover {
+            background-image: url("../images/go_down_active.png"); }

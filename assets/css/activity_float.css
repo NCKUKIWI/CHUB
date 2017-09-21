@@ -1,12 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans");
 .float_window {
   position: fixed;
-  margin: auto;
   z-index: 90;
   left: 0;
   right: 0;
   top: 15vh;
-  width: 1150px;
+  width: 100vw;
   height: 70vh;
   opacity: 0; }
   .float_window .dark_mask {
@@ -17,8 +16,8 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0.4); }
   .float_window #detail_left {
-    position: relative;
-    left: 60px; }
+    position: absolute;
+    left: 0px; }
     .float_window #detail_left .class_icons {
       position: absolute; }
       .float_window #detail_left .class_icons .float_icon {
@@ -52,13 +51,11 @@
             background: #ed9027; }
     .float_window #detail_left #detail_brief {
       position: relative;
-      margin: 0px 70px;
       width: 100%; }
       .float_window #detail_left #detail_brief .brief_pic {
         position: relative;
-        top: 30px;
-        width: 30vh;
-        height: 45vh;
+        width: 38vh;
+        max-height: 55vh;
         overflow: hidden;
         cursor: pointer; }
         .float_window #detail_left #detail_brief .brief_pic:hover #pic_more {
@@ -79,31 +76,33 @@
         transition: opacity 0.5s, brightness 0.5s; }
       .float_window #detail_left #detail_brief .project_name {
         position: relative;
-        width: 25vh;
-        font-size: 28px;
-        letter-spacing: 2px;
+        width: 38vh;
+        font-size: 20px;
+        letter-spacing: 4px;
         color: #ed9027;
-        margin-top: 65px;
+        margin-top: 2vh;
+        text-align: right;
+        padding-right: 10px;
         line-height: 38px; }
   .float_window #detail_right {
     position: absolute;
+    margin-left: 47vh;
+    width: calc(100vw - 47vh - 115px);
     top: 10%;
-    left: 460px;
     height: 80%;
-    width: 670px;
     overflow-x: hidden;
     overflow-y: scroll;
     padding-right: 100px;
    }
     .float_window #detail_right #detail_main_text {
       font-size: 18px;
-      letter-spacing: 2px;
+      letter-spacing: 4px;
       color: #ed9027;
       line-height: 30px;
       font-weight: 600; }
       .float_window #detail_right #detail_main_text:after {
         position: relative;
-        top: 16px;
+        top: 10px;
         content: "";
         display: block;
         height: 2px;
@@ -111,9 +110,10 @@
         margin-bottom: 30px;
         background: #ed9027; }
     .float_window #detail_right .title {
-      font-size: 14px;
+      font-size: 12px;
       font-style: italic;
-      display: inline; }
+      display: inline;
+      letter-spacing: 2px; }
       .float_window #detail_right .title.with_space {
         position: relative;
         line-height: 55px; }
@@ -129,7 +129,7 @@
       top: -12px;
       margin-bottom: -5px;
       left: 40px;
-      line-height: 24px; }
+      line-height: 18px; }
     .float_window #detail_right a {
       text-decoration: underline;
       transition: opacity 0.2s; }
@@ -145,6 +145,7 @@
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.1);
+  display: none;
   opacity: 0; }
   .float_pic_window .slideshow_btn {
     position: absolute;
@@ -200,7 +201,7 @@
 .bottom_icons {
   position: absolute;
   bottom: -5px;
-  right: 25px;
+  right: 115px;
   cursor: pointer;
   z-index: 120; }
   .bottom_icons .round_icon {
@@ -226,7 +227,7 @@
 
 .close_icon {
   position: absolute;
-  right: 15px;
+  right: 108px;
   top: 15px;
   background: url("../images/close.png");
   height: 17px;

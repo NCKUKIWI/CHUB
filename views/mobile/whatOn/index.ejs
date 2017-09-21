@@ -1,0 +1,162 @@
+<% layout('../public/layout') %>
+<!-- Style Setting -->
+<link rel="stylesheet" type="text/css" href="/assets/css/whatOn_main_mobile.css">
+
+<!-- Javascript Control-->
+<script type="text/javascript" src="/assets/js/whatOn_mobile.js"></script>
+
+
+
+<div id="whats_on">
+  <div id="preview_gallery">
+      <div class="control">
+          <img class="move left" src="/assets/images/mobile/gallery_hori_prev.png">
+          <img class="move right" src="/assets/images/mobile/gallery_hori_next.png">
+          <div class="counter">
+              <div class="dot on"></div>
+          </div>
+          <div class="info">
+              <p class="text giga orange">E-Ink Research</p>
+              <p class="text class_name">智慧科技與數位內容</p>
+              <div class="class_icon"></div>
+          </div>
+      </div>
+      <div class="display">
+          <div class="pic_full auto_adjust not_yet">
+              <img src="/assets/images/mobile/test.jpg">
+          </div>
+          <div class="pic_full auto_adjust not_yet">
+              <img src="/assets/images/mobile/test.jpg">
+          </div>
+      </div>
+      <div class="start_explore">
+          <img src="/assets/images/mobile/start_explore.png">
+      </div>
+  </div>
+  <!-- 暫時沒有開放 -->
+  <!-- <div class="block" id="block_news">
+      <p class="text page_title">News</p>
+      <div class="sort_box">
+          <a class="sort_way hot now">HOT</a>
+          <a class="sort_way time">TIME</a>
+      </div>
+      <div class="round_display" id="display_news">
+          <div class="display_item on">
+              <div class="pic_round auto_adjust not_yet">
+                  <img src="/assets/images/mobile/test.jpg">
+              </div>
+              <p class="text normal long">成大<br>數位影像與設計作品<br>國際商展</p>
+              <p class="text normal">2017.09.14</p>
+              <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
+          </div>
+          <div class="display_item">
+              <div class="pic_round auto_adjust not_yet">
+                  <img src="/assets/images/mobile/test.jpg">
+              </div>
+              <p class="text normal long">成大<br>數位影像與設計作品<br>國際商展</p>
+              <p class="text normal">2017.09.14</p>
+              <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
+          </div>
+          <div class="display_item">
+              <div class="pic_round auto_adjust not_yet">
+                  <img src="/assets/images/mobile/test.jpg">
+              </div>
+              <p class="text normal long">成大<br>數位影像與設計作品<br>國際商展</p>
+              <p class="text normal">2017.09.14</p>
+              <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
+          </div>
+      </div>
+      <div class="go_box">
+          <div class="go_to prev"></div>
+          <div class="go_to next"></div>
+      </div>
+  </div> -->
+  <div class="block" id="block_projects">
+      <p class="text page_title">Projects</p>
+      <div class="sort_box">
+          <a class="sort_way hot now">HOT</a>
+          <a class="sort_way time">TIME</a>
+      </div>
+      <div class="round_display" id="display_projects">
+      	<% for (var i = 0; i < projects.length; i++) { %>
+          <div class="display_item <% if (i == 0){%> on <%}%>" onclick='location.href= "/projects/id/<%= projects[i]._id %>"'>
+            <div class="pic_round auto_adjust not_yet">
+                <img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>">
+            </div>
+	            <p class="text normal long"><%= projects[i].Name %></p>
+	            <p class="text normal">2017.09.14</p>
+	            <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
+          </div>
+      	<% } %>
+          <!-- <div class="display_item">
+              <div class="pic_round auto_adjust not_yet">
+                  <img src="/assets/images/mobile/test.jpg">
+              </div>
+              <p class="text normal long">成大<br>數位影像與設計作品<br>國際商展</p>
+              <p class="text normal">2017.09.14</p>
+              <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
+          </div>
+          <div class="display_item">
+              <div class="pic_round auto_adjust not_yet">
+                  <img src="/assets/images/mobile/test.jpg">
+              </div>
+              <p class="text normal long">成大<br>數位影像與設計作品<br>國際商展</p>
+              <p class="text normal">2017.09.14</p>
+              <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
+          </div> -->
+      </div>
+      <div class="go_box">
+          <div class="go_to prev"></div>
+          <div class="go_to next"></div>
+      </div>
+  </div>
+  <div class="block" id="block_activities">
+      <p class="text page_title">Activities</p>
+      <div class="sort_box">
+          <a class="sort_way hot now">HOT</a>
+          <a class="sort_way time">TIME</a>
+      </div>
+      <div class="round_display" id="display_activities">
+      	<% for (var i = 0; i < activities.length; i++) { %>
+          <div class="display_item <% if (i == 0){%> on <%}%>">
+            <div class="pic_round auto_adjust not_yet">
+                <img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
+            </div>
+	            <p class="text normal long"><%= activities[i].Name %></p>
+	            <p class="text normal">2017.09.14</p>
+	            <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
+          </div>
+      	<% } %>
+      </div>
+      <div class="go_box">
+          <div class="go_to prev"></div>
+          <div class="go_to next"></div>
+      </div>
+  </div>    
+  <div class="footer">
+      <img class="footer_logo" src="/assets/images/chub_full_logo.png">
+      <a class="footer_fb" class="button"><img src="/assets/images/mobile/goto_fb.png"></a>
+      <p class="footer_text">© 2017 About Inc. -- All Rights Reserved.</a>
+  </div>
+
+    <!-- 做到卡關的 svg border -->
+    <!-- <div class="to_clip">
+        <div class="whatson_photo auto_adjust not_yet">
+            <img class="svg-clipped" src="/assets/images/mobile/test.jpg">
+            <svg>
+                <clipPath id="svgPath">
+                    <path d="M77.1,143c0,0,197.8-239.8,411.5-98.4c0,0,255.2,169.1,165.9,362.8c0,0-3.2,76.9-175.5,199.9
+                    c0,0-146.8,107.6-303.1-18.4C176,588.9-41,450.5,6.9,263c0,0,28.7-70.7,57.4-101.5L77.1,143z"></path>
+                </clipPath>
+            </svg>
+        </div>
+    </div> -->
+</div>
+
+<!-- 背景 -->
+<div class="background default"></div>
+<div id="bg_now"></div>
+
+
+
+

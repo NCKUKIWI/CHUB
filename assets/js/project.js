@@ -23,12 +23,8 @@ $(window).load(function() {
 		}
 	});
 	$(".float_window").hide();
-	$(".float_pic_window" ).hide();
 	$("#left_project").addClass("item_now");
 	view_pic_total = 0;
-	$(".not_yet").each (function() {
-        autoAdjust($(this));
-	});
 
 	$(".project_item").click(function() {
 		show_window(this.getAttribute('project-id'));
@@ -48,6 +44,7 @@ $(window).load(function() {
 	});
 
 	function show_window(id){
+		// 先判斷是否手機
 		if(Mobile){
 			window.location.href = window.location.href + "/id/" + id;
 			return;
@@ -63,6 +60,7 @@ $(window).load(function() {
 						close_window();
 					});
 					$(".float_window").show();
+					$( ".float_pic_window" ).hide();
 					$("#fullpage, .cover").animate({
 						opacity: 0.1
 					}, 100, function() {
@@ -227,6 +225,29 @@ $(window).load(function() {
 		});
 	}
 
+	// Menu 的顯示控制
+	$(".left_bar").hover(
+		function() {
+			$("#left_project").removeClass("item_now");
+		},
+		function() {
+			$("#left_project").addClass("item_now");
+		}
+	);
+
+
+
+});
+
+$(window).on( "load", function () {
+	
+		// Initialize
+		$(".not_yet").each(function() {
+			autoAdjust($(this));
+		});
+	
+	});
+
 	// 自動調整圖片大小
     
     function autoAdjustProjectInner () {
@@ -252,17 +273,3 @@ $(window).load(function() {
 			outer_div.removeClass("not_yet");
         }
     }
-
-	// Menu 的顯示控制
-	$(".left_bar").hover(
-		function() {
-			$("#left_project").removeClass("item_now");
-		},
-		function() {
-			$("#left_project").addClass("item_now");
-		}
-	);
-
-
-
-});
