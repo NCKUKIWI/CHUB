@@ -22,12 +22,16 @@
           </div>
       </div>
       <div class="display">
+      	<% for (var i = 0; i < projects.length; i++) { %>
           <div class="pic_full auto_adjust not_yet">
-              <img src="/assets/images/mobile/test.jpg">
+            <img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>" name="<%= projects[i].Name %>">
           </div>
+        <% } %>
+        <% for (var i = 0; i < activities.length; i++) { %>
           <div class="pic_full auto_adjust not_yet">
-              <img src="/assets/images/mobile/test.jpg">
+            <img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
           </div>
+        <% } %>
       </div>
       <div class="start_explore">
           <img src="/assets/images/mobile/start_explore.png">
