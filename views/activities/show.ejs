@@ -41,7 +41,7 @@
   <p id="detail_location">
     <p class="title">Location</p><span>/</span>
     <p class="short"><%= activity.Location %></p>
-    <div class="botton tiny">MAP</div>
+    <div class="botton tiny" onclick="window.open('https://www.google.com.tw/maps/search/<%= activity.Location %>')">MAP</div>
   </p>
   <p id="detail_intro">
     <p class="title with_space">Introduction</p><span>/</span>
