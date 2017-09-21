@@ -35,18 +35,12 @@
               <p class="preview_title"><%= activity[i].Name %>
               <p class="preview_class"><%= activity[i].Type %></p>
               <p class="preview_date">
-                <% if(activity[i].Duration.length == 1){ %>
-                  <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
-                  /
-                  <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                <% if(activity[i].Duration.length == 1 || (activity[i].Duration[1] - activity[i].Duration[0]) / (1000 * 60 * 60 * 24) < 1){ %>
+                	<%= new Date(Number(activity[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activity[i].Duration[0])).getDate() %>
                 <% }else{ %> 
-                    <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
-                    /
-                    <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                		<%= new Date(Number(activity[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activity[i].Duration[0])).getDate() %>
                     -
-                    <%= new Date(Number(activity[i].Duration[1])).getMonth() + 1 %>
-                    /
-                    <%= new Date(Number(activity[i].Duration[1])).getDate() %>
+                    <% if(new Date(Number(activity[i].Duration[0])).getFullYear() != new Date(Number(activity[i].Duration[1])).getFullYear()){%><%= new Date(Number(activity[i].Duration[1])).getFullYear() %>/<%}%><% if(new Date(Number(activity[i].Duration[0])).getMonth() != new Date(Number(activity[i].Duration[1])).getMonth()){%><%= new Date(Number(activity[i].Duration[1])).getMonth() %>/<%}%><%= new Date(Number(activity[i].Duration[1])).getDate() %>
                 <% } %>
               </p>
             </div>
@@ -63,18 +57,12 @@
               <p class="preview_title"><%= activity[i].Name %></p>
               <p class="preview_class"><%= activity[i].Type %></p>
               <p class="preview_date">
-                <% if(activity[i].Duration.length == 1){ %>
-                  <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
-                  /
-                  <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                <% if(activity[i].Duration.length == 1 || (activity[i].Duration[1] - activity[i].Duration[0]) / (1000 * 60 * 60 * 24) < 1){ %>
+                	<%= new Date(Number(activity[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activity[i].Duration[0])).getDate() %>
                 <% }else{ %> 
-                    <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
-                    /
-                    <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                		<%= new Date(Number(activity[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activity[i].Duration[0])).getDate() %>
                     -
-                    <%= new Date(Number(activity[i].Duration[1])).getMonth() + 1 %>
-                    /
-                    <%= new Date(Number(activity[i].Duration[1])).getDate() %>
+                    <% if(new Date(Number(activity[i].Duration[0])).getFullYear() != new Date(Number(activity[i].Duration[1])).getFullYear()){%><%= new Date(Number(activity[i].Duration[1])).getFullYear() %>/<%}%><% if(new Date(Number(activity[i].Duration[0])).getMonth() != new Date(Number(activity[i].Duration[1])).getMonth()){%><%= new Date(Number(activity[i].Duration[1])).getMonth() %>/<%}%><%= new Date(Number(activity[i].Duration[1])).getDate() %>
                 <% } %>
               </p>
             </div>
@@ -91,18 +79,12 @@
               <p class="preview_title"><%= activity[i].Name %></p>
               <p class="preview_class"><%= activity[i].Type %></p>
               <p class="preview_date">
-                <% if(activity[i].Duration.length == 1){ %>
-                  <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
-                  /
-                  <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                <% if(activity[i].Duration.length == 1 || (activity[i].Duration[1] - activity[i].Duration[0]) / (1000 * 60 * 60 * 24) < 1){ %>
+                	<%= new Date(Number(activity[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activity[i].Duration[0])).getDate() %>
                 <% }else{ %> 
-                    <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
-                    /
-                    <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                		<%= new Date(Number(activity[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activity[i].Duration[0])).getDate() %>
                     -
-                    <%= new Date(Number(activity[i].Duration[1])).getMonth() + 1 %>
-                    /
-                    <%= new Date(Number(activity[i].Duration[1])).getDate() %>
+                    <% if(new Date(Number(activity[i].Duration[0])).getFullYear() != new Date(Number(activity[i].Duration[1])).getFullYear()){%><%= new Date(Number(activity[i].Duration[1])).getFullYear() %>/<%}%><% if(new Date(Number(activity[i].Duration[0])).getMonth() != new Date(Number(activity[i].Duration[1])).getMonth()){%><%= new Date(Number(activity[i].Duration[1])).getMonth() %>/<%}%><%= new Date(Number(activity[i].Duration[1])).getDate() %>
                 <% } %>
               </p>
             </div>
@@ -119,18 +101,12 @@
               <p class="preview_title"><%= activity[i].Name %></p>
               <p class="preview_class"><%= activity[i].Type %></p>
               <p class="preview_date">
-                <% if(activity[i].Duration.length == 1){ %>
-                  <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
-                  /
-                  <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                <% if(activity[i].Duration.length == 1 || (activity[i].Duration[1] - activity[i].Duration[0]) / (1000 * 60 * 60 * 24) < 1){ %>
+                	<%= new Date(Number(activity[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activity[i].Duration[0])).getDate() %>
                 <% }else{ %> 
-                    <%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>
-                    /
-                    <%= new Date(Number(activity[i].Duration[0])).getDate() %>
+                		<%= new Date(Number(activity[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activity[i].Duration[0])).getDate() %>
                     -
-                    <%= new Date(Number(activity[i].Duration[1])).getMonth() + 1 %>
-                    /
-                    <%= new Date(Number(activity[i].Duration[1])).getDate() %>
+                    <% if(new Date(Number(activity[i].Duration[0])).getFullYear() != new Date(Number(activity[i].Duration[1])).getFullYear()){%><%= new Date(Number(activity[i].Duration[1])).getFullYear() %>/<%}%><% if(new Date(Number(activity[i].Duration[0])).getMonth() != new Date(Number(activity[i].Duration[1])).getMonth()){%><%= new Date(Number(activity[i].Duration[1])).getMonth() + 1 %>/<%}%><%= new Date(Number(activity[i].Duration[1])).getDate() %>
                 <% } %>
               </p>
             </div>
