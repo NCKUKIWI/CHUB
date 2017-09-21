@@ -44,6 +44,7 @@ $(window).load(function() {
 	});
 
 	function show_window(id){
+		// 先判斷是否手機
 		if(Mobile){
 			window.location.href = window.location.href + "/id/" + id;
 			return;

@@ -78,15 +78,17 @@
           <a class="sort_way time">TIME</a>
       </div>
       <div class="round_display" id="display_projects">
-          <div class="display_item on">
+      	<% for (var i = 0; i < projects.length; i++) { %>
+          <div class="display_item <% if (i == 0){%> on <%}%>" onclick='location.href= "/projects/id/<%= projects[i]._id %>"'>
             <div class="pic_round auto_adjust not_yet">
-                <img src="/assets/images/mobile/test.jpg">
+                <img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>">
             </div>
-            <p class="text normal long">成大<br>數位影像與設計作品<br>國際商展</p>
-            <p class="text normal">2017.09.14</p>
-            <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
+	            <p class="text normal long"><%= projects[i].Name %></p>
+	            <p class="text normal">2017.09.14</p>
+	            <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
           </div>
-          <div class="display_item">
+      	<% } %>
+          <!-- <div class="display_item">
               <div class="pic_round auto_adjust not_yet">
                   <img src="/assets/images/mobile/test.jpg">
               </div>
@@ -101,7 +103,7 @@
               <p class="text normal long">成大<br>數位影像與設計作品<br>國際商展</p>
               <p class="text normal">2017.09.14</p>
               <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
-          </div>
+          </div> -->
       </div>
       <div class="go_box">
           <div class="go_to prev"></div>
@@ -115,30 +117,16 @@
           <a class="sort_way time">TIME</a>
       </div>
       <div class="round_display" id="display_activities">
-          <div class="display_item on">
-              <div class="pic_round auto_adjust not_yet">
-                  <img src="/assets/images/mobile/test.jpg">
-              </div>
-              <p class="text normal long">成大<br>數位影像與設計作品<br>國際商展</p>
-              <p class="text normal">2017.09.14</p>
-              <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
+      	<% for (var i = 0; i < activities.length; i++) { %>
+          <div class="display_item <% if (i == 0){%> on <%}%>">
+            <div class="pic_round auto_adjust not_yet">
+                <img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
+            </div>
+	            <p class="text normal long"><%= activities[i].Name %></p>
+	            <p class="text normal">2017.09.14</p>
+	            <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
           </div>
-          <div class="display_item">
-              <div class="pic_round auto_adjust not_yet">
-                  <img src="/assets/images/mobile/test.jpg">
-              </div>
-              <p class="text normal long">成大<br>數位影像與設計作品<br>國際商展</p>
-              <p class="text normal">2017.09.14</p>
-              <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
-          </div>
-          <div class="display_item">
-              <div class="pic_round auto_adjust not_yet">
-                  <img src="/assets/images/mobile/test.jpg">
-              </div>
-              <p class="text normal long">成大<br>數位影像與設計作品<br>國際商展</p>
-              <p class="text normal">2017.09.14</p>
-              <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
-          </div>
+      	<% } %>
       </div>
       <div class="go_box">
           <div class="go_to prev"></div>

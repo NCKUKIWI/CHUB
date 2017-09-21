@@ -179,7 +179,7 @@ body::-webkit-scrollbar-thumb {
       z-index: 100;
       height: 42vh;
       width: 20vw;
-      transform: scale(1.1); }
+      transform: translate(-2.5vw, -2vh); }
       #activity_list .activity_item:hover .preview_pic {
         -webkit-filter: brightness(100%);
         filter: brightness(100%); }
