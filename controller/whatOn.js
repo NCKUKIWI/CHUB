@@ -22,10 +22,6 @@ var MobileDetect = require('mobile-detect');
 // });
 router.get("/about", function(req, res){
   User.find({"Role": 3}, function(err, users) {
-    //之後可能要放入"跟哪些人互通訊息"的欄位進去
-    // console.log(users.length);
-    // console.log(typeof(users));
-    console.log(users);
   	res.render("about", {
   		users: users,
   	});

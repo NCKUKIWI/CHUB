@@ -112,8 +112,10 @@
         bottom: 16vh;
         margin: auto;
         color: #ed9027;
-        font-size: 20px;
+        font-size: 12px;
+        line-height: 22px;
         letter-spacing: 2px;
+        padding: 15px;
         transition: opacity 0.5s; }
         #about_member #activity_list .activity_item .preview_title:after {
           position: absolute;
@@ -133,6 +135,7 @@
         right: 0;
         bottom: 11vh;
         margin: auto;
+        font-size: 12px;
         letter-spacing: 2px;
         transition: opacity 0.5s; }
       #about_member #activity_list .activity_item .preview_date {

@@ -143,10 +143,6 @@ $(document).ready(function(){
         //     $.fn.fullpage.setAllowScrolling(true);
         // }
         var now_scrollTop = $(this).scrollTop();
-        console.log(now_scrollTop);
-        console.log(up_detect);
-        console.log(down_detect)
-        console.log('--------');
 
         if(last_scrollTop < now_scrollTop){
             down = true;
@@ -176,7 +172,6 @@ $(document).ready(function(){
         }
 
     })
-    console.log("")
 
     $( "#sort_hot" ).click( function() {
         now_sort = "hot";

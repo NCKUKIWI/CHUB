@@ -1,5 +1,7 @@
 <% layout('./public/layout') %>
 <link rel="stylesheet" type="text/css" href="assets/css/about.css">
+<script type="text/javascript" src="/assets/js/about.js"></script>
+
 <div id="fullpage">
 	<div class="main_page">
 		<div class="section" id="about_intro">
@@ -17,9 +19,9 @@
 		    <div class="with_scroll" id="activity_list">
 		        <div class="row" id="row_1">
 		        	<% for(var i = 0; i < users.length; i += 4) { %>
-		            <div class="activity_item">
-		                <div class="auto_adjust">
-		                    <img class="preview_pic" src="<%= users[i].Avatar %>"  user-id="<%= users[i].id %>">
+		            <div class="activity_item" user-id="<%= users[i].id %>">
+		                <div class="auto_adjust not_yet">
+		                    <img class="preview_pic" src="<%= users[i].Avatar %>">
 		                </div>
 		                <div class="preview_more"></div>
 		                <p class="preview_title"><%= users[i].Name %></p>
@@ -30,8 +32,8 @@
 		        </div>
 		        <div class="row" id="row_2">
 		        	<% for(var i = 1; i < users.length; i += 4) { %>
-		            <div class="activity_item">
-		                <div class="auto_adjust">
+		            <div class="activity_item" user-id="<%= users[i].id %>">
+		                <div class="auto_adjust not_yet">
 		                    <img class="preview_pic" src="<%= users[i].Avatar %>"   user-id="<%= users[i].id %>">
 		                </div>
 		                <div class="preview_more"></div>
@@ -43,8 +45,8 @@
 		        </div>
 		        <div class="row" id="row_3">
 							<% for(var i = 2; i < users.length; i += 4) { %>
-		            <div class="activity_item">
-		                <div class="auto_adjust">
+		            <div class="activity_item" user-id="<%= users[i].id %>">
+		                <div class="auto_adjust not_yet">
 		                    <img class="preview_pic" src="<%= users[i].Avatar %>"   user-id="<%= users[i].id %>">
 		                </div>
 		                <div class="preview_more"></div>
@@ -56,8 +58,8 @@
 		        </div>
 		        <div class="row" id="row_4">
 		        	<% for(var i = 3; i < users.length; i += 4) { %>
-		            <div class="activity_item">
-		                <div class="auto_adjust">
+		            <div class="activity_item" user-id="<%= users[i].id %>">
+		                <div class="auto_adjust not_yet">
 		                    <img class="preview_pic" src="<%= users[i].Avatar %>"   user-id="<%= users[i].id %>">
 		                </div>
 		                <div class="preview_more"></div>
@@ -69,7 +71,5 @@
 		        </div>
 		    </div>
 		</div>
-   </div>
-</div>
-<div class="ui modal">
+  </div>
 </div>
