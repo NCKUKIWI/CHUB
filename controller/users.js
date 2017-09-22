@@ -366,7 +366,8 @@ router.post("/resendemail",helper.checkLogin(),function(req, res){
 });
 
 router.post("/update",helper.apiAuth(),function(req, res) {
-  if(req.body.skill == null) req.body.skill = [];
+	console.log(req.body);
+  if(req.body.Skill == null) req.body.Skill = [];
   // 如果都有填資料, 則設1, 沒有則設0
   var role = 1;
   for(var i in req.body){

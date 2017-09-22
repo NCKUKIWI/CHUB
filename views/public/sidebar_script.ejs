@@ -293,7 +293,7 @@ $(document).ready(function(){
   });
 
   $('#side_edit_save').on('click', function(){
-    var Data = $('.side_halfscreen').serialize();
+    var Data = $('#halfscreen_edit').serialize();
     $.ajax({
       url: '/users/update',
       method: "POST",
