@@ -1,9 +1,75 @@
 <% layout('./public/layout') %>
-<div>
-    <div class="head">
-        <h1>About</h1>
-        <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
-    </div>
+<link rel="stylesheet" type="text/css" href="assets/css/about.css">
+<div id="fullpage">
+	<div class="main_page">
+		<div class="section" id="about_intro">
+		    <div class="greenline short"></div>
+		    <h1>About</h1>
+		    <p class="paragraph">2014年初，成功大學規劃與設計學院，啟動為期三年的「無邊界校園計畫」，逐步打造出略具雛形的C-Hub成大創意基地，作為第一年的起頭。為進一步建立完整教育、育成與實踐流程，促成企業與校園雙邊滲透，找尋新創團隊實踐契機，透過第一年所舉辦展覽與論壇兩大活動，進行大學、產業、城市之對話與交流，俾能集思廣益，募集企業與城市夥伴打造未來設計、使用、需求共同交流的平台。</p>
+		    <p class="paragraph">In the beginning of year 2014, College of Planning & Design, National Cheng Kung University started the "Borderless Campus Project" in the duration of 3 phases. Through the co-creation of teachers and students, blending the energy of research and development & incubation in the campus, C-Hub with the simple prototype was built as the first year's achievement of this project. In order to further establish the complete process of education, incubation and practice, promote the bilateral immersion between industry and campus, and search for the practice opportunity of innovative teams; it will hereby hold two main events of exhibition and forum in the anniversary week of NCKU. With the conversation and exchange among university, industry and city, collective wisdom can be drawn and useful ideas can be absorbed.</p>
+		</div>
+		<div class="section" id="about_member">
+		    <h2>People in C-Hub</h2>
+		    <div id="preview_control">
+		        <a class="sort_way now" id="sort_hot">HOT</a>
+		        <a class="sort_way" id="sort_time">TIME</a>
+		    </div>
+		    <div class="with_scroll" id="activity_list">
+		        <div class="row" id="row_1">
+		        	<% for(var i = 0; i < users.length; i += 4) { %>
+		            <div class="activity_item">
+		                <div class="auto_adjust">
+		                    <img class="preview_pic" src="/uploads/user/<%= users[i].id %>/avatar.png?<%= new Date().getTime() %>"  user-id="<%= users[i].id %>">
+		                </div>
+		                <div class="preview_more"></div>
+		                <p class="preview_title"><%= users[i].Name %></p>
+		                <p class="preview_class">智慧科技與數位內容</p>
+		                <p class="preview_date">March 30.2017</p>
+		            </div>
+		        	<% } %>
+		        </div>
+		        <div class="row" id="row_2">
+		        	<% for(var i = 1; i < users.length; i += 4) { %>
+		            <div class="activity_item">
+		                <div class="auto_adjust">
+		                    <img class="preview_pic" src="/uploads/user/<%= users[i].id %>/avatar.png?<%= new Date().getTime() %>"  user-id="<%= users[i].id %>">
+		                </div>
+		                <div class="preview_more"></div>
+		                <p class="preview_title"><%= users[i].Name %></p>
+		                <p class="preview_class">智慧科技與數位內容</p>
+		                <p class="preview_date">March 30.2017</p>
+		            </div>
+		          <% } %>
+		        </div>
+		        <div class="row" id="row_3">
+							<% for(var i = 2; i < users.length; i += 4) { %>
+		            <div class="activity_item">
+		                <div class="auto_adjust">
+		                    <img class="preview_pic" src="/uploads/user/<%= users[i].id %>/avatar.png?<%= new Date().getTime() %>"  user-id="<%= users[i].id %>">
+		                </div>
+		                <div class="preview_more"></div>
+		                <p class="preview_title"><%= users[i].Name %></p>
+		                <p class="preview_class">智慧科技與數位內容</p>
+		                <p class="preview_date">March 30.2017</p>
+		            </div>
+		          <% } %>
+		        </div>
+		        <div class="row" id="row_4">
+		        	<% for(var i = 3; i < users.length; i += 4) { %>
+		            <div class="activity_item">
+		                <div class="auto_adjust">
+		                    <img class="preview_pic" src="/uploads/user/<%= users[i].id %>/avatar.png?<%= new Date().getTime() %>"  user-id="<%= users[i].id %>">
+		                </div>
+		                <div class="preview_more"></div>
+		                <p class="preview_title"><%= users[i].Name %></p>
+		                <p class="preview_class">智慧科技與數位內容</p>
+		                <p class="preview_date">March 30.2017</p>
+		            </div>
+		          <% } %>
+		        </div>
+		    </div>
+		</div>
+   </div>
 </div>
 <div class="ui modal">
 </div>

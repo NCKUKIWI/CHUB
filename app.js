@@ -84,16 +84,21 @@ app.use("/payment",payment);
 var search = require("./controller/search");
 app.use("/search",search);
 
+
+// app.get("/about",function(req,res){
+//   res.render("about");
+// });
+
 //home routes (what's on)
 var whatOn = require("./controller/whatOn");
-app.use("/*",whatOn);
+app.use("/",whatOn);
+
+
+
+
+
 
 //insert
-
-app.get("/about",function(req,res){
-  res.render("about");
-});
-
 app.get("/space",function(req,res){
   res.render("space");
 });

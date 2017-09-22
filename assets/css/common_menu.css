@@ -20,6 +20,7 @@
     bottom: 51vh;
     transform: rotate(-90deg);
     height: 0vw;
+    display: none; // 讓側邊欄先消失
 }
 
 .left_bar p {
