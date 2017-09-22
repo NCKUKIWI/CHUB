@@ -59,7 +59,8 @@ var userInfo = [
   "GroupID",
   "ProjectID",
   "ActivityID",
-  "portfolio"
+  "portfolio",
+  "Avatar"
 ];
 
 router.get("/", function(req,res) {

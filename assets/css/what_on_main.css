@@ -244,3 +244,15 @@ body::-webkit-scrollbar-thumb {
 
 #footer {
   position: relative; }
+
+.bottom{
+	background-image: url("../images/action_01.png");
+}
+
+.cover{
+	display: none;
+}
+
+body{
+	background-color: rgb(46, 43, 42);
+}

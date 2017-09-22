@@ -133,6 +133,7 @@ function animationPlay( start_img ) {
     if ( next_img.length ) {
         if ( next_img.attr('id') == "final" ) {
             next_img.addClass("visible").addClass("animated").addClass("bounce").removeClass("invisible");
+            setTimeout("$.fn.fullpage.moveSectionDown()", 1500);
         }
         else {
             next_img.addClass("visible").removeClass("invisible");
