@@ -1,7 +1,261 @@
-<% layout('./public/layout') %>
-<div class="head">
-  <h1>What's on</h1>
-  <h2>C-Hub is a creative space came about from the interconnection among Creativity, Human, Urban, and Buidling Environment.</h2>
-</div>
-<div class="ui modal">
+<% layout('../public/layout') %>
+
+
+
+<div id="fullpage">
+	<div class="main_page">
+		<!-- style: whats_on_main.scss, footer.scss -->
+
+		<div class="section" id="whats_on_enter">
+			<div id="enter_animation" class="auto_adjust not_yet">
+				<img id="start_img" class="visible" src="/assets/images/action_01.png">
+				<img id="not_final" class="invisible" src="/assets/images/action_02.png">
+				<img id="not_final" class="invisible" src="/assets/images/action_03.png">
+				<img id="not_final" class="invisible" src="/assets/images/action_04.png">
+				<img id="final" class="invisible" src="/assets/images/action_05.png">
+			</div>
+		</div>
+
+		<div class="section no_menu" id="hottest_news">
+			<div id="news_list">
+				<div class="control">
+					<img class="move left" src="/assets/images/gallery_hori_prev.png">
+					<img class="move right" src="/assets/images/gallery_hori_next.png">
+					<div class="info">
+						<div class="class_icon"></div>
+						<p class="item_name">E-Ink <br> Research</p>
+						<p class="class_name">智慧科技與數位內容</p>
+						<p class="item_detail">小色念房花視我信便一的果吃中以，官數護子受古票灣萬子成確；東已都否代：界題父取會市。銷學環清深員、於大公士臺程。小星單立流仍術；首高界任越合男府一原不就子毒！只開歷友縣制這人水紀區大的大，得辦不金感表態。不加痛太。</p>
+					</div>
+				</div>
+				<div class="counter">
+		            <div class="dot on"></div>
+		        </div>
+				<div class="display">
+	      	<% for (var i = 0; i < projects.length; i++) { %>
+	          <div class="pic_full auto_adjust not_yet">
+	            <img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>" name="<%= projects[i].Name %>">
+	          </div>
+	        <% } %>
+	        <% for (var i = 0; i < activities.length; i++) { %>
+	          <div class="pic_full auto_adjust not_yet">
+	            <img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
+	          </div>
+	        <% } %>
+				</div>
+			</div>
+		</div>
+
+		<div class="section no_menu no_autoscroll" id="all_news">
+			<!-- 暫時沒有開放 -->
+			<!-- <div class="block" id="block_news">
+				<div class="top">
+					<div class="sort_box">
+		            	<a class="sort_way hot now">HOT</a>
+		            	<a class="sort_way time">TIME</a>
+		        	</div>
+					<p class="title">News</p>
+					<div class="fake_scroll syncscroll" name="preview_news">
+						<div class="fake_cont"></div>
+					</div>
+				</div>
+				<div class="cont">
+					<div class="round_display syncscroll" id="display_news" name="preview_news">
+						<div class="display_item">
+							<div class="pic_round auto_adjust not_yet">
+								<img src="/assets/images/mobile/test.jpg">
+							</div>
+							<div class="text">
+								<p>成大</p>
+								<p>數位影像與設計作品</p>
+								<p>國際商展</p>
+							</div>
+							<p class="date">2017.09.14</p>
+						</div>
+						<div class="display_item">
+							<div class="pic_round auto_adjust not_yet">
+								<img src="/assets/images/mobile/test.jpg">
+							</div>
+							<div class="text">
+								<p>成大</p>
+								<p>數位影像與設計作品</p>
+								<p>國際商展</p>
+							</div>
+							<p class="date">2017.09.14</p>
+						</div>
+						<div class="display_item">
+							<div class="pic_round auto_adjust not_yet">
+								<img src="/assets/images/mobile/test.jpg">
+							</div>
+							<div class="text">
+								<p>成大</p>
+								<p>數位影像與設計作品</p>
+								<p>國際商展</p>
+							</div>
+							<p class="date">2017.09.14</p>
+						</div>
+						<div class="display_item">
+							<div class="pic_round auto_adjust not_yet">
+								<img src="/assets/images/mobile/test.jpg">
+							</div>
+							<div class="text">
+								<p>成大</p>
+								<p>數位影像與設計作品</p>
+								<p>國際商展</p>
+							</div>
+							<p class="date">2017.09.14</p>
+						</div>
+						<div class="display_item">
+								<div class="pic_round auto_adjust not_yet">
+									<img src="/assets/images/mobile/test.jpg">
+								</div>
+								<div class="text">
+									<p>成大</p>
+									<p>數位影像與設計作品</p>
+									<p>國際商展</p>
+								</div>
+								<p class="date">2017.09.14</p>
+							</div>
+							<div class="display_item">
+								<div class="pic_round auto_adjust not_yet">
+									<img src="/assets/images/mobile/test.jpg">
+								</div>
+								<div class="text">
+									<p>成大</p>
+									<p>數位影像與設計作品</p>
+									<p>國際商展</p>
+								</div>
+								<p class="date">2017.09.14</p>
+							</div>
+							<div class="display_item">
+								<div class="pic_round auto_adjust not_yet">
+									<img src="/assets/images/mobile/test.jpg">
+								</div>
+								<div class="text">
+									<p>成大</p>
+									<p>數位影像與設計作品</p>
+									<p>國際商展</p>
+								</div>
+								<p class="date">2017.09.14</p>
+							</div>
+							<div class="display_item final">
+								<div class="pic_round auto_adjust not_yet">
+									<img src="/assets/images/mobile/test.jpg">
+								</div>
+								<div class="text">
+									<p>成大</p>
+									<p>數位影像與設計作品</p>
+									<p>國際商展</p>
+								</div>
+								<p class="date">2017.09.14</p>
+							</div>
+					</div>
+				</div>
+			</div> -->
+			<div class="block" id="block_project">
+				<div class="top">
+					<div class="sort_box">
+						<a class="sort_way hot now">HOT</a>
+						<a class="sort_way time">TIME</a>
+					</div>
+					<p class="title">Project</p>
+					<div class="fake_scroll syncscroll" name="preview_project">
+						<div class="fake_cont"></div>
+					</div>
+				</div>
+				<div class="cont">
+					<div class="round_display syncscroll" id="display_project" name="preview_project">
+						<% for (var i = 0; i < projects.length; i++) { %>
+							<div class="display_item <% if (i == projects.length - 1){%> final <%}%>">
+								<div class="pic_round auto_adjust not_yet">
+									<img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>">
+								</div>
+								<div class="text"><%= projects[i].Name %></div>
+								<p class="date">2017.09.14</p>
+							</div>
+						<% } %>
+					</div>
+				</div>
+			</div>
+			<div class="block" id="block_activity">
+				<div class="top">
+					<div class="sort_box">
+						<a class="sort_way hot now">HOT</a>
+						<a class="sort_way time">TIME</a>
+					</div>
+					<p class="title">Activity</p>
+					<div class="fake_scroll syncscroll" name="preview_activity">
+						<div class="fake_cont"></div>
+					</div>
+				</div>
+				<div class="cont">
+					<div class="round_display syncscroll" id="display_activity" name="preview_activity">
+						<% for (var i = 0; i < activities.length; i++) { %>
+							<div class="display_item <% if (i == activities.length - 1){%> final <%}%>">
+								<div class="pic_round auto_adjust not_yet">
+									<img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
+								</div>
+								<div class="text"><%= activities[i].Name %></div>
+								<p class="date">2017.09.14</p>
+							</div>
+						<% } %>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section no_menu" id="footer">
+			<div class="footer_top"></div>
+			<div class="footer_center">
+				<div class="footer_element" id="footer_logo">
+					<img id="chub_full_logo" src="/assets/images/chub_full_logo.png">
+				</div>
+				<div class="footer_element" id="footer_about">
+					<a class="element_title">About</a>
+					<a class="element_cont">Intro</a>
+					<a class="element_cont">What's On</a>
+					<a class="element_cont">How to Join?</a>
+					<a class="element_cont">Contact Us</a>
+				</div>
+				<div class="footer_element" id="footer_people">
+					<p class="element_title">People</p>
+					<a class="element_cont">Search</a>
+					<a class="element_cont">Member List</a>
+				</div>
+				<div class="footer_element" id="footer_group">
+					<p class="element_title">Group</p>
+					<a class="element_cont">Search</a>
+					<a class="element_cont">Group List</a>
+				</div>
+				<div class="footer_element" id="footer_project">
+					<p class="element_title">Project</p>
+					<a class="element_cont">Search</a>
+					<a class="element_cont">All Projects</a>
+				</div>
+				<div class="footer_element" id="footer_activity">
+					<p class="element_title">Activity</p>
+					<a class="element_cont">Search</a>
+					<a class="element_cont">All Activities</a>
+					<a class="element_cont">Workshop</a>
+					<a class="element_cont">Forum</a>
+					<a class="element_cont">Exhibition</a>
+				</div>
+				<div class="footer_element" id="footer_space">
+					<p class="element_title">Space</p>
+					<a class="element_cont">What's Available</a>
+					<a class="element_cont">Book a Date</a>
+				</div>
+				<div class="footer_element" id="footer_help">
+					<p class="element_title">Help</p>
+					<a class="element_cont">Q&A</a>
+					<a class="element_cont">Message Us</a>
+				</div>
+			</div>
+			<div class="footer_bottom">
+				<img id="chub_fb" src="/assets/images/chub_fb.png">
+				<p class="copyright">© 2017 About Inc. — All Rights Reserved.</p>
+			</div>
+		</div>
+
+  </div>
 </div>

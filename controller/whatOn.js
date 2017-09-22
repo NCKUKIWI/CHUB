@@ -31,7 +31,8 @@ router.get("/",function(req,res) {
   }).then(function(activities){
     result.activities = activities;
 		if(!device.mobile()){
-			res.render("index", result);
+			console.log('in');
+			res.render("whatOn/index", result);
 		}
 		else{
 			res.render("mobile/whatOn/index", result);
