@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="/assets/css/project_float.css">
+
 <div class="dark_mask"></div>
 	<div id="detail_left">
 		<div class="class_icons">
@@ -119,17 +121,17 @@
       <line id="line_2" x1="0" y1="20" x2="20" y2="10" />
     </svg>
     <div id="view_all_pic">
-      <img class="project_view_pic end" src="/assets/images/view_pic_end.png">
-      <img class="project_view_pic" id="pic_1" onclick="window.open('/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>">
+      <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
+      <img class="gallery_view_pic" id="pic_1" onclick="window.open('/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>">
       <% for(var i = 0; i < project.Photo.length; i++) { %>
-          <img class="project_view_pic" id="pic_<%= i + 2 %>" onclick="window.open('<%= project.Photo[i] %>?<%= new Date().getTime() %>')" src="<%= project.Photo[i] %>?<%= new Date().getTime() %>">
+          <img class="gallery_view_pic" id="pic_<%= i + 2 %>" onclick="window.open('<%= project.Photo[i] %>?<%= new Date().getTime() %>')" src="<%= project.Photo[i] %>?<%= new Date().getTime() %>">
       <% } %>
-      <!-- <img class="project_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
-      <img class="project_view_pic" id="pic_2" src="/assets/images/portfolio_ex.png">
-      <img class="project_view_pic" id="pic_3" src="/assets/images/portfolio_ex.png">
-      <img class="project_view_pic" id="pic_4" src="/assets/images/portfolio_ex.png">
-      <img class="project_view_pic" id="pic_5" src="/assets/images/portfolio_ex.png"> -->
-      <img class="project_view_pic end" src="/assets/images//view_pic_end.png">
+      <!-- <img class="gallery_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
+      <img class="gallery_view_pic" id="pic_2" src="/assets/images/portfolio_ex.png">
+      <img class="gallery_view_pic" id="pic_3" src="/assets/images/portfolio_ex.png">
+      <img class="gallery_view_pic" id="pic_4" src="/assets/images/portfolio_ex.png">
+      <img class="gallery_view_pic" id="pic_5" src="/assets/images/portfolio_ex.png"> -->
+      <img class="gallery_view_pic end" src="/assets/images//view_pic_end.png">
     </div>
     <div class="view_pic_counter">
       <span class="pic_counter now">01</span><span class="pic_counter total"><%= project.Photo.length + 1%></span>

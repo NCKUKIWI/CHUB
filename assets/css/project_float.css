@@ -218,7 +218,7 @@
     align-items: center;
 }
 
-.float_pic_window #view_all_pic .project_view_pic {
+.float_pic_window #view_all_pic .gallery_view_pic {
     position: relative;
     width: 50%;
     top: 0px;
@@ -227,7 +227,7 @@
     transition: opacity 0.5s, width 0.5s, top 0.5s;
 }
 
-.float_pic_window #view_all_pic .project_view_pic.center {
+.float_pic_window #view_all_pic .gallery_view_pic.center {
     width: 55%;
     top: 0;
     opacity: 1;

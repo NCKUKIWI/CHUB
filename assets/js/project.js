@@ -148,7 +148,7 @@ $(window).load(function() {
 			}, 500);
 			$("#detail_left, #detail_right").hide();
 			$(".float_pic_window").show();
-			view_scroll_now = $(".project_view_pic").width() / 2 + 120;
+			view_scroll_now = $(".gallery_view_pic").width() / 2 + 120;
 			$("#view_all_pic").scrollLeft(view_scroll_now);
 			view_pic_total = $(".pic_counter.total").text();
 			view_display_now = 1 // 每次從1開始算
@@ -190,9 +190,9 @@ $(window).load(function() {
 
 	function pic_window_control(){
 		$("#go_prev").click(function() {
-			if(view_scroll_now > $(".project_view_pic").width() / 2 + 120) {
+			if(view_scroll_now > $(".gallery_view_pic").width() / 2 + 120) {
 				view_display_now -= 1;
-				view_scroll_now -= $(".project_view_pic").width() + 60;
+				view_scroll_now -= $(".gallery_view_pic").width() + 60;
 				$("#view_all_pic").animate({
 					scrollLeft: view_scroll_now
 				}, '500');
@@ -200,9 +200,9 @@ $(window).load(function() {
 		});
 
 		$("#go_next").click(function() {
-			if(view_scroll_now < $(".project_view_pic").width() / 2 + (view_pic_total - 1) * ($(".project_view_pic").width())) {
+			if(view_scroll_now < $(".gallery_view_pic").width() / 2 + (view_pic_total - 1) * ($(".gallery_view_pic").width())) {
 				view_display_now += 1;
-				view_scroll_now += $(".project_view_pic").width() + 60;
+				view_scroll_now += $(".gallery_view_pic").width() + 60;
 				$("#view_all_pic").animate({
 					scrollLeft: view_scroll_now
 				}, '500');
@@ -215,11 +215,11 @@ $(window).load(function() {
 			$("#view_all_pic").children("#pic_" + view_display_now).addClass("center");
 			$("#view_all_pic").children("#pic_" + view_display_prev + ", #pic_" + view_display_next).removeClass("center");
 			$(".pic_counter.now").text(paddingLeft(view_display_now));
-			if(view_scroll_now > $(".project_view_pic").width() / 2 + 120)
+			if(view_scroll_now > $(".gallery_view_pic").width() / 2 + 120)
 				$("#go_prev").removeClass("disabled");
 			else
 				$("#go_prev").addClass("disabled");
-			if(view_scroll_now < $(".project_view_pic").width() / 2 + (view_pic_total - 1) * ($(".project_view_pic").width()))
+			if(view_scroll_now < $(".gallery_view_pic").width() / 2 + (view_pic_total - 1) * ($(".gallery_view_pic").width()))
 				$("#go_next").removeClass("disabled");
 			else
 				$("#go_next").addClass("disabled");

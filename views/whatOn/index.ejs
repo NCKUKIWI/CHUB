@@ -23,24 +23,27 @@
 					<img class="move right" src="/assets/images/gallery_hori_next.png">
 					<div class="info">
 						<div class="class_icon"></div>
-						<p class="item_name">E-Ink <br> Research</p>
-						<p class="class_name">智慧科技與數位內容</p>
-						<p class="item_detail">小色念房花視我信便一的果吃中以，官數護子受古票灣萬子成確；東已都否代：界題父取會市。銷學環清深員、於大公士臺程。小星單立流仍術；首高界任越合男府一原不就子毒！只開歷友縣制這人水紀區大的大，得辦不金感表態。不加痛太。</p>
+						<p class="item_name">Betwin Ocean 2017 台灣設計展 國際館</p>
+						<p class="class_name">文化生活</p>
+						<p class="item_detail">台灣設計展國際館 Betwin Ocean 從文化及環境兩個角度出發，探討台灣的宗教信仰與祭祀，以及循環經濟下的設計發展。</p>
 					</div>
 				</div>
 				<div class="counter">
 		            <div class="dot on"></div>
 		        </div>
 				<div class="display">
+					<div class="pic_full auto_adjust not_yet">
+						<img src="/assets/images/chub_whatsOn.png">
+					</div>
 	      	<% for (var i = 0; i < projects.length; i++) { %>
-	          <div class="pic_full auto_adjust not_yet">
+	          <!-- <div class="pic_full auto_adjust not_yet">
 	            <img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>" name="<%= projects[i].Name %>">
-	          </div>
+	          </div> -->
 	        <% } %>
 	        <% for (var i = 0; i < activities.length; i++) { %>
-	          <div class="pic_full auto_adjust not_yet">
+	          <!-- <div class="pic_full auto_adjust not_yet">
 	            <img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
-	          </div>
+	          </div> -->
 	        <% } %>
 				</div>
 			</div>
@@ -166,7 +169,7 @@
 				<div class="cont">
 					<div class="round_display syncscroll" id="display_project" name="preview_project">
 						<% for (var i = 0; i < projects.length; i++) { %>
-							<div class="display_item <% if (i == projects.length - 1){%> final <%}%>">
+							<div class="display_item <% if (i == projects.length - 1){%> final <%}%>" project-id="<%= projects[i]._id %>">
 								<div class="pic_round auto_adjust not_yet">
 									<img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>">
 								</div>
@@ -191,7 +194,7 @@
 				<div class="cont">
 					<div class="round_display syncscroll" id="display_activity" name="preview_activity">
 						<% for (var i = 0; i < activities.length; i++) { %>
-							<div class="display_item <% if (i == activities.length - 1){%> final <%}%>">
+							<div class="display_item <% if (i == activities.length - 1){%> final <%}%>" activity-id="<%= activities[i]._id %>">
 								<div class="pic_round auto_adjust not_yet">
 									<img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
 								</div>

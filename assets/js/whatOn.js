@@ -1,5 +1,24 @@
+var now_sort = "hot",
+		window_status = "closed",
+		pic_window_status = "closed",
+    view_scroll_now = 0, 
+    view_pic_total, 
+    view_display_now = 1, 
+    view_display_prev, 
+    view_display_next;
+
 $(document).ready(function(){ 
-    // 
+
+
+  // project
+	$('.display_item[project-id]').click(function() {
+		project_show_window(this.getAttribute('project-id'));
+	});
+
+	//activity
+	$('.display_item[activity-id]').click(function() {
+		activity_show_window(this.getAttribute('activity-id'));
+	});
 });
 
 $(window).on( "load", function () {
@@ -8,9 +27,6 @@ $(window).on( "load", function () {
     galleryInit();
     preGalleryGoto("next");
     preGalleryGoto("prev");
-    $(".not_yet").each(function() {
-        autoAdjust($(this));
-    });
     animationPlay( $("#start_img") );
 
     // 按鈕監聽
@@ -38,7 +54,9 @@ $(window).on( "load", function () {
     //         $.fn.fullpage.setAutoScrolling(true);
     //     }
     // );
-
+    $(".not_yet").each(function() {
+        autoAdjust($(this));
+    });
 });
 
 function autoAdjust( outer_div ) {
@@ -124,4 +142,206 @@ function animationPlay( start_img ) {
         }, 1000);
     }
     else ;
+}
+
+
+// project_function
+function project_show_window(id){
+	if(window_status == 'closed') {
+		$.ajax({
+			url: "/projects/" + id,
+			type: "POST",
+			success: function(response) {
+				$.fn.fullpage.setAllowScrolling(false, "down,up"); // 停止第一層的fullpage滑動
+				$(".float_window").append(response);
+				$("#close_window, .dark_mask").click(function() {
+					close_window();
+				});
+				$(".float_window").show();
+				$( ".float_pic_window" ).hide();
+				$("#fullpage, .cover").animate({
+					opacity: 0.1
+				}, 100, function() {
+					window_status = 'open';
+					autoAdjustProjectInner();
+					$('.float_window').animate({
+						opacity: 1
+					}, 500);
+				});
+
+				// 綁定顯示輪播照片功能
+			  $( ".brief_pic, #close_pic_view" ).click( function() {
+			      float_pic_window();
+			  });
+
+			  // 綁定輪播照片左右移動
+			  pic_window_control()
+
+			}
+		});
+	}
+}
+
+// 自動調整圖片大小
+function autoAdjustProjectInner () {
+	var inner_pic_size = $("#project_pic").css("width").replace("px","") / $( "#project_pic" ).css("height").replace("px","") ;
+	var outer_div_size = 25/35 ;
+	if ( inner_pic_size > outer_div_size ) {
+	    $("#project_pic").addClass("fat");
+	}
+	else {
+	    $("#project_pic").addClass("tall");
+	}
+}
+
+
+// activity function
+function activity_show_window(id){
+  if ( window_status == 'closed' ) {
+    $.ajax({
+      url: "/activities/" + id,
+      type: "POST",
+      success: function(response) {
+        // $.fn.fullpage.setAllowScrolling(false, "down,up"); // 停止第一層的fullpage滑動
+        $(".float_window").append(response);
+        $("#close_window, .dark_mask").click(function() {
+            close_window();
+        });
+        $( ".float_window" ).show();
+        // $( ".float_pic_window" ).hide();
+        $( "#fullpage, .cover" ).animate({opacity: 0.1}, 100, function() {
+            window_status = 'open';
+            $( '.float_window' ).animate({opacity: 1}, 500);
+        });
+        // 綁定顯示輪播照片功能
+        $( ".brief_pic, #close_pic_view" ).click( function() {
+          float_pic_window();
+        });
+        // 自動調整圖片大小
+        $(".not_yet").each (function() {
+            autoAdjust($(this));
+        });
+
+        // 綁定輪播照片左右移動
+        pic_window_control()
+      }
+    });
+
+  }
+}
+
+function close_window() {
+	if(window_status == 'open') {
+		$.fn.fullpage.setAllowScrolling(true, "down,up"); // 啟動第一層的fullpage滑動
+		$("#fullpage").animate({
+			opacity: 1
+		}, 500);
+		$(".cover").animate({
+			opacity: 0.3
+		}, 500);
+		$(".float_window").animate({
+			opacity: 0
+		}, 500, function() {
+			window_status = 'closed';
+			$(".float_window").hide();
+			$(".float_window").empty();
+			if(pic_window_status == 'open') {
+				pic_window_status = 'closed';
+				$(".float_pic_window").animate({
+					opacity: 0
+				}, 500, function() {
+					$(".float_pic_window").hide();
+					$("#detail_left, #detail_right").show();
+					$("#detail_left, #detail_right").animate({
+						opacity: 1
+					}, 500);
+				});
+			}
+		});
+	}
+}
+
+
+// Pic Window 的顯示控制
+
+function float_pic_window() {
+	if(pic_window_status == 'closed') {
+		pic_window_status = 'open';
+		$("#detail_left, #detail_right").animate({
+			opacity: 0
+		}, 500);
+		$("#detail_left, #detail_right").hide();
+		$(".float_pic_window").show();
+		view_scroll_now = $(".gallery_view_pic").width() / 2 + 120;
+		$("#view_all_pic").scrollLeft(view_scroll_now);
+		view_pic_total = $(".pic_counter.total").text();
+		view_display_now = 1 // 每次從1開始算
+		$(".pic_counter.total").text("/" + paddingLeft($(".pic_counter.total").text()));
+		$("#fullpage, .cover").animate({
+			opacity: 0
+		}, 100, function() {
+			$("#view_all_pic").children("#pic_" + view_display_now).addClass("center");
+			$(".float_pic_window").animate({
+				opacity: 1
+			}, 500);
+		});
+	} else if(pic_window_status == 'open') {
+		pic_window_status = 'closed';
+		$("#fullpage, .cover").animate({
+			opacity: 0.1
+		}, 500);
+		$(".float_pic_window").animate({
+			opacity: 0
+		}, 500, function() {
+			$(".float_pic_window").hide();
+			$("#detail_left, #detail_right").show();
+			$("#detail_left, #detail_right").animate({
+				opacity: 1
+			}, 500);
+		});
+	}
+}
+
+function paddingLeft(num) {
+	if(num < 10)
+		return "0" + num;
+	else
+		return num;
+}
+
+// Pic Window 的動態控制
+// 照片的輪播功能
+
+function pic_window_control(){
+	$( "#go_prev" ).click( function() {
+    if ( view_scroll_now > $(".gallery_view_pic").width()/2 + 120 ) {
+      view_display_now -= 1 ;
+      view_scroll_now -= $(".gallery_view_pic").width() + 60 ;
+      $("#view_all_pic").animate( {scrollLeft: view_scroll_now}, '500');
+    }
+	});
+
+	$( "#go_next" ).click( function() {
+    if ( view_scroll_now < $(".gallery_view_pic").width()/2 + (view_pic_total-1) * ($(".gallery_view_pic").width() )){
+      view_display_now += 1 ;
+      view_scroll_now += $(".gallery_view_pic").width() + 60 ;
+      $("#view_all_pic").animate( {scrollLeft: view_scroll_now}, '500');
+    }
+	});
+
+	$( "#view_all_pic" ).scroll( function() {
+    view_display_prev = view_display_now - 1 ;
+    view_display_next = view_display_now + 1 ;
+    $( "#view_all_pic" ).children( "#pic_"+view_display_now ).addClass("center");
+    $( "#view_all_pic" ).children( "#pic_"+view_display_prev+", #pic_"+view_display_next ).removeClass("center");
+    $( ".pic_counter.now" ).text( paddingLeft(view_display_now) );
+    if ( view_scroll_now > $(".gallery_view_pic").width()/2 + 120 )
+        $( "#go_prev" ).removeClass("disabled");
+    else
+        $( "#go_prev" ).addClass("disabled");
+    if ( view_scroll_now < $(".gallery_view_pic").width()/2 + (view_pic_total-1) * ($(".gallery_view_pic").width() ))
+        $( "#go_next" ).removeClass("disabled");
+    else
+        $( "#go_next" ).addClass("disabled");
+	}); 
 }
