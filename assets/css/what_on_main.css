@@ -41,7 +41,7 @@ body::-webkit-scrollbar-thumb {
   top: -7.5vh;
   width: 85vw;
   height: 85vh;
-  background: gray;
+  /*background: gray;*/
   overflow: hidden; }
   #news_list .control {
     position: absolute;

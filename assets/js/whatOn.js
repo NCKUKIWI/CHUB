@@ -19,6 +19,24 @@ $(document).ready(function(){
 	$('.display_item[activity-id]').click(function() {
 		activity_show_window(this.getAttribute('activity-id'));
 	});
+
+  // Fullpage 相關
+  $( "#fullpage" ).fullpage({
+  	onLeave (index, nextIndex, direction){
+  		if(nextIndex == 3){
+  			$('#menu').fadeOut();
+        $('.cover').fadeOut();
+        $('.bottom').fadeOut();
+        $('.whatOn_cover').fadeIn();
+  		}
+  		else{
+  			$('#menu').fadeIn();
+        $('.whatOn_cover').fadeOut();
+        $('.cover').fadeIn();
+        $('.bottom').fadeIn();
+  		}
+  	}
+  });
 });
 
 $(window).on( "load", function () {
@@ -45,8 +63,7 @@ $(window).on( "load", function () {
         $(this).addClass("now");
     });
 
-    // Fullpage 相關
-    $( "#fullpage" ).fullpage();
+
     // $( ".no_autoscroll" ).hover(
     //     function() {
     //         $.fn.fullpage.setAutoScrolling(false);

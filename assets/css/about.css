@@ -69,6 +69,8 @@
       margin: 0vh 0vh 6vh 0vh;
       transition: 0.5s; }
       #about_member #activity_list .activity_item .auto_adjust {
+      	position: absolute;
+      	z-index: 1;
         height: 100%;
         width: 100%;
         display: flex;
@@ -82,10 +84,12 @@
         #about_member #activity_list .activity_item .auto_adjust.tall img {
           width: 100%;
           height: auto; }
-        #about_member #activity_list .activity_item .auto_adjust .preview_pic {
-          -webkit-filter: brightness(40%);
-          filter: brightness(40%);
-          transition: brightness 0.5s; }
+      #about_member #activity_list .activity_item .preview_shadow {
+      	position: absolute;
+				z-index: 2; 
+				width: 100%;
+				height: 35vh; 
+				left: 0;}
       #about_member #activity_list .activity_item .preview_more {
         position: absolute;
         z-index: 20;
@@ -172,9 +176,8 @@
         height: 42vh;
         width: 18vw;
         transform: translate(-3vw, -2vh); }
-        #about_member #activity_list .activity_item:hover .preview_pic {
-          -webkit-filter: brightness(100%);
-          filter: brightness(100%); }
+        #about_member #activity_list .activity_item:hover .preview_shadow {
+          display: none;}
         #about_member #activity_list .activity_item:hover .preview_more {
           bottom: 12vh;
           height: 10vh;

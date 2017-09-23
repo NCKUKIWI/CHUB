@@ -22,7 +22,6 @@ $(window).load(function() {
 			}
 			else{
 				$('#menu').fadeOut();
-        
         $('.cover').fadeOut();
         $('.bottom').fadeOut();
         $('.project_cover').fadeIn();

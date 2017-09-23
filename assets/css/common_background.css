@@ -22,7 +22,7 @@
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background-image: url("../images/project_cover.png");
+  background-image: url("../images/bg_project01.png");
   background-repeat: no-repeat;
   background-size: cover; }
 
@@ -51,5 +51,16 @@
   width: 100vw;
   height: 100vh;
   background-image: url("../images/bg_activity01.png");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+.whatOn_cover {
+	display: none;
+  position: fixed;
+  z-index: 0;
+  opacity: 0.3;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../images/bg_what_on.png");
   background-repeat: no-repeat;
   background-size: cover; }
