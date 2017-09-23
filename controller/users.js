@@ -359,7 +359,6 @@ router.post("/resendemail",helper.checkLogin(),function(req, res){
     if(err){
       res.send({error:helper.handleError(err)});
     }else{
-      cacheClear();
       helper.sendEmail(req.body.Email,"驗證信",`您好請點擊以下連結開通\n\n${config.website}/users/emailauth?uid=${req.user._id}`);
       res.send("ok");
     }
