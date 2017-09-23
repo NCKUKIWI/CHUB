@@ -93,9 +93,12 @@ $(document).ready(function(){
                       float_pic_window();
                     });
                     // 自動調整圖片大小
-                    $(".not_yet").each (function() {
-                        autoAdjust($(this));
-                    });
+						        $(".float_window .not_yet img").on('load', function() {
+							        $(".float_window .not_yet").each (function() {
+							            autoAdjust($(this));
+							            console.log('done');
+							        });
+						        })
 
                     // 綁定輪播照片左右移動
                     pic_window_control()

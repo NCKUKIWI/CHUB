@@ -76,19 +76,6 @@ $(window).on( "load", function () {
     });
 });
 
-function autoAdjust( outer_div ) {
-    var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
-    var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
-    if ( inner_pic_size > outer_div_size ) {
-        outer_div.addClass("fat");
-        outer_div.removeClass("not_yet");
-    }
-    else if ( inner_pic_size <= outer_div_size ) {
-        outer_div.addClass("tall");
-        outer_div.removeClass("not_yet");
-    }
-}
-
 function galleryInit() {
     var photo_num = $("#news_list").find(".pic_full").length ;
     var full_width = $(window).width()*0.85;
@@ -135,11 +122,18 @@ function checkifMoveable() {
 function autoAdjust( outer_div ) {
     var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
     var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
+    console.log('width: ' + outer_div.children("img").css("width").replace("px",""));
+    console.log('height: ' + outer_div.children("img").css("height").replace("px",""));
+    console.log(inner_pic_size);
+    console.log('width: ' + outer_div.css("width").replace("px",""));
+    console.log('height: ' + outer_div.css("height").replace("px",""));
+    console.log(outer_div_size);
+    console.log('----------------');
     if ( inner_pic_size > outer_div_size ) {
         outer_div.addClass("fat");
         outer_div.removeClass("not_yet");
     }
-    else if ( inner_pic_size <= outer_div_size ) {
+    else {
         outer_div.addClass("tall");
         outer_div.removeClass("not_yet");
     }
@@ -220,7 +214,7 @@ function activity_show_window(id){
       url: "/activities/" + id,
       type: "POST",
       success: function(response) {
-        // $.fn.fullpage.setAllowScrolling(false, "down,up"); // 停止第一層的fullpage滑動
+        $.fn.fullpage.setAllowScrolling(false, "down,up"); // 停止第一層的fullpage滑動
         $(".float_window").append(response);
         $("#close_window, .dark_mask").click(function() {
             close_window();
@@ -235,10 +229,25 @@ function activity_show_window(id){
         $( ".brief_pic, #close_pic_view" ).click( function() {
           float_pic_window();
         });
-        // 自動調整圖片大小
-        $(".not_yet").each (function() {
-            autoAdjust($(this));
-        });
+
+        // $(window).on('load',function() {
+	       //  // 自動調整圖片大小
+	       //  $(".float_window .not_yet").each (function() {
+	       //      autoAdjust($(this));
+	       //      console.log('done');
+	       //  });
+	       //  conosle.log('in??');
+
+        // })
+
+        $(".float_window .not_yet img").on('load', function() {
+	        $(".float_window .not_yet").each (function() {
+	            autoAdjust($(this));
+	            console.log('done');
+	        });
+        })
+
+
 
         // 綁定輪播照片左右移動
         pic_window_control()
