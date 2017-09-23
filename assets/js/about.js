@@ -46,12 +46,8 @@ $(document).ready(function(){
       // 如果滑到瀏覽activity的地方，menu自動消失
       onLeave (index, nextIndex, direction){
           if(nextIndex != 2){
-              $('#menu').fadeIn();
-              $.fn.fullpage.setAllowScrolling(true);
           }
           else{
-              $('#menu').fadeOut();
-              $.fn.fullpage.setAllowScrolling(false);
               up_detect = 0;
               down_detect = 0;
               last_scrollTop = -1;

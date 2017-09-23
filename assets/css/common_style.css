@@ -2,6 +2,11 @@
 body {
     font-family: 'Noto Sans', helvetica, Microsoft JhengHei, serif, sans-serif, monospace;
     color: white;
+background: linear-gradient(90deg, rgba(0, 0, 0, 1)15%, rgba(72, 68, 67, 1)70%);
+background: -moz-linear-gradient(90deg, rgba(0, 0, 0, 1)15%, rgba(72, 68, 67, 1)70%);
+background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 1)15%, rgba(72, 68, 67, 1)70%);
+
+background: -o-linear-gradient(90deg, rgba(0, 0, 0, 1)15%, rgba(72, 68, 67, 1)70%); 
 }
 
 h1 {

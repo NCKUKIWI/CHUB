@@ -16,9 +16,16 @@ $(window).load(function() {
 		onLeave (index, nextIndex, direction){
 			if(nextIndex == 1){
 				$('#menu').fadeIn();
+        $('.project_cover').fadeOut();
+        $('.cover').fadeIn();
+        $('.bottom').fadeIn();
 			}
 			else{
 				$('#menu').fadeOut();
+        
+        $('.cover').fadeOut();
+        $('.bottom').fadeOut();
+        $('.project_cover').fadeIn();
 			}
 		}
 	});

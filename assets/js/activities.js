@@ -12,6 +12,9 @@ $(document).ready(function(){
             if(nextIndex != 2){
                 $('#menu').fadeIn();
                 $.fn.fullpage.setAllowScrolling(true);
+                $('.activity_cover').fadeOut();
+                $('.cover').fadeIn();
+                $('.bottom').fadeIn();
             }
             else{
                 $('#menu').fadeOut();
@@ -19,6 +22,10 @@ $(document).ready(function(){
                 up_detect = 0;
                 down_detect = 0;
                 last_scrollTop = -1;
+                $('.cover').fadeOut();
+                $('.bottom').fadeOut();
+                $('.activity_cover').fadeIn();
+
             }
         }
     });

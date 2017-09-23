@@ -226,3 +226,11 @@
         background: #ed9027; }
       #about_member #preview_control .sort_way:active {
         opacity: 0.4; }
+
+.bottom{
+	background-image: url("../images/bg_about.png");
+}
+
+.cover{
+	display: none;
+}
