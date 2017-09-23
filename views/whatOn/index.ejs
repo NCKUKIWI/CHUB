@@ -25,7 +25,7 @@
 					<img class="move right" src="/assets/images/gallery_hori_next.png">
 					<div class="info">
 						<div class="class_icon"></div>
-						<p class="item_name">Betwin Ocean 2017 台灣設計展 國際館</p>
+						<p class="item_name">Betwin Ocean 2017<br>台灣設計展<br>國際館</p>
 						<p class="class_name">文化生活</p>
 						<p class="item_detail">台灣設計展國際館 Betwin Ocean 從文化及環境兩個角度出發，探討台灣的宗教信仰與祭祀，以及循環經濟下的設計發展。</p>
 					</div>
@@ -176,7 +176,7 @@
 									<img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>">
 								</div>
 								<div class="text"><%= projects[i].Name %></div>
-								<p class="date">2017.09.14</p>
+								<!-- <p class="date">2017.09.14</p> -->
 							</div>
 						<% } %>
 					</div>
@@ -201,7 +201,15 @@
 									<img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
 								</div>
 								<div class="text"><%= activities[i].Name %></div>
-								<p class="date">2017.09.14</p>
+								<p class="date">
+	                <% if(activities[i].Duration.length == 1 || (activities[i].Duration[1] - activities[i].Duration[0]) / (1000 * 60 * 60 * 24) < 1){ %>
+	                	<%= new Date(Number(activities[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activities[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activities[i].Duration[0])).getDate() %>
+	                <% }else{ %> 
+	                		<%= new Date(Number(activities[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activities[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activities[i].Duration[0])).getDate() %>
+	                    -
+	                    <% if(new Date(Number(activities[i].Duration[0])).getFullYear() != new Date(Number(activities[i].Duration[1])).getFullYear()){%><%= new Date(Number(activities[i].Duration[1])).getFullYear() %>/<%}%><% if(new Date(Number(activities[i].Duration[0])).getMonth() != new Date(Number(activities[i].Duration[1])).getMonth()){%><%= new Date(Number(activities[i].Duration[1])).getMonth() + 1%>/<%}%><%= new Date(Number(activities[i].Duration[1])).getDate() %>
+	                <% } %>
+								</p>
 							</div>
 						<% } %>
 					</div>

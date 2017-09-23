@@ -220,14 +220,23 @@ body::-webkit-scrollbar-thumb {
           padding: 7px 10px;
           background: #231815;
           opacity: 0;
-          transition: 0.5s; }
+          font-size: 12px;
+          line-height: 20px;
+          letter-spacing: 0.5px;
+          color: #ed9027;
+          transition: 0.5s;
+          overflow : hidden;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical; }
           .block .cont .round_display .display_item .text p {
             font-size: 12px;
             line-height: 16px;
             color: #ed9027; }
         .block .cont .round_display .display_item .date {
           position: absolute;
-          margin-top: 2.5vh;
+          margin-top: 3vh;
           margin-left: 2vh;
           font-size: 12px;
           line-height: 16px;

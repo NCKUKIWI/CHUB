@@ -127,7 +127,15 @@
                 <img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
             </div>
 	            <p class="text normal long"><%= activities[i].Name %></p>
-	            <p class="text normal">2017.09.14</p>
+	            <p class="text normal">
+                <% if(activities[i].Duration.length == 1 || (activities[i].Duration[1] - activities[i].Duration[0]) / (1000 * 60 * 60 * 24) < 1){ %>
+                	<%= new Date(Number(activities[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activities[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activities[i].Duration[0])).getDate() %>
+                <% }else{ %> 
+                		<%= new Date(Number(activities[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activities[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activities[i].Duration[0])).getDate() %>
+                    -
+                    <% if(new Date(Number(activities[i].Duration[0])).getFullYear() != new Date(Number(activities[i].Duration[1])).getFullYear()){%><%= new Date(Number(activities[i].Duration[1])).getFullYear() %>/<%}%><% if(new Date(Number(activities[i].Duration[0])).getMonth() != new Date(Number(activities[i].Duration[1])).getMonth()){%><%= new Date(Number(activities[i].Duration[1])).getMonth() + 1%>/<%}%><%= new Date(Number(activities[i].Duration[1])).getDate() %>
+                <% } %>
+	            </p>
 	            <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
           </div>
       	<% } %>

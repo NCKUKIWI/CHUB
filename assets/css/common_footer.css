@@ -69,6 +69,10 @@
     width: 23%;
 }
 
+#footer .footer_center #footer_logo #chub_full_logo {
+	width: 13vw;
+}
+
 #footer .footer_bottom {
     width: 100%;
     text-align: center;
