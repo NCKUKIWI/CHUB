@@ -101,7 +101,7 @@
         height: 8vh;
         opacity: 0;
         display: block;
-        background: #ed9027;
+        /*background: #ed9027;*/
         background-image: url("../img/project_more.png");
         background-size: 50%;
         background-position: center;

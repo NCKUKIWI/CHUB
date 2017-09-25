@@ -38,7 +38,7 @@ router.get("/*",function(req,res) {
   };
   Project.find({}).exec().then(function(projects){
     result.projects = projects;
-    return Activity.find({}).exec()
+    return Activity.find({}).sort({'Duration': -1}).exec()
   }).then(function(activities){
     result.activities = activities;
 		if(!device.mobile()){

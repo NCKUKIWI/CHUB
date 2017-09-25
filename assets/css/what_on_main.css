@@ -79,7 +79,7 @@ body::-webkit-scrollbar-thumb {
         height: 38%;
         width: 14vw;
         margin-left: 5vw;
-        background: url("../images/project_icon_culture.png") no-repeat;
+        background: url("../images/project_icon_social.png") no-repeat;
         background-size: 40px;
         background-position: 0% 90%; }
       #news_list .control .info .item_name {

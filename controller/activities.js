@@ -58,7 +58,7 @@ router.get("/", function(req,res) {
     }
   }
   if(filter["$or"].length == 0) filter["$or"].push({});
-  Activity.find(filter,function(err,activity){
+  Activity.find(filter).sort({Duration: -1}).exec(function(err,activity){
     res.render("activities/index",{
       activity:activity,
       id: req.query.id

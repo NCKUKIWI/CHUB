@@ -70,14 +70,15 @@ html{
         background: rgba(0, 0, 0, 0.6);
         border: 1px solid #ed9027; }
         #whats_on #preview_gallery .control .info .giga {
-        	font-size: 18px;
+        	font-size: 13px;
           left: 10vw;
-          width: 30vw;
+          width: 50vw;
           line-height: 20px;
-          padding-top: 4.5vh; }
+          padding-top: 2vh; }
         #whats_on #preview_gallery .control .info .class_name {
           left: 10vw;
           font-weight: bolder;
+          font-size: 12px;
           padding-top: 1vh; }
         #whats_on #preview_gallery .control .info .class_icon {
           position: absolute;
@@ -86,7 +87,7 @@ html{
           height: calc(10vh - 2px);
           top: 5vh;
           width: 23vw;
-          background: url("../images/project_icon_culture.png") no-repeat;
+          background: url("../images/project_icon_social.png") no-repeat;
           background-size: 28px;
           background-position: 35% 60%; }
     #whats_on #preview_gallery .display {

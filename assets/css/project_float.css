@@ -79,11 +79,11 @@
 .float_window #detail_left #detail_brief .project_name {
     position: relative;
     width: 30vh;
-    font-size: 28px;
+    font-size: 14px;
     letter-spacing: 2px;
     color: #ed9027;
     margin-top: 55px;
-    line-height: 38px;
+    line-height: 26px;
 }
 
 .float_window #detail_right {
@@ -98,7 +98,7 @@
 }
 
 .float_window #detail_right #detail_main_text {
-    font-size: 18px;
+    font-size: 14px;
     letter-spacing: 2px;
     color: #ed9027;
     line-height: 25px;

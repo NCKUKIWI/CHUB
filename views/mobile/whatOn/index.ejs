@@ -9,20 +9,23 @@
 
 <div id="whats_on">
   <div id="preview_gallery">
-      <div class="control">
+      <div class="control" onclick='location.href= "/projects/id/5985964fcfcc793fe4fa75ae"'>
           <img class="move left" src="/assets/images/mobile/gallery_hori_prev.png">
           <img class="move right" src="/assets/images/mobile/gallery_hori_next.png">
           <div class="counter">
               <div class="dot on"></div>
           </div>
           <div class="info">
-              <p class="text giga orange">E-Ink Research</p>
-              <p class="text class_name">智慧科技與數位內容</p>
+              <p class="text giga orange">Betwin Ocean 2017<br>台灣設計展<br>國際館</p>
+              <p class="text class_name">創新與社會服務</p>
               <div class="class_icon"></div>
           </div>
       </div>
       <div class="display">
-      	<% for (var i = 0; i < projects.length; i++) { %>
+					<div class="pic_full auto_adjust not_yet">
+						<img src="/assets/images/chub_whatsOn.png">
+					</div>
+      	<!-- <% for (var i = 0; i < projects.length; i++) { %>
           <div class="pic_full auto_adjust not_yet">
             <img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>" name="<%= projects[i].Name %>">
           </div>
@@ -31,7 +34,7 @@
           <div class="pic_full auto_adjust not_yet">
             <img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
           </div>
-        <% } %>
+        <% } %> -->
       </div>
       <div class="start_explore">
           <img src="/assets/images/mobile/start_explore.png">
