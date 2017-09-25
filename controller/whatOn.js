@@ -28,6 +28,10 @@ router.get("/about", function(req, res){
   });
 });
 
+router.get("/space",function(req, res){
+	res.redirect("https://c-hub.ncku.edu.tw/");
+})
+
 router.get("/*",function(req,res) {
 	var device = new MobileDetect(req.headers['user-agent']);
   var result = {

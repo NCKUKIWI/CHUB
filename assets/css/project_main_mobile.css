@@ -192,6 +192,7 @@ body::-webkit-scrollbar-thumb {
     letter-spacing: 2px;
     transition: opacity 0.5s;
     font-size: 12px;
+    font-weight: bolder;
 }
 
 #project_list .project_item .preview_title:after {

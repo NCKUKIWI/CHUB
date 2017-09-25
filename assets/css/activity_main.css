@@ -185,6 +185,9 @@ body::-webkit-scrollbar-thumb {
       width: 20vw;
       transform: translate(-2.5vw, -2vh); }
       #activity_list .activity_item:hover .preview_shadow {
+	      height: 42vh;
+	      width: 20vw;
+      	transform: translate(-2.5vw, -2vh);
         display: none;}
       #activity_list .activity_item:hover .preview_more {
         bottom: 16vh;

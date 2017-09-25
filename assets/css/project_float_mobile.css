@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans");
+body{
+	background: rgb(70, 67, 66);
+}
+
 .float_window {
     z-index: 90;
     width: 100vw;

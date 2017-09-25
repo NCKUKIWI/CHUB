@@ -40,9 +40,26 @@
     <p id="detail_location">
       <p class="title">Location</p><span>/</span>
       <p class="short"><%= project.Location %></p>
-      <div class="botton tiny">MAP</div>
+      <div class="botton tiny" onclick="window.open('https://www.google.com.tw/maps/search/<%= project.Location %>')">MAP</div>
     </p>
-		<p id="detail_duration"><p class="title">duration</p><span>/</span><p class="short"><%= project.Time %></p></p>
+		<p id="detail_duration">
+			<p class="title">duration</p><span>/</span>
+			<p class="short">
+        <% if(project.Time[1] == 'undefined' ){ %>
+          <%= new Date(Number(project.Time[0])).getMonth() + 1 %>
+          /
+          <%= new Date(Number(project.Time[0])).getDate() %>
+        <% }else{ %> 
+            <%= new Date(Number(project.Time[0])).getMonth() + 1 %>
+            /
+            <%= new Date(Number(project.Time[0])).getDate() %>
+            -
+            <%= new Date(Number(project.Time[1])).getMonth() + 1 %>
+            /
+            <%= new Date(Number(project.Time[1])).getDate() %>
+        <% } %>
+			</p>
+		</p>
 		<p id="detail_need">
       <p class="title">Need</p>
       <span>/</span>
@@ -55,7 +72,7 @@
 		<p id="detail_intro">
       <p class="title with_space">Introduction</p>
       <span>/</span>
-      <p class="long"><%= project.Introduction %>
+      <p class="long"><%- project.Introduction.replace(/\r\n/g, '<br/>') %>
       </p>
     </p>
 		<p id="detail_mission">

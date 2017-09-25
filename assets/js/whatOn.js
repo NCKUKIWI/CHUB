@@ -20,6 +20,11 @@ $(document).ready(function(){
 		activity_show_window(this.getAttribute('activity-id'));
 	});
 
+	// 先客製化綁定what's on 第二頁的東西
+	$('.control').click(function() {
+		project_show_window(this.getAttribute('project-id'));
+	})
+
   // Fullpage 相關
   $( "#fullpage" ).fullpage({
   	onLeave (index, nextIndex, direction){
