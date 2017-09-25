@@ -106,7 +106,8 @@ body::-webkit-scrollbar-thumb {
     display: flex;
     width: 0;
     height: 100%;
-    overflow: hidden;
+    overflow-x: scroll;
+    overflow-y: hidden;
     transition: 0.5s; }
     #news_list .display .pic_full {
       position: relative;
@@ -179,8 +180,8 @@ body::-webkit-scrollbar-thumb {
         background: #ed9027; }
       .block .top .fake_scroll .fake_cont {
         height: 10px;
-        /* width: 100vw; */
-        width: 10vw;
+        width: 100vw;
+        /* width: 10vw; */
        }
   .block .cont {
     position: absolute;
@@ -267,3 +268,6 @@ body::-webkit-scrollbar-thumb {
 body{
 	background-color: rgb(46, 43, 42);
 }
+
+.block .top .fake_scroll.disabled .fake_cont {
+  width: 10vw; }
