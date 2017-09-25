@@ -34,6 +34,10 @@ $(document).ready(function(){
         $('.bottom').fadeOut();
         $('.whatOn_cover').fadeIn();
   		}
+  		else if(nextIndex == 1){
+  			$('#menu').fadeIn();
+  			$('.cover').fadeOut();
+  		}
   		else{
   			$('#menu').fadeIn();
         $('.whatOn_cover').fadeOut();
