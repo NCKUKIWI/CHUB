@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var session = require("express-session");
 var cookieParser = require("cookie-parser");
+var compression = require("compression");
 var path = require("path");
 var engine = require("ejs-locals");     //讓express支援layout
 var helper = require("./helper");
@@ -11,11 +12,13 @@ var app = express();
 
 app.engine("ejs", engine);
 app.set("views",path.join(__dirname,"views"));  //view的路徑位在資料夾views中
-app.set("view engine","ejs")
+app.set("view engine","ejs");
 
+app.use(logger("tiny"));
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use("/assets",express.static("assets",{ maxAge: 30*60*1000 }));
+app.use("/assets",express.static("assets",{ maxAge: 24*60*60 }));
 app.use("/uploads",express.static("uploads"));
 
 //Handle sessions and cookie
@@ -45,8 +48,6 @@ app.use(function(req, res, next) {
     next();
   }
 });
-
-app.use(logger("tiny"));
 
 //mobile
 var mobile = require("./controller/mobile");
