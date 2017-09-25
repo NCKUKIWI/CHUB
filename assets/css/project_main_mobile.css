@@ -185,7 +185,7 @@ body::-webkit-scrollbar-thumb {
     z-index: 30;
     left: 0;
     right: 0;
-    top: 18vh;
+    top: 10vh;
     margin: auto;
     color: #ed9027;
     font-size: 20px;
@@ -193,6 +193,7 @@ body::-webkit-scrollbar-thumb {
     transition: opacity 0.5s;
     font-size: 12px;
     font-weight: bolder;
+    padding: 13px;
 }
 
 #project_list .project_item .preview_title:after {
@@ -218,6 +219,7 @@ body::-webkit-scrollbar-thumb {
     letter-spacing: 2px;
     transition: opacity 0.5s;
     font-size: 10px;
+    font-weight: bolder;
 }
 
 #project_list .project_item .icon {
