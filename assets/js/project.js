@@ -1,4 +1,4 @@
-$(window).load(function() {
+$(document).ready(function() {
 
 	// Initialize
 
@@ -67,11 +67,13 @@ $(window).load(function() {
 					});
 					$(".float_window").show();
 					$( ".float_pic_window" ).hide();
+					$("#project_pic").on( "load", function () {
+						autoAdjustProjectInner();
+					});
 					$("#fullpage, .cover").animate({
 						opacity: 0.1
 					}, 100, function() {
 						window_status = 'open';
-						autoAdjustProjectInner();
 						$('.float_window').animate({
 							opacity: 1
 						}, 500);
@@ -259,7 +261,7 @@ $(window).on( "load", function () {
     
     function autoAdjustProjectInner () {
         var inner_pic_size = $("#project_pic").css("width").replace("px","") / $( "#project_pic" ).css("height").replace("px","") ;
-        var outer_div_size = 25/35 ;
+		var outer_div_size = 30/45 ;
         if ( inner_pic_size > outer_div_size ) {
             $("#project_pic").addClass("fat");
         }
