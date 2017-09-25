@@ -179,7 +179,9 @@ body::-webkit-scrollbar-thumb {
         background: #ed9027; }
       .block .top .fake_scroll .fake_cont {
         height: 10px;
-        width: 100vw; }
+        /* width: 100vw; */
+        width: 10vw;
+       }
   .block .cont {
     position: absolute;
     width: 100vw;
