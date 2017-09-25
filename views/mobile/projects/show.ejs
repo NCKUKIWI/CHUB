@@ -45,7 +45,21 @@
       <p class="title">duration</p>
       <span>/</span>
       <br>
-      <p class="short orange"><%= project.Time %></p>
+      <p class="short orange">
+        <% if(project.Time[1] == 'undefined' ){ %>
+          <%= new Date(Number(project.Time[0])).getMonth() + 1 %>
+          /
+          <%= new Date(Number(project.Time[0])).getDate() %>
+        <% }else{ %> 
+            <%= new Date(Number(project.Time[0])).getMonth() + 1 %>
+            /
+            <%= new Date(Number(project.Time[0])).getDate() %>
+            -
+            <%= new Date(Number(project.Time[1])).getMonth() + 1 %>
+            /
+            <%= new Date(Number(project.Time[1])).getDate() %>
+        <% } %>
+      </p>
     </div>
     <div id="detail_need">
       <p class="title">Need</p>
