@@ -114,11 +114,21 @@
   <div class="round_icon share"></div>
   <div class="round_icon text"></div>
 </div> -->
-<!-- <a href="#" class="close_icon" id="close_window">　</a> -->
+<a href="#" class="close_icon" id="close_window">　</a>
 <div class="float_pic_window">
 	<div class="gallery" style="background: transparent;">
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="auto_adjust not_yet in_swiper">
+							<img onclick="window.open('/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>">
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="auto_adjust not_yet in_swiper">
+							<img onclick="window.open('/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>">
+						</div>
+					</div>
 					<div class="swiper-slide">
 						<div class="auto_adjust not_yet in_swiper">
 							<img onclick="window.open('/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>">
@@ -136,7 +146,7 @@
 			<div class="swiper-button-prev"></div>
 			<div class="swiper-button-next"></div>
 		</div>
-		<div class="close_icon" id="close_window"></div>
+		<div class="close_icon" id="close_pic_view"></div>
 	</div>
 </div>
 

@@ -37,9 +37,9 @@ $(document).ready(function(){
         show_window(this.getAttribute('activity-id'));
     });
 
-    // $( ".brief_pic, #close_pic_view" ).click( function() {
-    //     float_pic_window();
-    // });
+    $( ".brief_pic, #close_pic_view" ).click( function() {
+        float_pic_window();
+    });
 
     
     // Activity 的顯示控制

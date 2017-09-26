@@ -56,21 +56,6 @@
     width: 100%;
     height: auto; }
 
-.close_icon {
-  position: absolute;
-  z-index: 100;
-  cursor: pointer;
-  right: 15px;
-  top: 15px;
-  background: url("../images/close.png");
-  height: 17px;
-  width: 16px;
-  text-decoration: none; }
-  .close_icon:hover {
-    background: url("../images/close_on.png"); }
-  .close_icon:active {
-    opacity: 0.4; }
-
 @media screen and (min-width: 1150px) {
   .gallery {
     width: 1150px; } }
