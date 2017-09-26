@@ -4,7 +4,6 @@ $(document).ready(function(){
 
     var now_sort = "hot", window_status = "closed", pic_window_status = "closed",
         view_scroll_now = 0, view_pic_total, view_display_now = 1, view_display_prev, view_display_next;
-        
 
     $('#fullpage').fullpage({
         // 如果滑到瀏覽activity的地方，menu自動消失
@@ -152,8 +151,9 @@ $(document).ready(function(){
         //     console.log('true');
         //     $.fn.fullpage.setAllowScrolling(true);
         // }
-        var now_scrollTop = $(this).scrollTop();
 
+        var now_scrollTop = $(this).scrollTop();
+        
         if(last_scrollTop < now_scrollTop){
             down = true;
             if(last_scrollTop == 0) {
@@ -165,7 +165,7 @@ $(document).ready(function(){
                 down_detect = 1; 
             }
         }
-        // up
+        up
         if(now_scrollTop == 0){
             if(up_detect == 1){
                 $.fn.fullpage.moveSectionUp();
@@ -195,6 +195,13 @@ $(document).ready(function(){
         $( "#sort_time" ).addClass("now");
     });
 
+    $( "#page_up" ).click( function() {
+        $.fn.fullpage.moveSectionUp();
+    });
+
+    $( "#page_down" ).click( function() {
+        $.fn.fullpage.moveSectionDown();
+    });
 
     // Pic Window 的顯示控制
     

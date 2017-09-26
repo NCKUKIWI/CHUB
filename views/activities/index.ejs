@@ -4,7 +4,7 @@
 
 <div id="fullpage">
   <div class="main_page">
-    <div class="section" id="project_intro">
+    <div class="section" id="activity_intro">
       <div id="intro_left">
         <h1>Activity</h1>
         <p>All you need to do is: work hard, learn hard, and play hard.</p>
@@ -17,11 +17,16 @@
       </div>
     </div>
     <div class="section no_menu" id="activity_view">
-      <!-- <div id="preview_control">
-        <a class="sort_way now" id="sort_hot">HOT</a>
-        <a class="sort_way" id="sort_time">TIME</a>
-      </div> -->
-      <div class="with_scroll" id="activity_list">     
+      <div id="preview_control">
+          <a class="page_move" id="page_up">　</a>
+          <a class="page_move" id="page_down">　</a>
+        <!-- <a class="sort_way now" id="sort_hot">HOT</a>
+        <a class="sort_way" id="sort_time">TIME</a> -->
+      </div>
+      <div class="with_scroll fake_scroll syncscroll" name="activity_list">
+        <div class="fake_cont"></div>
+      </div>
+      <div class="syncscroll" id="activity_list"  name="activity_list">   
         <div class="row" id="row_1">
           <% for(var i = 0; i < activity.length; i += 4) { %>
             <div class="activity_item" activity-id="<%= activity[i]._id %>">
