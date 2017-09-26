@@ -171,6 +171,28 @@ $(document).ready(function() {
 					opacity: 1
 				}, 500);
 			});
+
+      $(".not_yet").each (function() {
+          autoAdjust($(this));
+      });
+
+      // swiper initialize
+	    var swiper = new Swiper('.swiper-container', {
+	        pagination: '.swiper-pagination',
+	        slidesPerView: 2,
+	        // slidesPerView: 'auto',
+	        centeredSlides: true,
+	        paginationClickable: true,
+	        spaceBetween: 30,
+	        loop: false,
+	        nextButton: '.swiper-button-next',
+	        prevButton: '.swiper-button-prev',
+	        breakpoints: {
+	            640: {
+	              slidesPerView: 1
+	            }
+	        }
+	    });
 		} else if(pic_window_status == 'open') {
 			pic_window_status = 'closed';
 			$("#fullpage, .cover").animate({

@@ -1,4 +1,9 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/project_float.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/swiper.min.css">
+
+<script type="text/javascript" src="/assets/js/swiper.min.js"></script>
+<script type="text/javascript" src="/assets/js/gallery_all.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/gallery.css">
 
 <div class="dark_mask"></div>
 	<div id="detail_left">
@@ -129,31 +134,29 @@
   <% } %>
 	<a href="#" class="close_icon" id="close_window"></a>
   <div class="float_pic_window">
-    <svg class="slideshow_btn disabled" id="go_prev" width="20">
-      <line id="line_1" x1="20" y1="0" x2="0" y2="10" />
-      <line id="line_2" x1="20" y1="20" x2="0" y2="10" />
-    </svg>
-    <svg class="slideshow_btn" id="go_next" width="20">
-      <line id="line_1" x1="0" y1="0" x2="20" y2="10" />
-      <line id="line_2" x1="0" y1="20" x2="20" y2="10" />
-    </svg>
-    <div id="view_all_pic">
-      <img class="gallery_view_pic end" src="/assets/images/view_pic_end.png">
-      <img class="gallery_view_pic" id="pic_1" onclick="window.open('/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>">
-      <% for(var i = 0; i < project.Photo.length; i++) { %>
-          <img class="gallery_view_pic" id="pic_<%= i + 2 %>" onclick="window.open('<%= project.Photo[i] %>?<%= new Date().getTime() %>')" src="<%= project.Photo[i] %>?<%= new Date().getTime() %>">
-      <% } %>
-      <!-- <img class="gallery_view_pic" id="pic_1" src="/assets/images/portfolio_ex.png">
-      <img class="gallery_view_pic" id="pic_2" src="/assets/images/portfolio_ex.png">
-      <img class="gallery_view_pic" id="pic_3" src="/assets/images/portfolio_ex.png">
-      <img class="gallery_view_pic" id="pic_4" src="/assets/images/portfolio_ex.png">
-      <img class="gallery_view_pic" id="pic_5" src="/assets/images/portfolio_ex.png"> -->
-      <img class="gallery_view_pic end" src="/assets/images//view_pic_end.png">
-    </div>
-    <div class="view_pic_counter">
-      <span class="pic_counter now">01</span><span class="pic_counter total"><%= project.Photo.length + 1%></span>
-    </div>
-    <a href="#" class="close_icon" id="close_pic_view">　</a>
+		<div class="gallery" style="background: transparent;">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="auto_adjust not_yet in_swiper">
+								<img onclick="window.open('/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>">
+							</div>
+						</div>
+				    <% for(var i = 0; i < project.Photo.length; i++) { %>
+							<div class="swiper-slide">
+								<div class="auto_adjust not_yet in_swiper">
+									<img onclick="window.open('<%= project.Photo[i] %>?<%= new Date().getTime() %>')" src="<%= project.Photo[i] %>?<%= new Date().getTime() %>">
+								</div>
+							</div>
+				    <% } %>
+				</div>
+				<div class="swiper-pagination"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			</div>
+			<div class="close_icon" id="close_pic_view"></div>
+		</div>
+    <!-- <a href="#" class="close_icon" id="close_pic_view">　</a> -->
   </div>
 
 <script>
