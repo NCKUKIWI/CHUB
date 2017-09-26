@@ -106,7 +106,7 @@ body::-webkit-scrollbar-thumb {
     display: flex;
     width: 0;
     height: 100%;
-    overflow-x: scroll;
+    /*overflow-x: scroll;*/
     overflow-y: hidden;
     transition: 0.5s; }
     #news_list .display .pic_full {
