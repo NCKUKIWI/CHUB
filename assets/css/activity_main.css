@@ -42,7 +42,7 @@ body::-webkit-scrollbar-thumb {
   z-index: 100;
   left: 0;
   top: 0.5vh;
-  width: 90vw;
+  width: 105vw;
   height: 99vh;
   overflow-x: hidden;
   overflow-y: scroll; }
@@ -206,9 +206,9 @@ body::-webkit-scrollbar-thumb {
 #preview_control {
   position: absolute;
   z-index: 200;
-  top: 20vh;
-  left: 80vw;
-  margin-left: 50px;
+  top: 30vh;
+  right: 10vw;
+  margin-right: 50px;
   margin-top: -40px; }
   #preview_control .sort_way {
     position: relative;
@@ -240,4 +240,63 @@ body::-webkit-scrollbar-thumb {
       width: 32px;
       background: #ed9027; }
     #preview_control .sort_way:active {
+      opacity: 0.4; }
+
+
+.fake_scroll {
+  position: absolute;
+  top: 20vh;
+  right: 10vw;
+  width: 100px;
+  height: 60vh;
+  overflow: scroll; }
+
+.fake_cont {
+  height: 200vh;
+  width: 10px; }
+
+
+  #preview_control #page_up {
+    position: absolute;
+    top: -15vh;
+    background: url("../images/page_up.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 100vh;
+    height: 50px;
+    width: 50px;
+    margin-left: 23px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .5s;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+      opacity: 1; }
+    #preview_control #page_up:hover {
+      -webkit-filter: grayscale(0%);
+      filter: grayscale(0%); }
+    #preview_control #page_up:active {
+      opacity: 0.4; }
+  #preview_control #page_down {
+    position: absolute;
+    bottom: -63vh;
+    background: url("../images/page_down.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 100vh;
+    margin-left: 23px;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .5s;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+      opacity: 1; }
+    #preview_control #page_down:hover {
+      -webkit-filter: grayscale(0%);
+      filter: grayscale(0%); }
+    #preview_control #page_down:active {
       opacity: 0.4; }
