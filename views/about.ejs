@@ -11,12 +11,17 @@
 		    <p class="paragraph">In the beginning of year 2014, College of Planning & Design, National Cheng Kung University started the "Borderless Campus Project" in the duration of 3 phases. Through the co-creation of teachers and students, blending the energy of research and development & incubation in the campus, C-Hub with the simple prototype was built as the first year's achievement of this project. In order to further establish the complete process of education, incubation and practice, promote the bilateral immersion between industry and campus, and search for the practice opportunity of innovative teams; it will hereby hold two main events of exhibition and forum in the anniversary week of NCKU. With the conversation and exchange among university, industry and city, collective wisdom can be drawn and useful ideas can be absorbed.</p>
 		</div>
 		<div class="section" id="about_member">
-		    <h2>People in C-Hub</h2>
-		    <!-- <div id="preview_control">
-		        <a class="sort_way now" id="sort_hot">HOT</a>
-		        <a class="sort_way" id="sort_time">TIME</a>
-		    </div> -->
-		    <div class="with_scroll" id="activity_list">
+			<h2>People in C-Hub</h2>
+		    <div id="preview_control">
+				<a class="page_move" id="page_up">　</a>
+				<a class="page_move" id="page_down">　</a>
+		        <!-- <a class="sort_way now" id="sort_hot">HOT</a> -->
+		        <!-- <a class="sort_way" id="sort_time">TIME</a> -->
+		    </div>
+		    <div class="with_scroll fake_scroll syncscroll" name="member_list">
+				<div class="fake_cont"></div>
+			</div>
+			<div class="syncscroll" id="activity_list"  name="member_list">  
 		        <div class="row" id="row_1">
 		        	<% for(var i = 0; i < users.length; i += 4) { %>
 		            <div class="activity_item" user-id="<%= users[i].id %>">
@@ -75,5 +80,8 @@
 		        </div>
 		    </div>
 		</div>
+		<!-- <div class="section no_menu" id="footer">
+			<% include /public/footer %>
+		</div> -->
   </div>
 </div>

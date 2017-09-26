@@ -41,7 +41,16 @@ $(document).ready(function(){
   });
 	$(".activity_item").click(function() {
 		show_window(this.getAttribute("user-id"));
-	});
+    });
+    
+    $( "#page_up" ).click( function() {
+        $.fn.fullpage.moveSectionUp();
+    });
+
+    $( "#page_down" ).click( function() {
+        $.fn.fullpage.moveSectionDown();
+    });
+    
   $('#fullpage').fullpage({
       // 如果滑到瀏覽activity的地方，menu自動消失
       onLeave (index, nextIndex, direction){
