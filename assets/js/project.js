@@ -93,6 +93,19 @@ $(document).ready(function() {
 	}
 	function close_window() {
 		if(window_status == 'open') {
+			if(pic_window_status == 'open') {
+				pic_window_status = 'closed';
+				$(".float_pic_window").animate({
+					opacity: 0
+				}, 500, function() {
+					$(".float_pic_window").hide();
+					$("#detail_left, #detail_right").show();
+					$("#detail_left, #detail_right").animate({
+						opacity: 1
+					}, 500);
+				});
+				return ;
+			}
 			$.fn.fullpage.setAllowScrolling(true, "down,up"); // 啟動第一層的fullpage滑動
 			$("#fullpage").animate({
 				opacity: 1
@@ -106,18 +119,7 @@ $(document).ready(function() {
 				window_status = 'closed';
 				$(".float_window").hide();
 				$(".float_window").empty();
-				if(pic_window_status == 'open') {
-					pic_window_status = 'closed';
-					$(".float_pic_window").animate({
-						opacity: 0
-					}, 500, function() {
-						$(".float_pic_window").hide();
-						$("#detail_left, #detail_right").show();
-						$("#detail_left, #detail_right").animate({
-							opacity: 1
-						}, 500);
-					});
-				}
+
 			});
 		}
 	}
