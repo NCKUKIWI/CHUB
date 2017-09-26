@@ -38,6 +38,45 @@
       <p class="title">Type</p><span>/</span>
       <p class="short orange"><%= activity.Type %></p>
   </p>
+	<p id="detail_TimeTable">
+		<p class="title with_space">TimeTable<span>/</span>
+		<p class="orange long">
+			<% for(var j = 0; j < activity.Time.length; j += 2) { %>
+	  		<%= new Date(Number(activity.Time[j])).getFullYear() %>/<%= new Date(Number(activity.Time[j])).getMonth() + 1 %>/<%= new Date(Number(activity.Time[j])).getDate() %>
+	  		&nbsp;&nbsp;
+	  		<%= new Date(Number(activity.Time[j])).getHours() %>
+	  		:
+	  		<% if (new Date(Number(activity.Time[j])).getMinutes() != 0){%> 
+	  			<%= new Date(Number(activity.Time[j])).getMinutes() %>
+	  		<%} else {%>
+	  			00
+	  		<% } %>
+	      &nbsp;-&nbsp;
+	      <% if(new Date(Number(activity.Time[j])).getFullYear() != new Date(Number(activity.Time[j + 1])).getFullYear()){%>
+	      	<%= new Date(Number(activity.Time[j + 1])).getFullYear() %>
+	      	/
+	      <%}%>
+	      <% if(new Date(Number(activity.Time[j])).getMonth() != new Date(Number(activity.Time[j + 1])).getMonth()){%>
+	      	<%= new Date(Number(activity.Time[j + 1])).getMonth() + 1%>
+	      	/
+	      <% } %>
+	      <% if(new Date(Number(activity.Time[j])).getDate() != new Date(Number(activity.Time[j + 1])).getDate()){%>
+	      	<%= new Date(Number(activity.Time[j + 1])).getMonth() + 1%>
+	      	/
+	      	<%= new Date(Number(activity.Time[j + 1])).getDate() %>
+	      	&nbsp;&nbsp;
+	      <% } %>
+	  		<%= new Date(Number(activity.Time[j + 1])).getHours() %>
+	  		:
+	  		<% if (new Date(Number(activity.Time[j])).getMinutes() != 0){%> 
+	  			<%= new Date(Number(activity.Time[j])).getMinutes() %>
+	  		<%} else {%>
+	  			00
+	  		<% } %>
+				<br>
+      <% } %>
+		</p>
+	</p>
   <p id="detail_conditions">
     <p class="title with_space">Conditions</p><span>/</span>
     <p class="orange long">
