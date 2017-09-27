@@ -178,7 +178,9 @@ function project_show_window(id){
 					opacity: 0.1
 				}, 100, function() {
 					window_status = 'open';
-					autoAdjustProjectInner();
+					$("#project_pic").on( "load", function () {
+						autoAdjustProjectInner();
+					});
 					$('.float_window').animate({
 						opacity: 1
 					}, 500);
