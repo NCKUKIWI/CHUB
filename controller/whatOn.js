@@ -21,7 +21,7 @@ var MobileDetect = require('mobile-detect');
   
 // });
 router.get("/about", function(req, res){
-  User.find({"Role": 3}, function(err, users) {
+  User.find({"Role": 4}, function(err, users) {
   	res.render("about", {
   		users: users,
   	});
