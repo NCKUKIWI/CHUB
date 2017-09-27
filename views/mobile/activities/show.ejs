@@ -14,15 +14,15 @@
         <img id="pic_more" src="/assets/images/pic_more.png">
       </div>
       <p class="project_name">
-        <% for(var i = 0; i < project.BigTitle.length; i++){ %>
-          <%= project.BigTitle[i] %>
-          <% if( i != project.BigTitle.length - 1) { %> <br> <% } %>
+        <% for(var i = 0; i < activity.BigTitle.length; i++){ %>
+          <%= activity.BigTitle[i] %>
+          <% if( i != activity.BigTitle.length - 1) { %> <br> <% } %>
         <% } %>   
       </p>
       <hr>
       <p id="detail_main_text">
-        <% for(var i = 0; i < project.SmallTitle.length; i++){ %>
-          <%= project.SmallTitle[i] %>
+        <% for(var i = 0; i < activity.SmallTitle.length; i++){ %>
+          <%= activity.SmallTitle[i] %>
           <br>
         <% } %>     
       </p>
@@ -33,31 +33,31 @@
       <p class="title">Type</p>
       <span>/</span>
       <br>
-      <p class="short orange"><%= project.Type %></p>
+      <p class="short orange"><%= activity.Type %></p>
     </div>
     <div id="detail_location">
       <p class="title">Location</p><span>/</span>
       <br>
-      <p class="short orange"><%= project.Location %></p>
-      <div class="botton tiny" onclick="window.open('https://www.google.com.tw/maps/search/<%= project.Location %>')">MAP</div>
+      <p class="short orange"><%= activity.Location %></p>
+      <div class="botton tiny" onclick="window.open('https://www.google.com.tw/maps/search/<%= activity.Location %>')">MAP</div>
     </div>
     <div id="detail_duration">
       <p class="title">duration</p>
       <span>/</span>
       <br>
       <p class="short orange">
-        <% if(project.Time[1] == 'undefined' ){ %>
-          <%= new Date(Number(project.Time[0])).getMonth() + 1 %>
+        <% if(activity.Time[1] == 'undefined' ){ %>
+          <%= new Date(Number(activity.Time[0])).getMonth() + 1 %>
           /
-          <%= new Date(Number(project.Time[0])).getDate() %>
+          <%= new Date(Number(activity.Time[0])).getDate() %>
         <% }else{ %> 
-            <%= new Date(Number(project.Time[0])).getMonth() + 1 %>
+            <%= new Date(Number(activity.Time[0])).getMonth() + 1 %>
             /
-            <%= new Date(Number(project.Time[0])).getDate() %>
+            <%= new Date(Number(activity.Time[0])).getDate() %>
             -
-            <%= new Date(Number(project.Time[1])).getMonth() + 1 %>
+            <%= new Date(Number(activity.Time[1])).getMonth() + 1 %>
             /
-            <%= new Date(Number(project.Time[1])).getDate() %>
+            <%= new Date(Number(activity.Time[1])).getDate() %>
         <% } %>
       </p>
     </div>
@@ -66,8 +66,8 @@
       <span>/</span>
       <br>
       <p class="short orange">
-        <% for(var i =0 ; i < project.Need.length  ;i ++){ %>
-          <%= project.Need[i] %>
+        <% for(var i =0 ; i < activity.Need.length  ;i ++){ %>
+          <%= activity.Need[i] %>
         <% } %>
       </p>
     </div>
@@ -75,7 +75,7 @@
       <p class="title with_space">Introduction</p>
       <span>/</span>
       <br>
-      <p class="long"><%= project.Introduction %>
+      <p class="long"><%= activity.Introduction %>
       </p>
     </div>
     <div id="detail_mission">
@@ -83,7 +83,7 @@
       <span>/</span>
       <br>
       <p class="long">
-        <%= project.Mission %>
+        <%= activity.Mission %>
       </p>
     </div>
     <div id="detail_contributer"><br/>
@@ -119,65 +119,3 @@
 </div>
 
 
-
-<script>
-$(document).ready(function(){
-  $('.joinProject').on('click', function(){
-    var id = this.getAttribute('project-id');
-    $.ajax({
-      url: "/projects/join/",
-      type: "POST",
-      data:{
-        project_id:id
-      },
-      success: function(response) {
-        toastr.success("申請成功");
-        setTimeout(function(){
-          window.location.href = window.location.href;
-        },3000);
-      }
-    });
-  });
-
-  $('.quitProject').on('click', function(){
-    var id = this.getAttribute('project-id');
-    $.ajax({
-      url: "/projects/quit/",
-      type: "POST",
-      data:{
-        project_id:id
-      },
-      success: function(response) {
-        toastr.success("退出成功");
-        setTimeout(function(){
-          window.location.href = window.location.href;
-        },3000);
-      }
-    });
-  });
-
-  $('.delProject').on('click', function(){
-    var id = this.getAttribute('project-id');
-    $.ajax({
-      url: "/projects/delete/"+id,
-      type: "DELETE",
-      success: function(response) {
-        if(response=="ok"){
-          toastr.success("刪除成功");
-          setTimeout(function(){
-            window.location.href = window.location.href;
-          },3000);
-        }
-      }
-    });
-  });
-  var inner_pic_size = $("#project_pic").css("width").replace("px","") / $( "#project_pic" ).css("height").replace("px","") ;
-  var outer_div_size = 25/35 ;
-  if ( inner_pic_size > outer_div_size ) {
-      $("#project_pic").addClass("fat");
-  }
-  else {
-      $("#project_pic").addClass("tall");
-  }
-});
-</script>
