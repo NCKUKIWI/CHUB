@@ -227,6 +227,7 @@
 
 .close_icon {
   position: absolute;
+  z-index: 91;
   right: 108px;
   top: 15px;
   background: url("../images/close.png");

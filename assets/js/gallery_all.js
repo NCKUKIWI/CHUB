@@ -17,9 +17,9 @@ $(document).ready(function(){
     //     }
     // });
 
-    // $("#close_gallery").click( function() {
-    //     $(".gallery").fadeOut();
-    // });
+    $("#close_gallery").click( function() {
+        $(".float_pic_window").fadeOut();
+    });
 
 });
 
