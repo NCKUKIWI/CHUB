@@ -604,4 +604,21 @@ function logoutStatus() {
 }
 
 
+// for chub login
+$(document).ready(function() {
+  if(window.location.pathname == "/chub"){
+	  <% if(me) {%>
+	    myProfile();
+	  <% }else{ %>          
+	    logIn();
+	  <% } %>
+    now_tab = "profile";
+    switchSidebar("open");
+    setTimeout(function(){
+      $( "#side_profile" ).addClass("active");
+    },200);
+    
+  }
+})
+
 </script>

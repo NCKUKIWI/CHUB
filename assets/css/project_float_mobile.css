@@ -162,7 +162,7 @@ body{
 .float_window #detail_right .long {
     line-height: 22px;
     padding: 0 13vw 0 13vw;
-    text-align: justify;
+    text-align: left;
 }
 
 .float_window #detail_right a {

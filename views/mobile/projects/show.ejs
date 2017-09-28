@@ -75,7 +75,7 @@
       <p class="title with_space">Introduction</p>
       <span>/</span>
       <br>
-      <p class="long"><%= project.Introduction %>
+      <p class="long"><%- project.Introduction.replace(/\r\n/g, '<br/>').replace(/\s/g, '') %>
       </p>
     </div>
     <div id="detail_mission">
