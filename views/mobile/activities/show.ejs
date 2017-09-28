@@ -1,5 +1,5 @@
 <% layout('../public/layout') %>
-<!-- <link rel="stylesheet" type="text/css" href="/assets/css/project_float_mobile.css"> -->
+<link rel="stylesheet" type="text/css" href="/assets/css/project_float_mobile.css">
 
 <div class="float_window">
   <div id="detail_left">
@@ -10,7 +10,7 @@
     </div>
     <div id="detail_brief" >
       <div class="brief_pic">
-        <img id="project_pic" src="/uploads/project/<%= project._id %>/logo.png">
+        <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo.png">
         <img id="pic_more" src="/assets/images/pic_more.png">
       </div>
       <p class="project_name">
@@ -61,16 +61,6 @@
         <% } %>
       </p>
     </div>
-    <div id="detail_need">
-      <p class="title">Need</p>
-      <span>/</span>
-      <br>
-      <p class="short orange">
-        <% for(var i =0 ; i < activity.Need.length  ;i ++){ %>
-          <%= activity.Need[i] %>
-        <% } %>
-      </p>
-    </div>
     <div id="detail_intro">
       <p class="title with_space">Introduction</p>
       <span>/</span>
@@ -78,22 +68,8 @@
       <p class="long"><%= activity.Introduction %>
       </p>
     </div>
-    <div id="detail_mission">
-      <p class="title with_space">Goal</p>
-      <span>/</span>
-      <br>
-      <p class="long">
-        <%= activity.Mission %>
-      </p>
-    </div>
     <div id="detail_contributer"><br/>
       <p class="title">Contributor</p>
-      <span>/</span>
-      <br>
-      <p class="short"></p>
-    </div>
-    <div id="detail_sponsor">
-      <p class="title">Sponsor</p>
       <span>/</span>
       <br>
       <p class="short"></p>

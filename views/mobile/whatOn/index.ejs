@@ -125,7 +125,7 @@
       </div> -->
       <div class="round_display" id="display_activities">
       	<% for (var i = 0; i < activities.length; i++) { %>
-          <div class="display_item <% if (i == 0){%> on <%}%>">
+          <div class="display_item <% if (i == 0){%> on <%}%>" onclick='location.href= "/activities/id/<%= activities[i]._id %>"'>
             <div class="pic_round auto_adjust not_yet">
                 <img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
             </div>

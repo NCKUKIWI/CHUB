@@ -9,6 +9,7 @@ var User = require("../model/User");
 var fs = require("fs");
 var rimraf = require("rimraf");
 var multer  = require('multer');
+var MobileDetect = require('mobile-detect');
 
 var coverStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -64,6 +65,33 @@ router.get("/", function(req,res) {
       id: req.query.id
     });
   });
+});
+
+// mobile用的
+router.get("/id/:id", function(req, res){
+  var device = new MobileDetect(req.headers['user-agent']);
+  if(!device.mobile()){ return;};
+  if(req.body.page != 'true'){
+    Activity.findById(req.params.id,function(err,activity){
+      if(activity){
+        User.find({ _id:{ $in:activity.MemberID } },["_id","Name","Email","Major","Skill","Description","Role"],function(err,members){
+          res.render("mobile/activities/show",{
+            activity:activity,
+            members:members
+          });
+        });
+      }else{
+        res.send("notFound");
+      }
+    });
+  }else{
+    Activity.findById(req.params.id,function(err,activity){
+      res.render("activities/index",{
+        activity: activity,
+        query: req.params.id
+      });
+    });
+  }
 });
 
 router.get("/new",helper.checkLogin(),function(req,res) {
