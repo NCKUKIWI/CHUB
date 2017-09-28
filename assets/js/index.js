@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  
   /* toastr option */
   toastr.options = {
     "closeButton": true,
