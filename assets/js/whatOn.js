@@ -157,7 +157,9 @@ function animationPlay( start_img ) {
     if ( next_img.length ) {
         if ( next_img.attr('id') == "final" ) {
             next_img.addClass("visible").addClass("animated").addClass("bounce").removeClass("invisible");
-            setTimeout("$.fn.fullpage.moveSectionDown()", 1500);
+            if($('#whats_on_enter').hasClass('active')){
+            	setTimeout("$.fn.fullpage.moveSectionDown()", 1500);
+            }
         }
         else {
             next_img.addClass("visible").removeClass("invisible");
@@ -272,37 +274,27 @@ function activity_show_window(id){
   }
 }
 
-function close_window() {
-	if(window_status == 'open') {
-		$.fn.fullpage.setAllowScrolling(true, "down,up"); // 啟動第一層的fullpage滑動
-		$("#fullpage").animate({
-			opacity: 1
-		}, 500);
-		$(".cover").animate({
-			opacity: 0.3
-		}, 500);
-		$(".float_window").animate({
-			opacity: 0
-		}, 500, function() {
-			window_status = 'closed';
-			$(".float_window").hide();
-			$(".float_window").empty();
-			if(pic_window_status == 'open') {
-				pic_window_status = 'closed';
-				$(".float_pic_window").animate({
-					opacity: 0
-				}, 500, function() {
-					$(".float_pic_window").hide();
-					$("#detail_left, #detail_right").show();
-					$("#detail_left, #detail_right").animate({
-						opacity: 1
-					}, 500);
-				});
-			}
-		});
-	}
+function close_window(){
+  if ( window_status == 'open' ) {
+    if ( pic_window_status == 'open' ) {
+        pic_window_status = 'closed';
+        $( ".float_pic_window" ).animate({opacity: 0}, 500, function() {
+            $( ".float_pic_window" ).hide();
+            $( "#detail_left, #detail_right" ).show();
+            $( "#detail_left, #detail_right" ).animate({opacity: 1}, 500);
+        });
+        return;
+    }
+    $("#fullpage").animate({opacity: 1}, 500);
+    $(".cover").animate({opacity: 0.3}, 500);
+    $( ".float_window" ).animate({opacity: 0}, 500, function() {
+        window_status = 'closed';
+        $(".float_window").hide();
+        $(".float_window").empty();
+        $.fn.fullpage.setAllowScrolling(true, "down,up"); // 停止第一層的fullpage滑動
+    });
+  }
 }
-
 
 // Pic Window 的顯示控制
 
