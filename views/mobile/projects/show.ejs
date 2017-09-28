@@ -171,6 +171,10 @@ $(document).ready(function(){
       }
     });
   });
+
+});
+
+$(window).on('load', function(){
   var inner_pic_size = $("#project_pic").css("width").replace("px","") / $( "#project_pic" ).css("height").replace("px","") ;
   var outer_div_size = 25/35 ;
   if ( inner_pic_size > outer_div_size ) {
