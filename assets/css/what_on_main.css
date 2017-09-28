@@ -232,6 +232,8 @@ body::-webkit-scrollbar-thumb {
       right: 0;
       width: 70%;
       overflow: scroll;
+      overflow-y: hidden;
+      overflow-x: inherit;
       display: flex;
       align-items: center; }
       .block .cont .round_display .display_item {
