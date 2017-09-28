@@ -1,0 +1,74 @@
+@charset "utf-8";
+
+
+/* 選項列 */
+
+
+.nav {
+	height: 76px;
+	display: block;
+	width: 100%;
+	margin-top: 0px;
+	float: right;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.nav ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+}
+
+.nav ul li {
+	/* width and height of the menu items */  
+	float: right;
+	overflow: hidden;
+	position: relative;
+	line-height: 76px;
+	text-align: center;
+}
+
+.nav ul li a {
+	/* must be postioned relative  */ 
+	position: relative;
+	display: block;
+	width: 120px;
+	height: 76px;
+	font-size: 15px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.nav ul li a span {
+			/* all layers will be absolute positioned */
+			position: absolute;
+			left: 0;
+			width: 120px;
+}
+		.nav ul li a span.out {
+			top: 0px;
+}
+		.nav ul li a span.over,
+		.nav ul li a span.bg {
+			/* hide */  
+			top: -76px;
+}
+#nav1 {
+	background-color: #333;
+}
+		
+#nav1 ul li a {
+	font-family: "微軟正黑體", Verdana;
+	color: #FFF;
+	letter-spacing: 1px;
+}
+
+#nav1 ul li a span.over {
+	color: #333;
+	background-color: #f0f0f0;
+}
+.cls {
+	clear: both;
+}
+a:focus { outline: none; }

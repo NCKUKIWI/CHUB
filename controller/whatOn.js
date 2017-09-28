@@ -29,7 +29,8 @@ router.get("/about", function(req, res){
 });
 
 router.get("/space",function(req, res){
-	res.redirect("https://c-hub.ncku.edu.tw/");
+	res.render("space");
+	// res.redirect("https://c-hub.ncku.edu.tw/");
 })
 
 router.get("/*",function(req,res) {

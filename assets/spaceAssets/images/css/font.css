@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* 所有文字樣式 */
+
+.green15px {
+	font-family: Verdana;
+	font-size: 15px;
+	line-height: 22px;
+	color: #508a01;
+	font-weight: bold;
+}
+.greenlink A:link {color:#62ac02;text-decoration:underline}
+.greenlink A:visited {color:#62ac02;text-decoration:underline}
+.greenlink A:hover {color:#2e7d3a;text-decoration:none}
+
+
+.white12px {
+	color: #FFF;
+	font: bold 12px/17px Verdana;	
+}
+.red12px {
+	font-family: "Verdana";
+	font-size: 12px;
+	line-height: 17px;
+	color: #C41A1B;
+	font-weight: bold;
+}
+.darkgray12px {
+	font-family: "Verdana";
+	font-size: 12px;
+	line-height: 20px;
+	color: #3d3d3d;
+}
+.gray12px {
+	font-family: "Verdana";
+	font-size: 12px;
+	line-height: 20px;
+	color: #666666;
+}
+.graylink A:link {
+	color:#666;
+	text-decoration:none
+}
+.graylink A:visited {
+	color:#666;
+	text-decoration:none
+}
+.graylink A:hover {
+	color:#C41A1B;
+	text-decoration:underline
+}
+.brown11px {
+	font-family: "Verdana";
+	font-size: 11px;
+	line-height: 20px;
+	color: #8C6732;
+}
