@@ -91,3 +91,10 @@ a, a:hover {
 .textcenter {
     text-align: center;
 }*/
+
+.kill_scrollbar::-webkit-scrollbar {
+    width: 0;
+    height: 0; }
+  
+  .kill_scrollbar::-webkit-scrollbar-thumb {
+    background: transparent; }
