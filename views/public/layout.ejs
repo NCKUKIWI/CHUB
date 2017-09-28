@@ -31,6 +31,9 @@
   <link rel="stylesheet" type="text/css" href="/assets/css/common_footer.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/common_style.css">
 
+
+  <script src="/assets/js/pace.min.js"></script>
+  <link href="/assets/css/pace.css" rel="stylesheet" />
 </head>
 <body>
   <div class="background">
@@ -41,6 +44,7 @@
     <div class="halfscreen_cover"></div>
     <div class="activity_cover"></div>
     <div class="whatOn_cover"></div>
+    <div class="loading_cover"></div>
   </div>
   <div id="menu">
     <% include ./menu %>
@@ -54,6 +58,12 @@
   </div>
   <!-- 第二層浮動視窗 -->
   <div class="float_window no_menu"></div> 
+
+  <script type="text/javascript">
+		Pace.on("done", function(){
+		    $(".loading_cover").fadeOut(2000);
+		});
+  </script>
   
 </body>
 </html>

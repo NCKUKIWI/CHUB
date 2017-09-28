@@ -64,3 +64,10 @@
   background-image: url("../images/bg_what_on.png");
   background-repeat: no-repeat;
   background-size: cover; }
+
+.loading_cover {
+  position: fixed;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+	background-color: black;}
