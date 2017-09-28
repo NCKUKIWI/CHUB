@@ -26,13 +26,15 @@ $(document).ready(function(){
     })
     
     $( ".cont_slide.right" ).click( function() {
-        var move_distance = $(window).width()/4;
-        $(this).parents(".cont").children(".round_display").animate({ scrollLeft: '+=' + move_distance }, 300);
+        var move_distance = $(window).height()*0.15 + $(window).width()*0.05 ;
+        move_distance *= 3 ;
+        $(this).parents(".cont").children(".round_display").animate({ scrollLeft: '+=' + move_distance }, 500);
     });
     
     $( ".cont_slide.left" ).click( function() {
-        var move_distance = $(window).width()/4;
-        $(this).parents(".cont").children(".round_display").animate({ scrollLeft: '-=' + move_distance }, 300);
+        var move_distance = $(window).height()*0.15 + $(window).width()*0.05 ;
+        move_distance *= 3 ;
+        $(this).parents(".cont").children(".round_display").animate({ scrollLeft: '-=' + move_distance }, 500);
     });
 
   // Fullpage 相關
