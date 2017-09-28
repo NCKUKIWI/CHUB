@@ -12,7 +12,7 @@ $(document).ready(function(){
 
   // project
 	$('.display_item[project-id]').click(function() {
-		project_show_window(this.getAttribute('project-id'));
+        project_show_window(this.getAttribute('project-id'));
 	});
 
 	//activity
@@ -21,9 +21,19 @@ $(document).ready(function(){
 	});
 
 	// 先客製化綁定what's on 第二頁的東西
-	$('.control').click(function() {
+	$('#news_list.control').click(function() {
 		project_show_window(this.getAttribute('project-id'));
-	})
+    })
+    
+    $( ".cont_slide.right" ).click( function() {
+        var move_distance = $(window).width()/4;
+        $(this).parents(".cont").children(".round_display").animate({ scrollLeft: '+=' + move_distance }, 300);
+    });
+    
+    $( ".cont_slide.left" ).click( function() {
+        var move_distance = $(window).width()/4;
+        $(this).parents(".cont").children(".round_display").animate({ scrollLeft: '-=' + move_distance }, 300);
+    });
 
   // Fullpage 相關
   $( "#fullpage" ).fullpage({
