@@ -29,7 +29,7 @@ var userSchema = new Schema({
   Major: String,
   Skill: [String],
   Location: String,
-  Introduction: { type: String, minlength:0, maxlength:100 },
+  Introduction: { type: String, minlength:0, maxlength:200 },
   Position: [],
   School: {'Name': String, 'StudentID': String},
   Link: [String],
