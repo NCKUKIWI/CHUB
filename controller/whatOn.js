@@ -32,30 +32,12 @@ router.get("/no_support",function(req, res){
 	res.render("no_support");
 })
 
-// router.get("/space",function(req, res){
-// 	res.render("space");
-// })
+router.get("/space",function(req, res){
+	res.render("space");
+})
 
 
-// router.get("/*",function(req,res) {
-// 	var device = new MobileDetect(req.headers['user-agent']);
-//   var result = {
-//   };
-//   Project.find({}).exec().then(function(projects){
-//     result.projects = projects;
-//     return Activity.find({}).sort({'Duration': -1}).exec()
-//   }).then(function(activities){
-//     result.activities = activities;
-// 		if(!device.mobile()){
-// 			res.render("whatOn/index", result);
-// 		}
-// 		else{
-// 			res.render("mobile/whatOn/index", result);
-// 		}
-//   })
-// });
-
-router.get("/whatOn",function(req,res) {
+router.get("/*",function(req,res) {
 	var device = new MobileDetect(req.headers['user-agent']);
   var result = {
   };
@@ -73,9 +55,27 @@ router.get("/whatOn",function(req,res) {
   })
 });
 
-router.get("/*",function(req, res){
-	res.render("space");
-})
+// router.get("/whatOn",function(req,res) {
+// 	var device = new MobileDetect(req.headers['user-agent']);
+//   var result = {
+//   };
+//   Project.find({}).exec().then(function(projects){
+//     result.projects = projects;
+//     return Activity.find({}).sort({'Duration': -1}).exec()
+//   }).then(function(activities){
+//     result.activities = activities;
+// 		if(!device.mobile()){
+// 			res.render("whatOn/index", result);
+// 		}
+// 		else{
+// 			res.render("mobile/whatOn/index", result);
+// 		}
+//   })
+// });
+
+// router.get("/*",function(req, res){
+// 	res.render("space");
+// })
 
 
 module.exports = router;
