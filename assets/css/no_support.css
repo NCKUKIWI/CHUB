@@ -1,0 +1,33 @@
+.no_support_info {
+  position: absolute;
+  display: flex;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center; }
+  .no_support_info p {
+    z-index: 10;
+    font-size: 12px;
+    word-wrap: break-word;
+    color: white;
+    letter-spacing: 2px;
+    line-height: 24px; }
+
+.no_support_bg {
+  position: absolute;
+  z-index: -1;
+  left: -5vw;
+  top: -5vh;
+  width: 110vw;
+  height: 110vh;
+  overflow: hidden;
+  background: #4c4948;
+  background: -moz-linear-gradient(top, #4c4948 0%, #040000 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #4c4948), color-stop(100%, #040000));
+  background: -webkit-linear-gradient(top, #4c4948 0%, #040000 100%);
+  background: -o-linear-gradient(top, #4c4948 0%, #040000 100%);
+  background: -ms-linear-gradient(top, #4c4948 0%, #040000 100%);
+  background: linear-gradient(to bottom, #4c4948 0%, #040000 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4948', endColorstr='#040000', GradientType=0 ); }

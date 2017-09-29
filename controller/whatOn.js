@@ -33,6 +33,10 @@ router.get("/space",function(req, res){
 	// res.redirect("https://c-hub.ncku.edu.tw/");
 })
 
+router.get("/no_support",function(req, res){
+	res.render("no_support");
+})
+
 router.get("/*",function(req,res) {
 	var device = new MobileDetect(req.headers['user-agent']);
   var result = {

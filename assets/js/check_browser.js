@@ -16,6 +16,6 @@ $(document).ready(function(){
 
 
 function noSupport () {
-    location.href="http://google.com";
+    location.href="/no_support";
     // location.href="no_support.html";
 }
