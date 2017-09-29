@@ -55,6 +55,24 @@ router.get("/no_support",function(req, res){
 //   })
 // });
 
+router.get("/chub",function(req,res) {
+	var device = new MobileDetect(req.headers['user-agent']);
+  var result = {
+  };
+  Project.find({}).exec().then(function(projects){
+    result.projects = projects;
+    return Activity.find({}).sort({'Duration': -1}).exec()
+  }).then(function(activities){
+    result.activities = activities;
+		if(!device.mobile()){
+			res.render("whatOn/index", result);
+		}
+		else{
+			res.render("mobile/whatOn/index", result);
+		}
+  })
+});
+
 router.get("/whatOn",function(req,res) {
 	var device = new MobileDetect(req.headers['user-agent']);
   var result = {
