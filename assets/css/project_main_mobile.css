@@ -151,9 +151,9 @@ body::-webkit-scrollbar-thumb {
     overflow: hidden; }
     #project_list .project_item .auto_adjust.fat img {
       height: 100%;
-      width: 100%; }
+      width: auto; }
     #project_list .project_item .auto_adjust.tall img {
-      width: 100%;
+      width: auto;
       height: 100%; }
   #project_list .project_item .preview_pic {
     -webkit-filter: brightness(40%);
