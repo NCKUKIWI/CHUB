@@ -186,6 +186,7 @@ body{
     height: 100%;
     background: rgba(255, 255, 255, 0.1);
     opacity: 0;
+    display: none;
 }
 
 .float_pic_window .slideshow_btn {
