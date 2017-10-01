@@ -1,5 +1,10 @@
 <% layout('../public/layout') %>
 <link rel="stylesheet" type="text/css" href="/assets/css/project_float_mobile.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/swiper.min.css">
+<script type="text/javascript" src="/assets/js/swiper.min.js"></script>
+
+<script type="text/javascript" src="/assets/js/gallery_all.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/gallery.css">
 
 <div class="float_window">
   <div id="detail_left">
@@ -11,7 +16,7 @@
     <div id="detail_brief" >
       <div class="brief_pic">
         <img id="project_pic" src="/uploads/project/<%= project._id %>/logo.png">
-        <!-- <img id="pic_more" src="/assets/images/pic_more.png"> -->
+        <img id="pic_more" src="/assets/images/pic_more.png">
       </div>
       <p class="project_name">
         <% for(var i = 0; i < project.BigTitle.length; i++){ %>
@@ -116,11 +121,40 @@
       </p>
     </div>
   </div>
+  <div class="float_pic_window">
+		<div class="gallery" style="background: transparent;">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="auto_adjust not_yet in_swiper">
+								<img src="/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>">
+							</div>
+						</div>
+				    <% for(var i = 0; i < project.Photo.length; i++) { %>
+							<div class="swiper-slide">
+								<div class="auto_adjust not_yet in_swiper">
+									<img src="<%= project.Photo[i] %>?<%= new Date().getTime() %>">
+								</div>
+							</div>
+				    <% } %>
+				</div>
+				<div class="swiper-pagination"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			</div>
+			<div class="close_icon" id="close_window"></div>
+		</div>
+    <!-- <a href="#" class="close_icon" id="close_pic_view">　</a> -->
+  </div>
+
+  <% include ../public/footer %>
 </div>
 
 
 
 <script>
+
+var pic_window_status = 'closed';
 $(document).ready(function(){
   $('.joinProject').on('click', function(){
     var id = this.getAttribute('project-id');
@@ -172,6 +206,14 @@ $(document).ready(function(){
     });
   });
 
+	// 綁定顯示輪播照片功能
+  $( ".brief_pic, #close_pic_view" ).click( function() {
+      float_pic_window();
+  });
+
+	$("#close_window, .dark_mask").click(function() {
+		close_window();
+	});
 });
 
 $(window).on('load', function(){
@@ -184,4 +226,93 @@ $(window).on('load', function(){
       $("#project_pic").addClass("tall");
   }
 });
+
+function float_pic_window() {
+	if(pic_window_status == 'closed') {
+		pic_window_status = 'open';
+		$("#detail_left, #detail_right").animate({
+			opacity: 0
+		}, 500);
+		$("#detail_left, #detail_right").hide();
+		$("#footer").hide();
+		$(".float_pic_window").show();
+		// view_scroll_now = $(".gallery_view_pic").width() / 2 + 120;
+		// $("#view_all_pic").scrollLeft(view_scroll_now);
+		// view_pic_total = $(".pic_counter.total").text();
+		// view_display_now = 1 // 每次從1開始算
+		// $(".pic_counter.total").text("/" + paddingLeft($(".pic_counter.total").text()));
+		$("#fullpage, .cover").animate({
+			opacity: 0
+		}, 100, function() {
+			// $("#view_all_pic").children("#pic_" + view_display_now).addClass("center");
+			$(".float_pic_window").animate({
+				opacity: 1
+			}, 500);
+		});
+
+    $(".not_yet").each (function() {
+        autoAdjust($(this));
+    });
+
+    // swiper initialize
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 2,
+        // slidesPerView: 'auto',
+        centeredSlides: true,
+        paginationClickable: true,
+        spaceBetween: 30,
+        loop: false,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        breakpoints: {
+            640: {
+              slidesPerView: 1
+            }
+        }
+    });
+	} else if(pic_window_status == 'open') {
+		pic_window_status = 'closed';
+		$("#fullpage, .cover").animate({
+			opacity: 0.1
+		}, 500);
+		$(".float_pic_window").animate({
+			opacity: 0
+		}, 500, function() {
+			$(".float_pic_window").hide();
+			$("#detail_left, #detail_right").show();
+			$("#detail_left, #detail_right").animate({
+				opacity: 1
+			}, 500);
+		});
+	}
+}
+
+function autoAdjust( outer_div ) {
+  var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
+  var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
+  if ( inner_pic_size > outer_div_size ) {
+		outer_div.addClass("fat");
+		outer_div.removeClass("not_yet");
+  }
+  else if ( inner_pic_size <= outer_div_size ) {
+		outer_div.addClass("tall");
+		outer_div.removeClass("not_yet");
+  }
+}
+
+function close_window() {
+	pic_window_status = 'closed';
+	$(".float_pic_window").animate({
+		opacity: 0
+	}, 500, function() {
+		$(".float_pic_window").hide();
+		$("#footer").show();
+		$("#detail_left, #detail_right").show();
+		$("#detail_left, #detail_right").animate({
+			opacity: 1
+		}, 500);
+	});
+}
+
 </script>

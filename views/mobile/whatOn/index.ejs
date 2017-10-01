@@ -91,7 +91,7 @@
                 <img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>">
             </div>
 	            <p class="text normal long"><%= projects[i].Name %></p>
-	            <p class="text normal">2017.09.14</p>
+	            <!-- <p class="text normal">2017.09.14</p> -->
 	            <img class="icon_more_1" src="/assets/images/mobile/icon_more_1.png">
           </div>
       	<% } %>
@@ -148,11 +148,7 @@
           <div class="go_to next"></div>
       </div>
   </div>    
-  <div class="footer">
-      <img class="footer_logo" src="/assets/images/chub_full_logo.png">
-      <a class="footer_fb" class="button"><img src="/assets/images/mobile/goto_fb.png"></a>
-      <p class="footer_text">© 2017 About Inc. -- All Rights Reserved.</a>
-  </div>
+	<% include ../public/footer %>
 
     <!-- 做到卡關的 svg border -->
     <!-- <div class="to_clip">

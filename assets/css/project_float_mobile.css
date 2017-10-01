@@ -315,6 +315,7 @@ body{
     height: 17px;
     width: 16px;
     text-decoration: none;
+    z-index: 91;
 }
 
 .close_icon:hover {
