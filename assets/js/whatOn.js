@@ -21,7 +21,7 @@ $(document).ready(function(){
 	});
 
 	// 先客製化綁定what's on 第二頁的東西
-	$('#news_list.control').click(function() {
+	$('#news_list .control').click(function() {
 		project_show_window(this.getAttribute('project-id'));
     })
     
