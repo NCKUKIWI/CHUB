@@ -3,4 +3,5 @@ node_modules
 config.js
 uploads
 npm-debug.log
+.well-known
 *.log
