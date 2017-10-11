@@ -7,6 +7,7 @@ var fs = require("fs");
 var rimraf = require("rimraf");
 var multer  = require('multer');
 var Message = require("../model/Message");
+var MobileDetect = require('mobile-detect');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -41,11 +42,47 @@ router.get("/", function(req,res) {
   }
   if(filter["$or"].length == 0) filter["$or"].push({});
   Group.find(filter,function(err,groups){
-    res.render("groups/index",{
-      groups:groups,
-      id: req.query.id
-    });
+  	var device = new MobileDetect(req.headers['user-agent']);
+
+  	if(!device.mobile()){
+	    res.render("groups/index",{
+	      groups:groups,
+	      id: req.query.id
+	    });
+	  }else{
+      res.render("mobile/groups/index",{
+        groups:groups,
+        id: req.query.id
+      });
+	  }
   });
+});
+
+// mobile用的
+router.get("/id/:id", function(req, res){
+  var device = new MobileDetect(req.headers['user-agent']);
+  if(!device.mobile()){ return;};
+  if(req.body.page != 'true'){
+    Group.findById(req.params.id,function(err,groups){
+      if(groups){
+        User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Skill","Description","Role"],function(err,members){
+          res.render("mobile/projects/show",{
+            groups:groups,
+            members:members
+          });
+        });
+      }else{
+        res.send("notFound");
+      }
+    });
+  }else{
+    Group.findById(req.params.id,function(err,groups){
+      res.render("projects/index",{
+        groups:groups,
+        query: req.params.id
+      });
+    });
+  }
 });
 
 router.get("/new",helper.checkLogin(),function(req,res) {
