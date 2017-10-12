@@ -84,6 +84,7 @@
 #footer .footer_bottom img {
     cursor: pointer;
     transition: opacity 0.2s;
+    margin-bottom: 16px;
 }
 
 #footer .footer_bottom img:hover {
@@ -98,4 +99,6 @@
     font-size: 10px;
     line-height: 40px;
     font-weight: 600;
+    line-height: 24px;
+    opacity: 0.4;
 }
