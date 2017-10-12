@@ -1,1 +1,127 @@
 <% layout('../public/layout') %>
+
+<div class="page" id="activity">
+    <div id="activity_view">
+        <div id="preview_control">
+            <a class="sort_way now" id="sort_hot">HOT</a>
+            <a class="sort_way" id="sort_time">TIME</a>
+        </div>
+        <div id="activity_list">
+            <div class="activity_item">
+                <div class="auto_adjust not_yet">
+                  <img class="preview_pic" src="img/test.jpg">
+                </div>
+                <p class="preview_title">微課程：整體美學營造</p>
+                <p class="preview_description">客製你的專屬妝容與美感</p>
+                <p class="preview_date">01.13－02.01/2017</p>
+            </div>
+            <div class="activity_item">
+                <div class="auto_adjust not_yet">
+                  <img class="preview_pic" src="img/test.jpg">
+                </div>
+                <p class="preview_title">微課程：整體美學營造</p>
+                <p class="preview_description">客製你的專屬妝容與美感</p>
+                <p class="preview_date">01.13－02.01/2017</p>
+            </div>
+        </div>
+        <div class="view_more"></div>
+    </div>
+</div>
+
+<style type="text/css">
+#activity_view {
+  position: relative;
+  top: -5vh;
+  margin-bottom: 50px; }
+  #activity_view #preview_control {
+    position: relative;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; }
+    #activity_view #preview_control .sort_way {
+      position: relative;
+      color: #ed9027;
+      display: block;
+      height: 60px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: opacity 0.5s;
+      line-height: 10vh;
+      margin: 0 7vw 0 7vw; }
+      #activity_view #preview_control .sort_way:after {
+        position: absolute;
+        top: 7vh;
+        left: 0;
+        content: "";
+        display: block;
+        height: 2px;
+        width: 0px;
+        background: #ed9027;
+        transition: width 0.2s; }
+      #activity_view #preview_control .sort_way:hover {
+        opacity: 0.7; }
+      #activity_view #preview_control .sort_way:active {
+        opacity: 0.4; }
+      #activity_view #preview_control .sort_way.now:after {
+        width: 32px; }
+  #activity_view #activity_list {
+    position: relative; }
+    #activity_view #activity_list .activity_item {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      margin: 30px 0px;
+      cursor: pointer;
+      text-align: center;
+      border-bottom: #ed9027 2px solid;
+      transition: 0.5s;
+      background: black;
+      background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 60%, rgba(76, 73, 72, 0.8) 100%);
+      background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.8)), color-stop(60%, rgba(0, 0, 0, 0.8)), color-stop(100%, rgba(76, 73, 72, 0.8)));
+      background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 60%, rgba(76, 73, 72, 0.8) 100%);
+      background: -o-linear-gradient(top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 60%, rgba(76, 73, 72, 0.8) 100%);
+      background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 60%, rgba(76, 73, 72, 0.8) 100%);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 60%, rgba(76, 73, 72, 0.8) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#4c4948', GradientType=0 ); }
+      #activity_view #activity_list .activity_item:hover {
+        opacity: 0.7; }
+      #activity_view #activity_list .activity_item:active {
+        opacity: 0.4; }
+      #activity_view #activity_list .activity_item .auto_adjust {
+        margin: auto;
+        height: 30vh;
+        width: 100%;
+        margin-bottom: 15px; }
+      #activity_view #activity_list .activity_item .preview_title {
+        position: relative;
+        color: #ed9027;
+        font-size: 16px;
+        letter-spacing: 2px;
+        font-weight: 600;
+        padding: 13px; }
+        #activity_view #activity_list .activity_item .preview_title:after {
+          position: relative;
+          top: 10px;
+          left: 0;
+          right: 0;
+          margin: auto;
+          margin-bottom: 10px;
+          content: "";
+          display: block;
+          height: 2px;
+          width: 30px;
+          background: #ed9027; }
+      #activity_view #activity_list .activity_item .preview_description {
+        line-height: 20px;
+        letter-spacing: 2px;
+        font-size: 12px;
+        font-weight: 600; }
+      #activity_view #activity_list .activity_item .preview_date {
+        line-height: 24px;
+        letter-spacing: 2px;
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 20px;
+        opacity: 0.7; }
+</style>
