@@ -327,19 +327,13 @@ function float_pic_window() {
     // swiper initialize
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
-        slidesPerView: 2,
-        // slidesPerView: 'auto',
+        slidesPerView: 1,
         centeredSlides: true,
         paginationClickable: true,
         spaceBetween: 30,
         loop: false,
         nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        breakpoints: {
-            640: {
-              slidesPerView: 1
-            }
-        }
+        prevButton: '.swiper-button-prev'
     });
 	} else if(pic_window_status == 'open') {
 		pic_window_status = 'closed';

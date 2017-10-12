@@ -123,15 +123,11 @@
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
 						<div class="swiper-slide">
-							<div class="auto_adjust not_yet in_swiper">
 								<img src="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>">
-							</div>
 						</div>
 				    <% for(var i = 0; i < activity.Photo.length; i++) { %>
 							<div class="swiper-slide">
-								<div class="auto_adjust not_yet in_swiper">
 									<img src="<%= activity.Photo[i] %>?<%= new Date().getTime() %>">
-								</div>
 							</div>
 				    <% } %>
 				</div>
@@ -202,20 +198,14 @@ function float_pic_window() {
 
     // swiper initialize
     var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        slidesPerView: 2,
-        // slidesPerView: 'auto',
-        centeredSlides: true,
-        paginationClickable: true,
-        spaceBetween: 30,
-        loop: false,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        breakpoints: {
-            640: {
-              slidesPerView: 1
-            }
-        }
+      pagination: '.swiper-pagination',
+      slidesPerView: 1,
+      centeredSlides: true,
+      paginationClickable: true,
+      spaceBetween: 30,
+      loop: false,
+      nextButton: '.swiper-button-next',
+      prevButton: '.swiper-button-prev'
     });
 	} else if(pic_window_status == 'open') {
 		pic_window_status = 'closed';
