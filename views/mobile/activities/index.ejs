@@ -1,34 +1,56 @@
 <% layout('../public/layout') %>
+<link rel="stylesheet" type="text/css" href="/assets/css/project_main_mobile.css">
+<script type="text/javascript" src="/assets/js/activities.js"></script>
 
-<div class="page" id="activity">
+<div id="project_intro">
+  <img class="main_round_pic" src="/assets/images/activity_round.png">
+  <p>Activity</p>
+  <hr>
+  <p>All you need to do is: work hard, learn hard, and play hard.</p>
+  <div id="intro_search">
+    <!-- <img id="you_can" src="/assets/images/you_can.png"> -->
+    <!-- <a href="#" class="searchbtn" id="search"></a>     -->
+  </div>
+</div>
+
+<div id="activity_page">
     <div id="activity_view">
         <div id="preview_control">
             <a class="sort_way now" id="sort_hot">HOT</a>
             <a class="sort_way" id="sort_time">TIME</a>
         </div>
         <div id="activity_list">
-            <div class="activity_item">
-                <div class="auto_adjust not_yet">
-                  <img class="preview_pic" src="img/test.jpg">
-                </div>
-                <p class="preview_title">微課程：整體美學營造</p>
-                <p class="preview_description">客製你的專屬妝容與美感</p>
-                <p class="preview_date">01.13－02.01/2017</p>
-            </div>
-            <div class="activity_item">
-                <div class="auto_adjust not_yet">
-                  <img class="preview_pic" src="img/test.jpg">
-                </div>
-                <p class="preview_title">微課程：整體美學營造</p>
-                <p class="preview_description">客製你的專屬妝容與美感</p>
-                <p class="preview_date">01.13－02.01/2017</p>
-            </div>
+        		<% for (var i = 0; i < activity.length; i++){%>
+	            <div class="activity_item" onclick='location.href= "/activities/id/<%= activity[i]._id %>"'>
+	                <div class="auto_adjust not_yet">
+	                  <img class="preview_pic" src="/uploads/activity/<%= activity[i]._id %>/logo.png?<%= new Date().getTime() %>">
+	                </div>
+	                <p class="preview_title"><%= activity[i].Name %></p>
+	                <!-- <p class="preview_description">客製你的專屬妝容與美感</p> -->
+	                <p class="preview_date">
+		                <% if(activity[i].Duration.length == 1 || (activity[i].Duration[1] - activity[i].Duration[0]) / (1000 * 60 * 60 * 24) < 1){ %>
+		                	<%= new Date(Number(activity[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activity[i].Duration[0])).getDate() %>
+		                <% }else{ %> 
+		                		<%= new Date(Number(activity[i].Duration[0])).getFullYear() %>/<%= new Date(Number(activity[i].Duration[0])).getMonth() + 1 %>/<%= new Date(Number(activity[i].Duration[0])).getDate() %>
+		                    -
+		                    <% if(new Date(Number(activity[i].Duration[0])).getFullYear() != new Date(Number(activity[i].Duration[1])).getFullYear()){%><%= new Date(Number(activity[i].Duration[1])).getFullYear() %>/<%}%><% if(new Date(Number(activity[i].Duration[0])).getMonth() != new Date(Number(activity[i].Duration[1])).getMonth()){%><%= new Date(Number(activity[i].Duration[1])).getMonth() + 1%>/<%}%><%= new Date(Number(activity[i].Duration[1])).getDate() %>
+		                <% } %>
+	                </p>
+	            </div>
+            <%  } %>
         </div>
         <div class="view_more"></div>
     </div>
 </div>
 
 <style type="text/css">
+#activity_page{
+  position: relative;
+  width: 80vw;
+  top: 14vh;
+  margin-bottom: 14vh;
+  left: 10vw; }
+
 #activity_view {
   position: relative;
   top: -5vh;
