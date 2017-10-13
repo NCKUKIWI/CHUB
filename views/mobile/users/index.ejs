@@ -1,6 +1,18 @@
-<% layout("../layout") %>
+<% layout('../public/layout') %>
+<link rel="stylesheet" type="text/css" href="/assets/css/project_main_mobile.css">
 
-<div class="page" id="people">
+<div id="project_intro">
+  <img class="main_round_pic" src="/assets/images/people_round.png">
+  <p>People</p>
+  <hr>
+  <p>Once you were well suited to where you should be, you will be much brighter then you thought. </p>
+  <div id="intro_search">
+    <!-- <img id="you_can" src="/assets/images/you_can.png"> -->
+    <!-- <a href="#" class="searchbtn" id="search"></a>     -->
+  </div>
+</div>
+
+<div id="second_page">
     <div id="people_view">
         <div id="people_to_major">
             <p class="people">People</p>
@@ -8,59 +20,174 @@
             <p class="major">Major</p>
         </div>
         <div id="people_list">
-            <div class="people_item from_left">
-                <div class="pic">
-                    <div class="auto_adjust not_yet">
-                        <img class="preview_pic" src="img/test.jpg">
-                    </div>
-                    <div class="angle"></div>
-                </div>
-                <div class="text">
-                    <p class="preview_name">Yen Ting Cho</p>
-                    <p class="preview_major">Media Design</p>
-                    <p class="preview_skills">Technology<br>Design<br>Architecture</p>        
-                </div>
-            </div>
-            <div class="people_item from_right">
-                <div class="pic">
-                    <div class="auto_adjust not_yet">
-                        <img class="preview_pic" src="img/test.jpg">
-                    </div>
-                    <div class="angle"></div>
-                </div>
-                <div class="text">
-                    <p class="preview_name">Yen Ting Cho</p>
-                    <p class="preview_major">Media Design</p>
-                    <p class="preview_skills">Technology<br>Design<br>Architecture</p>        
-                </div>
-            </div>
-            <div class="people_item from_left">
-                    <div class="pic">
-                        <div class="auto_adjust not_yet">
-                            <img class="preview_pic" src="img/test.jpg">
-                        </div>
-                        <div class="angle"></div>
-                    </div>
-                    <div class="text">
-                        <p class="preview_name">Yen Ting Cho</p>
-                        <p class="preview_major">Media Design</p>
-                        <p class="preview_skills">Technology<br>Design<br>Architecture</p>        
-                    </div>
-                </div>
-                <div class="people_item from_right">
-                    <div class="pic">
-                        <div class="auto_adjust not_yet">
-                            <img class="preview_pic" src="img/test.jpg">
-                        </div>
-                        <div class="angle"></div>
-                    </div>
-                    <div class="text">
-                        <p class="preview_name">Yen Ting Cho</p>
-                        <p class="preview_major">Media Design</p>
-                        <p class="preview_skills">Technology<br>Design<br>Architecture</p>        
-                    </div>
-                </div>
+        	<% for(var i = 0; i < users.length; i += 2){ %>
+	          <div class="people_item from_left" onclick='location.href= "/users/id/<%= users[i]._id %>"'>
+	              <div class="pic">
+	                  <div class="auto_adjust not_yet">
+	                      <img class="preview_pic" src="/uploads/user/<%= users[i].id %>/avatar.png?<%= new Date().getTime() %>">
+	                  </div>
+	                  <div class="angle"></div>
+	              </div>
+	              <div class="text">
+	                  <p class="preview_name"><%= users[i].Name %></p>
+	                  <p class="preview_major"><%= users[i].Major %></p>
+	                  <p class="preview_skills">
+											<% for(var j = 0 ; j<users[i].Skill.length;j++){%>
+												<%= users[i].Skill[j] %><br>
+											<% } %>
+	                  </p>        
+	              </div>
+	          </div>
+	          <% if (i + 1 < users.length) {%>
+		          <div class="people_item from_right" onclick='location.href= "/users/id/<%= users[i]._id %>"'>
+		              <div class="pic">
+		                  <div class="auto_adjust not_yet">
+		                      <img class="preview_pic" src="/uploads/user/<%= users[i + 1].id %>/avatar.png?<%= new Date().getTime() %>">
+		                  </div>
+		                  <div class="angle"></div>
+		              </div>
+		              <div class="text">
+		                  <p class="preview_name"><%= users[i + 1].Name %></p>
+		                  <p class="preview_major"><%= users[i + 1].Major %></p>
+		                  <p class="preview_skills">
+												<% for(var j = 0 ; j<users[i + 1].Skill.length;j++){%>
+													<%= users[i + 1].Skill[j] %><br>
+												<% } %>
+		                  </p>        
+		              </div>
+		          </div>
+		        <% } %>
+          <% } %>
         </div>
         <div class="view_more"></div>
     </div>
 </div>
+
+<script type="text/javascript">
+	
+function autoAdjust( outer_div ) {
+  var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
+  var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
+  if ( inner_pic_size > outer_div_size ) {
+		outer_div.addClass("fat");
+		outer_div.removeClass("not_yet");
+  }
+  else if ( inner_pic_size <= outer_div_size ) {
+		outer_div.addClass("tall");
+		outer_div.removeClass("not_yet");
+  }
+}
+
+$(window).on( "load", function () {
+	
+		// Initialize
+		$(".not_yet").each(function() {
+			autoAdjust($(this));
+		});
+	
+});
+</script>
+
+<style type="text/css">
+#people_view {
+  position: relative;
+  top: -5vh;
+  left: -10vw;
+  width: 100vw;
+  margin-bottom: 50px; }
+  #people_view #people_to_major {
+    position: relative;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10vw; }
+    #people_view #people_to_major .to {
+      color: #ed9027;
+      margin: 10px; }
+    #people_view #people_to_major .major {
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.6); }
+  #people_view #people_list {
+    position: relative; }
+    #people_view #people_list .people_item {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.5s; }
+      #people_view #people_list .people_item.from_left {
+        background: #4c4948;
+        background: -moz-linear-gradient(left, #4c4948 0%, #040000 100%);
+        background: -webkit-gradient(left top, right top, color-stop(0%, #4c4948), color-stop(100%, #040000));
+        background: -webkit-linear-gradient(left, #4c4948 0%, #040000 100%);
+        background: -o-linear-gradient(left, #4c4948 0%, #040000 100%);
+        background: -ms-linear-gradient(left, #4c4948 0%, #040000 100%);
+        background: linear-gradient(to right, #4c4948 0%, #040000 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4948', endColorstr='#040000', GradientType=1 ); }
+        #people_view #people_list .people_item.from_left .pic {
+          float: left; }
+        #people_view #people_list .people_item.from_left .text {
+          margin-left: 35px;
+          left: 35vw; }
+        #people_view #people_list .people_item.from_left .angle {
+          right: 65vw;
+          top: 65%;
+          border-width: 2vw 3vw 2vw 0;
+          margin-right: -1px; }
+      #people_view #people_list .people_item.from_right {
+        background: #040000;
+        background: -moz-linear-gradient(left, #040000 0%, #4c4948 100%);
+        background: -webkit-gradient(left top, right top, color-stop(0%, #040000), color-stop(100%, #4c4948));
+        background: -webkit-linear-gradient(left, #040000 0%, #4c4948 100%);
+        background: -o-linear-gradient(left, #040000 0%, #4c4948 100%);
+        background: -ms-linear-gradient(left, #040000 0%, #4c4948 100%);
+        background: linear-gradient(to right, #040000 0%, #4c4948 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#040000', endColorstr='#4c4948', GradientType=1 ); }
+        #people_view #people_list .people_item.from_right .pic {
+          float: right; }
+        #people_view #people_list .people_item.from_right .text {
+          margin-left: 35px; }
+        #people_view #people_list .people_item.from_right .angle {
+          left: 65vw;
+          top: 35%;
+          border-width: 2vw 3vw 2vw 0;
+          transform: rotate(180deg);
+          margin-left: -1px; }
+      #people_view #people_list .people_item:hover {
+        opacity: 0.7; }
+      #people_view #people_list .people_item:active {
+        opacity: 0.4; }
+      #people_view #people_list .people_item .pic {
+        width: 35vw; }
+      #people_view #people_list .people_item .auto_adjust {
+        margin: auto;
+        height: 27vh;
+        width: 100%; }
+      #people_view #people_list .people_item .angle {
+        position: absolute;
+        z-index: 10;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-color: transparent #343130 transparent transparent; }
+      #people_view #people_list .people_item .text {
+        position: absolute;
+        bottom: 30px; }
+      #people_view #people_list .people_item .preview_name {
+        font-size: 16px;
+        line-height: 22px;
+        letter-spacing: 2px;
+        font-weight: 600; }
+      #people_view #people_list .people_item .preview_major {
+        color: #ed9027;
+        line-height: 20px;
+        letter-spacing: 2px;
+        font-size: 12px;
+        margin-bottom: 10px; }
+      #people_view #people_list .people_item .preview_skills {
+        margin-left: 2px;
+        line-height: 17px;
+        letter-spacing: 2px;
+        font-size: 10px; }
+</style>

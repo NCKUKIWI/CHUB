@@ -65,8 +65,8 @@ router.get("/id/:id", function(req, res){
   if(req.body.page != 'true'){
     Group.findById(req.params.id,function(err,groups){
       if(groups){
-        User.find({ _id:{ $in:project.MemberID } },["_id","Name","Email","Major","Skill","Description","Role"],function(err,members){
-          res.render("mobile/projects/show",{
+        User.find({ _id:{ $in:groups.MemberID } },["_id","Name","Email","Major","Skill","Description","Role"],function(err,members){
+          res.render("mobile/groups/show",{
             groups:groups,
             members:members
           });
@@ -77,7 +77,7 @@ router.get("/id/:id", function(req, res){
     });
   }else{
     Group.findById(req.params.id,function(err,groups){
-      res.render("projects/index",{
+      res.render("groups/index",{
         groups:groups,
         query: req.params.id
       });

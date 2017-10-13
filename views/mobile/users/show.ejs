@@ -10,10 +10,9 @@
   <div id="detail_left">
     <div id="detail_brief" >
       <div class="brief_pic">
-        <img id="project_pic" src="/uploads/group/<%= groups._id %>/logo.png">
-        <img id="pic_more" src="/assets/images/pic_more.png">
+        <img id="project_pic" src="/uploads/user/<%= user.id %>/avatar.png?<%= new Date().getTime() %>">
       </div>
-      <p class="project_name"><%= groups.Name %>
+      <p class="project_name"><%= user.Name %>
       </p>
 
       <p id="detail_main_text"> 
@@ -27,23 +26,29 @@
     </div>
   </div>
   <div id="detail_right">
-    <div id="detail_Administrator">
-      <p class="title">Administrator</p>
+    <div id="detail_Major">
+      <p class="title">Major</p>
       <span>/</span>
       <br>
-      <p class="short orange"></p>
+      <p class="short orange"><%= user.Major %></p>
     </div>
-    <div id="detail_type">
-      <p class="title">Type</p>
+    <div id="detail_Skill">
+      <p class="title">Skill</p>
       <span>/</span>
       <br>
-      <p class="short orange"><%= groups.Type %></p>
+      <p class="short orange"><%= user.Skill %></p>
+    </div>
+    <div id="detail_location">
+      <p class="title">Location</p><span>/</span>
+      <br>
+      <p class="short orange"><%= user.Location %></p>
+      <div class="botton tiny" onclick="window.open('https://www.google.com.tw/maps/search/<%= user.Location %>')">MAP</div>
     </div>
     <div id="detail_intro">
       <p class="title with_space">Introduction</p>
       <span>/</span>
       <br>
-      <p class="long"><%- groups.Description.replace(/\r\n/g, '<br/>').replace(/\s/g, '') %>
+      <p class="long"><%- user.Introduction.replace(/\r\n/g, '<br/>').replace(/\s/g, '') %>
       </p>
     </div>
     <div id="detail_projects">
@@ -58,24 +63,13 @@
       <br>
       <p class="short"></p>
     </div>
-    <div id="detail_Members">
-      <p class="title">Members</p>
-      <span>/</span>
-      <br>
-      <p class="long">
-        <% for(var i in members){ %>
-          <a class="openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
-          <% if(i != members.length - 1) {%> , <% } %>
-        <% } %>
-      </p>
-    </div>
   </div>
   <div class="float_pic_window">
 		<div class="gallery" style="background: transparent;">
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
 						<div class="swiper-slide">
-								<img src="/uploads/project/<%= groups._id %>/logo.png?<%= new Date().getTime() %>">
+								<img src="/uploads/user/<%= user._id %>/logo.png?<%= new Date().getTime() %>">
 						</div>
 
 				</div>
@@ -89,12 +83,6 @@
   </div>
   <% include ../public/footer %>
   <div class="space"></div>
-  <div id="bottom_share_bar">
-    <a class="bottom_btn" id="bottom_join"></a>
-    <a class="bottom_btn" id="bottom_interest"></a>
-    <a class="bottom_btn" id="bottom_share"></a>
-    <a class="bottom_btn" id="bottom_totop"></a>
-</div>
 </div>
 
 

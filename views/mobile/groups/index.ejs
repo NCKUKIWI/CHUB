@@ -1,1 +1,151 @@
 <% layout('../public/layout') %>
+<!-- <script type="text/javascript" src="/assets/js/project.js"></script> -->
+<link rel="stylesheet" type="text/css" href="/assets/css/project_main_mobile.css">
+
+<div id="project_intro">
+  <img class="main_round_pic" src="/assets/images/group_round.png">
+  <p>Group</p>
+  <hr>
+  <p>C-Hub is a creative space came about from the interconnection among
+          Creativity, Human, Urban, and Building Environment.</p>
+  <div id="intro_search">
+    <!-- <img id="you_can" src="/assets/images/you_can.png"> -->
+    <!-- <a href="#" class="searchbtn" id="search"></a>     -->
+  </div>
+</div>
+
+<div id="second_page">
+    <div id="group_view">
+        <div id="preview_control">
+            <a class="sort_way now" id="sort_hot">HOT</a>
+            <a class="sort_way" id="sort_time">TIME</a>
+        </div>
+        <div id="group_list">
+        	<% for(var i = 0; i < groups.length; i ++) {%>
+            <div class="group_item" onclick='location.href= "/groups/id/<%= groups[i]._id %>"'>
+                <div class="auto_adjust not_yet">
+                  <img class="preview_pic" src="/uploads/group/<%= groups[i]._id %>/logo.png">
+                </div>
+                <p class="preview_title"><%= groups[i].Name %></p>
+                <p class="preview_description"><%= groups[i].Description %></p>
+                <!-- <p class="preview_date">01.13－02.01/2017</p> -->
+            </div>
+          <% } %>
+        </div>
+        <div class="view_more"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+function autoAdjust( outer_div ) {
+  var inner_pic_size = outer_div.children("img").css("width").replace("px","") / outer_div.children("img").css("height").replace("px","") ;
+  var outer_div_size = outer_div.css("width").replace("px","") / outer_div.css("height").replace("px","") ;
+  if ( inner_pic_size > outer_div_size ) {
+		outer_div.addClass("fat");
+		outer_div.removeClass("not_yet");
+  }
+  else if ( inner_pic_size <= outer_div_size ) {
+		outer_div.addClass("tall");
+		outer_div.removeClass("not_yet");
+  }
+}
+
+$(window).on( "load", function () {
+	
+		// Initialize
+		$(".not_yet").each(function() {
+			autoAdjust($(this));
+		});
+	
+});
+</script>
+
+<style type="text/css">
+#group_view {
+  position: relative;
+  top: -5vh;
+  margin-bottom: 50px; }
+  #group_view #preview_control {
+    position: relative;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; }
+    #group_view #preview_control .sort_way {
+      position: relative;
+      color: #ed9027;
+      display: block;
+      height: 60px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: opacity 0.5s;
+      line-height: 10vh;
+      margin: 0 7vw 0 7vw; }
+      #group_view #preview_control .sort_way:after {
+        position: absolute;
+        top: 7vh;
+        left: 0;
+        content: "";
+        display: block;
+        height: 2px;
+        width: 0px;
+        background: #ed9027;
+        transition: width 0.2s; }
+      #group_view #preview_control .sort_way:hover {
+        opacity: 0.7; }
+      #group_view #preview_control .sort_way:active {
+        opacity: 0.4; }
+      #group_view #preview_control .sort_way.now:after {
+        width: 32px; }
+  #group_view #group_list {
+    position: relative; }
+    #group_view #group_list .group_item {
+      position: relative;
+      display: block;
+      padding: 20px;
+      overflow: hidden;
+      margin: 30px 0px;
+      cursor: pointer;
+      text-align: center;
+      border: #ed9027 2px solid;
+      transition: 0.5s; }
+      #group_view #group_list .group_item:hover {
+        opacity: 0.7; }
+      #group_view #group_list .group_item:active {
+        opacity: 0.4; }
+      #group_view #group_list .group_item .auto_adjust {
+        margin: auto;
+        height: 40vh;
+        width: 100%;
+        margin-bottom: 20px; }
+      #group_view #group_list .group_item .preview_title {
+        position: relative;
+        color: #ed9027;
+        font-size: 16px;
+        letter-spacing: 2px;
+        font-weight: 600;
+        padding: 13px; }
+        #group_view #group_list .group_item .preview_title:after {
+          position: relative;
+          top: 10px;
+          left: 0;
+          right: 0;
+          margin: auto;
+          margin-bottom: 10px;
+          content: "";
+          display: block;
+          height: 2px;
+          width: 30px;
+          background: #ed9027; }
+      #group_view #group_list .group_item .preview_description {
+        line-height: 20px;
+        letter-spacing: 2px;
+        font-size: 12px;
+        font-weight: 600; }
+      #group_view #group_list .group_item .preview_date {
+        line-height: 24px;
+        letter-spacing: 2px;
+        font-size: 14px;
+        font-weight: 400;
+        opacity: 0.7; }
+</style>

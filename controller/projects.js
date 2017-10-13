@@ -81,7 +81,7 @@ router.get("/", function(req,res) {
   });
 });
 
-// mobile用的
+// mobile用的 + 跳轉網頁用的
 router.get("/id/:id", function(req, res){
   var device = new MobileDetect(req.headers['user-agent']);
   if(!device.mobile()){ return;};

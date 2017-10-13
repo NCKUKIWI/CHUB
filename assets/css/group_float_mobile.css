@@ -1,0 +1,399 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
+body{
+	background: rgb(70, 67, 66);
+}
+
+.float_window {
+    z-index: 90;
+    width: 100vw;
+    height: auto;
+}
+
+.float_window .dark_mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.float_window #detail_left {
+    position: relative;
+    height: 100vh;
+    padding-top: 15vh;
+}
+
+.float_window #detail_left #detail_brief {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+}
+
+.float_window #detail_left #detail_brief .brief_pic {
+    position: relative;
+    cursor: pointer;
+    width: auto;
+    height: 45vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /*background-color: rgba(255, 255, 255, 0.28);*/
+}
+
+.float_window #detail_left #detail_brief .brief_pic:hover #pic_more {
+    opacity: 1;
+}
+
+.float_window #detail_left #detail_brief .brief_pic:active #pic_more, .float_window #detail_left #detail_brief .brief_pic:active #project_pic {
+    filter: brightness(60%);
+    -webkit-filter: brightness(60%);
+}
+
+.float_window #detail_left #detail_brief #project_pic {
+    position: relative;
+    transition: brightness 0.5s;
+}
+
+.float_window #detail_left #detail_brief #project_pic.tall {
+      height: 100%;
+      width: auto; 
+}
+
+.float_window #detail_left #detail_brief #project_pic.fat {
+      width: 100%;
+      height: auto; 
+}
+
+.float_window #detail_left #detail_brief #pic_more {
+    position: absolute;
+    width: 102%;
+    left: -1%;
+    bottom: 0px;
+    opacity: 0.7;
+    transition: opacity 0.5s, brightness 0.5s;
+}
+
+.float_window #detail_left #detail_brief .project_name {
+    position: relative;
+    height: auto;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #ed9027;
+    margin-top: 6vh;
+    margin-bottom: 2vh;
+    line-height: 30px;
+    text-align: center;
+}
+
+.float_window #detail_left #detail_brief hr {
+    width: 13vw;
+    height: 1px;
+    background-color: #ed9027;
+    border: hidden;
+}
+
+.float_window #detail_left #detail_main_text {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #ed9027;
+    line-height: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.float_window #detail_right {
+    position: relative;
+    height: auto;
+    width: 100vw;
+    text-align: center;
+/*    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-right: 100px;*/
+}
+
+.float_window #detail_right div{
+    margin-bottom: 2vh;
+    font-size: 12px;
+    line-height: 25px;
+}
+
+.float_window #detail_right #detail_main_text:after {
+    position: relative;
+    top: 16px;
+    content: "";
+    display: block;
+    height: 2px;
+    width: 75px;
+    margin-bottom: 30px;
+    background: #ed9027;
+}
+
+.float_window #detail_right .title {
+    font-size: 14px;
+    font-style: italic;
+    display: inline;
+    padding-left: 26px;
+}
+
+.float_window #detail_right .title.with_space {
+    position: relative;
+    line-height: 55px;
+}
+
+.float_window #detail_right span {
+    color: #ed9027;
+    margin: 0px 8px;
+}
+
+.float_window #detail_right .short {
+    display: inline;
+}
+
+.float_window #detail_right .short.orange {
+    color: #ed9027;
+}
+
+.float_window #detail_right .long {
+    line-height: 22px;
+    padding: 0 13vw 0 13vw;
+    text-align: left;
+}
+
+.float_window #detail_right a {
+    text-decoration: underline;
+    transition: opacity 0.2s;
+}
+
+.float_window #detail_right a:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.float_window #detail_right a:active {
+    opacity: 0.4;
+}
+
+.float_pic_window {
+    position: absolute;
+    z-index: 90;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    display: none;
+}
+
+.float_pic_window .slideshow_btn {
+    position: absolute;
+    top: 35vh;
+    z-index: 150;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.float_pic_window .slideshow_btn line {
+    stroke-width: 2;
+    stroke: #ed9027;
+}
+
+.float_pic_window .slideshow_btn.disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+
+.float_pic_window .slideshow_btn.disabled:hover {
+    opacity: 0.4;
+}
+
+.float_pic_window .slideshow_btn:hover {
+    opacity: 0.7;
+}
+
+.float_pic_window .slideshow_btn:active {
+    opacity: 0.4;
+}
+
+.float_pic_window #go_prev {
+    left: 50px;
+}
+
+.float_pic_window #go_next {
+    right: 50px;
+}
+
+.float_pic_window #view_all_pic {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+}
+
+.float_pic_window #view_all_pic .project_view_pic {
+    position: relative;
+    width: 50%;
+    top: 0px;
+    opacity: 0.3;
+    margin: 30px;
+    transition: opacity 0.5s, width 0.5s, top 0.5s;
+}
+
+.float_pic_window #view_all_pic .project_view_pic.center {
+    width: 55%;
+    top: 0;
+    opacity: 1;
+}
+
+.float_pic_window .view_pic_counter {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 10vh;
+}
+
+.float_pic_window .view_pic_counter .pic_counter {
+    color: #ed9027;
+    letter-spacing: 2px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.bottom_icons {
+    position: absolute;
+    bottom: -5px;
+    right: 25px;
+    cursor: pointer;
+    z-index: 120;
+}
+
+.bottom_icons .round_icon {
+    width: 100px;
+    height: 30px;
+    display: inline-block;
+    background-size: auto 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 0.2s;
+}
+
+.bottom_icons .round_icon.join {
+    background-image: url("../images/round_icon_join.png");
+}
+
+.bottom_icons .round_icon.interest {
+    background-image: url("../images/round_icon_interest.png");
+}
+
+
+.bottom_icons .round_icon.share {
+    background-image: url("../images/round_icon_share.png");
+}
+
+.bottom_icons .round_icon.text {
+    background-image: url("../images/round_icon_text.png");
+}
+
+.bottom_icons .round_icon:hover {
+    opacity: 0.7;
+}
+
+.bottom_icons .round_icon:active {
+    opacity: 0.4;
+}
+
+.close_icon {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    background: url("../images/close.png");
+    height: 17px;
+    width: 16px;
+    text-decoration: none;
+    z-index: 91;
+}
+
+.close_icon:hover {
+    background: url("../images/close_on.png");
+}
+
+.close_icon:active {
+    opacity: 0.4;
+}
+
+
+#bottom_share_bar {
+    position: fixed;
+    z-index: 1000;
+    width: 100vw;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    background: #5F5E5E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; }
+    #bottom_share_bar .bottom_btn {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: block;
+      background-size: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      border: #ed9027 1px solid;
+      transition: 0.5s; }
+      #bottom_share_bar .bottom_btn:hover {
+        opacity: 0.7; }
+      #bottom_share_bar .bottom_btn:active {
+        opacity: 0.4; }
+      #bottom_share_bar .bottom_btn#bottom_join {
+        background-image: url("../images/bottom_join.png"); }
+      #bottom_share_bar .bottom_btn#bottom_interest {
+        background-image: url("../images/bottom_interest.png"); }
+      #bottom_share_bar .bottom_btn#bottom_share {
+        background-image: url("../images/bottom_share.png"); }
+      #bottom_share_bar .bottom_btn#bottom_totop {
+        background-image: url("../images/bottom_totop.png"); }
+  
+  #this_project_class {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; }
+    #this_project_class .class {
+      position: relative;
+      width: 35px;
+      height: 35px;
+      display: block;
+      padding: 4px 10px;
+      background-size: 70%;
+      background-position: top center;
+      background-repeat: no-repeat;
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%); }
+      #this_project_class .class#project_class_culture {
+        background-image: url("../images/project_icon_culture.png"); }
+      #this_project_class .class#project_class_digital {
+        background-image: url("../images/project_icon_digital.png"); }
+      #this_project_class .class#project_class_social {
+        background-image: url("../images/project_icon_social.png"); }
+      #this_project_class .class.now {
+        -webkit-filter: grayscale(0%);
+        filter: grayscale(0%);
+        border-left: #ed9027 1px solid; }
+  
+.space {
+    position: relative;
+    display: block;
+    margin: auto;
+    height: 10vh;
+    width: 60vw;
+}

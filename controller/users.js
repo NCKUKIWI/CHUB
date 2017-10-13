@@ -12,6 +12,7 @@ var graph = require("fbgraph");
 var fs = require("fs");
 var rimraf = require("rimraf");
 var multer  = require('multer');
+var MobileDetect = require('mobile-detect');
 
 var avatarStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -81,15 +82,47 @@ router.get("/", function(req,res) {
     }
   }
   if(filter["$or"].length == 0) filter["$or"].push({});
-  User.find(filter, userInfo, function(err, users) {
+  User.find(filter, userInfo).sort({'CreateAt' : -1}).exec(function(err, users) {
+  	var device = new MobileDetect(req.headers['user-agent']);
     //之後可能要放入"跟哪些人互通訊息"的欄位進去
     // console.log(users.length);
     // console.log(typeof(users));
-  	res.render("users/index", {
-  		users: users,
-      id: req.query.id
-  	});
+    if(!device.mobile()){
+	  	res.render("users/index", {
+	  		users: users,
+	      id: req.query.id
+	  	});
+	  }else{
+      res.render("mobile/users/index",{
+	  		users: users,
+	      id: req.query.id
+      });
+	  }
   });
+});
+
+// mobile用的
+router.get("/id/:id", function(req, res){
+  var device = new MobileDetect(req.headers['user-agent']);
+  if(!device.mobile()){ return;};
+  if(req.body.page != 'true'){
+	  User.findById(req.params.id,userInfo).populate("GroupID","_id Name").populate("ProjectID","_id Name").populate("ActivityID","_id Name").exec(function(err,user){
+	    if(user){
+	      res.render("mobile/users/show",{
+	        user:user
+	      });
+	    }else{
+	      res.send("notFound");
+	    }
+	  });
+  }else{
+    Project.findById(req.params.id,function(err,projects){
+      res.render("projects/index",{
+        projects: projects,
+        query: req.params.id
+      });
+    });
+  }
 });
 
 router.post("/signup",function(req,res) {

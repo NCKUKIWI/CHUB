@@ -116,6 +116,44 @@ p, a {
     display: none;
 }
 
+#second_page{
+  position: relative;
+  width: 80vw;
+  top: 14vh;
+  margin-bottom: 14vh;
+  left: 10vw; }
+
+#sharing_btn_set {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; }
+  #sharing_btn_set .sharing_btn {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: block;
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transition: 0.5s; }
+    #sharing_btn_set .sharing_btn:hover {
+      opacity: 0.7; }
+    #sharing_btn_set .sharing_btn:active {
+      opacity: 0.4; }
+    #sharing_btn_set .sharing_btn#share_fb {
+      background-image: url("../images/share_fb.png"); }
+    #sharing_btn_set .sharing_btn#share_twitter {
+      background-image: url("../images/share_twitter.png"); }
+    #sharing_btn_set .sharing_btn#share_ig {
+      background-image: url("../images/share_ig.png"); }
+    #sharing_btn_set .sharing_btn#share_wp {
+      background-image: url("../images/share_wp.png"); }
+
 /* old */
 /*
 a, a:hover {
