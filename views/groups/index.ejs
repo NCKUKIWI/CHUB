@@ -42,13 +42,16 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/group_main.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/group_float.css">
 
+<link rel="stylesheet" type="text/css" href="/assets/css/swiper.min.css">
+
+<script type="text/javascript" src="/assets/js/swiper.min.js"></script>
+
 <div id="fullpage">
   <div class="main_page">
     <div class="section" id="group_intro">
       <div id="intro_left">
         <h1>Group</h1>
-        <p>C-Hub is a creative space came about from the interconnection among
-          Creativity, Human, Urban, and Building Environment.</p>
+        <p>It’s not just about connecting people with people, but also people with ideas, people with opportunities.</p>
         <div class="space"></div>
         <!-- 暫時不開放search -->
         <!-- <img id="you_can" src="/assets/images/you_can.png">
@@ -58,16 +61,50 @@
         <img class="main_round_pic" src="/assets/images/group_round.png">
       </div>
     </div>
-    <div class="section" id="group_view">
-
+    <div class="section no_menu" id="group_view">
+			 <p class="page_title">Group</p>
+			<div id="preview_control">
+				<div class="sort_box">
+					<a class="sort_way now" id="sort_hot">HOT</a>
+					<a class="sort_way" id="sort_time">TIME</a>
+				</div>
+				<div class="go_box">
+					<div class="go_to prev"></div>
+					<div class="go_to next"></div>
+				</div>
+			</div>
+			<div id="group_list">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide fake"></div>
+						<% for (var i in groups) {%>
+							<div class="swiper-slide group_item" group-id="<%= groups[i]._id %>">
+								<div class="preview_pic auto_adjust not_yet">
+									<img src="uploads/group/<%= groups[i]._id %>/logo.png">
+								</div>
+								<div class="preview_more"></div>
+								<p class="preview_title"><%= groups[i].Name %></p>
+								<p class="preview_class"><%= groups[i].Type %></p>
+							</div>
+						<% } %>
+						<% for (var i in groups) {%>
+							<div class="swiper-slide group_item">
+								<div class="preview_pic auto_adjust not_yet">
+									<img src="uploads/group/<%= groups[i]._id %>/logo.png">
+								</div>
+								<div class="preview_more"></div>
+								<p class="preview_title"><%= groups[i].Name %></p>
+								<p class="preview_class"><%= groups[i].Type %></p>
+							</div>
+						<% } %>
+					</div>
+				</div>
+			</div>
     </div>
     <div class="section" id="footer">
       <% include ../public/footer %>
     </div>
   </div>
-</div>
-
-<div class="float_window">
 </div>
 
 <script>

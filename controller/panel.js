@@ -19,6 +19,9 @@ router.get("/",helper.checkLogin(),function(req,res) {
       return Activity.find({}).exec()
     }).then(function(activities){
       result.activities = activities;
+      return Group.find({}).exec()
+    }).then(function(groups){
+      result.groups = groups;
       res.render("panel/index", result);
     })
   }
@@ -27,6 +30,7 @@ router.get("/",helper.checkLogin(),function(req,res) {
       Activity.find({"AdminID":{"$in":[req.user._id]}}, function(err, activities){
         res.render("panel/index",{
           activities: activities,
+          groups: groups,
           projects: projects,
           openPage: openPage
         });

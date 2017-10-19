@@ -1,50 +1,106 @@
-<i class="close icon"></i>
-<div class="header">
-  <%= group.Name %>
+<link rel="stylesheet" type="text/css" href="/assets/css/group_float.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/swiper.min.css">
+<script type="text/javascript" src="/assets/js/swiper.min.js"></script>
+
+<script type="text/javascript" src="/assets/js/gallery_all.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/gallery.css">
+
+<div class="dark_mask"></div>
+
+<div id="detail_left">
+	<div id="group_name">
+		<p class="title">Name /</p>
+		<p class="name"><%= group.Name %></p>
+	</div>
+	<div class="share_icons">
+		<img src="assets/images/share_fb.png">
+		<img src="assets/images/share_twitter.png">
+		<img src="assets/images/share_ig.png">
+		<img src="assets/images/share_wp.png">
+	</div>
+	<div id="detail_brief">
+		<div class="brief_pic auto_adjust not_yet">
+			<img src="uploads/group/<%= group._id %>/logo.png">
+		</div>
+		<p class="name"><%= group.Name %></p>
+		<p class="sub_name">卓彥廷</p>
+		<a href="#" id="text_me">　</a>
+	</div>
 </div>
-<div class="image content">
-  <div class="ui medium image">
-    <img src="/uploads/group/<%= group._id %>/logo.png">
-  </div>
-  <div class="description">
-    <p>Administrator:
+
+<div class="with_scroll" id="detail_right">
+	<p>　</p>
+	<p id="detail_Administrator">
+		<p class="title">Administrator</p>
+		<span>/</span>
+		<p class="short"></p>
+		<p id="detail_type">
+			<p class="title">Type</p>
+			<span>/</span>
+			<p class="short"><%= group.Type %></p>
+		</p>
+		<p id="detail_intro">
+			<p class="title with_space">Introduction</p>
+			<span>/</span>
+			<p class="long"><%= group.Description %></p>
+
+		<p id="detail_teammate">
+      <p class="title">Member</p>
+      <span>/</span>
+      <p class="short">
+        <br>
+        <% for(var i in members){ %>
+          <a class="openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
+          <% if(i != members.length - 1) {%> , <% } %>
+        <% } %>
+      </p>
     </p>
-    <p>Type: <%= group.Type %></p>
-    <p>Member:
-    <% for(var i in members){ %>
-      <a class="ui label openInfo" type="users" id="<%= members[i]._id %>"><%= members[i].Name %></a>
-    <% } %>
-    </p>
-    <p>Project: </p>
-    <p>Activity: </p>
-    <p>Introduction: <%= group.Introduction !== undefined ? group.Introduction : ''%></p>
-    <p>News: </p>
-    <p>Websites: </p>
-  </div>
+		<p id="detail_project">
+			<p class="title with_space">Project</p>
+			<span>/</span>
+			<p class="long">
+				<a>123123</a>
+				<br/>
+				<a>123123</a>
+				<br/>
+				<a>123123</a>
+			</p>
+		</p>
+		<p id="detail_activity">
+			<p class="title with_space">Activity</p>
+			<span>/</span>
+			<p class="long">
+				<a>123123</a>
+				<br/>
+				<a>123123</a>
+				<br/>
+				<a>123123</a>
+			</p>
+		</p>
 </div>
-<div class="actions">
-  <% if(me && group.AdminID.indexOf(me._id)!=-1){ %>
-    <div class="ui red button delGroup" group-id="<%= group._id %>">Delete</div>
-    <a class="ui green button" href="/groups/edit/<%= group._id %>">Edit</a>
-    <a class="ui green button" href="/groups/<%= group._id %>/apply">Apply</a>
-  <% } %>
-<!--   <div class="ui blue button">
-    Text Me
-  </div> -->
-  <div class="ui blue button">
-    Sharing
-  </div>
-  <% if(me){ %>
-    <% if(group.ApplyID.indexOf(me._id)==-1 && group.MemberID.indexOf(me._id)==-1){ %>
-      <div class="ui blue button joinGroup" group-id="<%= group._id %>">
-        Join
-      </div>
-    <% }else if(group.ApplyID.indexOf(me._id)!=-1 || group.MemberID.indexOf(me._id)!=-1){ %>
-      <div class="ui red button quitGroup" group-id="<%= group._id %>">
-        Quit
-      </div>
-    <% } %>
-  <% } %>
+
+<div class="bottom_icons">
+	<div class="round_icon join"></div>
+	<div class="round_icon interest"></div>
+	<div class="round_icon share"></div>
+	<div class="round_icon text"></div>
+</div>
+
+<a href="#" class="close_icon" id="close_window">　</a>
+<div class="float_pic_window">
+	<div class="gallery" style="background: transparent;">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+					<div class="swiper-slide">
+							<img onclick="window.open('/uploads/group/<%= group._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/group/<%= group._id %>/logo.png?<%= new Date().getTime() %>">
+					</div>
+			</div>
+			<div class="swiper-pagination"></div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		</div>
+		<!-- <div class="close_icon" id="close_gallery"></div> -->
+	</div>
 </div>
 
 <script>
