@@ -1,10 +1,16 @@
 <div class="right_sidebar">
+		<% if(me) { %>
+			<div class="side_icon" id="side_profile">
+				<img src="assets/images/side_profile.png">
+			</div>
+		<% } else {%>
 		<!-- 讓profile不能點 -->
 		<div class="side_icon" id="" style="opacity: 0.3; cursor: default;">
-		<!-- <div class="side_icon" id="side_profile"> -->
 			<img style="opacity: 0.4"; src="assets/images/side_profile.png">
-		  <!-- <img src="assets/images/side_profile.png"> -->
 		</div>
+		<% } %>
+
+
    <!-- 暫時不開放message、search -->
    <% if(me) { %>
      <div class="side_icon" id="side_message">
