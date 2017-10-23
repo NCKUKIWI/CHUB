@@ -144,6 +144,15 @@ $(document).ready(function() {
     ],
     toolbar: 'insert | undo redo |  styleselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
   });
+
+	tinymce.activeEditor.uploadImages(function(success) {
+	  $.post('panel/uploadNewsPhoto', tinymce.activeEditor.getContent()).done(function() {
+	    console.log("Uploaded images and posted content as an ajax request.");
+	  });
+	});
 });
+
+
+
 
 </script>

@@ -149,6 +149,10 @@ router.get("/abouts",helper.checkLogin(),function(req,res) {
   }
 });
 
+router.post("/uploadNewsPhoto"), function(req, res) {
+	
+}
+
 function find_project(){
 
 }
