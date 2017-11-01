@@ -164,7 +164,6 @@ $(document).ready(function(){
                 down_detect = 1; 
             }
         }
-        up
         if(now_scrollTop == 0){
             if(up_detect == 1){
                 $.fn.fullpage.moveSectionUp();

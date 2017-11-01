@@ -10,6 +10,7 @@ var fs = require("fs");
 var rimraf = require("rimraf");
 var multer  = require('multer');
 var MobileDetect = require('mobile-detect');
+var sharp = require('sharp');
 
 var coverStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -181,6 +182,11 @@ router.post("/upload/:id",helper.apiAuth(),function(req,res) {
           console.log(err);
           res.send({error:err})
         }else{
+        	// 壓縮圖片
+					sharp(`${__dirname}/../uploads/activity/${req.params.id}/logo.png`)
+					  .resize(30)
+					  .toFile(`${__dirname}/../uploads/activity/${req.params.id}/logo_tiny.png`, function(err) {
+					});
           activity.hasCover = 1;
           activity.save(function(err){
             if(err){

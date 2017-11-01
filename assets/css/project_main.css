@@ -88,7 +88,7 @@ body::-webkit-scrollbar-thumb {
     #project_list .project_item .auto_adjust.tall img {
       width: 100%;
       height: auto; }
-  #project_list .project_item .preview_pic {
+  #project_list .project_item img {
     -webkit-filter: brightness(40%);
     filter: brightness(40%);
     transition: brightness 0.5s; }
