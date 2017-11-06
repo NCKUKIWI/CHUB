@@ -192,6 +192,7 @@
   border-radius: 10px;
 }
 
-.pace.pace-inactive {
+/*在pace done那裡再hide*/
+/*.pace.pace-inactive {
   display: none;
-}
+}*/
