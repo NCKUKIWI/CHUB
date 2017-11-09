@@ -23,9 +23,9 @@
         <% for(var i in projects){ %>
     		<div class="project_item"  project-id="<%= projects[i]._id %>">
 					<% if(projects[i].hasCover == 1){ %>
-						<div class="auto_adjust not_yet">
-						<img class="preview_pic" src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>">
-						</div>
+						<a href="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>" class="progressive replace auto_adjust not_yet">
+							<img class="preview" src="/uploads/project/<%= projects[i]._id %>/logo_tiny.png?<%= new Date().getTime() %>">
+						</a>
 					<% }else {%>
 						<div class="auto_adjust not_yet">
 						<img class="preview_pic" src="/assets/images/project_ex2.png">

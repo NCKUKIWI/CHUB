@@ -13,14 +13,17 @@
 			<div class="float_icon social"></div>
 		</div>
 		<div id="detail_brief">
-			<div class="brief_pic">
+			<a href="/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>" class="brief_pic progressive replace auto_adjust not_yet">
+			  <img src="/uploads/project/<%= project._id %>/logo_tiny.png?<%= new Date().getTime() %>" class="preview" alt="test"/>
+			</a>
+			<!-- <div class="brief_pic">
         <% if(project.hasCover == 1){ %>
         <img id="project_pic" src="/uploads/project/<%= project._id %>/logo.png?<%= new Date().getTime() %>">
         <% }else{ %>
         <img id="project_pic" src="/assets/images/project_ex2.png">
         <% } %>
         <img id="pic_more" src="/assets/images/pic_more.png">
-			</div>
+			</div> -->
 			<p class="project_name">
         <% for(var i = 0; i < project.BigTitle.length; i++){ %>
           <%= project.BigTitle[i] %>
@@ -157,6 +160,9 @@
 
 <script>
 $(document).ready(function(){
+	// loading圖片
+	restartProgressiveLoading();
+
   $('.joinProject').on('click', function(){
     var id = this.getAttribute('project-id');
     $.ajax({

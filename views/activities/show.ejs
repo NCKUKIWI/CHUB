@@ -5,7 +5,11 @@
 <script type="text/javascript" src="/assets/js/gallery_all.js"></script>
 <link rel="stylesheet" type="text/css" href="/assets/css/gallery.css">
 
+<!-- <script src="/assets/js/progressive-image.min.js"></script> -->
+<!-- <link rel="stylesheet" href="/assets/css/progressive-image.min.css"> -->
+
 <!-- style: people_float.scss -->
+
 
 <div class="dark_mask"></div>
 
@@ -13,9 +17,12 @@
   <div id="detail_brief">
     <div class="brief_pic">
       <!-- <img id="project_pic" src="/assets/images/project_ex2.png"> -->
-      <div class="auto_adjust_activity_inner not_yet">
+      <!-- <div class="auto_adjust_activity_inner not_yet">
         <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>">
-      </div>
+      </div> -->
+			<a href="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>" class="progressive replace auto_adjust_activity_inner not_yet">
+			  <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo_tiny.png?<%= new Date().getTime() %>" class="preview" alt="image" />
+			</a>
       <img id="pic_more" src="/assets/images/pic_more_2.png">
     </div>
     <p class="project_name">
@@ -138,6 +145,9 @@
 
 <script>
 $(document).ready(function(){
+	// loading圖片
+	restartProgressiveLoading();
+
   $('.joinActivity').on('click', function(){
     var id = this.getAttribute('activity-id');
     $.ajax({

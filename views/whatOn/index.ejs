@@ -4,19 +4,20 @@
 <script src="/assets/js/whatOn.js"></script>
 
 
+
+
 <div id="fullpage">
 	<div class="main_page">
 		<!-- style: whats_on_main.scss, footer.scss -->
 
-		<div class="section" id="whats_on_enter">
+		<!-- <div class="section" id="whats_on_enter">
 			<div id="enter_animation" class="auto_adjust not_yet">
-				<!-- <img id="start_img" class="visible" src="/assets/images/action_01.png"> -->
 				<img id="start_img" class="visible" src="/assets/images/action_02.png">
 				<img id="not_final" class="invisible" src="/assets/images/action_03.png">
 				<img id="not_final" class="invisible" src="/assets/images/action_04.png">
 				<img id="final" class="invisible" src="/assets/images/action_05.png">
 			</div>
-		</div>
+		</div> -->
 
 		<div class="section no_menu" id="hottest_news">
 			<div id="news_list">
@@ -34,9 +35,12 @@
 		            <div class="dot on"></div>
 		        </div>
 				<div class="display">
-					<div class="pic_full auto_adjust not_yet">
+					<!-- <div class="pic_full auto_adjust not_yet">
 						<img src="/assets/images/chub_whatsOn.png">
-					</div>
+					</div> -->
+					<a href="/assets/images/chub_whatsOn.png" class="progressive replace pic_full auto_adjust not_yet">
+					  <img src="/assets/images/tiny.jpg" class="preview" alt="image" />
+					</a>
 	      	<% for (var i = 0; i < projects.length; i++) { %>
 	          <!-- <div class="pic_full auto_adjust not_yet">
 	            <img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>" name="<%= projects[i].Name %>">
@@ -180,9 +184,9 @@
 					<div class="round_display syncscroll kill_scrollbar" id="display_project" name="preview_project">
 						<% for (var i = 0; i < projects.length; i++) { %>
 							<div class="display_item <% if (i == projects.length - 1){%> final <%}%>" project-id="<%= projects[i]._id %>">
-								<div class="pic_round auto_adjust not_yet">
-									<img src="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>">
-								</div>
+								<a href="/uploads/project/<%= projects[i]._id %>/logo.png?<%= new Date().getTime() %>" class="pic_round auto_adjust not_yet progressive replace ">
+								  <img src="/uploads/project/<%= projects[i]._id %>/logo_tiny.png?<%= new Date().getTime() %>" class="preview" alt="test" />
+								</a>
 								<div class="text"><%= projects[i].Name %></div>
 								<!-- <p class="date">2017.09.14</p> -->
 							</div>
@@ -209,9 +213,12 @@
 					<div class="round_display syncscroll" id="display_activity" name="preview_activity">
 						<% for (var i = 0; i < activities.length; i++) { %>
 							<div class="display_item <% if (i == activities.length - 1){%> final <%}%>" activity-id="<%= activities[i]._id %>">
-								<div class="pic_round auto_adjust not_yet">
+								<!-- <div class="pic_round auto_adjust not_yet">
 									<img src="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>">
-								</div>
+								</div> -->
+								<a href="/uploads/activity/<%= activities[i]._id %>/logo.png?<%= new Date().getTime() %>" class="pic_round auto_adjust not_yet progressive replace ">
+								  <img src="/uploads/activity/<%= activities[i]._id %>/logo_tiny.png?<%= new Date().getTime() %>" class="preview" alt="test" />
+								</a>
 								<div class="text"><%= activities[i].Name %></div>
 								<p class="date">
 	                <% if(activities[i].Duration.length == 1 || (activities[i].Duration[1] - activities[i].Duration[0]) / (1000 * 60 * 60 * 24) < 1){ %>
