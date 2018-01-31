@@ -91,16 +91,16 @@ app.use("/search",search);
 // });
 
 //home routes (what's on)
-var whatOn = require("./controller/whatOn");
-app.use("/",whatOn);
+// var whatOn = require("./controller/whatOn");
+// app.use("/",whatOn);
 
 
 
 
 
 
-//insert
-app.get("/space",function(req,res){
+//home -> space
+app.get("/",function(req,res){
   res.render("space");
 });
 
