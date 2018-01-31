@@ -100,6 +100,10 @@ app.use("/search",search);
 
 
 //home -> space
+app.get("/space",function(req,res){
+  res.render("space");
+});
+
 app.get("/",function(req,res){
   res.render("space");
 });
