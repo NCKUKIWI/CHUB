@@ -1,11 +1,12 @@
-<link rel="stylesheet" type="text/css" href="/assets/css/group_float.css">
+<!-- <link rel="stylesheet" type="text/css" href="/assets/css/group_float.css"> -->
+<link rel="stylesheet" type="text/css" href="/assets/css/activity_float.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/swiper.min.css">
 <script type="text/javascript" src="/assets/js/swiper.min.js"></script>
 
 <script type="text/javascript" src="/assets/js/gallery_all.js"></script>
 <link rel="stylesheet" type="text/css" href="/assets/css/gallery.css">
 
-<div class="dark_mask"></div>
+<!-- <div class="dark_mask"></div>
 
 <div id="detail_left">
 	<div id="group_name">
@@ -99,7 +100,86 @@
 			<div class="swiper-button-prev"></div>
 			<div class="swiper-button-next"></div>
 		</div>
-		<!-- <div class="close_icon" id="close_gallery"></div> -->
+	</div>
+</div> -->
+
+<!-- 交換 -->
+<div class="dark_mask"></div>
+
+<div id="detail_left">
+  <div id="detail_brief">
+    <div class="brief_pic">
+			<a href="/uploads/group/<%= group._id %>/logo.png?<%= new Date().getTime() %>" class="progressive replace auto_adjust_activity_inner not_yet">
+			  <img id="project_pic" src="/uploads/group/<%= group._id %>/logo_tiny.png?<%= new Date().getTime() %>" class="preview" alt="image" />
+			</a>
+      <img id="pic_more" src="/assets/images/pic_more_2.png">
+    </div>
+    <p class="project_name">
+    	<%= group.Name %>
+    </p>
+  </div>
+</div>
+<div class="with_scroll" id="detail_right">
+  <p id="detail_main_text"> 
+  </p>
+  <p id="detail_type">
+      <p class="title">Type</p><span>/</span>
+      <p class="short orange"><%= group.Type %></p>
+  </p>
+	<p id="detail_TimeTable">
+		<p class="title with_space">TimeTable<span>/</span>
+		<p class="orange long">
+		</p>
+	</p>
+  <p id="detail_conditions">
+    <p class="title with_space">Conditions</p><span>/</span>
+    <p class="orange long">
+  </p>
+  <p id="detail_location">
+    <p class="title">Location</p><span>/</span>
+    <p class="short"></p>
+    <div class="botton tiny" onclick="window.open('https://www.google.com.tw/maps/search/')">MAP</div>
+  </p>
+  <p id="detail_intro">
+    <p class="title with_space">Introduction</p><span>/</span>
+    <p class="long">
+      <%- group.Description.replace(/\r\n/g, '<br/>') %>
+      <!-- 123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123</p> -->
+  </p>
+  <!-- <p id="detail_mission">
+    <p class="title with_space">Mission</p><span>/</span>
+    <p class="long">
+      123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123</p>
+  </p> -->
+  <p id="detail_contributer"><br/>
+    <p class="title">Contributor</p><span>/</span>
+    <p class="short"></p>
+  </p>
+  <p id="detail_activities">
+    <p class="title with_space">News</p><span>/</span>
+    <p class="long"></p>
+  </p>
+</div>
+<!-- 暫時不開放 -->
+<!-- <div class="bottom_icons" group-id="<%= group._id %>">
+  <div class="round_icon join"></div>
+  <div class="round_icon interest"></div>
+  <div class="round_icon share"></div>
+  <div class="round_icon text"></div>
+</div> -->
+<a href="#" class="close_icon" id="close_window">　</a>
+<div class="float_pic_window">
+	<div class="gallery" style="background: transparent;">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+					<div class="swiper-slide">
+							<img onclick="window.open('/uploads/group/<%= group._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/group/<%= group._id %>/logo.png?<%= new Date().getTime() %>">
+					</div>
+			</div>
+			<div class="swiper-pagination"></div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		</div>
 	</div>
 </div>
 

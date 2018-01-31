@@ -1,4 +1,5 @@
-<link rel="stylesheet" type="text/css" href="/assets/css/activity_float.css">
+<!-- <link rel="stylesheet" type="text/css" href="/assets/css/activity_float.css"> -->
+<link rel="stylesheet" type="text/css" href="/assets/css/group_float.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/swiper.min.css">
 <script type="text/javascript" src="/assets/js/swiper.min.js"></script>
 
@@ -11,15 +12,11 @@
 <!-- style: people_float.scss -->
 
 
-<div class="dark_mask"></div>
+<!-- <div class="dark_mask"></div>
 
 <div id="detail_left">
   <div id="detail_brief">
     <div class="brief_pic">
-      <!-- <img id="project_pic" src="/assets/images/project_ex2.png"> -->
-      <!-- <div class="auto_adjust_activity_inner not_yet">
-        <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>">
-      </div> -->
 			<a href="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>" class="progressive replace auto_adjust_activity_inner not_yet">
 			  <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo_tiny.png?<%= new Date().getTime() %>" class="preview" alt="image" />
 			</a>
@@ -28,7 +25,6 @@
     <p class="project_name">
       <% for(var i = 0; i < activity.BigTitle.length; i++){ %>
         <%= activity.BigTitle[i] %>
-        <!-- <% if(activity.BigTitle[i] != "" && i != activity.BigTitle.length - 1) { %><br><% } %> -->
         <br>
       <% } %>   
     </p>
@@ -98,13 +94,7 @@
     <p class="title with_space">Introduction</p><span>/</span>
     <p class="long">
       <%- activity.Introduction.replace(/\r\n/g, '<br/>') %>
-      <!-- 123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123</p> -->
   </p>
-  <!-- <p id="detail_mission">
-    <p class="title with_space">Mission</p><span>/</span>
-    <p class="long">
-      123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123<br/>123123</p>
-  </p> -->
   <p id="detail_contributer"><br/>
     <p class="title">Contributor</p><span>/</span>
     <p class="short"><%= activity.Contributor %></p>
@@ -113,7 +103,7 @@
     <p class="title with_space">News</p><span>/</span>
     <p class="long"></p>
   </p>
-</div>
+</div> -->
 <!-- 暫時不開放 -->
 <!-- <div class="bottom_icons" activity-id="<%= activity._id %>">
   <div class="round_icon join"></div>
@@ -121,7 +111,7 @@
   <div class="round_icon share"></div>
   <div class="round_icon text"></div>
 </div> -->
-<a href="#" class="close_icon" id="close_window">　</a>
+<!-- <a href="#" class="close_icon" id="close_window">　</a>
 <div class="float_pic_window">
 	<div class="gallery" style="background: transparent;">
 		<div class="swiper-container">
@@ -134,6 +124,101 @@
 								<img onclick="window.open('<%= activity.Photo[i] %>?<%= new Date().getTime() %>')" src="<%= activity.Photo[i] %>?<%= new Date().getTime() %>">
 						</div>
 			    <% } %>
+			</div>
+			<div class="swiper-pagination"></div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		</div>
+	</div>
+</div> -->
+
+
+<!-- 交換 -->
+<div class="dark_mask"></div>
+
+<div id="detail_left">
+	<div id="group_name">
+		<p class="title">Name /</p>
+		<p class="name"><%= activity.Name %></p>
+	</div>
+	<div class="share_icons">
+		<img src="assets/images/share_fb.png">
+		<img src="assets/images/share_twitter.png">
+		<img src="assets/images/share_ig.png">
+		<img src="assets/images/share_wp.png">
+	</div>
+	<div id="detail_brief">
+		<a href="/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>" class="progressive replace auto_adjust not_yet brief_pic">
+		  <img id="project_pic" src="/uploads/activity/<%= activity._id %>/logo_tiny.png?<%= new Date().getTime() %>" class="preview" alt="image" />
+		</a>
+		<p class="name"><%= activity.Name %></p>
+		<p class="sub_name"></p>
+		<a href="#" id="text_me">　</a>
+	</div>
+</div>
+
+<div class="with_scroll" id="detail_right">
+	<p>　</p>
+	<p id="detail_Administrator">
+		<p class="title">Administrator</p>
+		<span>/</span>
+		<p class="short"></p>
+		<p id="detail_type">
+			<p class="title">Type</p>
+			<span>/</span>
+			<p class="short"><%=activity.Type %></p>
+		</p>
+		<p id="detail_intro">
+			<p class="title with_space">Introduction</p>
+			<span>/</span>
+			<p class="long"><%- activity.Introduction.replace(/\r\n/g, '<br/>') %></p>
+
+		<p id="detail_teammate">
+      <p class="title">Member</p>
+      <span>/</span>
+      <p class="short">
+        <br>
+      </p>
+    </p>
+		<p id="detail_project">
+			<p class="title with_space">Project</p>
+			<span>/</span>
+			<p class="long">
+				<a>123123</a>
+				<br/>
+				<a>123123</a>
+				<br/>
+				<a>123123</a>
+			</p>
+		</p>
+		<p id="detail_activity">
+			<p class="title with_space">Activity</p>
+			<span>/</span>
+			<p class="long">
+				<a>123123</a>
+				<br/>
+				<a>123123</a>
+				<br/>
+				<a>123123</a>
+			</p>
+		</p>
+</div>
+
+<div class="bottom_icons">
+	<div class="round_icon join"></div>
+	<div class="round_icon interest"></div>
+	<div class="round_icon share"></div>
+	<div class="round_icon text"></div>
+</div>
+
+<a href="#" class="close_icon" id="close_window">　</a>
+<div class="float_pic_window">
+	<div class="gallery" style="background: transparent;">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+					<div class="swiper-slide">
+							<img onclick="window.open('/uploads/activity/<%= activity._id %>/logo.png?<%= new Date().getTime() %>')" src="/uploads/acitivty/<%= activity._id %>/logo.png?<%= new Date().getTime() %>">
+					</div>
 			</div>
 			<div class="swiper-pagination"></div>
 			<div class="swiper-button-prev"></div>
